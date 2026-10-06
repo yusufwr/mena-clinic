@@ -1,0 +1,26 @@
+{
+  "name": "mena-clinic-aleppo",
+  "version": "1.0.0",
+  "description": "Enterprise-grade Clinic Management System (HIS/EMR) for Mena Clinic Aleppo",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm run install --workspaces",
+    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:patient": "npm run dev --workspace=apps/patient-portal",
+    "dev:admin": "npm run dev --workspace=apps/admin-panel",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:patient\" \"npm run dev:admin\"",
+    "build:all": "npm run build --workspaces",
+    "start:production": "npm run start --workspace=apps/api",
+    "start:cluster": "pm2-runtime ecosystem.config.cjs",
+    "prisma:generate": "npm run prisma:generate --workspace=apps/api",
+    "prisma:migrate": "npm run prisma:migrate --workspace=apps/api",
+    "prisma:seed": "npm run prisma:seed --workspace=apps/api",
+    "setup:db": "npm run setup:db --workspace=apps/api"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

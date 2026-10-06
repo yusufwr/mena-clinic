@@ -1,0 +1,238 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  fullName     String
+  phone        String
+  identityNo   String   @unique
+  role         String // PATIENT, RECEPTIONIST, DOCTOR, PHARMACIST, LAB_TECH, FINANCE, ADMIN
+  status       String   @default("ACTIVE") // ACTIVE, SUSPENDED
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  patientProfile      Patient?
+  doctorAppointments  Appointment[]            @relation("DoctorAppointments")
+  createdAppointments Appointment[]            @relation("CreatedAppointments")
+  medicalRecords      MedicalRecord[]
+  amendments          MedicalRecordAmendment[]
+  labOrders           LabOrder[]
+  pharmacySales       PharmacySale[]
+  auditLogs           AuditLog[]
+  schedules           DoctorSchedule[]
+  doctorProfile       Doctor?
+  clinicId            String?
+  clinic              Clinic?                  @relation(fields: [clinicId], references: [id])
+
+  @@index([fullName])
+  @@index([role, status])
+}
+
+model Clinic {
+  id        String   @id @default(uuid())
+  name      String
+  address   String?
+  phone     String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users        User[]
+  doctors      Doctor[]
+  appointments Appointment[]
+
+  @@index([isActive])
+}
+
+model Doctor {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  clinicId  String
+  clinic    Clinic   @relation(fields: [clinicId], references: [id], onDelete: Restrict)
+  specialty String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Patient {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bloodType        String?
+  emergencyContact String?
+  insuranceInfo    String?
+  createdAt        DateTime @default(now())
+
+  appointments   Appointment[]
+  pharmacySales  PharmacySale[]
+  prescriptions  Prescription[]
+  medicalRecords MedicalRecord[]
+
+  @@index([createdAt])
+}
+
+model Appointment {
+  id          String   @id @default(uuid())
+  patientId   String
+  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctorId    String
+  doctor      User     @relation("DoctorAppointments", fields: [doctorId], references: [id])
+  slotTime    DateTime
+  status      String // PENDING, CONFIRMED, COMPLETED, CANCELLED
+  queueNumber Int
+  createdBy   String
+  creator     User     @relation("CreatedAppointments", fields: [createdBy], references: [id])
+  createdAt   DateTime @default(now())
+  clinicId    String?
+  clinic      Clinic?  @relation(fields: [clinicId], references: [id], onDelete: SetNull)
+
+  @@unique([patientId, slotTime])
+  @@index([doctorId, slotTime])
+  @@index([patientId, slotTime])
+  @@index([doctorId, slotTime, status])
+}
+
+model MedicalRecord {
+  id            String   @id @default(uuid())
+  patientId     String
+  patient       Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctorId      String
+  doctor        User     @relation(fields: [doctorId], references: [id])
+  diagnosis     String // ICD-10 Code or Description
+  clinicalNotes String
+  isFinalized   Boolean  @default(true) // Enforces immutability
+  createdAt     DateTime @default(now())
+
+  amendments    MedicalRecordAmendment[]
+  labOrders     LabOrder[]
+  prescriptions Prescription[]
+
+  @@index([patientId, createdAt])
+  @@index([doctorId, createdAt])
+}
+
+model MedicalRecordAmendment {
+  id              String        @id @default(uuid())
+  medicalRecordId String
+  medicalRecord   MedicalRecord @relation(fields: [medicalRecordId], references: [id], onDelete: Cascade)
+  doctorId        String
+  doctor          User          @relation(fields: [doctorId], references: [id])
+  notes           String
+  createdAt       DateTime      @default(now())
+
+  @@index([medicalRecordId, createdAt])
+}
+
+model LabOrder {
+  id         String        @id @default(uuid())
+  recordId   String
+  record     MedicalRecord @relation(fields: [recordId], references: [id], onDelete: Cascade)
+  testName   String
+  resultData String? // JSON string or free text
+  fileUrl    String? // Path to local upload or S3 key
+  status     String        @default("PENDING") // PENDING, COMPLETED
+  labTechId  String?
+  labTech    User?         @relation(fields: [labTechId], references: [id])
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@index([recordId, createdAt])
+  @@index([status, createdAt])
+}
+
+model Prescription {
+  id        String        @id @default(uuid())
+  recordId  String
+  record    MedicalRecord @relation(fields: [recordId], references: [id], onDelete: Cascade)
+  patientId String
+  patient   Patient       @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  status    String        @default("PENDING") // PENDING, DISPENSED
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  items PrescriptionItem[]
+  sales PharmacySale[]
+
+  @@index([patientId, createdAt])
+  @@index([status, createdAt])
+}
+
+model PrescriptionItem {
+  id             String       @id @default(uuid())
+  prescriptionId String
+  prescription   Prescription @relation(fields: [prescriptionId], references: [id], onDelete: Cascade)
+  itemName       String
+  dosage         String
+  quantity       Int
+
+  @@index([prescriptionId])
+}
+
+model Inventory {
+  id            String   @id @default(uuid())
+  itemName      String
+  SKU           String   @unique
+  stockQuantity Int
+  supplierPrice Float
+  retailPrice   Float
+  expiryDate    DateTime
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([itemName])
+  @@index([expiryDate, stockQuantity])
+}
+
+model PharmacySale {
+  id              String        @id @default(uuid())
+  prescriptionId  String?
+  prescription    Prescription? @relation(fields: [prescriptionId], references: [id])
+  patientId       String?
+  patient         Patient?      @relation(fields: [patientId], references: [id])
+  totalAmount     Float
+  discountApplied Float         @default(0.0)
+  cashierId       String
+  cashier         User          @relation(fields: [cashierId], references: [id])
+  createdAt       DateTime      @default(now())
+
+  @@index([createdAt])
+  @@index([patientId, createdAt])
+  @@index([cashierId, createdAt])
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action    String // CREATE, UPDATE, DELETE, AUTH_LOGIN, DISPENSE, etc.
+  resource  String // MedicalRecord, Appointment, Inventory, etc.
+  targetId  String?
+  timestamp DateTime @default(now())
+  payload   String? // JSON string of changes
+
+  @@index([timestamp])
+  @@index([userId, timestamp])
+  @@index([resource, targetId])
+}
+
+model DoctorSchedule {
+  id         String @id @default(uuid())
+  doctorId   String
+  doctor     User   @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  dayOfWeek  Int // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+  startTime  String // e.g. "09:00"
+  endTime    String // e.g. "17:00"
+  breakStart String // e.g. "12:00"
+  breakEnd   String // e.g. "13:00"
+
+  @@index([doctorId, dayOfWeek])
+}
