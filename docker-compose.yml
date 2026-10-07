@@ -39,7 +39,7 @@ services:
       PORT: 3001
       DATABASE_URL: ${DATABASE_URL:-mysql://mena_user:MenaSecurePassword2026!@mysql:3306/mena_clinic}
       JWT_SECRET: ${JWT_SECRET:-mena_clinic_super_secret_jwt_key_2026_production_change_me!}
-      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000,http://localhost:3002,http://localhost:3003,https://menaclinic.com,https://portal.menaclinic.com,https://admin.menaclinic.com}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000,http://localhost:3002,http://localhost:3003,https://mena-clinic.com,https://portal.mena-clinic.com,https://admin.mena-clinic.com,https://api.mena-clinic.com,https://menaclinic.com,https://portal.menaclinic.com,https://admin.menaclinic.com}
       TRUST_PROXY: ${TRUST_PROXY:-true}
       REQUEST_BODY_LIMIT: ${REQUEST_BODY_LIMIT:-10mb}
     ports:

@@ -2,8 +2,8 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci
+COPY package.json ./
+RUN npm install
 
 COPY . .
 RUN npx prisma generate
@@ -17,8 +17,8 @@ ENV NODE_ENV=production
 ENV PORT=3001
 
 # Copy package files and install only production dependencies
-COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+COPY package.json ./
+RUN npm install --omit=dev
 
 # Copy generated Prisma Client, schema, built dist and entrypoint
 COPY --from=builder /app/prisma ./prisma
