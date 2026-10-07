@@ -1,0 +1,123 @@
+services:
+  # ------------------------------------------------------------
+  # 1. MySQL Database Service
+  # ------------------------------------------------------------
+  mysql:
+    image: mysql:8.0
+    container_name: mena-clinic-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-MenaRootSecurePassword2026!}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-mena_clinic}
+      MYSQL_USER: ${MYSQL_USER:-mena_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-MenaSecurePassword2026!}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - mena_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-MenaRootSecurePassword2026!}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  # ------------------------------------------------------------
+  # 2. Mena Clinic API Backend (Port 3001)
+  # ------------------------------------------------------------
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: mena-clinic-api
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DATABASE_URL: ${DATABASE_URL:-mysql://mena_user:MenaSecurePassword2026!@mysql:3306/mena_clinic}
+      JWT_SECRET: ${JWT_SECRET:-mena_clinic_super_secret_jwt_key_2026_production_change_me!}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000,http://localhost:3002,http://localhost:3003,https://menaclinic.com,https://portal.menaclinic.com,https://admin.menaclinic.com}
+      TRUST_PROXY: ${TRUST_PROXY:-true}
+      REQUEST_BODY_LIMIT: ${REQUEST_BODY_LIMIT:-10mb}
+    ports:
+      - "${API_PORT:-3001}:3001"
+    networks:
+      - mena_network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  # ------------------------------------------------------------
+  # 3. Mena Clinic Corporate Web (Next.js - Port 3000)
+  # ------------------------------------------------------------
+  web:
+    build:
+      context: ./clinic-system
+      dockerfile: Dockerfile
+    container_name: mena-clinic-web
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3001/api}
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    networks:
+      - mena_network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  # ------------------------------------------------------------
+  # 4. Patient Portal & E-Nabız (Vite/Nginx - Port 3002)
+  # ------------------------------------------------------------
+  patient-portal:
+    build:
+      context: ./apps/patient-portal
+      dockerfile: Dockerfile
+    container_name: mena-clinic-patient-portal
+    restart: unless-stopped
+    ports:
+      - "${PATIENT_PORT:-3002}:80"
+    networks:
+      - mena_network
+
+  # ------------------------------------------------------------
+  # 5. Clinic Operations & Admin Panel (Vite/Nginx - Port 3003)
+  # ------------------------------------------------------------
+  admin-panel:
+    build:
+      context: ./apps/admin-panel
+      dockerfile: Dockerfile
+    container_name: mena-clinic-admin-panel
+    restart: unless-stopped
+    ports:
+      - "${ADMIN_PORT:-3003}:80"
+    networks:
+      - mena_network
+
+# ------------------------------------------------------------
+# Networks & Volumes
+# ------------------------------------------------------------
+networks:
+  mena_network:
+    name: mena_clinic_network
+    driver: bridge
+  # NOT: Eğer Nginx Proxy Manager aynı Docker sunucusunda ayrı bir
+  # network üzerinde koşuyorsa (Örn: 'npm-network'), aşağıdaki bloğu
+  # aktif edip servislerin altına 'npm-network' ekleyebilirsiniz:
+  # npm_network:
+  #   external: true
+
+volumes:
+  mysql_data:
+    name: mena_clinic_mysql_data
