@@ -1,4 +1,6 @@
 "use client";
+import { clinicDate } from "@/lib/clinicDate";
+
 
 import React, { useState } from "react";
 import { X, Calendar, Clock, CheckCircle2, AlertCircle, Ticket, ArrowRight } from "lucide-react";
@@ -27,7 +29,7 @@ export const AppointmentBookingModal: React.FC<AppointmentBookingModalProps> = (
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("+963 9");
   const [identityNo, setIdentityNo] = useState("");
-  const [selectedDate, setSelectedDate] = useState<string>(() => new Date().toISOString().split("T")[0]);
+  const [selectedDate, setSelectedDate] = useState<string>(() => clinicDate());
   const [selectedSlot, setSelectedSlot] = useState("10:00");
   const [successApp, setSuccessApp] = useState<Appointment | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
@@ -36,35 +38,51 @@ export const AppointmentBookingModal: React.FC<AppointmentBookingModalProps> = (
 
   const SLOTS = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"];
 
-  const handleBookingSubmit = (e: React.FormEvent) => {
+  const currentDocObj = doctors.find((d) => d.id === selectedDoctorId) || doctors[0];
+  const unavailableSlots = currentDocObj?.unavailableSlots || [];
+
+  const now = new Date();
+  const currentHourMin = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
+  const todayStr = clinicDate(now);
+  const isToday = selectedDate <= todayStr;
+
+  const isSlotDisabled = (slot: string) => {
+    if (unavailableSlots.includes(slot)) return true;
+    if (isToday && slot <= currentHourMin) return true;
+    return false;
+  };
+
+  const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName || !identityNo || !selectedDoctorId || !selectedSlot) {
       setErrorMsg(tBooking("validationError"));
       return;
     }
 
-    const docObj = doctors.find((d) => d.id === selectedDoctorId) || doctors[0];
-    const queueNum = Math.floor(Math.random() * 8) + 1;
+    if (isSlotDisabled(selectedSlot)) {
+      setErrorMsg(tBooking("validationError"));
+      return;
+    }
 
-    const newAppointment: Appointment = {
-      id: `app-${Date.now()}`,
-      patientId: `pat-${identityNo}`,
-      doctorId: selectedDoctorId,
-      slotTime: `${selectedDate}T${selectedSlot}:00`,
-      status: "CONFIRMED",
-      queueNumber: queueNum,
-      doctor: { id: docObj.id, fullName: docObj.fullName },
-      patient: { user: { fullName, phone, identityNo } },
-    };
-
-    setSuccessApp(newAppointment);
-    onBookSuccess(newAppointment);
+    try {
+      const token = localStorage.getItem("mena_auth_token");
+      const headers = { "Content-Type": "application/json", ...(token ? { Authorization: "Bearer " + token } : {}) };
+      const session = await fetch("/api/auth/me", { headers });
+      const data = await session.json();
+      if (!session.ok || data.user?.role !== "PATIENT") throw new Error("Randevu almak için hasta portalında oturum açın.");
+      if (data.user.identityNo !== identityNo.trim()) throw new Error("Kimlik numarası oturum açılan hastayla eşleşmiyor.");
+      const response = await fetch("/api/appointments", { method: "POST", headers, body: JSON.stringify({ patientId: data.user.id, doctorId: selectedDoctorId, dateStr: selectedDate, timeStr: selectedSlot }) });
+      const appointment = await response.json();
+      if (!response.ok) throw new Error(appointment.message || "Randevu kaydedilmedi");
+      setSuccessApp(appointment);
+      onBookSuccess(appointment);
+    } catch (error: any) { setErrorMsg(error.message || "Randevu kaydedilmedi"); }
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
       <div className="relative w-full max-w-lg bg-white border border-[#E5DCD0] rounded-3xl shadow-2xl overflow-hidden text-[#2C1810]">
-        
+
         {/* Header */}
         <div className="p-6 border-b border-[#E5DCD0] bg-gradient-to-r from-[#F5EFEB] via-[#FAF7F2] to-[#FAF7F2] flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -87,7 +105,7 @@ export const AppointmentBookingModal: React.FC<AppointmentBookingModalProps> = (
 
         {/* Content Body */}
         <div className="p-6 max-h-[75vh] overflow-y-auto space-y-5 bg-white">
-          
+
           {errorMsg && (
             <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
@@ -152,7 +170,7 @@ export const AppointmentBookingModal: React.FC<AppointmentBookingModalProps> = (
             </div>
           ) : (
             <form onSubmit={handleBookingSubmit} className="space-y-4">
-              
+
               {/* Doctor Select */}
               <div>
                 <label className="block text-xs font-bold text-[#4E3D30] uppercase tracking-wider mb-1.5">
@@ -216,7 +234,7 @@ export const AppointmentBookingModal: React.FC<AppointmentBookingModalProps> = (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
                   <input
                     type="date"
-                    min={new Date().toISOString().split("T")[0]}
+                    min={clinicDate()}
                     value={selectedDate}
                     onChange={(e) => setSelectedDate(e.target.value)}
                     className="w-full bg-[#FAF7F2] border border-[#DDD2C1] rounded-xl py-2 px-3 text-xs text-[#2C1810] focus:outline-none focus:bg-white focus:border-[#4A2E1B]"
@@ -228,20 +246,27 @@ export const AppointmentBookingModal: React.FC<AppointmentBookingModalProps> = (
                 </div>
 
                 <div className="grid grid-cols-4 gap-1.5">
-                  {SLOTS.map((slot) => (
-                    <button
-                      key={slot}
-                      type="button"
-                      onClick={() => setSelectedSlot(slot)}
-                      className={`py-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
-                        selectedSlot === slot
-                          ? "bg-[#4A2E1B] text-white shadow-sm scale-105"
-                          : "bg-[#FAF7F2] border border-[#DDD2C1] text-[#4E3D30] hover:bg-[#F3EDE2] hover:border-[#4A2E1B]"
-                      }`}
-                    >
-                      {slot}
-                    </button>
-                  ))}
+                  {SLOTS.map((slot) => {
+                    const disabled = isSlotDisabled(slot);
+                    return (
+                      <button
+                        key={slot}
+                        type="button"
+                        disabled={disabled}
+                        onClick={() => !disabled && setSelectedSlot(slot)}
+                        title={disabled ? (isToday && slot <= currentHourMin ? "Geçmiş Saat / الوقت مضى" : "Dolu / غير متاح") : "Müsait / متاح"}
+                        className={`py-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
+                          disabled
+                            ? "opacity-35 cursor-not-allowed bg-stone-200 text-stone-400 line-through border border-stone-200"
+                            : selectedSlot === slot
+                            ? "bg-[#4A2E1B] text-white shadow-sm scale-105"
+                            : "bg-[#FAF7F2] border border-[#DDD2C1] text-[#4E3D30] hover:bg-[#F3EDE2] hover:border-[#4A2E1B]"
+                        }`}
+                      >
+                        {slot}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 

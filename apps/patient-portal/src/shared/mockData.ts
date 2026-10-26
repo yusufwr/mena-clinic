@@ -3,42 +3,17 @@ import { AuthUser } from "../features/auth/auth.types";
 import { DoctorData } from "../features/landing/DoctorsShowcase";
 
 export const MOCK_DOCTORS: DoctorData[] = [
-  {
-    id: "doc-cardio",
-    fullName: "Dr. Selim Yılmaz",
-    email: "cardio@menaclinic.com",
-    phone: "+963 991 112233",
-  },
-  {
-    id: "doc-derma",
-    fullName: "Dr. Leyla Demir",
-    email: "derma@menaclinic.com",
-    phone: "+963 991 112234",
-  },
-  {
-    id: "doc-ortho",
-    fullName: "Dr. Fadi Al-Halabi",
-    email: "ortho@menaclinic.com",
-    phone: "+963 991 112235",
-  },
-  {
-    id: "doc-pediatrics",
-    fullName: "Dr. Nour Al-Khatib",
-    email: "pediatrics@menaclinic.com",
-    phone: "+963 991 112236",
-  },
-  {
-    id: "doc-dental",
-    fullName: "Dr. Omar Kassem",
-    email: "dental@menaclinic.com",
-    phone: "+963 991 112237",
-  },
-  {
-    id: "doc-physio",
-    fullName: "Dr. Reem Al-Saleh",
-    email: "physio@menaclinic.com",
-    phone: "+963 991 112238",
-  },
+  { id: "doc-gastro-horo", fullName: "Dr. Rustam Horo (د. رستم هورو)", email: "gastro.horo@menaclinic.com", phone: "+963 991 223301" },
+  { id: "doc-cardio-chebb", fullName: "Dr. Abdulrahman Al-Shebb (د. عبدالرحمن الشب)", email: "cardio.shebb@menaclinic.com", phone: "+963 991 223302" },
+  { id: "doc-cardio-horo", fullName: "Dr. Barkhadan Horo (د. برخدان هورو)", email: "cardio.horo@menaclinic.com", phone: "+963 991 223303" },
+  { id: "doc-ortho-takko", fullName: "Dr. Fouad Takko (د. فؤاد طكو)", email: "ortho.takko@menaclinic.com", phone: "+963 991 223304" },
+  { id: "doc-uro-razzaq", fullName: "Dr. Ahmad Abdulrazzaq (د. احمد عبدالرزاق)", email: "uro.razzaq@menaclinic.com", phone: "+963 991 223305" },
+  { id: "doc-uro-qadi", fullName: "Dr. Abdulatif Qadi (د. عبداللطيف قاضي)", email: "uro.qadi@menaclinic.com", phone: "+963 991 223306" },
+  { id: "doc-derma-haddad", fullName: "Dr. Lodia Haddad (د. لوديا حداد)", email: "derma.haddad@menaclinic.com", phone: "+963 991 223307" },
+  { id: "doc-vasc-arr", fullName: "Dr. Fadi Al-Arr (د. فادي العر)", email: "vasc.arr@menaclinic.com", phone: "+963 991 223308" },
+  { id: "doc-ped-ahmad", fullName: "Dr. Hussein Al-Ahmad (د. حسين الاحمد)", email: "ped.ahmad@menaclinic.com", phone: "+963 991 223309" },
+  { id: "doc-pedcardio-azzawi", fullName: "Dr. Ahmad Azzawi (د. احمد عزاوي)", email: "pedcardio.azzawi@menaclinic.com", phone: "+963 991 223310" },
+  { id: "doc-dental-shamoun", fullName: "Dr. Majid Shamoun (د. ماجد شمعون)", email: "dental.shamoun@menaclinic.com", phone: "+963 991 223311" },
 ];
 
 export const DEFAULT_PATIENT_USER: AuthUser = {

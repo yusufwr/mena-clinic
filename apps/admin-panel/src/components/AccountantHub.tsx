@@ -48,11 +48,11 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
   const doctorSummaries = doctors.map((doc) => {
     // Count appointments for this doctor
     const docAppts = appointments.filter(
-      (a) => a.doctorId === doc.id || a.doctor?.fullName === doc.fullName
+      (a) => a.status === "COMPLETED" && (a.doctorId === doc.id || a.doctor?.fullName === doc.fullName)
     );
     // If no appts recorded yet, provide realistic mock baseline based on doctor
-    const patientCount = docAppts.length > 0 ? docAppts.length : (doc.id.charCodeAt(0) % 5 + 3);
-    const fee = doc.consultationFee || 1000;
+    const patientCount = docAppts.length;
+    const fee = doc.consultationFee ?? 0;
     const grossRevenue = patientCount * fee;
     const doctorShare = Math.round(grossRevenue * 0.65);
     const clinicShare = grossRevenue - doctorShare;
@@ -74,16 +74,16 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
   const totalPatientsServed = doctorSummaries.reduce((sum, d) => sum + d.patientCount, 0);
 
   // Pharmacy calculations
-  const totalMedicationItems = inventory.reduce((sum, item) => sum + (item.stock || 0), 0);
+  const totalMedicationItems = inventory.reduce((sum, item) => sum + (item.stockQuantity ?? 0), 0);
   const totalInventoryValuation = inventory.reduce(
-    (sum, item) => sum + (item.stock || 0) * (item.price || 150),
+    (sum, item) => sum + (item.stockQuantity ?? 0) * (item.supplierPrice ?? 0),
     0
   );
   // Estimated sales revenue from prescriptions
-  const pharmacyGrossSales = prescriptions.length * 480 + 3420;
-  const pharmacyCostOfGoods = Math.round(pharmacyGrossSales * 0.42);
+  const pharmacyGrossSales = prescriptions.filter(p => p.status === "DISPENSED").reduce((sum, p) => sum + (p.salesTotal ?? 0), 0);
+  const pharmacyCostOfGoods = prescriptions.filter(p => p.status === "DISPENSED").reduce((sum, p) => sum + (p.costTotal ?? 0), 0);
   const pharmacyGrossProfit = pharmacyGrossSales - pharmacyCostOfGoods;
-  const pharmacyPatientDiscounts = Math.round(pharmacyGrossSales * 0.1);
+  const pharmacyPatientDiscounts = 0;
 
   const selectedDoctorSummary =
     selectedDoctorId === "ALL"
@@ -123,15 +123,7 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
               <span>{t.printReport}</span>
             </button>
             <button
-              onClick={() => {
-                alert(
-                  lang === "ar"
-                    ? "تم تصدير التقرير المالي بنجاح بصيغة PDF."
-                    : lang === "tr"
-                    ? "Mali rapor başarıyla PDF olarak dışa aktarıldı."
-                    : "Financial report successfully exported as PDF."
-                );
-              }}
+              onClick={handlePrint}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#4A2E1B] hover:bg-[#382214] text-white text-sm font-semibold transition-all shadow-sm"
             >
               <Download className="w-4 h-4 text-[#D4AF37]" />
@@ -144,22 +136,20 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
         <div className="flex items-center gap-2 mt-6 border-b border-[#E5DCD0] pb-2">
           <button
             onClick={() => setActiveTab("doctors")}
-            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-              activeTab === "doctors"
+            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${activeTab === "doctors"
                 ? "bg-[#4A2E1B] text-[#FAF7F2] shadow-sm"
                 : "text-[#6E492D] hover:bg-[#EFE8DC]/60"
-            }`}
+              }`}
           >
             <UserCheck className="w-4 h-4" />
             <span>{t.doctorFinancialReports}</span>
           </button>
           <button
             onClick={() => setActiveTab("pharmacy")}
-            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-              activeTab === "pharmacy"
+            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${activeTab === "pharmacy"
                 ? "bg-[#4A2E1B] text-[#FAF7F2] shadow-sm"
                 : "text-[#6E492D] hover:bg-[#EFE8DC]/60"
-            }`}
+              }`}
           >
             <Pill className="w-4 h-4" />
             <span>{t.pharmacyFinancialReport}</span>
@@ -189,8 +179,8 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
                   {lang === "ar"
                     ? "معاينات مكتملة"
                     : lang === "tr"
-                    ? "Tamamlanan muayeneler"
-                    : "Completed visits"}
+                      ? "Tamamlanan muayeneler"
+                      : "Completed visits"}
                 </span>
               </div>
             </div>
@@ -208,8 +198,8 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
                 {lang === "ar"
                   ? "مجموع أجور المعاينات"
                   : lang === "tr"
-                  ? "Toplam poliklinik hasılatı"
-                  : "Total consultation revenue"}
+                    ? "Toplam poliklinik hasılatı"
+                    : "Total consultation revenue"}
               </div>
             </div>
 
@@ -226,8 +216,8 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
                 {lang === "ar"
                   ? "مستحقات الأطباء بنسبة 65%"
                   : lang === "tr"
-                  ? "Hekim hakediş toplamı (%65)"
-                  : "Doctor payout total (65%)"}
+                    ? "Hekim hakediş toplamı (%65)"
+                    : "Doctor payout total (65%)"}
               </div>
             </div>
 
@@ -244,8 +234,8 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
                 {lang === "ar"
                   ? "صافي عائد المركز بنسبة 35%"
                   : lang === "tr"
-                  ? "Klinik işletme payı (%35)"
-                  : "Clinic revenue share (35%)"}
+                    ? "Klinik işletme payı (%35)"
+                    : "Clinic revenue share (35%)"}
               </div>
             </div>
           </div>
@@ -335,8 +325,8 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
                   {lang === "ar"
                     ? "تفاصيل فواتير مرضى هذا الطبيب"
                     : lang === "tr"
-                    ? "Bu Hekimin Hasta Muayene Fişleri & Dökümü"
-                    : "Patient Visits & Billing Breakdown for this Doctor"}
+                      ? "Bu Hekimin Hasta Muayene Fişleri & Dökümü"
+                      : "Patient Visits & Billing Breakdown for this Doctor"}
                 </h4>
                 <div className="overflow-x-auto border border-[#E5DCD0] rounded-xl">
                   <table className="w-full text-left text-sm">
@@ -402,15 +392,15 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
                     {lang === "ar"
                       ? "جدول تصفية حسابات ومستحقات جميع الأطباء"
                       : lang === "tr"
-                      ? "Tüm Hekimler Muayene & Hakediş İcmal Tablosu"
-                      : "Doctor Revenue & Settlement Master Table"}
+                        ? "Tüm Hekimler Muayene & Hakediş İcmal Tablosu"
+                        : "Doctor Revenue & Settlement Master Table"}
                   </h4>
                   <p className="text-xs text-[#8C6D53]">
                     {lang === "ar"
                       ? "انقر على أي طبيب في القائمة أعلاه للحصول على التقرير التفصيلي المنفرد"
                       : lang === "tr"
-                      ? "Ayrıntılı tekil hekim raporu için yukarıdaki filtreyi kullanabilirsiniz"
-                      : "Use the filter above to drill down into any individual doctor"}
+                        ? "Ayrıntılı tekil hekim raporu için yukarıdaki filtreyi kullanabilirsiniz"
+                        : "Use the filter above to drill down into any individual doctor"}
                   </p>
                 </div>
                 <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#EFE8DC] text-[#4A2E1B]">
@@ -509,8 +499,8 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
                 {lang === "ar"
                   ? "مبيعات الوصفات والأدوية"
                   : lang === "tr"
-                  ? "Reçeteli ilaç satış geliri"
-                  : "Prescription drug sales"}
+                    ? "Reçeteli ilaç satış geliri"
+                    : "Prescription drug sales"}
               </div>
             </div>
 
@@ -527,8 +517,8 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
                 {lang === "ar"
                   ? "تكلفة شراء المستحضرات"
                   : lang === "tr"
-                  ? "Toptan ilaç alım maliyeti"
-                  : "Wholesale acquisition cost"}
+                    ? "Toptan ilaç alım maliyeti"
+                    : "Wholesale acquisition cost"}
               </div>
             </div>
 
@@ -542,7 +532,7 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
                 <span className="text-xs font-normal text-emerald-700">{t.currency}</span>
               </div>
               <div className="text-xs text-emerald-700 font-medium mt-2">
-                {lang === "ar" ? "هامش ربح تقريبي 58%" : lang === "tr" ? "Brüt kar marjı: %58" : "Gross margin ~58%"}
+                {(pharmacyGrossSales ? pharmacyGrossProfit / pharmacyGrossSales * 100 : 0).toFixed(1)}%
               </div>
             </div>
 
@@ -570,15 +560,15 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
                   {lang === "ar"
                     ? "تقرير حركة مبيعات ومخزون الأدوية في صيدلية المركز"
                     : lang === "tr"
-                    ? "Eczane İlaç Satış & Karlılık Kalem Dökümü"
-                    : "Pharmacy Inventory & Sales Margins Breakdown"}
+                      ? "Eczane İlaç Satış & Karlılık Kalem Dökümü"
+                      : "Pharmacy Inventory & Sales Margins Breakdown"}
                 </h4>
                 <p className="text-xs text-[#8C6D53]">
                   {lang === "ar"
                     ? "تسعير الأدوية وتكلفة الحبة ومعدل الصرف للمرضى"
                     : lang === "tr"
-                    ? "İlaç birim fiyatı, stok miktarı ve toplam envanter değeri"
-                    : "Unit pricing, stock quantities and inventory valuation"}
+                      ? "İlaç birim fiyatı, stok miktarı ve toplam envanter değeri"
+                      : "Unit pricing, stock quantities and inventory valuation"}
                 </p>
               </div>
               <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">
@@ -601,23 +591,22 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
                 </thead>
                 <tbody className="divide-y divide-[#E5DCD0] text-[#2C1810]">
                   {inventory.map((item, idx) => {
-                    const price = item.price || 180;
-                    const cost = Math.round(price * 0.42);
+                    const price = item.retailPrice ?? 0;
+                    const cost = item.supplierPrice ?? 0;
                     const unitMargin = price - cost;
-                    const stock = item.stock || 45;
+                    const stock = item.stockQuantity ?? 0;
                     const totalVal = stock * price;
                     return (
                       <tr key={item.id || idx} className="hover:bg-[#FAF7F2]/60 transition-colors">
                         <td className="py-3.5 px-4 font-semibold text-[#2C1810]">
-                          {item.name || item.barcode}
+                          {item.itemName}
                         </td>
                         <td className="py-3.5 px-4 text-xs font-mono text-stone-500">
-                          {item.barcode || `MED-${1000 + idx}`}
+                          {item.SKU}
                         </td>
                         <td className="py-3.5 px-4 font-medium">
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold ${
-                            stock < 10 ? "bg-amber-100 text-amber-800" : "bg-stone-100 text-stone-700"
-                          }`}>
+                          <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold ${stock < 10 ? "bg-amber-100 text-amber-800" : "bg-stone-100 text-stone-700"
+                            }`}>
                             {stock} {lang === "ar" ? "علبة" : lang === "tr" ? "kutu" : "boxes"}
                           </span>
                         </td>

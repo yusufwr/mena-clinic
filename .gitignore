@@ -1,4 +1,13 @@
 # Dependencies
+audit/backups/
+audit/*.log
+audit/load-db-path.txt
+.next-audit/
+clinic-system/.next-audit/
+clinic-system/src/data/*.lock
+clinic-system/src/data/*.tmp
+clinic-system/src/data/*.bak
+clinic-system/src/data/.session-secret
 node_modules/
 */node_modules/
 */*/node_modules/

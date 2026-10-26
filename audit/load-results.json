@@ -1,0 +1,72 @@
+{
+  "localDate": "2026-10-26",
+  "timestamp": "2026-10-25T22:01:20.075Z",
+  "clients": 300,
+  "distinctAccounts": 240,
+  "durationSeconds": 31.0014975,
+  "summary": {
+    "PATIENT": {
+      "requests": 1595,
+      "failures": 0,
+      "statuses": {
+        "200": 1535,
+        "201": 60
+      },
+      "p50Ms": 13,
+      "p95Ms": 1020,
+      "maxMs": 3227
+    },
+    "DOCTOR": {
+      "requests": 1615,
+      "failures": 0,
+      "statuses": {
+        "200": 1555,
+        "201": 60
+      },
+      "p50Ms": 11,
+      "p95Ms": 1242,
+      "maxMs": 3257
+    },
+    "PHARMACIST": {
+      "requests": 1633,
+      "failures": 0,
+      "statuses": {
+        "200": 1573,
+        "201": 60
+      },
+      "p50Ms": 13,
+      "p95Ms": 1311,
+      "maxMs": 3241
+    },
+    "ADMIN": {
+      "requests": 1597,
+      "failures": 0,
+      "statuses": {
+        "200": 1537,
+        "201": 60
+      },
+      "p50Ms": 11,
+      "p95Ms": 1387,
+      "maxMs": 4234
+    },
+    "VISITOR": {
+      "requests": 2352,
+      "failures": 0,
+      "statuses": {
+        "200": 2352
+      },
+      "p50Ms": 76,
+      "p95Ms": 396,
+      "maxMs": 5359
+    }
+  },
+  "workflows": {
+    "bookings": 60,
+    "consultations": 60,
+    "dispensed": 60,
+    "correctStock": 60,
+    "registered": 60
+  },
+  "errors": [],
+  "liveDataUnchanged": true
+}

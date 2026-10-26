@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Link, useRouter, usePathname } from "@/i18n/routing";
 import { useTranslations, useLocale } from "next-intl";
 import { registerPatient } from "@/features/auth";
+import { FlagIcon } from "@/components/FlagIcon";
 import { 
   HeartPulse, 
   Mail, 
@@ -49,10 +50,10 @@ export default function RegisterPage() {
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [langDropdown, setLangDropdown] = useState(false);
 
-  const languages: { code: "tr" | "ar" | "en"; label: string; flag: string }[] = [
-    { code: "tr", label: "Türkçe", flag: "🇹🇷" },
-    { code: "ar", label: "العربية", flag: "🇸🇾" },
-    { code: "en", label: "English", flag: "🇬🇧" },
+  const languages: { code: "tr" | "ar" | "en"; label: string }[] = [
+    { code: "tr", label: "Türkçe" },
+    { code: "ar", label: "العربية" },
+    { code: "en", label: "English" },
   ];
 
   const currentLang = languages.find((l) => l.code === locale) || languages[0];
@@ -158,7 +159,7 @@ export default function RegisterPage() {
             className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white hover:bg-[#FDFBF7] border border-[#E5DCD0] text-xs font-medium text-[#4E3D30] transition-colors shadow-sm"
           >
             <Globe className="w-3.5 h-3.5 text-[#8A5F35]" />
-            <span>{currentLang.flag}</span>
+            <FlagIcon code={currentLang.code} />
             <span className="hidden sm:inline font-semibold">{currentLang.label}</span>
             <ChevronDown className="w-3 h-3 text-[#8A796D]" />
           </button>
@@ -174,11 +175,11 @@ export default function RegisterPage() {
                   href={pathname}
                   locale={l.code}
                   onClick={() => setLangDropdown(false)}
-                  className={`w-full flex items-center gap-2 px-3 py-2 text-xs text-left rtl:text-right hover:bg-[#FAF7F2] transition-colors ${
+                  className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs text-left rtl:text-right hover:bg-[#FAF7F2] transition-colors ${
                     locale === l.code ? "text-[#4A2E1B] font-bold bg-[#F3EDE2]" : "text-[#4E3D30]"
                   }`}
                 >
-                  <span>{l.flag}</span>
+                  <FlagIcon code={l.code} />
                   <span>{l.label}</span>
                 </Link>
               ))}

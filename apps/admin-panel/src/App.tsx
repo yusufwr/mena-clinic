@@ -1,4 +1,6 @@
+import { clinicDate } from "./clinicDate";
 import { apiFetch } from "./apiClient";
+import { SyrianFlag, TurkishFlag, UkFlag } from "./components/FlagIcon";
 import React, { useState, useEffect } from "react";
 import {
   Users as UsersIcon,
@@ -26,21 +28,30 @@ import {
   Globe,
   PieChart,
   HeartPulse,
-  Receipt
+  Receipt,
+  FileDown
 } from "lucide-react";
 import { adminTranslations, AdminLang } from "./i18n";
 import { DoctorsHub } from "./components/DoctorsHub";
 import { AccountantHub } from "./components/AccountantHub";
+import { DoctorWorkspace } from "./components/DoctorWorkspace";
+import { LegacyDataBackup } from "./components/LegacyDataBackup";
 
-const API_URL = "http://localhost:3001/api";
+const API_URL = "http://localhost:3000/api";
 
-const QUICK_STAFF = [
-  { role: "ADMIN", name: "Yönetici Ahmet", email: "admin@menaclinic.com", color: "bg-red-50 text-red-700 border-red-200" },
-  { role: "ACCOUNTANT", name: "Muhasebeci Kemal", email: "accountant@menaclinic.com", color: "bg-amber-50 text-amber-800 border-amber-200" },
-  { role: "DOCTOR", name: "Dr. Selim (Cardio)", email: "cardio@menaclinic.com", color: "bg-emerald-50 text-emerald-700 border-emerald-200" },
-  { role: "RECEPTIONIST", name: "Danışma Merve", email: "receptionist@menaclinic.com", color: "bg-blue-50 text-blue-700 border-blue-200" },
-  { role: "PHARMACIST", name: "Eczacı Mustafa", email: "pharmacist@menaclinic.com", color: "bg-purple-50 text-purple-700 border-purple-200" },
-  { role: "LAB_TECH", name: "Teknisyen Ali", email: "labtech@menaclinic.com", color: "bg-[#EFE8DC] text-[#4A2E1B] border-[#E5DCD0]" }
+export const DOCTOR_ACCOUNTS_LIST = [
+  { role: "DOCTOR", name: "Dr. Rustam Horo (د. رستم هورو)", email: "gastro.horo@menaclinic.com", specialty: "Gastroenteroloji • الهضمية", room: "Poliklinik 101" },
+  { role: "DOCTOR", name: "Dr. Abdulrahman Al-Shebb (د. عبدالرحمن الشب)", email: "cardio.shebb@menaclinic.com", specialty: "Kardiyoloji • القلبية", room: "Poliklinik 102" },
+  { role: "DOCTOR", name: "Dr. Barkhadan Horo (د. برخدان هورو)", email: "cardio.horo@menaclinic.com", specialty: "Kardiyoloji • القلبية", room: "Poliklinik 103" },
+  { role: "DOCTOR", name: "Dr. Fouad Takko (د. فؤاد طكو)", email: "ortho.takko@menaclinic.com", specialty: "Ortopedi • العظمية", room: "Poliklinik 104" },
+  { role: "DOCTOR", name: "Dr. Ahmad Abdulrazzaq (د. احمد عبدالرزاق)", email: "uro.razzaq@menaclinic.com", specialty: "Üroloji • البولية", room: "Poliklinik 105" },
+  { role: "DOCTOR", name: "Dr. Abdulatif Qadi (د. عبداللطيف قاضي)", email: "uro.qadi@menaclinic.com", specialty: "Üroloji • البولية", room: "Poliklinik 106" },
+  { role: "DOCTOR", name: "Dr. Lodia Haddad (د. لوديا حداد)", email: "derma.haddad@menaclinic.com", specialty: "Dermatoloji • الجلدية", room: "Poliklinik 107" },
+  { role: "DOCTOR", name: "Dr. Fadi Al-Arr (د. فادي العر)", email: "vasc.arr@menaclinic.com", specialty: "Damar Cerrahisi • الأوعية", room: "Poliklinik 108" },
+  { role: "DOCTOR", name: "Dr. Hussein Al-Ahmad (د. حسين الاحمد)", email: "ped.ahmad@menaclinic.com", specialty: "Çocuk Sağlığı • الأطفال", room: "Poliklinik 109" },
+  { role: "DOCTOR", name: "Dr. Ahmad Azzawi (د. احمد عزاوي)", email: "pedcardio.azzawi@menaclinic.com", specialty: "Çocuk Kardiyo • قلبية أطفال", room: "Poliklinik 110" },
+  { role: "DOCTOR", name: "Dr. Majid Shamoun (د. ماجد شمعون)", email: "dental.shamoun@menaclinic.com", specialty: "Diş Sağlığı • طب الأسنان", room: "Poliklinik 111" },
+  { role: "ADMIN", name: "Yönetici Ahmet", email: "admin@menaclinic.com", specialty: "Genel Yönetim", room: "Yönetim 301" }
 ];
 
 export default function App() {
@@ -58,7 +69,7 @@ export default function App() {
   };
 
   // Login Form
-  const [loginForm, setLoginForm] = useState({ email: "", password: "Password123" });
+  const [loginForm, setLoginForm] = useState({ email: "", password: "123" });
 
   // Common Lists
   const [patients, setPatients] = useState<any[]>([]);
@@ -154,6 +165,8 @@ export default function App() {
       fetchAuditLogs();
       fetchInventory();
       fetchStaffList();
+    } else if (activeMenu === "accountant" && user.role !== "ADMIN") {
+      fetchDoctors(); fetchAppointments(); fetchInventory(); fetchPrescriptions(); fetchFinanceReport();
     } else if (activeMenu === "admin_overview" || activeMenu === "doctors_hub" || activeMenu === "accountant") {
       fetchDoctors();
       fetchAppointments();
@@ -169,40 +182,40 @@ export default function App() {
   // Fetch functions
   const fetchPatients = () => {
     apiFetch(`${API_URL}/patients`, { headers: { Authorization: `Bearer ${token}` } })
-      .then(res => res.json()).then(data => setPatients(data));
+      .then(async res => { if (!res.ok) throw new Error((await res.json()).message); return res.json(); }).then(data => { if (Array.isArray(data)) setPatients(data); }).catch(err => setErrorMsg(err.message));
   };
   const fetchDoctors = () => {
     apiFetch(`${API_URL}/doctors`, { headers: { Authorization: `Bearer ${token}` } })
-      .then(res => res.json()).then(data => setDoctors(data));
+      .then(async res => { if (!res.ok) throw new Error((await res.json()).message); return res.json(); }).then(data => { if (Array.isArray(data)) setDoctors(data); }).catch(err => setErrorMsg(err.message));
   };
   const fetchAppointments = () => {
-    const todayStr = new Date().toISOString().split("T")[0];
+    const todayStr = clinicDate();
     apiFetch(`${API_URL}/appointments?date=${todayStr}`, { headers: { Authorization: `Bearer ${token}` } })
-      .then(res => res.json()).then(data => setAppointments(data));
+      .then(async res => { if (!res.ok) throw new Error((await res.json()).message); return res.json(); }).then(data => { if (Array.isArray(data)) setAppointments(data); }).catch(err => setErrorMsg(err.message));
   };
   const fetchPrescriptions = () => {
     apiFetch(`${API_URL}/prescriptions`, { headers: { Authorization: `Bearer ${token}` } })
-      .then(res => res.json()).then(data => setPrescriptions(data));
+      .then(async res => { if (!res.ok) throw new Error((await res.json()).message); return res.json(); }).then(data => { if (Array.isArray(data)) setPrescriptions(data); }).catch(err => setErrorMsg(err.message));
   };
   const fetchInventory = () => {
     apiFetch(`${API_URL}/inventory`, { headers: { Authorization: `Bearer ${token}` } })
-      .then(res => res.json()).then(data => setInventory(data));
+      .then(async res => { if (!res.ok) throw new Error((await res.json()).message); return res.json(); }).then(data => { if (Array.isArray(data)) setInventory(data); }).catch(err => setErrorMsg(err.message));
   };
   const fetchLabOrders = () => {
     apiFetch(`${API_URL}/lab-orders`, { headers: { Authorization: `Bearer ${token}` } })
-      .then(res => res.json()).then(data => setLabOrders(data));
+      .then(async res => { if (!res.ok) throw new Error((await res.json()).message); return res.json(); }).then(data => { if (Array.isArray(data)) setLabOrders(data); }).catch(err => setErrorMsg(err.message));
   };
   const fetchFinanceReport = () => {
     apiFetch(`${API_URL}/finance/report`, { headers: { Authorization: `Bearer ${token}` } })
-      .then(res => res.json()).then(data => setFinanceReport(data));
+      .then(async res => { if (!res.ok) throw new Error((await res.json()).message); return res.json(); }).then(setFinanceReport).catch(err => setErrorMsg(err.message));
   };
   const fetchAuditLogs = () => {
     apiFetch(`${API_URL}/audit-logs`, { headers: { Authorization: `Bearer ${token}` } })
-      .then(res => res.json()).then(data => setAuditLogs(data));
+      .then(async res => { if (!res.ok) throw new Error((await res.json()).message); return res.json(); }).then(data => { if (Array.isArray(data)) setAuditLogs(data); }).catch(err => setErrorMsg(err.message));
   };
   const fetchStaffList = () => {
     apiFetch(`${API_URL}/users`, { headers: { Authorization: `Bearer ${token}` } })
-      .then(res => res.json()).then(data => setStaffList(data));
+      .then(async res => { if (!res.ok) throw new Error((await res.json()).message); return res.json(); }).then(data => { if (Array.isArray(data)) setStaffList(data); }).catch(err => setErrorMsg(err.message));
   };
 
   // Auth operations
@@ -224,8 +237,21 @@ export default function App() {
         throw new Error("Hastalar personel paneline giriş yapamaz. Lütfen hasta portalını kullanın.");
       }
       localStorage.setItem("staff_token", data.token);
+      localStorage.setItem("staff_user", JSON.stringify(data.user));
       setToken(data.token);
       setUser(data.user);
+
+      const role = data.user.role;
+      if (role === "DOCTOR") setActiveMenu("doctor");
+      else if (role === "ADMIN") setActiveMenu("admin_overview");
+      else if (role === "RECEPTIONIST") setActiveMenu("reception");
+      else if (role === "PHARMACIST") setActiveMenu("pharmacy");
+      else if (role === "LAB_TECH") setActiveMenu("lab");
+      else if (role === "ACCOUNTANT" || role === "FINANCE") setActiveMenu("accountant");
+
+      fetchDoctors();
+      fetchAppointments();
+      fetchPatients();
       setSuccessMsg("Giriş başarılı!");
     })
     .catch(err => setErrorMsg(err.message));
@@ -266,6 +292,21 @@ export default function App() {
     setLabOrders([]);
     setFinanceReport(null);
     setStaffList([]);
+  };
+
+  const handleSwitchDoctor = (doc: any) => {
+    const doctorUser = {
+      id: doc.id,
+      fullName: doc.fullName,
+      email: doc.email,
+      role: "DOCTOR",
+      phone: doc.phone,
+      status: "ACTIVE"
+    };
+    setUser(doctorUser);
+    localStorage.setItem("staff_user", JSON.stringify(doctorUser));
+    setActiveMenu("doctor");
+    setSuccessMsg(`${doc.fullName} oturumuna geçildi. Doktor muayene ekranı açıldı.`);
   };
 
   // Receptionist actions
@@ -389,7 +430,7 @@ export default function App() {
     setPrescDrugs([]);
     setReqTests([]);
     setPastRecords([]);
-    
+
     // Load patient's past medical history
     apiFetch(`${API_URL}/medical-records/patient/${app.patientId}`, {
       headers: { Authorization: `Bearer ${token}` }
@@ -431,10 +472,12 @@ export default function App() {
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       body: JSON.stringify({
         patientId: selectedQueueApp.patientId,
+        doctorId: selectedQueueApp.doctorId,
+        appointmentId: selectedQueueApp.id,
         diagnosis: soapNotes.diagnosis,
         clinicalNotes: soapNotes.clinicalNotes,
         prescriptionItems: prescDrugs,
-        labTests: reqTests
+        labTests: reqTests.map(testName => ({ testName, status: "PENDING" }))
       })
     })
     .then(async res => {
@@ -598,6 +641,7 @@ export default function App() {
       dir={lang === "ar" ? "rtl" : "ltr"}
       className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#2C1810] font-sans transition-colors"
     >
+      {user?.role === "ADMIN" && <LegacyDataBackup />}
       {/* HEADER */}
       <header className="border-b border-[#E5DCD0] bg-white/95 backdrop-blur-md px-6 py-3.5 flex justify-between items-center z-10 sticky top-0 shadow-xs">
         <div className="flex items-center gap-3.5">
@@ -623,36 +667,39 @@ export default function App() {
           <div className="flex items-center gap-1 bg-[#FAF7F2] p-1 rounded-xl border border-[#E5DCD0]">
             <button
               onClick={() => handleLanguageChange("tr")}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
                 lang === "tr"
                   ? "bg-[#4A2E1B] text-white shadow-xs"
                   : "text-[#6E492D] hover:bg-[#EFE8DC]"
               }`}
               title="Türkçe"
             >
-              🇹🇷 TR
+              <TurkishFlag className="w-4 h-2.5" />
+              <span>TR</span>
             </button>
             <button
               onClick={() => handleLanguageChange("ar")}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
                 lang === "ar"
                   ? "bg-[#4A2E1B] text-white shadow-xs"
                   : "text-[#6E492D] hover:bg-[#EFE8DC]"
               }`}
               title="العربية"
             >
-              🇸🇾 AR
+              <SyrianFlag className="w-4 h-2.5" />
+              <span>AR</span>
             </button>
             <button
               onClick={() => handleLanguageChange("en")}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
                 lang === "en"
                   ? "bg-[#4A2E1B] text-white shadow-xs"
                   : "text-[#6E492D] hover:bg-[#EFE8DC]"
               }`}
               title="English"
             >
-              🇬🇧 EN
+              <UkFlag className="w-4 h-2.5" />
+              <span>EN</span>
             </button>
           </div>
 
@@ -693,7 +740,7 @@ export default function App() {
         // LOGIN PAGE
         <div className="flex-grow flex items-center justify-center p-6 bg-gradient-to-tr from-[#F3EDE2] via-[#FAF7F2] to-[#EFE8DC]">
           <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            
+
             <div className="space-y-6 text-left">
               <div className="w-20 h-20 rounded-2xl bg-white border border-[#E5DCD0] p-2 flex items-center justify-center shadow-md">
                 <img
@@ -716,21 +763,36 @@ export default function App() {
                   : "Mena Clinic staff portal for clinical workflows, doctor fees, patient management, pharmacy dispensing, and detailed accountant reports."}
               </p>
 
-              {/* Quick Logins for Testing */}
-              <div className="space-y-3 pt-4">
-                <p className="text-[11px] text-[#8C6D53] uppercase tracking-wider font-bold">
-                  {lang === "ar" ? "تسجيل دخول سريع للتجربة (كلمة المرور: Password123)" : "Hızlı Giriş Seçenekleri (Şifre: Password123)"}
-                </p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {QUICK_STAFF.map((st) => (
-                    <button
-                      key={st.role}
-                      onClick={() => quickLogin(st.email)}
-                      className={`text-[11px] text-left px-3 py-2 rounded-xl border hover:shadow-xs transition-all ${st.color}`}
+              {/* Doctor Login Options Reference Directory */}
+              <div className="space-y-3 pt-3">
+                <div className="flex items-center justify-between">
+                  <p className="text-[11px] text-[#4A2E1B] uppercase tracking-wider font-bold flex items-center gap-1.5">
+                    <Stethoscope className="w-3.5 h-3.5 text-[#8A5F35]" />
+                    <span>{lang === "ar" ? "بيانات دخول الأطباء (كلمة المرور: 123)" : "Doktor Giriş Seçenekleri & Bilgileri (Şifre: 123)"}</span>
+                  </p>
+                </div>
+
+                <div className="max-h-56 overflow-y-auto rounded-2xl border border-[#E5DCD0] bg-white p-2 space-y-1.5 divide-y divide-[#F3EDE2]">
+                  {DOCTOR_ACCOUNTS_LIST.map((doc) => (
+                    <div
+                      key={doc.email}
+                      className="pt-1.5 first:pt-0 flex items-center justify-between text-xs hover:bg-[#FAF7F2] p-1.5 rounded-xl transition-colors"
                     >
-                      <strong className="block text-[#2C1810] truncate">{st.name}</strong>
-                      <span className="opacity-75 text-[10px] uppercase font-semibold">{st.role}</span>
-                    </button>
+                      <div>
+                        <strong className="block text-[#2C1810] text-[11px]">{doc.name}</strong>
+                        <span className="text-[10px] text-[#7D6E63] font-mono">{doc.email} • {doc.specialty}</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setLoginForm({ email: doc.email, password: "123" });
+                          setErrorMsg("");
+                        }}
+                        className="px-2.5 py-1 rounded-lg bg-[#FAF7F2] hover:bg-[#F3EDE2] border border-[#DDD2C1] text-[#4A2E1B] text-[10px] font-bold transition-all shadow-xs"
+                      >
+                        {lang === "ar" ? "اختيار" : "Seç"}
+                      </button>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -797,7 +859,7 @@ export default function App() {
       ) : (
         // DASHBOARD INTERFACE
         <div className="flex-grow flex flex-col md:flex-row">
-          
+
           {/* Side Menu */}
           <aside className="w-full md:w-64 border-r border-[#E5DCD0] bg-white p-5 space-y-6">
             <span className="text-[10px] uppercase tracking-wider text-[#8C6D53] font-bold block">
@@ -1004,7 +1066,7 @@ export default function App() {
 
           {/* Main workspace */}
           <main className="flex-grow p-8 space-y-8 overflow-y-auto">
-            
+
             {/* Feedback Notifications */}
             {successMsg && (
               <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-emerald-800 text-xs flex items-center justify-between">
@@ -1137,7 +1199,7 @@ export default function App() {
                       <TrendingUp className="w-4 h-4 text-emerald-600 group-hover:scale-110 transition-transform" />
                     </div>
                     <div className="text-2xl font-serif font-bold text-emerald-700">
-                      {((financeReport?.totalRevenue) || 18500).toLocaleString()}{" "}
+                      {(financeReport?.todayRevenue ?? 0).toLocaleString()}{" "}
                       <span className="text-xs font-normal text-emerald-700">{t.currency}</span>
                     </div>
                     <div className="text-xs text-emerald-700 font-medium mt-2">
@@ -1219,6 +1281,11 @@ export default function App() {
                 patients={patients}
                 t={t}
                 lang={lang}
+                onDoctorAdded={() => {
+                  fetchDoctors();
+                  fetchAppointments();
+                }}
+                onSwitchDoctor={handleSwitchDoctor}
               />
             )}
 
@@ -1231,8 +1298,8 @@ export default function App() {
                 inventory={inventory}
                 financialStats={
                   financeReport || {
-                    todayRevenue: 18500,
-                    pendingInvoices: 3,
+                    todayRevenue: financeReport?.todayRevenue ?? 0,
+                    pendingInvoices: 0,
                     totalPatients: patients.length,
                   }
                 }
@@ -1250,13 +1317,13 @@ export default function App() {
                     <p className="text-xs text-[#4E3D30]">Hasta kaydı yapabilir, canlı randevu ve doktor kuyruğunu düzenleyebilirsiniz.</p>
                   </div>
                   <div className="flex gap-3">
-                    <button 
+                    <button
                       onClick={() => setShowAddPatient(true)}
                       className="flex items-center gap-1 bg-[#4A2E1B] border border-[#382112] text-white hover:bg-[#382112] shadow-sm text-xs uppercase px-4 py-2 rounded hover:bg-clinicGold hover:text-neutral-950 transition-all font-semibold"
                     >
                       <Plus size={12} /> Hasta Kaydet
                     </button>
-                    <button 
+                    <button
                       onClick={() => setShowAddApp(true)}
                       className="flex items-center gap-1 bg-[#FAF7F2] border border-clinicBorder text-[#2C1810] text-xs uppercase px-4 py-2 rounded hover:text-white hover:border-clinicGold/40 transition-all font-semibold"
                     >
@@ -1291,7 +1358,7 @@ export default function App() {
                               <p className="text-[10px] text-[#4E3D30]">Dr: {app.doctor?.fullName}</p>
                               <p className="text-[9px] text-stone-500">{new Date(app.slotTime).toLocaleTimeString("tr-TR", {hour:"2-digit",minute:"2-digit"})}</p>
                               <div className="flex gap-2 pt-1.5 border-t border-clinicBorder">
-                                <button 
+                                <button
                                   onClick={() => handleUpdateAppStatus(app.id, "CANCELLED")}
                                   className="text-[9px] text-red-400 hover:underline"
                                 >
@@ -1320,13 +1387,13 @@ export default function App() {
                               <p className="text-[10px] text-[#4E3D30]">Dr: {app.doctor?.fullName}</p>
                               <p className="text-[9px] text-stone-500">{new Date(app.slotTime).toLocaleTimeString("tr-TR", {hour:"2-digit",minute:"2-digit"})}</p>
                               <div className="flex gap-2 pt-1.5 border-t border-clinicBorder">
-                                <button 
+                                <button
                                   onClick={() => handleUpdateAppStatus(app.id, "CONFIRMED")}
                                   className="text-[9px] text-emerald-400 hover:underline font-bold"
                                 >
                                   Onayla (Kuyruğa Al)
                                 </button>
-                                <button 
+                                <button
                                   onClick={() => handleUpdateAppStatus(app.id, "CANCELLED")}
                                   className="text-[9px] text-stone-500 hover:underline"
                                 >
@@ -1463,7 +1530,7 @@ export default function App() {
                         </div>
                         <div className="space-y-1">
                           <label className="block text-[10px] text-[#4E3D30] uppercase font-semibold">Tarih</label>
-                          <input type="date" required min={new Date().toISOString().split("T")[0]} className="w-full bg-[#FAF7F2] border border-clinicBorder rounded p-2 text-xs" onChange={e => setSlotDate(e.target.value)} value={slotDate} />
+                          <input type="date" required min={clinicDate()} className="w-full bg-[#FAF7F2] border border-clinicBorder rounded p-2 text-xs" onChange={e => setSlotDate(e.target.value)} value={slotDate} />
                         </div>
                         {slotDate && newApp.doctorId && (
                           <div className="space-y-1">
@@ -1487,220 +1554,18 @@ export default function App() {
 
             {/* 2. DOCTOR MODULE */}
             {activeMenu === "doctor" && (
-              <div className="space-y-8">
-                <div className="border-b border-clinicBorder pb-3">
-                  <h3 className="text-xl font-serif text-[#2C1810] font-semibold">Poliklinik Muayene Ekranı</h3>
-                  <p className="text-xs text-[#4E3D30]">Atanan hasta kuyruğunu görüntüleyebilir, SOAP notları girebilir ve reçete/lab talepleri oluşturabilirsiniz.</p>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  
-                  {/* Queue of assigned patients */}
-                  <div className="space-y-4 bg-[#FAF7F2] border border-clinicBorder p-4 rounded-lg">
-                    <h4 className="text-xs uppercase tracking-wider text-clinicGold font-bold border-b border-clinicBorder pb-2">Bugünkü Hasta Kuyruğum</h4>
-                    <div className="space-y-2">
-                      {appointments.filter(a => a.status === "CONFIRMED" && a.doctorId === user.id).length === 0 ? (
-                        <p className="text-[11px] text-stone-500 italic">Bekleyen muayeneniz bulunmamaktadır.</p>
-                      ) : (
-                        appointments.filter(a => a.status === "CONFIRMED" && a.doctorId === user.id).map(app => (
-                          <div 
-                            key={app.id} 
-                            onClick={() => selectActivePatient(app)}
-                            className={`p-3 rounded text-xs cursor-pointer border hover:border-clinicGold/40 transition-all ${
-                              selectedQueueApp?.id === app.id ? "bg-stone-900 border-clinicGold text-clinicGold" : "bg-white border-clinicBorder text-[#2C1810]"
-                            }`}
-                          >
-                            <div className="flex justify-between font-bold">
-                              <span>{app.patient?.user?.fullName}</span>
-                              <span>Sıra #{app.queueNumber}</span>
-                            </div>
-                            <p className="text-[10px] text-stone-500 mt-1">{new Date(app.slotTime).toLocaleTimeString("tr-TR", {hour:"2-digit",minute:"2-digit"})}</p>
-                          </div>
-                        ))
-                      )}
-                    </div>
-                  </div>
-
-                  {/* SOAP entry & SOAP history details */}
-                  <div className="lg:col-span-2 space-y-6">
-                    {selectedQueueApp ? (
-                      <div className="space-y-6 bg-[#FAF7F2] border border-clinicBorder p-6 rounded-lg">
-                        
-                        {/* Patient info details */}
-                        <div className="flex justify-between border-b border-clinicBorder pb-3">
-                          <div>
-                            <span className="text-[8px] uppercase tracking-wider text-clinicGold">Muayene Edilen Hasta</span>
-                            <h4 className="text-base text-[#2C1810] font-bold">{selectedQueueApp.patient?.user?.fullName}</h4>
-                            <p className="text-[10px] text-stone-500">Kan: <strong className="text-red-500">{selectedQueueApp.patient?.bloodType || "A+"}</strong> | Kimlik: {selectedQueueApp.patient?.user?.identityNo}</p>
-                          </div>
-                          <button onClick={() => setSelectedQueueApp(null)} className="text-xs text-stone-500 hover:text-[#2C1810]">İptal</button>
-                        </div>
-
-                        {/* History Records (Read-only check) */}
-                        {pastRecords.length > 0 && (
-                          <div className="bg-white p-4 rounded border border-clinicBorder space-y-3 max-h-48 overflow-y-auto">
-                            <h5 className="text-[10px] text-clinicGold uppercase font-bold border-b border-clinicBorder pb-1 flex items-center gap-1">
-                              <ShieldAlert size={12} /> Geriye Dönük EMR Tanı Arşivi (Finalized & Append-Only)
-                            </h5>
-                            {pastRecords.map(rec => (
-                              <div key={rec.id} className="text-[11px] border-b border-clinicBorder pb-2 mb-2 last:border-0">
-                                <div className="flex justify-between text-[#4E3D30]">
-                                  <strong>Tanı: {rec.diagnosis}</strong>
-                                  <span>{new Date(rec.createdAt).toLocaleDateString("tr-TR")}</span>
-                                </div>
-                                <p className="text-stone-500 mt-1 whitespace-pre-wrap font-mono text-[10px] bg-stone-950 p-2 rounded">{rec.clinicalNotes}</p>
-                                
-                                {/* Amendments display */}
-                                {rec.amendments && rec.amendments.map((am: any) => (
-                                  <div key={am.id} className="bg-yellow-950/10 border-l border-yellow-600 p-1.5 rounded mt-1 ml-2 text-[10px] italic">
-                                    Düzeltme: {am.notes} ({new Date(am.createdAt).toLocaleDateString("tr-TR")})
-                                  </div>
-                                ))}
-
-                                {/* Add Amendment Input toggle */}
-                                <div className="mt-2 text-right">
-                                  {showAmendmentId === rec.id ? (
-                                    <div className="space-y-1.5 mt-1.5 text-left">
-                                      <textarea 
-                                        placeholder="Ek bilgi girin (Asla geçmiş not silinmez, buraya eklenir)..."
-                                        className="w-full bg-[#FAF7F2] border border-clinicBorder p-2 rounded text-[10px] focus:outline-none"
-                                        rows={2}
-                                        value={amendmentText}
-                                        onChange={e => setAmendmentText(e.target.value)}
-                                      />
-                                      <div className="flex gap-2 justify-end">
-                                        <button onClick={() => setShowAmendmentId(null)} className="text-[9px] text-stone-500 bg-stone-900 px-2 py-0.5 rounded">Vazgeç</button>
-                                        <button onClick={() => handleAddAmendment(rec.id)} className="text-[9px] text-yellow-500 bg-yellow-950/20 border border-yellow-900 px-2.5 py-0.5 rounded font-semibold">Kaydet (Düzeltme Ekle)</button>
-                                      </div>
-                                    </div>
-                                  ) : (
-                                    <button 
-                                      onClick={() => { setShowAmendmentId(rec.id); setAmendmentText(""); }}
-                                      className="text-[9px] text-yellow-600 hover:text-yellow-500 underline"
-                                    >
-                                      + Amendment (Düzeltme Notu) Ekle
-                                    </button>
-                                  )}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-
-                        {/* Write SOAP Notes Form */}
-                        <form onSubmit={handleSaveSOAP} className="space-y-4">
-                          
-                          <div className="space-y-1">
-                            <label className="block text-[10px] text-[#4E3D30] uppercase font-semibold">Klinik Tanı (ICD-10 Kodu & Açıklaması)</label>
-                            <input 
-                              type="text" 
-                              required 
-                              placeholder="Örn: I10 - Primer Hipertansiyon veya J06 - Akut üst solunum yolu enfeksiyonu"
-                              className="w-full bg-[#FAF7F2] border border-clinicBorder p-2.5 rounded text-xs" 
-                              value={soapNotes.diagnosis} 
-                              onChange={e => setSoapNotes({...soapNotes, diagnosis: e.target.value})} 
-                            />
-                          </div>
-
-                          <div className="space-y-1">
-                            <label className="block text-[10px] text-[#4E3D30] uppercase font-semibold">SOAP Klinik Notları</label>
-                            <textarea 
-                              required 
-                              rows={5}
-                              placeholder="S: Şikayetler (Subjective)&#10;O: Bulgular (Objective)&#10;A: Değerlendirme (Assessment)&#10;P: Tedavi Planı (Plan)"
-                              className="w-full bg-[#FAF7F2] border border-clinicBorder p-2.5 rounded text-xs font-mono" 
-                              value={soapNotes.clinicalNotes} 
-                              onChange={e => setSoapNotes({...soapNotes, clinicalNotes: e.target.value})} 
-                            />
-                          </div>
-
-                          {/* Electronic Prescription Form */}
-                          <div className="border-t border-clinicBorder pt-4 space-y-3">
-                            <span className="block text-[10px] text-clinicGold uppercase font-bold">Elektronik Reçete İlaç İstemleri</span>
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
-                              <input 
-                                type="text" 
-                                placeholder="İlaç Adı" 
-                                className="col-span-2 bg-[#FAF7F2] border border-clinicBorder p-2 rounded text-xs" 
-                                value={drugInput.itemName}
-                                onChange={e => setDrugInput({...drugInput, itemName: e.target.value})}
-                              />
-                              <input 
-                                type="text" 
-                                placeholder="Dozaj (Örn: 2x1)" 
-                                className="bg-[#FAF7F2] border border-clinicBorder p-2 rounded text-xs" 
-                                value={drugInput.dosage}
-                                onChange={e => setDrugInput({...drugInput, dosage: e.target.value})}
-                              />
-                              <div className="flex gap-2">
-                                <input 
-                                  type="number" 
-                                  min={1} 
-                                  className="w-16 bg-[#FAF7F2] border border-clinicBorder p-2 rounded text-xs" 
-                                  value={drugInput.quantity}
-                                  onChange={e => setDrugInput({...drugInput, quantity: parseInt(e.target.value) || 1})}
-                                />
-                                <button type="button" onClick={addDrug} className="bg-[#4A2E1B] border border-[#382112] text-white hover:bg-[#382112] shadow-sm px-3 rounded text-xs">+</button>
-                              </div>
-                            </div>
-
-                            {/* Drug Table */}
-                            {prescDrugs.length > 0 && (
-                              <div className="bg-white p-2.5 rounded border border-clinicBorder space-y-1.5">
-                                {prescDrugs.map((d, index) => (
-                                  <div key={index} className="flex justify-between items-center text-xs">
-                                    <span>{d.itemName} - <strong className="text-[#4E3D30]">{d.dosage}</strong> ({d.quantity} Kutu)</span>
-                                    <button type="button" onClick={() => removeDrug(index)} className="text-red-400 font-bold px-1 text-[11px]">Kaldır</button>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Lab Test Requests Form */}
-                          <div className="border-t border-clinicBorder pt-4 space-y-3">
-                            <span className="block text-[10px] text-clinicGold uppercase font-bold">Laboratuvar Tetkik İstemi</span>
-                            <div className="flex gap-2">
-                              <input 
-                                type="text" 
-                                placeholder="İstenecek Tahlil Adı (Örn: Lipid Paneli, Hemogram)" 
-                                className="flex-grow bg-[#FAF7F2] border border-clinicBorder p-2 rounded text-xs" 
-                                value={testInput}
-                                onChange={e => setTestInput(e.target.value)}
-                              />
-                              <button type="button" onClick={addTest} className="bg-[#4A2E1B] border border-[#382112] text-white hover:bg-[#382112] shadow-sm px-3 py-1.5 rounded text-xs">+</button>
-                            </div>
-
-                            {reqTests.length > 0 && (
-                              <div className="flex flex-wrap gap-2 pt-1">
-                                {reqTests.map((t, index) => (
-                                  <span key={index} className="bg-[#FAF7F2] border border-clinicBorder text-[10px] px-2.5 py-1 rounded-full flex items-center gap-1.5 text-[#2C1810]">
-                                    {t}
-                                    <button type="button" onClick={() => removeTest(index)} className="text-red-400 text-[10px] font-bold">×</button>
-                                  </span>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-
-                          <button 
-                            type="submit" 
-                            className="w-full bg-[#4A2E1B] border border-[#382112] text-white hover:bg-[#382112] shadow-sm py-3 rounded text-xs uppercase tracking-widest font-bold hover:bg-clinicGold hover:text-neutral-950 transition-all mt-4"
-                          >
-                            Muayeneyi Sonlandır & SOAP Kaydet (Immutable)
-                          </button>
-
-                        </form>
-                      </div>
-                    ) : (
-                      <div className="bg-[#FAF7F2] border border-clinicBorder rounded-lg p-8 text-center text-stone-500 italic text-xs">
-                        Lütfen soldaki kuyruktan muayene edilecek bir hasta seçin.
-                      </div>
-                    )}
-                  </div>
-
-                </div>
-              </div>
+              <DoctorWorkspace
+                currentUser={user}
+                allDoctors={doctors}
+                appointments={appointments}
+                patients={patients}
+                t={t}
+                lang={lang}
+                onUpdateAppStatus={handleUpdateAppStatus}
+                onAppointmentCreated={fetchAppointments}
+                apiUrl={API_URL}
+                token={token}
+              />
             )}
 
             {/* 3. PHARMACIST MODULE */}
@@ -1712,14 +1577,14 @@ export default function App() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  
+
                   {/* Left Column: Pending Prescriptions */}
                   <div className="space-y-4">
                     <div className="flex justify-between items-center border-b border-clinicBorder pb-2">
                       <h4 className="text-xs uppercase tracking-wider text-clinicGold font-bold">Bekleyen Reçeteler</h4>
-                      <input 
-                        type="text" 
-                        placeholder="Hasta adı ara..." 
+                      <input
+                        type="text"
+                        placeholder="Hasta adı ara..."
                         className="bg-[#FAF7F2] border border-clinicBorder px-2.5 py-1 text-[11px] rounded focus:outline-none focus:border-clinicGold w-36"
                         value={searchPresc}
                         onChange={e => setSearchPresc(e.target.value)}
@@ -1748,7 +1613,7 @@ export default function App() {
                               ))}
                             </ul>
 
-                            <button 
+                            <button
                               onClick={() => handleDispense(p.id)}
                               className="w-full bg-[#4A2E1B] border border-[#382112] text-white hover:bg-[#382112] shadow-sm py-1.5 rounded text-[10px] uppercase font-bold hover:bg-clinicGold hover:text-neutral-950 transition-all"
                             >
@@ -1812,7 +1677,7 @@ export default function App() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  
+
                   {/* Left Column: Test orders */}
                   <div className="space-y-4 bg-[#FAF7F2] border border-clinicBorder p-4 rounded-lg">
                     <h4 className="text-xs uppercase tracking-wider text-clinicGold font-bold border-b border-clinicBorder pb-2">Tahlil / Test İstekleri</h4>
@@ -1821,8 +1686,8 @@ export default function App() {
                         <p className="text-[11px] text-stone-500 italic">Sonuç girilmeyi bekleyen tahlil isteği bulunmamaktadır.</p>
                       ) : (
                         labOrders.filter(l => l.status === "PENDING").map(order => (
-                          <div 
-                            key={order.id} 
+                          <div
+                            key={order.id}
                             onClick={() => { setSelectedLabOrder(order); setLabResultText(""); }}
                             className={`p-3 rounded text-xs cursor-pointer border hover:border-clinicGold/40 transition-all ${
                               selectedLabOrder?.id === order.id ? "bg-stone-900 border-clinicGold text-clinicGold" : "bg-white border-clinicBorder text-[#2C1810]"
@@ -1856,13 +1721,13 @@ export default function App() {
                         <form onSubmit={handleSaveLabResult} className="space-y-4">
                           <div className="space-y-1">
                             <label className="block text-[10px] text-[#4E3D30] uppercase font-semibold">Tahlil Değerleri & Sonuç Verileri (Metin/Sayısal)</label>
-                            <textarea 
-                              required 
+                            <textarea
+                              required
                               rows={4}
                               placeholder="Örn: Total Kolesterol: 240 mg/dL (Yüksek), LDL: 160 mg/dL (Yüksek), HDL: 45 mg/dL"
-                              className="w-full bg-[#FAF7F2] border border-clinicBorder p-2.5 rounded text-xs font-mono focus:outline-none focus:border-clinicGold" 
-                              value={labResultText} 
-                              onChange={e => setLabResultText(e.target.value)} 
+                              className="w-full bg-[#FAF7F2] border border-clinicBorder p-2.5 rounded text-xs font-mono focus:outline-none focus:border-clinicGold"
+                              value={labResultText}
+                              onChange={e => setLabResultText(e.target.value)}
                             />
                           </div>
 
@@ -1870,13 +1735,13 @@ export default function App() {
                             <label className="block text-[10px] text-[#4E3D30] uppercase font-semibold">PDF Rapor Dosyası (S3/MinIO signed-url simülasyonlu)</label>
                             <div className="border border-dashed border-clinicBorder p-4 rounded text-center text-stone-500 bg-white/50 text-[11px] flex flex-col items-center justify-center gap-1.5">
                               <Upload size={18} className="text-clinicGold" />
-                              <span>Sistem HIPAA kurallarına göre analiz rapor dosyasını şifreleyerek yükleyecektir.</span>
+                              <span>Sonuç metni sunucuya kaydedilir. Dosya yükleme henüz desteklenmiyor.</span>
                               <span className="text-[9px] text-stone-600 font-mono">Simulated path: /uploads/lab_report_{selectedLabOrder.id}_final.pdf</span>
                             </div>
                           </div>
 
-                          <button 
-                            type="submit" 
+                          <button
+                            type="submit"
                             className="w-full bg-[#4A2E1B] border border-[#382112] text-white hover:bg-[#382112] shadow-sm py-2.5 rounded text-xs uppercase tracking-widest font-bold hover:bg-clinicGold hover:text-neutral-950 transition-all"
                           >
                             Sonucu Tamamla & PDF Kaydet
@@ -1897,7 +1762,7 @@ export default function App() {
             {/* 5. ADMIN & FINANCE MODULE */}
             {activeMenu === "admin_fin" && (
               <div className="space-y-8">
-                
+
                 {/* Header */}
                 <div className="flex justify-between items-center border-b border-clinicBorder pb-3">
                   <div>
@@ -1905,7 +1770,7 @@ export default function App() {
                     <p className="text-xs text-[#4E3D30]">Sistem denetim günlüklerini (Audit Logs) okuyabilir, mali kar marjlarını ve personel hesaplarını yönetebilirsiniz.</p>
                   </div>
                   {user.role === "ADMIN" && (
-                    <button 
+                    <button
                       onClick={() => setShowAddStaff(true)}
                       className="flex items-center gap-1 bg-[#4A2E1B] border border-[#382112] text-white hover:bg-[#382112] shadow-sm text-xs uppercase px-4 py-2 rounded hover:bg-clinicGold hover:text-neutral-950 transition-all font-semibold"
                     >
@@ -1953,10 +1818,10 @@ export default function App() {
 
                 {/* Subsections Tab Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  
+
                   {/* Left Column: Audit Logs */}
                   <div className="space-y-4">
-                    <h4 className="text-xs uppercase tracking-wider text-clinicGold font-bold border-b border-clinicBorder pb-2">HIPAA Sistem Audit Logları (Değiştirilemez Günlükler)</h4>
+                    <h4 className="text-xs uppercase tracking-wider text-clinicGold font-bold border-b border-clinicBorder pb-2">Sistem İşlem Günlükleri</h4>
                     <div className="bg-[#FAF7F2] border border-clinicBorder rounded-lg p-3 max-h-96 overflow-y-auto space-y-2">
                       {auditLogs.map(log => (
                         <div key={log.id} className="bg-white/50 border border-clinicBorder p-2.5 rounded text-[10px] space-y-1">
@@ -1982,7 +1847,7 @@ export default function App() {
                   <div className="space-y-4">
                     <div className="flex justify-between items-center border-b border-clinicBorder pb-2">
                       <h4 className="text-xs uppercase tracking-wider text-clinicGold font-bold">Eczane Depo Katalogu & Maliyetleri</h4>
-                      <button 
+                      <button
                         onClick={() => setShowAddItem(true)}
                         className="text-[10px] bg-[#4A2E1B] border border-[#382112] text-white hover:bg-[#382112] shadow-sm px-2.5 py-1 rounded hover:bg-clinicGold hover:text-neutral-950 transition-all font-semibold"
                       >
@@ -1998,7 +1863,7 @@ export default function App() {
                             <span className="text-[10px] text-[#4E3D30]">SKU: {item.SKU} | Stok: <strong className="text-clinicGold">{item.stockQuantity}</strong></span>
                             <span className="block text-[10px] text-stone-500">Maliyet: {(item.supplierPrice ?? 0).toFixed(2)} TL | Satış: {(item.retailPrice ?? 0).toFixed(2)} TL</span>
                           </div>
-                          <button 
+                          <button
                             onClick={() => setShowEditItem(item)}
                             className="text-[10px] bg-stone-900 text-[#2C1810] hover:text-white px-2.5 py-1 rounded border border-clinicBorder"
                           >
@@ -2171,7 +2036,7 @@ export default function App() {
 
       {/* FOOTER */}
       <footer className="border-t border-[#E5DCD0] bg-white py-4 text-center text-xs text-[#8C6D53] z-10">
-        <p>© {new Date().getFullYear()} Mena Clinic. {lang === "ar" ? "بوابة إدارة العمليات الطبية" : "Personel Yönetim Portalı"} (HIPAA EMR Enabled)</p>
+        <p>© {new Date().getFullYear()} Mena Clinic. {lang === "ar" ? "بوابة إدارة العمليات الطبية" : "Personel Yönetim Portalı"}</p>
       </footer>
 
     </div>

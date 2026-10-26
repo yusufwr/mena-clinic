@@ -1,0 +1,100 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1815 >>
+stream
+BT
+/F2 18 Tf
+50 800 Td
+(MENA CLINIC ALEPPO - MEDICAL EXAMINATION REPORT) Tj
+/F1 9 Tf
+0 -15 Td
+(Al-Aziziyah District, Aleppo, Syria | Tel: +963 21 223344 | EMR System) Tj
+0 -12 Td
+(Report ID: rec-sim-1792920327018-13 | Date: 2026-10-26) Tj
+ET
+0.5 w
+0.3 0.2 0.1 RG
+50 755 m 545 755 l S
+BT
+/F2 11 Tf
+50 735 Td
+(PATIENT & PHYSICIAN INFORMATION) Tj
+/F1 10 Tf
+0 -16 Td
+(Patient: Ayse Demirkan   |   ID: 99200200003   |   Blood: B+) Tj
+0 -14 Td
+(Phone: +90 532 1000003) Tj
+0 -14 Td
+(Attending Doctor: Dr. Abdulrahman Al-Shebb   |   Specialty: Kardiyoloji - amrad alCardiology) Tj
+/F2 11 Tf
+0 -24 Td
+(DIAGNOSIS & ICD-10 CODE:) Tj
+/F1 10 Tf
+0 -15 Td
+(I50.9 - Kronik Kalp Yetersizligi Evre II \(NYHA Class II Heart Failure\)) Tj
+/F2 11 Tf
+0 -24 Td
+(CLINICAL FINDINGS & SOAP NOTES:) Tj
+/F1 9.5 Tf
+0 -14 Td
+(S: Iki kat merdiven cikinca nefes darligi hissi.) Tj
+0 -14 Td
+(O: TA: 130/80 mmHg, Nabiz: 72 bpm. Pretibial +1 gode birakan odem.) Tj
+0 -14 Td
+(A: Korunmus ejeksiyon fraksiyonlu kalp yetmezligi.) Tj
+0 -14 Td
+(P: Dusuk doz diuretik ve ACE inhibitoru kombinasyonu, tuz kisitlamasi.) Tj
+/F2 11 Tf
+0 -24 Td
+(PRESCRIBED MEDICATIONS:) Tj
+/F1 9.5 Tf
+0 -14 Td
+(- Lasix 40mg \(Furosemid\) | Dosage: Gunde 1 kez sabah ac karna yarim tablet | Qty: 1 box) Tj
+0 -14 Td
+(- Triplixam 5/1.25/5mg | Dosage: Sabahlari 1 tablet | Qty: 1 box) Tj
+/F2 11 Tf
+0 -24 Td
+(LABORATORY & DIAGNOSTIC TESTS:) Tj
+/F1 9.5 Tf
+0 -14 Td
+(* NT-proBNP Kardiyak Biyobelirtec [Status: COMPLETED] - Result: 245 pg/mL \(Hafif kardiyak yuk artisi\)) Tj
+0 -14 Td
+(* Serum Elektrolitleri \(Na, K, Cl\) [Status: COMPLETED] - Result: K: 4.3 mmol/L, Na: 140 mmol/L \(Normal sinirlar\)) Tj
+/F2 10 Tf
+0 -35 Td
+(Physician Digital Signature: Verified & Finalized by Mena HIS) Tj
+/F1 8 Tf
+0 -12 Td
+(Certified Electronic Medical Record - HIPAA & Syrian MOH Compliant) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000002118 00000 n 
+0000002188 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+2263
+%%EOF

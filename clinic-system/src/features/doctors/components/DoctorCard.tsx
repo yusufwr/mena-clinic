@@ -14,38 +14,18 @@ export const DoctorCard: React.FC<DoctorCardProps> = ({ doctor, onBook }) => {
   const t = useTranslations("common");
   const locale = useLocale();
 
-  const isCardio = doctor.email.includes("cardio") || doctor.fullName.toLowerCase().includes("selim");
-  const isDerma = doctor.email.includes("derma") || doctor.fullName.toLowerCase().includes("leyla");
+  // Multilingual specialty & name resolution
+  const specialty = locale === "ar"
+    ? (doctor.specialtyAr || doctor.specialty || "استشاري طبي")
+    : locale === "en"
+    ? (doctor.specialtyEn || doctor.specialty || "Medical Specialist")
+    : (doctor.specialty || "Uzman Hekim");
 
-  // Multilingual specialty
-  let specialty = "";
-  if (isCardio) {
-    specialty = locale === "ar"
-      ? "عيادة أمراض القلب والأوعية"
-      : locale === "en"
-      ? "Cardiology & Vascular Surgery"
-      : "Kardiyoloji & Kalp Cerrahisi";
-  } else if (isDerma) {
-    specialty = locale === "ar"
-      ? "الأمراض الجلدية والتجميل الطبي"
-      : locale === "en"
-      ? "Dermatology & Medical Aesthetics"
-      : "Dermatoloji & Medikal Estetik";
-  } else {
-    specialty = locale === "ar"
-      ? "جراحة العظام والمفاصل"
-      : locale === "en"
-      ? "Orthopedics & Joint Surgery"
-      : "Ortopedi ve Travmatoloji";
-  }
-
-  // Doctor localized display name
-  let doctorName = doctor.fullName;
-  if (locale === "ar") {
-    if (isCardio) doctorName = "د. سليم يلماز (Dr. Selim Yılmaz)";
-    else if (isDerma) doctorName = "د. ليلى دمر (Dr. Leyla Demir)";
-    else doctorName = "د. فادي الحلبي (Dr. Fadi Al-Halabi)";
-  }
+  const doctorName = locale === "ar"
+    ? (doctor.fullNameAr || doctor.fullName)
+    : locale === "en"
+    ? (doctor.fullNameEn || doctor.fullName)
+    : doctor.fullName;
 
   // Working hours
   const workingHours = locale === "ar"

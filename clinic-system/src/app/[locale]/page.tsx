@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
+import { Link } from "@/i18n/routing";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { DoctorCard, Doctor } from "@/features/doctors";
+import { DoctorCard, Doctor, DOCTORS_DATA } from "@/features/doctors";
 import { AppointmentBookingModal } from "@/features/appointments";
-import { PatientPortalModal } from "@/features/patients";
 import { AuthUser } from "@/features/auth";
 import { 
   Sparkles, 
@@ -28,33 +28,10 @@ import {
   Star, 
   Quote, 
   ArrowRight,
+  QrCode,
+  ExternalLink,
   CheckCircle2
 } from "lucide-react";
-
-// Mock Doctors Data for presentation
-const DOCTORS_DATA: Doctor[] = [
-  {
-    id: "doc-cardio",
-    fullName: "Dr. Selim Yılmaz",
-    email: "cardio@menaclinic.com",
-    phone: "+963 991 112233",
-    rating: 4.95,
-  },
-  {
-    id: "doc-derma",
-    fullName: "Dr. Leyla Demir",
-    email: "derma@menaclinic.com",
-    phone: "+963 991 112234",
-    rating: 4.92,
-  },
-  {
-    id: "doc-ortho",
-    fullName: "Dr. Fadi Al-Halabi",
-    email: "ortho@menaclinic.com",
-    phone: "+963 991 112235",
-    rating: 4.98,
-  }
-];
 
 // 9 Comprehensive Medical Departments
 const DEPARTMENTS_DATA = [
@@ -246,7 +223,6 @@ export default function LocalizedHomePage() {
   // Modals state
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [selectedDoctorForBooking, setSelectedDoctorForBooking] = useState<Doctor | null>(null);
-  const [patientPortalOpen, setPatientPortalOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
 
   // Sync session on mount
@@ -262,21 +238,18 @@ export default function LocalizedHomePage() {
   }, []);
 
   const handleOpenBooking = (doc?: Doctor) => {
-    setSelectedDoctorForBooking(doc || null);
-    if (!currentUser) {
-      setPatientPortalOpen(true);
-      return;
+    if (typeof window !== "undefined") {
+      const docParam = doc ? `&doc=${doc.id}` : "";
+      window.open(`/${locale}/patient?tab=book${docParam}`, "_blank");
     }
-    setBookingModalOpen(true);
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#2C1810]">
       
-      {/* Navbar with Taskbar: Book Appointment, Patient Portal, Language */}
+      {/* Navbar with Taskbar: Book Appointment, Patient Portal (New Tab), Language */}
       <Navbar
         onOpenBooking={() => handleOpenBooking()}
-        onOpenPatientPortal={() => setPatientPortalOpen(true)}
       />
 
       <main className="flex-1">
@@ -310,14 +283,26 @@ export default function LocalizedHomePage() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => handleOpenBooking()}
+                  <Link
+                    href="/patient?tab=book"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-full sm:w-auto px-7 py-3.5 bg-[#4A2E1B] hover:bg-[#382112] text-white font-bold text-sm rounded-xl shadow-lg shadow-[#4A2E1B]/20 transition-all hover:scale-105 flex items-center justify-center gap-2.5 active:scale-95"
                   >
                     <Calendar className="w-4 h-4 text-amber-200" />
                     <span>{tHero("quickBook")}</span>
-                  </button>
+                  </Link>
+
+                  <Link
+                    href="/patient"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto px-6 py-3.5 bg-[#EFE8DC] hover:bg-[#E5DAC9] text-[#3B2215] font-bold text-sm rounded-xl border border-[#D5C7B3] shadow-sm transition-all hover:scale-105 flex items-center justify-center gap-2 group"
+                  >
+                    <QrCode className="w-4 h-4 text-[#8A5F35] group-hover:scale-110 transition-transform" />
+                    <span>{locale === "ar" ? "بوابة المريض (رمز QR)" : locale === "en" ? "Patient Portal (QR Code)" : "Hasta Portalı & QR Girişi"}</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-[#8A5F35] opacity-75" />
+                  </Link>
 
                   <a
                     href="#doctors"
@@ -652,19 +637,6 @@ export default function LocalizedHomePage() {
         initialDoctor={selectedDoctorForBooking}
         onBookSuccess={() => {
           // Keep state synced
-        }}
-      />
-
-      {/* Patient Personal Portal Modal (Strictly Patient's Own Consultations & Notes) */}
-      <PatientPortalModal
-        isOpen={patientPortalOpen}
-        onClose={() => setPatientPortalOpen(false)}
-        currentUser={currentUser}
-        onLoginSuccess={(user) => {
-          setCurrentUser(user);
-        }}
-        onLogout={() => {
-          setCurrentUser(null);
         }}
       />
 

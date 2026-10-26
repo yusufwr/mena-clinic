@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Link, useRouter, usePathname } from "@/i18n/routing";
 import { useTranslations, useLocale } from "next-intl";
 import { loginUser } from "@/features/auth";
+import { FlagIcon } from "@/components/FlagIcon";
 import {
   HeartPulse,
   Mail,
@@ -21,6 +22,7 @@ import {
   ChevronDown,
   Sparkles
 } from "lucide-react";
+import { DOCTORS_DATA } from "@/features/doctors";
 
 export default function LoginPage() {
   const t = useTranslations("auth");
@@ -39,10 +41,10 @@ export default function LoginPage() {
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [langDropdown, setLangDropdown] = useState(false);
 
-  const languages: { code: "tr" | "ar" | "en"; label: string; flag: string }[] = [
-    { code: "tr", label: "Türkçe", flag: "🇹🇷" },
-    { code: "ar", label: "العربية", flag: "🇸🇾" },
-    { code: "en", label: "English", flag: "🇬🇧" },
+  const languages: { code: "tr" | "ar" | "en"; label: string }[] = [
+    { code: "tr", label: "Türkçe" },
+    { code: "ar", label: "العربية" },
+    { code: "en", label: "English" },
   ];
 
   const currentLang = languages.find((l) => l.code === locale) || languages[0];
@@ -75,7 +77,7 @@ export default function LoginPage() {
         if (data.user.role === "DOCTOR" || data.user.role === "ADMIN" || data.user.role === "RECEPTIONIST") {
           router.push("/portal");
         } else {
-          router.push("/");
+          router.push("/patient");
         }
       }, 700);
     } catch (err: unknown) {
@@ -85,40 +87,6 @@ export default function LoginPage() {
         setErrorMsg(t("errorTitle"));
       }
     } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleQuickLogin = async (demoEmail: string, demoPass: string) => {
-    setEmail(demoEmail);
-    setPassword(demoPass);
-    setErrorMsg(null);
-    setIsLoading(true);
-
-    try {
-      const data = await loginUser({ email: demoEmail, password: demoPass });
-      if (typeof window !== "undefined") {
-        localStorage.setItem("mena_auth_token", data.token);
-        localStorage.setItem("mena_auth_user", JSON.stringify(data.user));
-      }
-
-      setSuccessMsg(`${data.user.fullName} (${data.user.role})`);
-
-      setTimeout(() => {
-        if (data.user.role === "DOCTOR" || data.user.role === "ADMIN" || data.user.role === "RECEPTIONIST") {
-          router.push("/portal");
-        } else {
-          router.push("/");
-        }
-      }, 500);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setErrorMsg(err.message || t("errorTitle"));
-      } else {
-        setErrorMsg(t("errorTitle"));
-      }
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -151,7 +119,7 @@ export default function LoginPage() {
             className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white hover:bg-[#FDFBF7] border border-[#E5DCD0] text-xs font-medium text-[#4E3D30] transition-colors shadow-sm"
           >
             <Globe className="w-3.5 h-3.5 text-[#8A5F35]" />
-            <span>{currentLang.flag}</span>
+            <FlagIcon code={currentLang.code} />
             <span className="hidden sm:inline font-semibold">{currentLang.label}</span>
             <ChevronDown className="w-3 h-3 text-[#8A796D]" />
           </button>
@@ -167,10 +135,10 @@ export default function LoginPage() {
                   href={pathname}
                   locale={l.code}
                   onClick={() => setLangDropdown(false)}
-                  className={`w-full flex items-center gap-2 px-3 py-2 text-xs text-left rtl:text-right hover:bg-[#FAF7F2] transition-colors ${locale === l.code ? "text-[#4A2E1B] font-bold bg-[#F3EDE2]" : "text-[#4E3D30]"
+                  className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs text-left rtl:text-right hover:bg-[#FAF7F2] transition-colors ${locale === l.code ? "text-[#4A2E1B] font-bold bg-[#F3EDE2]" : "text-[#4E3D30]"
                     }`}
                 >
-                  <span>{l.flag}</span>
+                  <FlagIcon code={l.code} />
                   <span>{l.label}</span>
                 </Link>
               ))}
@@ -288,48 +256,50 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Quick Demo Fill Buttons */}
-          <div className="mt-8 pt-6 border-t border-[#E5DCD0] space-y-3">
-            <div className="text-[11px] font-semibold text-[#7D6E63] text-center flex items-center justify-center gap-1.5">
-              <Sparkles className="w-3 h-3 text-[#B8860B]" />
-              <span>{t("demoAccountsTitle")}</span>
+          {/* Doctor Login Options Reference Directory */}
+          <div className="mt-6 pt-5 border-t border-[#E5DCD0] space-y-2.5">
+            <div className="flex items-center justify-between text-xs text-[#4A2E1B] font-bold">
+              <span className="flex items-center gap-1.5">
+                <Stethoscope className="w-3.5 h-3.5 text-[#8A5F35]" />
+                <span>
+                  {locale === "ar"
+                    ? "خيارات دخول الأطباء الاستشاريين (كلمة المرور: 123)"
+                    : locale === "en"
+                    ? "Consultant Doctors Login Options (Password: 123)"
+                    : "Hekim Kadrosu Giriş Seçenekleri (Şifre: 123)"}
+                </span>
+              </span>
             </div>
-            <div className="grid grid-cols-1 gap-2">
-              <button
-                type="button"
-                onClick={() => handleQuickLogin("patient1@menaclinic.com", "patient123")}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-[#FAF7F2] hover:bg-[#F3EDE2] border border-[#E5DCD0] text-xs text-[#3B2215] transition-all text-left rtl:text-right shadow-sm"
-              >
-                <div className="flex items-center gap-2">
-                  <UserCheck className="w-3.5 h-3.5 text-[#3E6B48]" />
-                  <span className="font-semibold">{t("demoPatient")}</span>
-                </div>
-                <span className="text-[10px] text-[#7D6E63] font-mono">patient1@menaclinic.com</span>
-              </button>
 
-              <button
-                type="button"
-                onClick={() => handleQuickLogin("doctor1@menaclinic.com", "doctor123")}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-[#FAF7F2] hover:bg-[#F3EDE2] border border-[#E5DCD0] text-xs text-[#3B2215] transition-all text-left rtl:text-right shadow-sm"
-              >
-                <div className="flex items-center gap-2">
-                  <Stethoscope className="w-3.5 h-3.5 text-[#8A5F35]" />
-                  <span className="font-semibold">{t("demoDoctor")}</span>
-                </div>
-                <span className="text-[10px] text-[#7D6E63] font-mono">doctor1@menaclinic.com</span>
-              </button>
+            <div className="max-h-52 overflow-y-auto rounded-2xl border border-[#E5DCD0] bg-[#FAF7F2] p-2 space-y-1.5 divide-y divide-[#E5DCD0]">
+              {DOCTORS_DATA.map((doc) => {
+                const docName = locale === "ar" ? (doc.fullNameAr || doc.fullName) : locale === "en" ? (doc.fullNameEn || doc.fullName) : doc.fullName;
+                const docSpec = locale === "ar" ? (doc.specialtyAr || doc.specialty) : locale === "en" ? (doc.specialtyEn || doc.specialty) : doc.specialty;
 
-              <button
-                type="button"
-                onClick={() => handleQuickLogin("admin@menaclinic.com", "admin123")}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-[#FAF7F2] hover:bg-[#F3EDE2] border border-[#E5DCD0] text-xs text-[#3B2215] transition-all text-left rtl:text-right shadow-sm"
-              >
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#4A2E1B]" />
-                  <span className="font-semibold">{t("demoAdmin")}</span>
-                </div>
-                <span className="text-[10px] text-[#7D6E63] font-mono">admin@menaclinic.com</span>
-              </button>
+                return (
+                  <div
+                    key={doc.id}
+                    className="pt-1.5 first:pt-0 flex items-center justify-between text-xs hover:bg-white p-1.5 rounded-xl transition-colors"
+                  >
+                    <div>
+                      <strong className="block text-[#2C1810] text-[11px]">{docName}</strong>
+                      <span className="text-[10px] text-[#7D6E63] font-mono">{doc.email}</span>
+                      <span className="text-[9px] text-[#8A5F35] block">{docSpec}</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEmail(doc.email);
+                        setPassword("123");
+                        setErrorMsg(null);
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-white hover:bg-[#F3EDE2] border border-[#DDD2C1] text-[#4A2E1B] text-[10px] font-bold transition-all shadow-xs shrink-0"
+                    >
+                      {locale === "ar" ? "اختيار" : locale === "en" ? "Select" : "Seç"}
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           </div>
 

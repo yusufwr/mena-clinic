@@ -23,11 +23,33 @@ export const DoctorsShowcase: React.FC<DoctorsShowcaseProps> = ({
 
   // Helper to format doctor title and branch
   const getDoctorBranch = (name: string, email: string) => {
-    if (email.includes("cardio") || name.toLowerCase().includes("cardio") || name.toLowerCase().includes("kardiyo")) {
-      return { tr: "Kardiyoloji & Kalp Cerrahisi", ar: "أمراض القلب وجراحة الأوعية", en: "Cardiology & Vascular" };
+    const s = (name + " " + email).toLowerCase();
+    if (s.includes("pedcardio") || s.includes("قلبية أطفال") || s.includes("عزاوي")) {
+      return { tr: "Çocuk Kardiyolojisi", ar: "أمراض قلب الأطفال", en: "Pediatric Cardiology" };
     }
-    if (email.includes("derma") || name.toLowerCase().includes("derma") || name.toLowerCase().includes("demir")) {
+    if (s.includes("cardio") || s.includes("قلب") || s.includes("الشب") || s.includes("برخدان")) {
+      return { tr: "Kardiyoloji & Kalp Cerrahisi", ar: "أمراض القلب والأوعية", en: "Cardiology & Heart Care" };
+    }
+    if (s.includes("gastro") || s.includes("هضمية") || s.includes("رستم")) {
+      return { tr: "Gastroenteroloji & İç Hastalıkları", ar: "أمراض الجهاز الهضمي والكبد", en: "Gastroenterology" };
+    }
+    if (s.includes("ortho") || s.includes("عظم") || s.includes("طكو")) {
+      return { tr: "Ortopedi ve Travmatoloji", ar: "جراحة العظام والمفاصل والكسور", en: "Orthopedics & Joint Surgery" };
+    }
+    if (s.includes("uro") || s.includes("بولي") || s.includes("عبدالرزاق") || s.includes("قاضي")) {
+      return { tr: "Üroloji & Böbrek Hastalıkları", ar: "جراحة الكلى والمسالك البولية", en: "Urology & Renal Care" };
+    }
+    if (s.includes("derma") || s.includes("جلد") || s.includes("حداد")) {
       return { tr: "Dermatoloji & Medikal Estetik", ar: "الأمراض الجلدية والتجميل", en: "Dermatology & Aesthetics" };
+    }
+    if (s.includes("vasc") || s.includes("وعائي") || s.includes("العر")) {
+      return { tr: "Kalp ve Damar Cerrahisi", ar: "جراحة الأوعية الدموية", en: "Vascular Surgery" };
+    }
+    if (s.includes("ped") || s.includes("اطفال") || s.includes("أطفال") || s.includes("الاحمد")) {
+      return { tr: "Çocuk Sağlığı ve Hastalıkları", ar: "طب الأطفال وحديثي الولادة", en: "Pediatrics & Child Health" };
+    }
+    if (s.includes("dent") || s.includes("اسنان") || s.includes("أسنان") || s.includes("شمعون")) {
+      return { tr: "Ağız ve Diş Sağlığı", ar: "طب وجراحة الأسنان", en: "Dental Medicine & Surgery" };
     }
     return { tr: "Genel Uzman Hekim", ar: "طبيب استشاري عام", en: "General Medical Specialist" };
   };

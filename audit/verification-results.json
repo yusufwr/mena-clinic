@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-25T22:07:10.774Z",
+  "liveDataUnchanged": true,
+  "results": [
+    {
+      "name": "Authentication: valid login, wrong password, forged and expired tokens",
+      "passed": true,
+      "durationMs": 122
+    },
+    {
+      "name": "Role access and patient isolation, secret redaction",
+      "passed": true,
+      "durationMs": 71
+    },
+    {
+      "name": "300 concurrent writes: all unique patient registrations persist",
+      "passed": true,
+      "durationMs": 4881
+    },
+    {
+      "name": "Four separate processes: 300 writes persist without lost updates",
+      "passed": true,
+      "durationMs": 3870
+    },
+    {
+      "name": "Transaction failure rolls back, temporary Windows file lock retries safely",
+      "passed": true,
+      "durationMs": 185
+    },
+    {
+      "name": "300 concurrent bookings for one slot: exactly one accepted",
+      "passed": true,
+      "durationMs": 904
+    },
+    {
+      "name": "Medical encounter creates prescription and lab order atomically",
+      "passed": true,
+      "durationMs": 36
+    },
+    {
+      "name": "300 concurrent dispensings: stock changes only once, never below zero",
+      "passed": true,
+      "durationMs": 862
+    },
+    {
+      "name": "Lab results update patient record, fee update persists, invalid dates rejected",
+      "passed": true,
+      "durationMs": 60
+    },
+    {
+      "name": "300 mixed concurrent visitors, patients, doctors, pharmacists and administrators",
+      "passed": true,
+      "durationMs": 80
+    },
+    {
+      "name": "Live HTTP latency",
+      "requests": 300,
+      "p50Ms": 365,
+      "p95Ms": 477,
+      "maxMs": 479
+    },
+    {
+      "name": "Live HTTP: 300 concurrent requests across ports 3000 and 3003",
+      "passed": true,
+      "durationMs": 968
+    }
+  ],
+  "limitations": [
+    "Handler concurrency and HTTP request bursts are not 300 real browser sessions or a sustained production capacity certification.",
+    "Isolated fixture data only; legacy browser localStorage is neither deleted nor imported."
+  ]
+}

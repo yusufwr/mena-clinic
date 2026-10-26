@@ -82,6 +82,34 @@ export interface AdminTranslations {
   activePatients: string;
   stockAlerts: string;
   currency: string;
+
+  // Doctor Workspace Features
+  dailySchedule: string;
+  weeklySchedule: string;
+  patientQueue: string;
+  patientArchive: string;
+  startConsultation: string;
+  consultationInProgress: string;
+  endConsultation: string;
+  chiefComplaint: string;
+  complaintPlaceholder: string;
+  patientDetails: string;
+  patientArrived: string;
+  patientNoShow: string;
+  cancelAppointment: string;
+  referToDoctor: string;
+  selectReferralDoctor: string;
+  referralReason: string;
+  referralPriority: string;
+  routine: string;
+  urgent: string;
+  confirmReferral: string;
+  pastConsultationsHistory: string;
+  noPastRecords: string;
+  prescriptions: string;
+  labOrders: string;
+  exportArchivePdf: string;
+  activeConsultationTimer: string;
 }
 
 export const adminTranslations: Record<AdminLang, AdminTranslations> = {
@@ -90,7 +118,7 @@ export const adminTranslations: Record<AdminLang, AdminTranslations> = {
     panelSubtitle: "Klinik Yönetim & Operasyon Paneli",
     logout: "Çıkış Yap",
     currentSession: "Mevcut Oturum:",
-    secureConnection: "Güvenli Bağlantı (SSL)",
+    secureConnection: "Yetkili Oturum",
     roleSpecialScreens: "Menü & Modüller",
 
     roleAdmin: "Yönetici (Admin 360°)",
@@ -161,6 +189,33 @@ export const adminTranslations: Record<AdminLang, AdminTranslations> = {
     activePatients: "Kayıtlı Hasta",
     stockAlerts: "Kritik Stok Uyarısı",
     currency: "TL",
+
+    dailySchedule: "Günlük Çalışma Programı",
+    weeklySchedule: "Haftalık Randevu Takvimi",
+    patientQueue: "Hasta Muayene Kuyruğu & Seans",
+    patientArchive: "Hasta Arşivi & Raporlar",
+    startConsultation: "Oturumu Başlat",
+    consultationInProgress: "Muayene Oturumu Devam Ediyor",
+    endConsultation: "Muayeneyi Tamamla & Kaydet",
+    chiefComplaint: "Geliş Şikayeti & Başvuru Nedeni",
+    complaintPlaceholder: "Hastanın geliş şikayetini ve semptomlarını girin...",
+    patientDetails: "Hasta Detay Bilgileri",
+    patientArrived: "Geldi (Kabul Et)",
+    patientNoShow: "Gelmedi (No-Show)",
+    cancelAppointment: "Randevuyu İptal Et",
+    referToDoctor: "Başka Doktora Sevk / Yönlendirme",
+    selectReferralDoctor: "Sevk Edilecek Hekim:",
+    referralReason: "Sevk Nedeni & Konsültasyon Notu",
+    referralPriority: "Öncelik Derecesi",
+    routine: "Rutin",
+    urgent: "Acil",
+    confirmReferral: "Sevki Tamamla & Yönlendir",
+    pastConsultationsHistory: "Geçmiş Muayene & Reçete Arşivi",
+    noPastRecords: "Bu hastaya ait geçmiş klinik muayene kaydı bulunamadı.",
+    prescriptions: "Elektronik Reçete",
+    labOrders: "Laboratuvar Tetkik İstemi",
+    exportArchivePdf: "Tüm Arşivi PDF Olarak İndir",
+    activeConsultationTimer: "Muayene Süresi",
   },
 
   ar: {
@@ -168,7 +223,7 @@ export const adminTranslations: Record<AdminLang, AdminTranslations> = {
     panelSubtitle: "لوحة الإدارة والعمليات السريرية",
     logout: "تسجيل الخروج",
     currentSession: "الجلسة الحالية:",
-    secureConnection: "اتصال آمن ومحمي (SSL)",
+    secureConnection: "جلسة مصرح بها",
     roleSpecialScreens: "القوائم والوحدات",
 
     roleAdmin: "المدير العام (إشراف شامل 360°)",
@@ -239,6 +294,33 @@ export const adminTranslations: Record<AdminLang, AdminTranslations> = {
     activePatients: "المرضى المسجلون",
     stockAlerts: "تنبيهات نقص الأدوية",
     currency: "ل.س / TL",
+
+    dailySchedule: "جدول العمل اليومي",
+    weeklySchedule: "جدول المواعيد الأسبوعي",
+    patientQueue: "طابور معاينة المرضى والجلسة",
+    patientArchive: "أرشيف المرضى والتقارير",
+    startConsultation: "بدء الجلسة الطبية",
+    consultationInProgress: "جلسة المعاينة جارية الآن",
+    endConsultation: "إنهاء المعاينة وتثبيت السجل",
+    chiefComplaint: "الشكوى الرئيسية وسبب المراجعة",
+    complaintPlaceholder: "أدخل شكوى المريض وأعراضه الرئيسية...",
+    patientDetails: "بيانات المريض التفصيلية",
+    patientArrived: "حضر المريض",
+    patientNoShow: "لم يحضر (غياب)",
+    cancelAppointment: "إلغاء الموعد",
+    referToDoctor: "إحالة إلى طبيب استشاري آخر",
+    selectReferralDoctor: "اختر الطبيب المحال إليه:",
+    referralReason: "سبب الإحالة والملاحظات السريرية",
+    referralPriority: "درجة الأولوية",
+    routine: "عادي",
+    urgent: "عاجل / طارئ",
+    confirmReferral: "تأكيد الإحالة وتوجيه المريض",
+    pastConsultationsHistory: "سجل المعاينات والوصفات السابقة",
+    noPastRecords: "لا توجد سجلات طبية سابقة مسجلة لهذا المريض.",
+    prescriptions: "الوصفة الطبية الإلكترونية",
+    labOrders: "طلب التحاليل المخبرية",
+    exportArchivePdf: "تحميل كامل الأرشيف كـ PDF",
+    activeConsultationTimer: "مدة الجلسة",
   },
 
   en: {
@@ -246,7 +328,7 @@ export const adminTranslations: Record<AdminLang, AdminTranslations> = {
     panelSubtitle: "Clinic Management & Operations Panel",
     logout: "Sign Out",
     currentSession: "Current Session:",
-    secureConnection: "Secure Connection (SSL)",
+    secureConnection: "Authenticated session",
     roleSpecialScreens: "Navigation & Modules",
 
     roleAdmin: "Administrator (360° Full Access)",
@@ -317,5 +399,32 @@ export const adminTranslations: Record<AdminLang, AdminTranslations> = {
     activePatients: "Registered Patients",
     stockAlerts: "Low Stock Alerts",
     currency: "TL",
+
+    dailySchedule: "Daily Work Schedule",
+    weeklySchedule: "Weekly Appointment Calendar",
+    patientQueue: "Patient Queue & Consultation",
+    patientArchive: "Patient Archive & Records",
+    startConsultation: "Start Consultation",
+    consultationInProgress: "Consultation Session In Progress",
+    endConsultation: "Complete & Finalize Consultation",
+    chiefComplaint: "Chief Complaint & Reason for Visit",
+    complaintPlaceholder: "Enter patient complaint and symptoms...",
+    patientDetails: "Patient Details",
+    patientArrived: "Arrived (Check-in)",
+    patientNoShow: "No-Show (Absent)",
+    cancelAppointment: "Cancel Appointment",
+    referToDoctor: "Refer to Another Specialist Doctor",
+    selectReferralDoctor: "Select Specialist to Refer:",
+    referralReason: "Referral Reason & Clinical Note",
+    referralPriority: "Priority Level",
+    routine: "Routine",
+    urgent: "Urgent",
+    confirmReferral: "Confirm & Send Referral",
+    pastConsultationsHistory: "Past Medical & Prescription History",
+    noPastRecords: "No past medical records found for this patient.",
+    prescriptions: "E-Prescriptions",
+    labOrders: "Laboratory Orders",
+    exportArchivePdf: "Export All Archive as PDF",
+    activeConsultationTimer: "Session Time",
   },
 };

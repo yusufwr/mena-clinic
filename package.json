@@ -7,11 +7,12 @@
     "apps/*"
   ],
   "scripts": {
+    "audit:verify": "node audit/verify-system.cjs",
+    "build:local": "npm run build --prefix clinic-system && npm run build --workspace=apps/admin-panel",
     "install:all": "npm install && npm run install --workspaces",
-    "dev:api": "npm run dev --workspace=apps/api",
-    "dev:patient": "npm run dev --workspace=apps/patient-portal",
+    "dev:web": "npm run dev --prefix clinic-system",
     "dev:admin": "npm run dev --workspace=apps/admin-panel",
-    "dev": "concurrently \"npm run dev:api\" \"npm run dev:patient\" \"npm run dev:admin\"",
+    "dev": "concurrently -n \"WEB-3000,ADMIN-3003\" -c \"cyan,magenta\" \"npm run dev:web\" \"npm run dev:admin\"",
     "build:all": "npm run build --workspaces",
     "start:production": "npm run start --workspace=apps/api",
     "start:cluster": "pm2-runtime ecosystem.config.cjs",

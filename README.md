@@ -9,7 +9,7 @@ Modern tıp merkezleri için tasarlanmış; çok dilli (Türkçe, Arapça, İngi
 | Port | Uygulama | Teknoloji | Açıklama |
 | :--- | :--- | :--- | :--- |
 | **3000** | **Mena Clinic Kurumsal Web Sitesi** | Next.js 14, TypeScript, next-intl | Halka açık randevu, doktor tanıtımları, çok dilli arayüz (TR / AR / EN) |
-| **3002** | **Hasta Portalı & E-Nabız** | React, Vite, TailwindCSS | Hastanın kendi tıbbi geçmişi, reçeteleri ve laboratuvar sonuçları (HIPAA izole) |
+| **3000 /tr/patient** | **Hasta Portalı** | Next.js | Hasta kaydı, randevular ve tıbbi geçmiş; ana siteyle ortak API |
 | **3003** | **Klinik Operasyon & Yönetim Paneli** | React, Vite, TailwindCSS | Admin 360° denetim, doktor muayene ücreti & takvim denetimi, muhasebeci hakediş raporları |
 
 ---
@@ -53,9 +53,6 @@ Veya her bir projeyi bağımsız olarak çalıştırmak için:
 # Kurumsal Ana Site (Port 3000)
 cd clinic-system && npm run dev
 
-# Hasta Portalı (Port 3002)
-cd apps/patient-portal && npm run dev
-
 # Yönetim Paneli (Port 3003)
 cd apps/admin-panel && npm run dev
 ```
@@ -64,3 +61,11 @@ cd apps/admin-panel && npm run dev
 
 ## 📄 Lisans
 Bu proje özel mülkiyet altındadır. Tüm hakları saklıdır © 2026 Mena Clinic.
+
+## 26 Ekim 2026 yerel denetimi
+
+Yalnızca 3000 (web + hasta portalı + API) ve 3003 (personel paneli) başlatılır. 3001 ve 3002 kullanılmaz. Aktif yerel veri kaynağı `clinic-system/src/data/db.json` dosyasıdır; bu düzende eski Prisma API başlatılmaz.
+
+Denetim raporu: [audit/SISTEM-DENETIM-RAPORU.md](audit/SISTEM-DENETIM-RAPORU.md).
+
+`npm run audit:verify` gerçek veri dosyasını değiştirmeden geçici bir kopyada kayıt ve eşzamanlılık testlerini çalıştırır; canlı HTTP okuma kontrolü için iki uygulama açık olmalıdır. `npm run build:local` iki aktif uygulamayı derler. Daha uzun HTTP yük testinin hazırlık ve izolasyon adımları rapordadır.

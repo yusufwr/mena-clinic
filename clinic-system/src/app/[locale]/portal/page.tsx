@@ -16,8 +16,10 @@ import {
   Save,
   CheckCircle2,
   LogOut,
-  User
+  User,
+  ExternalLink
 } from "lucide-react";
+import { DOCTORS_DATA } from "@/features/doctors";
 
 interface PortalAppointment {
   id: string;
@@ -39,79 +41,15 @@ interface PortalAppointment {
   };
 }
 
-const INITIAL_PORTAL_DATA: PortalAppointment[] = [
-  {
-    id: "app-101",
-    patientId: "pat-1",
-    patientName: "Zeynep Kaya",
-    patientPhone: "+963 992 334455",
-    patientIdNo: "99999999996",
-    doctorId: "doc-cardio",
-    doctorName: "Dr. Selim Yılmaz",
-    slotTime: "10:00",
-    queueNumber: 1,
-    status: "CONFIRMED",
-    consultationNote: {
-      illnessReason: "I20.9 - Angina Pektoris (Eforla gelen göğüs ağrısı)",
-      soapNotes: "TA: 135/85 mmHg, Nabız: 74 bpm. EKG: Sinüs ritmi. Efor testi ve kolesterol takibi yapıldı.",
-      prescription: "Lipitor 10mg (Günde 1 kez) + Coraspin 100mg",
-      labTest: "Lipid Paneli, Troponin I",
-      updatedAt: "2026-09-27 10:25"
-    }
-  },
-  {
-    id: "app-102",
-    patientId: "pat-2",
-    patientName: "Ömer Çelik",
-    patientPhone: "+963 992 556677",
-    patientIdNo: "99999999997",
-    doctorId: "doc-cardio",
-    doctorName: "Dr. Selim Yılmaz",
-    slotTime: "10:30",
-    queueNumber: 2,
-    status: "CONFIRMED",
-  },
-  {
-    id: "app-103",
-    patientId: "pat-3",
-    patientName: "Fatima Al-Hassan",
-    patientPhone: "+963 993 112233",
-    patientIdNo: "99999999998",
-    doctorId: "doc-derma",
-    doctorName: "Dr. Leyla Demir",
-    slotTime: "11:00",
-    queueNumber: 1,
-    status: "CONFIRMED",
-    consultationNote: {
-      illnessReason: "L20.9 - Atopik Egzama ve Kutanöz Lezyonlar",
-      soapNotes: "Kollarda kaşıntılı eritematöz plaklar. Alerjen temas öyküsü mevcut.",
-      prescription: "Advantan Krem (Günde 1 kez)",
-      labTest: "Total IgE Paneli",
-      updatedAt: "2026-09-27 11:15"
-    }
-  },
-  {
-    id: "app-104",
-    patientId: "pat-4",
-    patientName: "Hasan Mansour",
-    patientPhone: "+963 993 445566",
-    patientIdNo: "99999999999",
-    doctorId: "doc-derma",
-    doctorName: "Dr. Leyla Demir",
-    slotTime: "11:30",
-    queueNumber: 2,
-    status: "CONFIRMED",
-  }
-];
-
 export default function ManagementPortalPage() {
   const t = useTranslations("portal");
 
   const [role, setRole] = useState<"DOCTOR" | "ADMIN">("DOCTOR");
   const [selectedDoctorId, setSelectedDoctorId] = useState<string>("doc-cardio");
-  const [appointments, setAppointments] = useState<PortalAppointment[]>(INITIAL_PORTAL_DATA);
+  const [appointments, setAppointments] = useState<PortalAppointment[]>([]);
   const [currentUser, setCurrentUser] = useState<any>(null);
 
+  const [requestError, setRequestError] = useState("");
   // Sync session on mount
   React.useEffect(() => {
     if (typeof window !== "undefined") {
@@ -124,14 +62,41 @@ export default function ManagementPortalPage() {
             setRole("ADMIN");
           } else {
             setRole("DOCTOR");
-            if (u.email?.includes("derma") || u.email?.includes("leyla")) {
-              setSelectedDoctorId("doc-derma");
-            } else {
-              setSelectedDoctorId("doc-cardio");
+            const matchedDoc = DOCTORS_DATA.find((d) => d.id === u.id || d.email === u.email);
+            if (matchedDoc) {
+              setSelectedDoctorId(matchedDoc.id);
+            } else if (DOCTORS_DATA.length > 0) {
+              setSelectedDoctorId(DOCTORS_DATA[0].id);
             }
           }
         } catch {}
       }
+
+      const sessionToken = localStorage.getItem("mena_auth_token");
+      fetch("/api/appointments", { headers: sessionToken ? { Authorization: "Bearer " + sessionToken } : {} })
+        .then(async res => { if (!res.ok) throw new Error((await res.json()).message); return res.json(); })
+        .then((data) => {
+          if (Array.isArray(data)) {
+            setAppointments(data.map((a: any) => ({
+              id: a.id,
+              patientId: a.patientId,
+              patientName: a.patient?.fullName || a.patient?.user?.fullName || "Klinik Hastası",
+              patientPhone: a.patient?.phone || a.patient?.user?.phone || "+963 991 000000",
+              patientIdNo: a.patient?.identityNo || a.patient?.user?.identityNo || "99900000000",
+              doctorId: a.doctorId,
+              doctorName: a.doctor?.fullName || "Dr. Mena Clinic",
+              slotTime: a.slotTime ? a.slotTime.slice(11, 16) : (a.timeStr || "10:00"),
+              queueNumber: a.queueNumber || 1,
+              status: a.status || "CONFIRMED",
+              consultationNote: a.notes ? {
+                illnessReason: a.notes,
+                soapNotes: "",
+                updatedAt: new Date().toLocaleTimeString()
+              } : undefined
+            })));
+          }
+        })
+        .catch(error => setRequestError(error.message || "Kayıtlar okunamadı"));
     }
   }, []);
 
@@ -157,26 +122,21 @@ export default function ManagementPortalPage() {
     setSaveSuccess(false);
   };
 
-  const handleSaveConsultation = (e: React.FormEvent) => {
+  const handleSaveConsultation = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingApp) return;
 
-    const updated = appointments.map((a) => {
-      if (a.id === editingApp.id) {
-        return {
-          ...a,
-          status: "COMPLETED" as const,
-          consultationNote: {
-            illnessReason,
-            soapNotes,
-            prescription,
-            labTest,
-            updatedAt: new Date().toLocaleString("tr-TR"),
-          }
-        };
-      }
-      return a;
-    });
+    try {
+      setRequestError("");
+      const token = localStorage.getItem("mena_auth_token");
+      const response = await fetch("/api/medical-records", {
+        method: "POST", headers: { "Content-Type": "application/json", ...(token ? { Authorization: "Bearer " + token } : {}) },
+        body: JSON.stringify({ patientId: editingApp.patientId, doctorId: editingApp.doctorId, appointmentId: editingApp.id, diagnosis: illnessReason, clinicalNotes: [soapNotes, prescription ? "Reçete notu: " + prescription : ""].filter(Boolean).join("\n"), labTests: labTest.trim() ? [{ testName: labTest.trim(), status: "PENDING" }] : [] }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "Muayene kaydedilmedi");
+    } catch (error: any) { setRequestError(error.message); return; }
+    const updated = appointments.map(a => a.id === editingApp.id ? { ...a, status: "COMPLETED" as const, consultationNote: { illnessReason, soapNotes, prescription, labTest, updatedAt: new Date().toLocaleString("tr-TR") } } : a);
 
     setAppointments(updated);
     setSaveSuccess(true);
@@ -189,6 +149,7 @@ export default function ManagementPortalPage() {
   return (
     <div className="min-h-screen bg-[#FAF7F2] text-[#2C1810] flex flex-col font-sans">
       
+      {requestError && <p role="alert" className="p-4 bg-rose-50 text-rose-800">{requestError}</p>}
       {/* Top Bar */}
       <header className="bg-[#F3EDE2] border-b border-[#DDD2C1] sticky top-0 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
@@ -256,6 +217,7 @@ export default function ManagementPortalPage() {
                 onClick={() => {
                   localStorage.removeItem("mena_auth_token");
                   localStorage.removeItem("mena_auth_user");
+                  void fetch("/api/auth/logout", { method: "POST" });
                   window.location.href = "/";
                 }}
                 className="p-2 rounded-xl bg-white hover:bg-rose-50 text-rose-700 border border-[#E5DCD0] hover:border-rose-300 transition-colors shadow-sm"
@@ -286,30 +248,35 @@ export default function ManagementPortalPage() {
             </p>
           </div>
 
-          {/* If Doctor View: Select Which Doctor */}
-          {role === "DOCTOR" && (
-            <div className="flex items-center gap-2 shrink-0 bg-[#FAF7F2] p-1.5 rounded-xl border border-[#E5DCD0]">
-              <span className="text-[11px] text-[#7D6E63] font-semibold">Aktif Hekim:</span>
-              <button
-                type="button"
-                onClick={() => setSelectedDoctorId("doc-cardio")}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                  selectedDoctorId === "doc-cardio" ? "bg-[#4A2E1B] text-white font-bold" : "text-[#6A584A] hover:text-[#2C1810]"
-                }`}
-              >
-                Dr. Selim (Kardiyo)
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedDoctorId("doc-derma")}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                  selectedDoctorId === "doc-derma" ? "bg-[#4A2E1B] text-white font-bold" : "text-[#6A584A] hover:text-[#2C1810]"
-                }`}
-              >
-                Dr. Leyla (Derma)
-              </button>
-            </div>
-          )}
+          {/* Doctor Switcher & Admin Panel Port 3003 Link */}
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            {role === "DOCTOR" && (
+              <div className="flex items-center gap-2 bg-[#FAF7F2] p-1.5 rounded-xl border border-[#E5DCD0]">
+                <span className="text-[11px] text-[#7D6E63] font-semibold">Aktif Hekim:</span>
+                <select
+                  value={selectedDoctorId}
+                  onChange={(e) => setSelectedDoctorId(e.target.value)}
+                  className="bg-white border border-[#DDD2C1] rounded-lg px-2.5 py-1 text-xs text-[#2C1810] font-semibold focus:outline-none"
+                >
+                  {DOCTORS_DATA.map((d) => (
+                    <option key={d.id} value={d.id}>
+                      {d.fullName} ({d.specialty})
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            <a
+              href="http://localhost:3003"
+              target="_blank"
+              rel="noreferrer"
+              className="px-3 py-1.5 rounded-xl bg-[#4A2E1B] hover:bg-[#382112] text-amber-200 text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span>Gelişmiş Klinik Paneli (Port 3003)</span>
+            </a>
+          </div>
         </div>
 
         {/* Appointments Queue & Actions */}

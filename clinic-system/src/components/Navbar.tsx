@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import { Link, usePathname } from "@/i18n/routing";
-import { Globe, Calendar, User, ChevronDown } from "lucide-react";
+import { Globe, Calendar, User, ChevronDown, QrCode, ExternalLink } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
+import { FlagIcon } from "./FlagIcon";
 
 interface NavbarProps {
   onOpenBooking?: () => void;
@@ -16,10 +17,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenPatientPort
   const pathname = usePathname();
   const [langDropdown, setLangDropdown] = useState(false);
 
-  const languages: { code: "tr" | "ar" | "en"; label: string; flag: string }[] = [
-    { code: "tr", label: "Türkçe", flag: "🇹🇷" },
-    { code: "ar", label: "العربية", flag: "🇸🇾" },
-    { code: "en", label: "English", flag: "🇬🇧" },
+  const languages: { code: "tr" | "ar" | "en"; label: string }[] = [
+    { code: "tr", label: "Türkçe" },
+    { code: "ar", label: "العربية" },
+    { code: "en", label: "English" },
   ];
 
   const currentLang = languages.find((l) => l.code === locale) || languages[0];
@@ -83,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenPatientPort
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-[#E5DCD0] text-[#4E3D30] hover:text-[#2C1810] text-xs font-medium transition-colors shadow-sm"
               >
                 <Globe className="w-3.5 h-3.5 text-[#8A6445]" />
-                <span>{currentLang.flag}</span>
+                <FlagIcon code={currentLang.code} />
                 <span className="hidden sm:inline font-semibold">{currentLang.label}</span>
                 <ChevronDown className="w-3 h-3 text-[#8A796D]" />
               </button>
@@ -99,10 +100,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenPatientPort
                       href={pathname}
                       locale={l.code}
                       onClick={() => setLangDropdown(false)}
-                      className={`w-full flex items-center gap-2 px-3 py-2 text-xs text-left rtl:text-right hover:bg-[#FAF7F2] transition-colors ${locale === l.code ? "text-[#4A2E1B] font-bold bg-[#F3EDE2]" : "text-[#4E3D30]"
+                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs text-left rtl:text-right hover:bg-[#FAF7F2] transition-colors ${locale === l.code ? "text-[#4A2E1B] font-bold bg-[#F3EDE2]" : "text-[#4E3D30]"
                         }`}
                     >
-                      <span>{l.flag}</span>
+                      <FlagIcon code={l.code} />
                       <span>{l.label}</span>
                     </Link>
                   ))}
@@ -110,29 +111,30 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenPatientPort
               )}
             </div>
 
-            {/* Hasta Portalı / Giriş Yap */}
-            {onOpenPatientPortal && (
-              <button
-                type="button"
-                onClick={onOpenPatientPortal}
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#EFE8DC] hover:bg-[#E5DAC9] text-[#3B2215] text-xs font-semibold border border-[#D5C7B3] transition-colors shadow-sm"
-              >
-                <User className="w-3.5 h-3.5 text-[#6E492D]" />
-                <span>{t("patientPortal")}</span>
-              </button>
-            )}
+            {/* Hasta Portalı / Giriş Yap - Ayrı Sekmede Açılır (QR & E-Nabız) */}
+            <Link
+              href="/patient"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#EFE8DC] hover:bg-[#E5DAC9] text-[#3B2215] text-xs font-semibold border border-[#D5C7B3] transition-all shadow-sm hover:scale-105 group"
+              title={locale === "ar" ? "فتح بوابة المريض في علامة تبويب جديدة" : locale === "en" ? "Open Patient Portal in New Tab" : "Hasta Portalını Ayrı Sekmede Aç"}
+            >
+              <QrCode className="w-3.5 h-3.5 text-[#6E492D] group-hover:text-[#4A2E1B]" />
+              <span>{t("patientPortal")}</span>
+              <ExternalLink className="w-3 h-3 text-[#8A6445] opacity-70 group-hover:opacity-100" />
+            </Link>
 
-            {/* Taskbar: Randevu Al CTA */}
-            {onOpenBooking && (
-              <button
-                type="button"
-                onClick={onOpenBooking}
-                className="flex items-center gap-1.5 px-4 py-2 bg-[#4A2E1B] hover:bg-[#382112] text-white font-bold text-xs rounded-xl shadow-md shadow-[#4A2E1B]/20 transition-all hover:scale-105 active:scale-95"
-              >
-                <Calendar className="w-3.5 h-3.5 text-amber-200" />
-                <span>{t("bookAppointment")}</span>
-              </button>
-            )}
+            {/* Taskbar: Randevu Al CTA - Giriş / Hasta Portalı Sekmesine Yönlendirir */}
+            <Link
+              href="/patient?tab=book"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-4 py-2 bg-[#4A2E1B] hover:bg-[#382112] text-white font-bold text-xs rounded-xl shadow-md shadow-[#4A2E1B]/20 transition-all hover:scale-105 active:scale-95"
+              title={locale === "ar" ? "حجز موعد عبر بوابة المريض (علامة تبويب جديدة)" : locale === "en" ? "Book appointment via Patient Portal" : "Hasta Portalında Randevu Al (Ayrı Sekme)"}
+            >
+              <Calendar className="w-3.5 h-3.5 text-amber-200" />
+              <span>{t("bookAppointment")}</span>
+            </Link>
           </div>
 
         </div>

@@ -1,0 +1,2220 @@
+{
+  "doctors": [
+    {
+      "id": "doc-gastro-horo",
+      "fullName": "Dr. Rustam Horo",
+      "fullNameAr": "د. رستم هورو",
+      "email": "gastro.horo@menaclinic.com",
+      "phone": "+963 991 223301",
+      "specialty": "Gastroenteroloji • أمراض الهضمية",
+      "department": {
+        "name": "Gastroenteroloji Kliniği"
+      },
+      "room": "Poliklinik 101",
+      "hours": "09:00 - 17:00",
+      "consultationFee": 1200,
+      "fee": "250.000 SYP",
+      "rating": 4.98,
+      "unavailableSlots": [
+        "12:00",
+        "12:30",
+        "15:00"
+      ],
+      "role": "DOCTOR"
+    },
+    {
+      "id": "doc-cardio-chebb",
+      "fullName": "Dr. Abdulrahman Al-Shebb",
+      "fullNameAr": "د. عبدالرحمن الشب",
+      "email": "cardio.shebb@menaclinic.com",
+      "phone": "+963 991 223302",
+      "specialty": "Kardiyoloji • أمراض القلبية",
+      "department": {
+        "name": "Kardiyoloji Kliniği"
+      },
+      "room": "Poliklinik 102",
+      "hours": "09:00 - 17:00",
+      "consultationFee": 1300,
+      "fee": "260.000 SYP",
+      "rating": 4.97,
+      "unavailableSlots": [
+        "12:00",
+        "12:30"
+      ],
+      "role": "DOCTOR"
+    },
+    {
+      "id": "doc-cardio-horo",
+      "fullName": "Dr. Barkhadan Horo",
+      "fullNameAr": "د. برخدان هورو",
+      "email": "cardio.horo@menaclinic.com",
+      "phone": "+963 991 223303",
+      "specialty": "Kardiyoloji • أمراض القلبية",
+      "department": {
+        "name": "Kardiyoloji Kliniği"
+      },
+      "room": "Poliklinik 103",
+      "hours": "09:00 - 17:00",
+      "consultationFee": 1300,
+      "fee": "260.000 SYP",
+      "rating": 4.96,
+      "unavailableSlots": [
+        "12:00",
+        "12:30"
+      ],
+      "role": "DOCTOR"
+    },
+    {
+      "id": "doc-ortho-takko",
+      "fullName": "Dr. Fouad Takko",
+      "fullNameAr": "د. فؤاد طكو",
+      "email": "ortho.takko@menaclinic.com",
+      "phone": "+963 991 223304",
+      "specialty": "Ortopedi • جراحة العظمية",
+      "department": {
+        "name": "Ortopedi Kliniği"
+      },
+      "room": "Poliklinik 104",
+      "hours": "09:00 - 17:00",
+      "consultationFee": 1250,
+      "fee": "250.000 SYP",
+      "rating": 4.99,
+      "unavailableSlots": [
+        "12:00",
+        "12:30"
+      ],
+      "role": "DOCTOR"
+    },
+    {
+      "id": "doc-uro-razzaq",
+      "fullName": "Dr. Ahmad Abdulrazzaq",
+      "fullNameAr": "د. احمد عبدالرزاق",
+      "email": "uro.razzaq@menaclinic.com",
+      "phone": "+963 991 223305",
+      "specialty": "Üroloji • جراحة البولية",
+      "department": {
+        "name": "Üroloji Kliniği"
+      },
+      "room": "Poliklinik 105",
+      "hours": "09:00 - 17:00",
+      "consultationFee": 1200,
+      "fee": "240.000 SYP",
+      "rating": 4.94,
+      "unavailableSlots": [
+        "12:00",
+        "12:30"
+      ],
+      "role": "DOCTOR"
+    },
+    {
+      "id": "doc-uro-qadi",
+      "fullName": "Dr. Abdulatif Qadi",
+      "fullNameAr": "د. عبداللطيف قاضي",
+      "email": "uro.qadi@menaclinic.com",
+      "phone": "+963 991 223306",
+      "specialty": "Üroloji • جراحة البولية",
+      "department": {
+        "name": "Üroloji Kliniği"
+      },
+      "room": "Poliklinik 106",
+      "hours": "09:00 - 17:00",
+      "consultationFee": 1200,
+      "fee": "240.000 SYP",
+      "rating": 4.95,
+      "unavailableSlots": [
+        "12:00",
+        "12:30"
+      ],
+      "role": "DOCTOR"
+    },
+    {
+      "id": "doc-derma-haddad",
+      "fullName": "Dr. Lodia Haddad",
+      "fullNameAr": "د. لوديا حداد",
+      "email": "derma.haddad@menaclinic.com",
+      "phone": "+963 991 223307",
+      "specialty": "Dermatoloji • الأمراض الجلدية",
+      "department": {
+        "name": "Dermatoloji Kliniği"
+      },
+      "room": "Poliklinik 107",
+      "hours": "09:00 - 17:00",
+      "consultationFee": 1100,
+      "fee": "220.000 SYP",
+      "rating": 4.97,
+      "unavailableSlots": [
+        "12:00",
+        "12:30"
+      ],
+      "role": "DOCTOR"
+    },
+    {
+      "id": "doc-vasc-arr",
+      "fullName": "Dr. Fadi Al-Arr",
+      "fullNameAr": "د. فادي العر",
+      "email": "vasc.arr@menaclinic.com",
+      "phone": "+963 991 223308",
+      "specialty": "Damar Cerrahisi • جراحة الأوعية",
+      "department": {
+        "name": "Damar Cerrahisi Kliniği"
+      },
+      "room": "Poliklinik 108",
+      "hours": "09:00 - 17:00",
+      "consultationFee": 1350,
+      "fee": "270.000 SYP",
+      "rating": 4.98,
+      "unavailableSlots": [
+        "12:00",
+        "12:30"
+      ],
+      "role": "DOCTOR"
+    },
+    {
+      "id": "doc-ped-ahmad",
+      "fullName": "Dr. Hussein Al-Ahmad",
+      "fullNameAr": "د. حسين الاحمد",
+      "email": "ped.ahmad@menaclinic.com",
+      "phone": "+963 991 223309",
+      "specialty": "Çocuk Sağlığı • طب الأطفال",
+      "department": {
+        "name": "Çocuk Sağlığı Kliniği"
+      },
+      "room": "Poliklinik 109",
+      "hours": "09:00 - 17:00",
+      "consultationFee": 1000,
+      "fee": "200.000 SYP",
+      "rating": 4.96,
+      "unavailableSlots": [
+        "12:00",
+        "12:30"
+      ],
+      "role": "DOCTOR"
+    },
+    {
+      "id": "doc-pedcardio-azzawi",
+      "fullName": "Dr. Ahmad Azzawi",
+      "fullNameAr": "د. احمد عزاوي",
+      "email": "pedcardio.azzawi@menaclinic.com",
+      "phone": "+963 991 223310",
+      "specialty": "Çocuk Kardiyolojisi • قلبية أطفال",
+      "department": {
+        "name": "Çocuk Kardiyolojisi Kliniği"
+      },
+      "room": "Poliklinik 110",
+      "hours": "09:00 - 17:00",
+      "consultationFee": 1400,
+      "fee": "280.000 SYP",
+      "rating": 4.99,
+      "unavailableSlots": [
+        "12:00",
+        "12:30"
+      ],
+      "role": "DOCTOR"
+    },
+    {
+      "id": "doc-dental-shamoun",
+      "fullName": "Dr. Majid Shamoun",
+      "fullNameAr": "د. ماجد شمعون",
+      "email": "dental.shamoun@menaclinic.com",
+      "phone": "+963 991 223311",
+      "specialty": "Ağız ve Diş Sağlığı • طب الأسنان",
+      "department": {
+        "name": "Diş Sağlığı Kliniği"
+      },
+      "room": "Poliklinik 111",
+      "hours": "09:00 - 17:00",
+      "consultationFee": 1100,
+      "fee": "220.000 SYP",
+      "rating": 4.95,
+      "unavailableSlots": [
+        "12:00",
+        "12:30"
+      ],
+      "role": "DOCTOR"
+    }
+  ],
+  "staff": [
+    {
+      "id": "admin-1",
+      "email": "admin@menaclinic.com",
+      "password": "123",
+      "fullName": "Yönetici Ahmet",
+      "role": "ADMIN",
+      "phone": "+963 991 112230",
+      "identityNo": "99999999990",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "rec-1",
+      "email": "receptionist@menaclinic.com",
+      "password": "123",
+      "fullName": "Danışma Merve",
+      "role": "RECEPTIONIST",
+      "phone": "+963 991 112231",
+      "identityNo": "99999999991",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "doc-gastro-horo",
+      "email": "gastro.horo@menaclinic.com",
+      "password": "123",
+      "fullName": "Dr. Rustam Horo (د. رستم هورو)",
+      "role": "DOCTOR",
+      "phone": "+963 991 223301",
+      "identityNo": "99999999981",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "doc-cardio-chebb",
+      "email": "cardio.shebb@menaclinic.com",
+      "password": "123",
+      "fullName": "Dr. Abdulrahman Al-Shebb (د. عبدالرحمن الشب)",
+      "role": "DOCTOR",
+      "phone": "+963 991 223302",
+      "identityNo": "99999999982",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "doc-cardio-horo",
+      "email": "cardio.horo@menaclinic.com",
+      "password": "123",
+      "fullName": "Dr. Barkhadan Horo (د. برخدان هورو)",
+      "role": "DOCTOR",
+      "phone": "+963 991 223303",
+      "identityNo": "99999999983",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "doc-ortho-takko",
+      "email": "ortho.takko@menaclinic.com",
+      "password": "123",
+      "fullName": "Dr. Fouad Takko (د. فؤاد طكو)",
+      "role": "DOCTOR",
+      "phone": "+963 991 223304",
+      "identityNo": "99999999984",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "doc-uro-razzaq",
+      "email": "uro.razzaq@menaclinic.com",
+      "password": "123",
+      "fullName": "Dr. Ahmad Abdulrazzaq (د. احمد عبدالرزاق)",
+      "role": "DOCTOR",
+      "phone": "+963 991 223305",
+      "identityNo": "99999999985",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "doc-uro-qadi",
+      "email": "uro.qadi@menaclinic.com",
+      "password": "123",
+      "fullName": "Dr. Abdulatif Qadi (د. عبداللطيف قاضي)",
+      "role": "DOCTOR",
+      "phone": "+963 991 223306",
+      "identityNo": "99999999986",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "doc-derma-haddad",
+      "email": "derma.haddad@menaclinic.com",
+      "password": "123",
+      "fullName": "Dr. Lodia Haddad (د. لوديا حداد)",
+      "role": "DOCTOR",
+      "phone": "+963 991 223307",
+      "identityNo": "99999999987",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "doc-vasc-arr",
+      "email": "vasc.arr@menaclinic.com",
+      "password": "123",
+      "fullName": "Dr. Fadi Al-Arr (د. فادي العر)",
+      "role": "DOCTOR",
+      "phone": "+963 991 223308",
+      "identityNo": "99999999988",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "doc-ped-ahmad",
+      "email": "ped.ahmad@menaclinic.com",
+      "password": "123",
+      "fullName": "Dr. Hussein Al-Ahmad (د. حسين الاحمد)",
+      "role": "DOCTOR",
+      "phone": "+963 991 223309",
+      "identityNo": "99999999989",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "doc-pedcardio-azzawi",
+      "email": "pedcardio.azzawi@menaclinic.com",
+      "password": "123",
+      "fullName": "Dr. Ahmad Azzawi (د. احمد عزاوي)",
+      "role": "DOCTOR",
+      "phone": "+963 991 223310",
+      "identityNo": "99999999990",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "doc-dental-shamoun",
+      "email": "dental.shamoun@menaclinic.com",
+      "password": "123",
+      "fullName": "Dr. Majid Shamoun (د. ماجد شمعون)",
+      "role": "DOCTOR",
+      "phone": "+963 991 223311",
+      "identityNo": "99999999991",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "pharm-1",
+      "email": "pharmacist@menaclinic.com",
+      "password": "123",
+      "fullName": "Eczacı Mustafa",
+      "role": "PHARMACIST",
+      "phone": "+963 991 112238",
+      "identityNo": "99999999994",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "lab-1",
+      "email": "labtech@menaclinic.com",
+      "password": "123",
+      "fullName": "Teknisyen Ali",
+      "role": "LAB_TECH",
+      "phone": "+963 991 112239",
+      "identityNo": "99999999995",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "acc-1",
+      "email": "accountant@menaclinic.com",
+      "password": "123",
+      "fullName": "Muhasebeci Kemal",
+      "role": "ACCOUNTANT",
+      "phone": "+963 991 112240",
+      "identityNo": "99999999998",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "doc-1792878262792",
+      "email": "kerem@menaclinic.com",
+      "password": "Doktor123!",
+      "fullName": "Dr. Kerem Aksoy",
+      "role": "DOCTOR",
+      "phone": "+963 995 778899",
+      "identityNo": "99978262792",
+      "status": "ACTIVE"
+    }
+  ],
+  "patients": [
+    {
+      "id": "pat-1",
+      "fullName": "Zeynep Kaya (فاطمة الزهراء)",
+      "identityNo": "99999999996",
+      "phone": "+963 992 334455",
+      "email": "zeynep.kaya@example.com",
+      "bloodType": "A+",
+      "emergencyContact": "Eşi: Ahmet Kaya - +963 992 112233",
+      "insuranceInfo": "Özel Sağlık Sigortası",
+      "password": "123"
+    },
+    {
+      "id": "pat-2",
+      "fullName": "Fatima Al-Hassan (فاطمة الحسن)",
+      "identityNo": "99999999998",
+      "phone": "+963 993 112233",
+      "email": "fatima.hassan@example.com",
+      "bloodType": "O+",
+      "emergencyContact": "Kardeşi: Ömer Al-Hassan - +963 993 445566",
+      "insuranceInfo": "Mena Kurumsal Anlaşma",
+      "password": "123"
+    },
+    {
+      "id": "pat-3",
+      "fullName": "Ömer Çelik (عمر جليك)",
+      "identityNo": "99999999997",
+      "phone": "+963 992 556677",
+      "email": "omer.celik@example.com",
+      "bloodType": "0-",
+      "emergencyContact": "Eşi - +963 944 556677",
+      "insuranceInfo": "SGK / Genel Sağlık",
+      "password": "123"
+    },
+    {
+      "id": "pat-1792878297188",
+      "fullName": "Yusuf El-Sam (???? ?????)",
+      "identityNo": "99887766554",
+      "phone": "+963 994 556677",
+      "email": "yusuf.elsham@gmail.com",
+      "bloodType": "B+",
+      "emergencyContact": "Belirtilmedi",
+      "insuranceInfo": "Bireysel / Nakit",
+      "password": "123"
+    },
+    {
+      "id": "pat-99100100001",
+      "fullName": "فاطمة الزهراء المحمد",
+      "identityNo": "99100100001",
+      "phone": "+963 991 300001",
+      "email": "fatima.mohammad@menapatient.sy",
+      "bloodType": "A+",
+      "emergencyContact": "الزوج: أحمد المحمد - +963 991 300091",
+      "preferredLang": "ar",
+      "createdAt": "2026-10-25T09:25:26.954Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99100100002",
+      "fullName": "عمر فاروق الحلبي",
+      "identityNo": "99100100002",
+      "phone": "+963 991 300002",
+      "email": "omar.halabi@menapatient.sy",
+      "bloodType": "O+",
+      "emergencyContact": "الأخ: وليد الحلبي - +963 991 300092",
+      "preferredLang": "ar",
+      "createdAt": "2026-10-25T09:25:26.957Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99100100003",
+      "fullName": "يوسف أحمد النجار",
+      "identityNo": "99100100003",
+      "phone": "+963 991 300003",
+      "email": "youssef.najjar@menapatient.sy",
+      "bloodType": "B+",
+      "emergencyContact": "الوالد: أحمد النجار - +963 991 300093",
+      "preferredLang": "ar",
+      "createdAt": "2026-10-25T09:25:26.959Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99100100004",
+      "fullName": "مريم خالد الباشا",
+      "identityNo": "99100100004",
+      "phone": "+963 991 300004",
+      "email": "maryam.basha@menapatient.sy",
+      "bloodType": "AB+",
+      "emergencyContact": "الابن: طارق الباشا - +963 991 300094",
+      "preferredLang": "ar",
+      "createdAt": "2026-10-25T09:25:26.961Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99100100005",
+      "fullName": "عبدالكريم الصالح",
+      "identityNo": "99100100005",
+      "phone": "+963 991 300005",
+      "email": "abdulkarim.saleh@menapatient.sy",
+      "bloodType": "A-",
+      "emergencyContact": "الأخت: هدى الصالح - +963 991 300095",
+      "preferredLang": "ar",
+      "createdAt": "2026-10-25T09:25:26.963Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99100100006",
+      "fullName": "سارة مصطفى قدور",
+      "identityNo": "99100100006",
+      "phone": "+963 991 300006",
+      "email": "sara.qaddour@menapatient.sy",
+      "bloodType": "O-",
+      "emergencyContact": "الوالدة: ميساء قدور - +963 991 300096",
+      "preferredLang": "ar",
+      "createdAt": "2026-10-25T09:25:26.965Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99100100007",
+      "fullName": "ريم حسان كردي",
+      "identityNo": "99100100007",
+      "phone": "+963 991 300007",
+      "email": "reem.kurdi@menapatient.sy",
+      "bloodType": "B-",
+      "emergencyContact": "الزوج: فراس كردي - +963 991 300097",
+      "preferredLang": "ar",
+      "createdAt": "2026-10-25T09:25:26.967Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99100100008",
+      "fullName": "بلال محمود عثمان",
+      "identityNo": "99100100008",
+      "phone": "+963 991 300008",
+      "email": "bilal.othman@menapatient.sy",
+      "bloodType": "A+",
+      "emergencyContact": "الابن: محمد عثمان - +963 991 300098",
+      "preferredLang": "ar",
+      "createdAt": "2026-10-25T09:25:26.969Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99100100009",
+      "fullName": "الطفل حمزة زياد الجاسم",
+      "identityNo": "99100100009",
+      "phone": "+963 991 300009",
+      "email": "ziad.jassem@menapatient.sy",
+      "bloodType": "O+",
+      "emergencyContact": "الأب: زياد الجاسم - +963 991 300099",
+      "preferredLang": "ar",
+      "createdAt": "2026-10-25T09:25:26.971Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99100100010",
+      "fullName": "الطفلة جنى بشار السعيد",
+      "identityNo": "99100100010",
+      "phone": "+963 991 300010",
+      "email": "bashar.saeed@menapatient.sy",
+      "bloodType": "A+",
+      "emergencyContact": "الأم: نور السعيد - +963 991 300100",
+      "preferredLang": "ar",
+      "createdAt": "2026-10-25T09:25:26.973Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99200200001",
+      "fullName": "Zeynep Kaya",
+      "identityNo": "99200200001",
+      "phone": "+90 532 1000001",
+      "email": "zeynep.kaya@menapatient.com",
+      "bloodType": "A+",
+      "emergencyContact": "Eşi: Ahmet Kaya - +90 532 1000091",
+      "preferredLang": "tr",
+      "createdAt": "2026-10-25T09:25:26.976Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99200200002",
+      "fullName": "Mehmet Emre Yıldız",
+      "identityNo": "99200200002",
+      "phone": "+90 532 1000002",
+      "email": "mehmet.yildiz@menapatient.com",
+      "bloodType": "O+",
+      "emergencyContact": "Kardeşi: Can Yıldız - +90 532 1000092",
+      "preferredLang": "tr",
+      "createdAt": "2026-10-25T09:25:26.977Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99200200003",
+      "fullName": "Ayşe Demirkan",
+      "identityNo": "99200200003",
+      "phone": "+90 532 1000003",
+      "email": "ayse.demirkan@menapatient.com",
+      "bloodType": "B+",
+      "emergencyContact": "Kızı: Elif Demirkan - +90 532 1000093",
+      "preferredLang": "tr",
+      "createdAt": "2026-10-25T09:25:26.980Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99200200004",
+      "fullName": "Burak Şahin",
+      "identityNo": "99200200004",
+      "phone": "+90 532 1000004",
+      "email": "burak.sahin@menapatient.com",
+      "bloodType": "AB-",
+      "emergencyContact": "Babası: Ali Şahin - +90 532 1000094",
+      "preferredLang": "tr",
+      "createdAt": "2026-10-25T09:25:26.981Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99200200005",
+      "fullName": "Elif Çelik",
+      "identityNo": "99200200005",
+      "phone": "+90 532 1000005",
+      "email": "elif.celik@menapatient.com",
+      "bloodType": "A+",
+      "emergencyContact": "Annesi: Fatma Çelik - +90 532 1000095",
+      "preferredLang": "tr",
+      "createdAt": "2026-10-25T09:25:26.983Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99300300001",
+      "fullName": "Alexander Wright",
+      "identityNo": "99300300001",
+      "phone": "+44 770 0900001",
+      "email": "alex.wright@menapatient.org",
+      "bloodType": "O+",
+      "emergencyContact": "Spouse: Catherine Wright - +44 770 0900091",
+      "preferredLang": "en",
+      "createdAt": "2026-10-25T09:25:26.986Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99300300002",
+      "fullName": "Sarah Jenkins",
+      "identityNo": "99300300002",
+      "phone": "+44 770 0900002",
+      "email": "sarah.jenkins@menapatient.org",
+      "bloodType": "A-",
+      "emergencyContact": "Sister: Emily Jenkins - +44 770 0900092",
+      "preferredLang": "en",
+      "createdAt": "2026-10-25T09:25:26.987Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99300300003",
+      "fullName": "Michael Davis (Guardian of Oliver Davis)",
+      "identityNo": "99300300003",
+      "phone": "+44 770 0900003",
+      "email": "michael.davis@menapatient.org",
+      "bloodType": "B+",
+      "emergencyContact": "Father: Michael Davis - +44 770 0900003",
+      "preferredLang": "en",
+      "createdAt": "2026-10-25T09:25:26.989Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99300300004",
+      "fullName": "Emma Watson (Guardian of Liam Watson)",
+      "identityNo": "99300300004",
+      "phone": "+44 770 0900004",
+      "email": "emma.watson@menapatient.org",
+      "bloodType": "O-",
+      "emergencyContact": "Mother: Emma Watson - +44 770 0900004",
+      "preferredLang": "en",
+      "createdAt": "2026-10-25T09:25:26.991Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-99300300005",
+      "fullName": "David Miller",
+      "identityNo": "99300300005",
+      "phone": "+44 770 0900005",
+      "email": "david.miller@menapatient.org",
+      "bloodType": "AB+",
+      "emergencyContact": "Brother: John Miller - +44 770 0900095",
+      "preferredLang": "en",
+      "createdAt": "2026-10-25T09:25:26.993Z",
+      "password": "123"
+    },
+    {
+      "id": "pat-1792941712371-mt53o",
+      "fullName": "Yusuf Zakri",
+      "identityNo": "123123123123",
+      "phone": "+963 932141413414",
+      "email": "patient.e54e@menaclinic.com",
+      "bloodType": "O+",
+      "createdAt": "2026-10-25T15:21:52.371Z",
+      "password": "123"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "app-1792878809569",
+      "patientId": "pat-1",
+      "doctorId": "doc-cardio",
+      "slotTime": "2026-10-24T09:00:00.000Z",
+      "timeStr": "09:00",
+      "dateStr": "2026-10-24",
+      "queueNumber": 8,
+      "status": "COMPLETED",
+      "notes": "Hasta portalı randevusu",
+      "patient": {
+        "fullName": "Zeynep Kaya (فاطمة الزهراء)",
+        "phone": "+963 992 334455",
+        "identityNo": "99999999996",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Selim Yılmaz",
+        "email": "cardio@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلب"
+      },
+      "departmentName": "Kardiyoloji Kliniği"
+    },
+    {
+      "id": "app-1792878808157",
+      "patientId": "pat-1",
+      "doctorId": "doc-cardio",
+      "slotTime": "2026-10-24T13:00:00.000Z",
+      "timeStr": "13:00",
+      "dateStr": "2026-10-24",
+      "queueNumber": 7,
+      "status": "CONFIRMED",
+      "notes": "Hasta portalı randevusu",
+      "patient": {
+        "fullName": "Zeynep Kaya (فاطمة الزهراء)",
+        "phone": "+963 992 334455",
+        "identityNo": "99999999996",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Selim Yılmaz",
+        "email": "cardio@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلب"
+      },
+      "departmentName": "Kardiyoloji Kliniği"
+    },
+    {
+      "id": "app-1792878806850",
+      "patientId": "pat-1",
+      "doctorId": "doc-cardio",
+      "slotTime": "2026-10-24T15:30:00.000Z",
+      "timeStr": "15:30",
+      "dateStr": "2026-10-24",
+      "queueNumber": 6,
+      "status": "CONFIRMED",
+      "notes": "Hasta portalı randevusu",
+      "patient": {
+        "fullName": "Zeynep Kaya (فاطمة الزهراء)",
+        "phone": "+963 992 334455",
+        "identityNo": "99999999996",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Selim Yılmaz",
+        "email": "cardio@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلب"
+      },
+      "departmentName": "Kardiyoloji Kliniği"
+    },
+    {
+      "id": "app-1792878805645",
+      "patientId": "pat-1",
+      "doctorId": "doc-cardio",
+      "slotTime": "2026-10-24T16:00:00.000Z",
+      "timeStr": "16:00",
+      "dateStr": "2026-10-24",
+      "queueNumber": 5,
+      "status": "CONFIRMED",
+      "notes": "Hasta portalı randevusu",
+      "patient": {
+        "fullName": "Zeynep Kaya (فاطمة الزهراء)",
+        "phone": "+963 992 334455",
+        "identityNo": "99999999996",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Selim Yılmaz",
+        "email": "cardio@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلب"
+      },
+      "departmentName": "Kardiyoloji Kliniği"
+    },
+    {
+      "id": "app-1792878804112",
+      "patientId": "pat-1",
+      "doctorId": "doc-cardio",
+      "slotTime": "2026-10-24T16:30:00.000Z",
+      "timeStr": "16:30",
+      "dateStr": "2026-10-24",
+      "queueNumber": 4,
+      "status": "CONFIRMED",
+      "notes": "Hasta portalı randevusu",
+      "patient": {
+        "fullName": "Zeynep Kaya (فاطمة الزهراء)",
+        "phone": "+963 992 334455",
+        "identityNo": "99999999996",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Selim Yılmaz",
+        "email": "cardio@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلب"
+      },
+      "departmentName": "Kardiyoloji Kliniği"
+    },
+    {
+      "id": "app-1792878799578",
+      "patientId": "pat-1",
+      "doctorId": "doc-cardio",
+      "slotTime": "2026-10-24T13:30:00.000Z",
+      "timeStr": "13:30",
+      "dateStr": "2026-10-24",
+      "queueNumber": 3,
+      "status": "CONFIRMED",
+      "notes": "Hasta portalı randevusu",
+      "patient": {
+        "fullName": "Zeynep Kaya (فاطمة الزهراء)",
+        "phone": "+963 992 334455",
+        "identityNo": "99999999996",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Selim Yılmaz",
+        "email": "cardio@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلب"
+      },
+      "departmentName": "Kardiyoloji Kliniği"
+    },
+    {
+      "id": "app-1792878364076",
+      "patientId": "pat-1792878297188",
+      "doctorId": "doc-1792878262792",
+      "slotTime": "2026-10-26T10:30:00.000Z",
+      "timeStr": "10:30",
+      "dateStr": "2026-10-26",
+      "queueNumber": 1,
+      "status": "CONFIRMED",
+      "notes": "N�rolojik bas agrisi ve migren muayenesi",
+      "patient": {
+        "fullName": "Yusuf El-Sam (???? ?????)",
+        "phone": "+963 994 556677",
+        "identityNo": "99887766554",
+        "bloodType": "B+"
+      },
+      "doctor": {
+        "fullName": "Dr. Kerem Aksoy",
+        "email": "kerem@menaclinic.com",
+        "specialty": "N�roloji . ????? ???? ????????"
+      },
+      "departmentName": "N�roloji Klinigi"
+    },
+    {
+      "id": "app-101",
+      "patientId": "pat-1",
+      "doctorId": "doc-cardio",
+      "slotTime": "2026-10-25T09:30:00.000Z",
+      "timeStr": "09:30",
+      "dateStr": "2026-10-25",
+      "queueNumber": 1,
+      "status": "WAITING",
+      "notes": "Rutin kardiyoloji kontrolü",
+      "patient": {
+        "fullName": "Zeynep Kaya",
+        "phone": "+963 992 334455",
+        "identityNo": "99999999996",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Selim Yılmaz",
+        "email": "cardio@menaclinic.com"
+      },
+      "departmentName": "Kardiyoloji Kliniği"
+    },
+    {
+      "id": "app-102",
+      "patientId": "pat-3",
+      "doctorId": "doc-cardio",
+      "slotTime": "2026-10-25T10:00:00.000Z",
+      "timeStr": "10:00",
+      "dateStr": "2026-10-25",
+      "queueNumber": 2,
+      "status": "IN_CONSULTATION",
+      "notes": "EKG değerlendirmesi",
+      "patient": {
+        "fullName": "Ömer Çelik",
+        "phone": "+963 992 556677",
+        "identityNo": "99999999997",
+        "bloodType": "0-"
+      },
+      "doctor": {
+        "fullName": "Dr. Selim Yılmaz",
+        "email": "cardio@menaclinic.com"
+      },
+      "departmentName": "Kardiyoloji Kliniği"
+    },
+    {
+      "id": "app-sim-1792920326956-1",
+      "patientId": "pat-99100100001",
+      "doctorId": "doc-gastro-horo",
+      "slotTime": "2026-10-26T09:30:00",
+      "timeStr": "09:30",
+      "dateStr": "2026-10-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "ألم متكرر في رأس المعدة وحرقة شديدة بعد تناول الطعام.",
+      "patient": {
+        "fullName": "فاطمة الزهراء المحمد",
+        "phone": "+963 991 300001",
+        "identityNo": "99100100001",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "email": "gastro.horo@menaclinic.com",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      },
+      "departmentName": "Gastroenteroloji Kliniği",
+      "createdAt": "2026-10-25T09:25:26.995Z"
+    },
+    {
+      "id": "app-sim-1792920326958-2",
+      "patientId": "pat-99100100002",
+      "doctorId": "doc-cardio-chebb",
+      "slotTime": "2026-10-26T10:00:00",
+      "timeStr": "10:00",
+      "dateStr": "2026-10-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "خفقان في القلب مع دوخة خفيفة عند بذل مجهود بدني متوسط.",
+      "patient": {
+        "fullName": "عمر فاروق الحلبي",
+        "phone": "+963 991 300002",
+        "identityNo": "99100100002",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb",
+        "email": "cardio.shebb@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      },
+      "departmentName": "Kardiyoloji Kliniği",
+      "createdAt": "2026-10-25T09:25:26.997Z"
+    },
+    {
+      "id": "app-sim-1792920326960-3",
+      "patientId": "pat-99100100003",
+      "doctorId": "doc-cardio-horo",
+      "slotTime": "2026-10-26T10:30:00",
+      "timeStr": "10:30",
+      "dateStr": "2026-10-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "ضغط دم مرتفع وثقل في خلف الرأس في الصباح الباكر.",
+      "patient": {
+        "fullName": "يوسف أحمد النجار",
+        "phone": "+963 991 300003",
+        "identityNo": "99100100003",
+        "bloodType": "B+"
+      },
+      "doctor": {
+        "fullName": "Dr. Barkhadan Horo",
+        "email": "cardio.horo@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      },
+      "departmentName": "Kardiyoloji Kliniği",
+      "createdAt": "2026-10-25T09:25:26.999Z"
+    },
+    {
+      "id": "app-sim-1792920326962-4",
+      "patientId": "pat-99100100004",
+      "doctorId": "doc-ortho-takko",
+      "slotTime": "2026-10-26T11:00:00",
+      "timeStr": "11:00",
+      "dateStr": "2026-10-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "ألم في الركبة اليمنى وصعوبة في صعود الدرج وصوت فرقعة مفصلية.",
+      "patient": {
+        "fullName": "مريم خالد الباشا",
+        "phone": "+963 991 300004",
+        "identityNo": "99100100004",
+        "bloodType": "AB+"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "email": "ortho.takko@menaclinic.com",
+        "specialty": "Ortopedi • جراحة العظمية"
+      },
+      "departmentName": "Ortopedi Kliniği",
+      "createdAt": "2026-10-25T09:25:27.000Z"
+    },
+    {
+      "id": "app-sim-1792920326964-5",
+      "patientId": "pat-99100100005",
+      "doctorId": "doc-uro-razzaq",
+      "slotTime": "2026-10-26T11:30:00",
+      "timeStr": "11:30",
+      "dateStr": "2026-10-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "ألم حاد مفاجئ في الخاصرة اليسرى يمتد للمنطقة الإربية.",
+      "patient": {
+        "fullName": "عبدالكريم الصالح",
+        "phone": "+963 991 300005",
+        "identityNo": "99100100005",
+        "bloodType": "A-"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Abdulrazzaq",
+        "email": "uro.razzaq@menaclinic.com",
+        "specialty": "Üroloji • جراحة البولية"
+      },
+      "departmentName": "Üroloji Kliniği",
+      "createdAt": "2026-10-25T09:25:27.002Z"
+    },
+    {
+      "id": "app-sim-1792920326967-6",
+      "patientId": "pat-99100100006",
+      "doctorId": "doc-uro-qadi",
+      "slotTime": "2026-10-26T13:30:00",
+      "timeStr": "13:30",
+      "dateStr": "2026-10-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "حرقة بولية متكررة وإلحاح في التبول مع شعور بعدم الارتياح.",
+      "patient": {
+        "fullName": "سارة مصطفى قدور",
+        "phone": "+963 991 300006",
+        "identityNo": "99100100006",
+        "bloodType": "O-"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi",
+        "email": "uro.qadi@menaclinic.com",
+        "specialty": "Üroloji • جراحة البولية"
+      },
+      "departmentName": "Üroloji Kliniği",
+      "createdAt": "2026-10-25T09:25:27.004Z"
+    },
+    {
+      "id": "app-sim-1792920326968-7",
+      "patientId": "pat-99100100007",
+      "doctorId": "doc-derma-haddad",
+      "slotTime": "2026-10-26T14:00:00",
+      "timeStr": "14:00",
+      "dateStr": "2026-10-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "بقع حمراء متقشرة على فروة الرأس والجبين مع حكة مزعجة.",
+      "patient": {
+        "fullName": "ريم حسان كردي",
+        "phone": "+963 991 300007",
+        "identityNo": "99100100007",
+        "bloodType": "B-"
+      },
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "email": "derma.haddad@menaclinic.com",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      },
+      "departmentName": "Dermatoloji Kliniği",
+      "createdAt": "2026-10-25T09:25:27.006Z"
+    },
+    {
+      "id": "app-sim-1792920326970-8",
+      "patientId": "pat-99100100008",
+      "doctorId": "doc-vasc-arr",
+      "slotTime": "2026-10-26T14:30:00",
+      "timeStr": "14:30",
+      "dateStr": "2026-10-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "ثقل وتورم في الساقين مع ظهور أوردة زرقاء متعرجة بارزة.",
+      "patient": {
+        "fullName": "بلال محمود عثمان",
+        "phone": "+963 991 300008",
+        "identityNo": "99100100008",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Fadi Al-Arr",
+        "email": "vasc.arr@menaclinic.com",
+        "specialty": "Damar Cerrahisi • جراحة الأوعية"
+      },
+      "departmentName": "Damar Cerrahisi Kliniği",
+      "createdAt": "2026-10-25T09:25:27.007Z"
+    },
+    {
+      "id": "app-sim-1792920326972-9",
+      "patientId": "pat-99100100009",
+      "doctorId": "doc-ped-ahmad",
+      "slotTime": "2026-10-26T15:30:00",
+      "timeStr": "15:30",
+      "dateStr": "2026-10-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "سعال نباحي حاد في الليل مع صعوبة خفيفة في التنفس وحرارة 38.2°.",
+      "patient": {
+        "fullName": "الطفل حمزة زياد الجاسم",
+        "phone": "+963 991 300009",
+        "identityNo": "99100100009",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "email": "ped.ahmad@menaclinic.com",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      },
+      "departmentName": "Çocuk Sağlığı Kliniği",
+      "createdAt": "2026-10-25T09:25:27.009Z"
+    },
+    {
+      "id": "app-sim-1792920326975-10",
+      "patientId": "pat-99100100010",
+      "doctorId": "doc-pedcardio-azzawi",
+      "slotTime": "2026-10-26T16:00:00",
+      "timeStr": "16:00",
+      "dateStr": "2026-10-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "سماع نفخة قلبية عرضية أثناء الفحص الروتيني للطفلة مع نمو جيد.",
+      "patient": {
+        "fullName": "الطفلة جنى بشار السعيد",
+        "phone": "+963 991 300010",
+        "identityNo": "99100100010",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "email": "pedcardio.azzawi@menaclinic.com",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      },
+      "departmentName": "Çocuk Kardiyolojisi Kliniği",
+      "createdAt": "2026-10-25T09:25:27.011Z"
+    },
+    {
+      "id": "app-sim-1792920326977-11",
+      "patientId": "pat-99200200001",
+      "doctorId": "doc-dental-shamoun",
+      "slotTime": "2026-10-26T09:30:00",
+      "timeStr": "09:30",
+      "dateStr": "2026-10-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Alt azı dişinde soğuk ve tatlı yiyeceklerle tetiklenen keskin sızı.",
+      "patient": {
+        "fullName": "Zeynep Kaya",
+        "phone": "+90 532 1000001",
+        "identityNo": "99200200001",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "email": "dental.shamoun@menaclinic.com",
+        "specialty": "Ağız ve Diş Sağlığı • طب الأسنان"
+      },
+      "departmentName": "Diş Sağlığı Kliniği",
+      "createdAt": "2026-10-25T09:25:27.013Z"
+    },
+    {
+      "id": "app-sim-1792920326979-12",
+      "patientId": "pat-99200200002",
+      "doctorId": "doc-gastro-horo",
+      "slotTime": "2026-10-26T10:00:00",
+      "timeStr": "10:00",
+      "dateStr": "2026-10-26",
+      "queueNumber": 2,
+      "status": "COMPLETED",
+      "notes": "Yemeklerden sonra göğüs arkasında yanma ve ağıza asitli sıvı gelmesi.",
+      "patient": {
+        "fullName": "Mehmet Emre Yıldız",
+        "phone": "+90 532 1000002",
+        "identityNo": "99200200002",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "email": "gastro.horo@menaclinic.com",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      },
+      "departmentName": "Gastroenteroloji Kliniği",
+      "createdAt": "2026-10-25T09:25:27.015Z"
+    },
+    {
+      "id": "app-sim-1792920326981-13",
+      "patientId": "pat-99200200003",
+      "doctorId": "doc-cardio-chebb",
+      "slotTime": "2026-10-26T10:30:00",
+      "timeStr": "10:30",
+      "dateStr": "2026-10-26",
+      "queueNumber": 2,
+      "status": "COMPLETED",
+      "notes": "Yürüyüş yaparken çabuk yorulma ve ayak bileklerinde akşama doğru şişlik.",
+      "patient": {
+        "fullName": "Ayşe Demirkan",
+        "phone": "+90 532 1000003",
+        "identityNo": "99200200003",
+        "bloodType": "B+"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb",
+        "email": "cardio.shebb@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      },
+      "departmentName": "Kardiyoloji Kliniği",
+      "createdAt": "2026-10-25T09:25:27.017Z"
+    },
+    {
+      "id": "app-sim-1792920326983-14",
+      "patientId": "pat-99200200004",
+      "doctorId": "doc-ortho-takko",
+      "slotTime": "2026-10-26T11:00:00",
+      "timeStr": "11:00",
+      "dateStr": "2026-10-26",
+      "queueNumber": 2,
+      "status": "COMPLETED",
+      "notes": "Halı saha maçında sağ ayak bileğinin burkulması sonrası şişlik ve morarma.",
+      "patient": {
+        "fullName": "Burak Şahin",
+        "phone": "+90 532 1000004",
+        "identityNo": "99200200004",
+        "bloodType": "AB-"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "email": "ortho.takko@menaclinic.com",
+        "specialty": "Ortopedi • جراحة العظمية"
+      },
+      "departmentName": "Ortopedi Kliniği",
+      "createdAt": "2026-10-25T09:25:27.019Z"
+    },
+    {
+      "id": "app-sim-1792920326985-15",
+      "patientId": "pat-99200200005",
+      "doctorId": "doc-derma-haddad",
+      "slotTime": "2026-10-26T11:30:00",
+      "timeStr": "11:30",
+      "dateStr": "2026-10-26",
+      "queueNumber": 2,
+      "status": "COMPLETED",
+      "notes": "Yüz bölgesinde T-bölgesinde çıkan iltihaplı sivilceler ve kızarıklık.",
+      "patient": {
+        "fullName": "Elif Çelik",
+        "phone": "+90 532 1000005",
+        "identityNo": "99200200005",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "email": "derma.haddad@menaclinic.com",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      },
+      "departmentName": "Dermatoloji Kliniği",
+      "createdAt": "2026-10-25T09:25:27.021Z"
+    },
+    {
+      "id": "app-sim-1792920326986-16",
+      "patientId": "pat-99300300001",
+      "doctorId": "doc-vasc-arr",
+      "slotTime": "2026-10-26T13:30:00",
+      "timeStr": "13:30",
+      "dateStr": "2026-10-26",
+      "queueNumber": 2,
+      "status": "COMPLETED",
+      "notes": "Intermittent cramping pain in calf muscles while walking uphill.",
+      "patient": {
+        "fullName": "Alexander Wright",
+        "phone": "+44 770 0900001",
+        "identityNo": "99300300001",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Fadi Al-Arr",
+        "email": "vasc.arr@menaclinic.com",
+        "specialty": "Damar Cerrahisi • جراحة الأوعية"
+      },
+      "departmentName": "Damar Cerrahisi Kliniği",
+      "createdAt": "2026-10-25T09:25:27.022Z"
+    },
+    {
+      "id": "app-sim-1792920326988-17",
+      "patientId": "pat-99300300002",
+      "doctorId": "doc-uro-qadi",
+      "slotTime": "2026-10-26T14:00:00",
+      "timeStr": "14:00",
+      "dateStr": "2026-10-26",
+      "queueNumber": 2,
+      "status": "COMPLETED",
+      "notes": "Urgency and involuntary leakage of urine during coughing or laughing.",
+      "patient": {
+        "fullName": "Sarah Jenkins",
+        "phone": "+44 770 0900002",
+        "identityNo": "99300300002",
+        "bloodType": "A-"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi",
+        "email": "uro.qadi@menaclinic.com",
+        "specialty": "Üroloji • جراحة البولية"
+      },
+      "departmentName": "Üroloji Kliniği",
+      "createdAt": "2026-10-25T09:25:27.024Z"
+    },
+    {
+      "id": "app-sim-1792920326990-18",
+      "patientId": "pat-99300300003",
+      "doctorId": "doc-ped-ahmad",
+      "slotTime": "2026-10-26T14:30:00",
+      "timeStr": "14:30",
+      "dateStr": "2026-10-26",
+      "queueNumber": 2,
+      "status": "COMPLETED",
+      "notes": "4-year-old child with persistent dry cough and wheezing following a common cold.",
+      "patient": {
+        "fullName": "Michael Davis (Guardian of Oliver Davis)",
+        "phone": "+44 770 0900003",
+        "identityNo": "99300300003",
+        "bloodType": "B+"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "email": "ped.ahmad@menaclinic.com",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      },
+      "departmentName": "Çocuk Sağlığı Kliniği",
+      "createdAt": "2026-10-25T09:25:27.026Z"
+    },
+    {
+      "id": "app-sim-1792920326992-19",
+      "patientId": "pat-99300300004",
+      "doctorId": "doc-pedcardio-azzawi",
+      "slotTime": "2026-10-26T15:30:00",
+      "timeStr": "15:30",
+      "dateStr": "2026-10-26",
+      "queueNumber": 2,
+      "status": "COMPLETED",
+      "notes": "Cardiac follow-up checkup for 7-year-old schoolboy participating in sports.",
+      "patient": {
+        "fullName": "Emma Watson (Guardian of Liam Watson)",
+        "phone": "+44 770 0900004",
+        "identityNo": "99300300004",
+        "bloodType": "O-"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "email": "pedcardio.azzawi@menaclinic.com",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      },
+      "departmentName": "Çocuk Kardiyolojisi Kliniği",
+      "createdAt": "2026-10-25T09:25:27.028Z"
+    },
+    {
+      "id": "app-sim-1792920326994-20",
+      "patientId": "pat-99300300005",
+      "doctorId": "doc-dental-shamoun",
+      "slotTime": "2026-10-26T16:00:00",
+      "timeStr": "16:00",
+      "dateStr": "2026-10-26",
+      "queueNumber": 2,
+      "status": "COMPLETED",
+      "notes": "Routine dental plaque scaling and examination for dental implant in upper premolar.",
+      "patient": {
+        "fullName": "David Miller",
+        "phone": "+44 770 0900005",
+        "identityNo": "99300300005",
+        "bloodType": "AB+"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "email": "dental.shamoun@menaclinic.com",
+        "specialty": "Ağız ve Diş Sağlığı • طب الأسنان"
+      },
+      "departmentName": "Diş Sağlığı Kliniği",
+      "createdAt": "2026-10-25T09:25:27.030Z"
+    },
+    {
+      "id": "app-1792941749476-t5htx",
+      "patientId": "pat-1792941712371-mt53o",
+      "doctorId": "doc-gastro-horo",
+      "slotTime": "2026-10-25T10:30:00",
+      "timeStr": "10:30",
+      "dateStr": "2026-10-25",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Hasta portalı randevusu",
+      "patient": {
+        "fullName": "Yusuf Zakri",
+        "phone": "+963 932141413414",
+        "identityNo": "123123123123",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "email": "gastro.horo@menaclinic.com",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      },
+      "departmentName": "Gastroenteroloji Kliniği",
+      "createdAt": "2026-10-25T15:22:29.476Z"
+    },
+    {
+      "id": "app-1792941751552-4a073",
+      "patientId": "pat-1792941712371-mt53o",
+      "doctorId": "doc-gastro-horo",
+      "slotTime": "2026-10-25T11:00:00",
+      "timeStr": "11:00",
+      "dateStr": "2026-10-25",
+      "queueNumber": 2,
+      "status": "CONFIRMED",
+      "notes": "Hasta portalı randevusu",
+      "patient": {
+        "fullName": "Yusuf Zakri",
+        "phone": "+963 932141413414",
+        "identityNo": "123123123123",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "email": "gastro.horo@menaclinic.com",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      },
+      "departmentName": "Gastroenteroloji Kliniği",
+      "createdAt": "2026-10-25T15:22:31.552Z"
+    }
+  ],
+  "medicalRecords": [
+    {
+      "id": "rec-1792943426191-20co1",
+      "patientId": "pat-1792941712371-mt53o",
+      "doctorId": "doc-gastro-horo",
+      "appointmentId": "app-1792941749476-t5htx",
+      "diagnosis": "uyltlty",
+      "clinicalNotes": "Şikayet: Hasta portalı randevusu\n\ntykt",
+      "prescriptionItems": [],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-10-25T15:50:26.191Z",
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327031-20",
+      "patientId": "pat-99300300005",
+      "doctorId": "doc-dental-shamoun",
+      "appointmentId": "app-sim-1792920326994-20",
+      "diagnosis": "K05.1 - Chronic Marginal Gingivitis and Missing Tooth 24 (Dental Implant Planning)",
+      "clinicalNotes": "S: Desires scaling and professional cleaning, interested in dental implant restoration.\nO: Supragingival calculus on lingual lower incisors, edentulous site at upper left first premolar.\nA: Localized gingivitis resolved post-scaling, adequate bone width for single implant.\nP: Ultrasonic scaling, dental prophylaxis polishing, scheduled for implant 3D CBCT scan.",
+      "prescriptionItems": [
+        {
+          "itemName": "Corsodyl 0.2% Chlorhexidine Mouthwash",
+          "dosage": "Rinse 10ml twice daily after brushing for 7 days",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Panoramic Digital Orthopantomogram (OPG)",
+          "status": "COMPLETED",
+          "resultData": "Sufficient alveolar ridge height (>12mm) in region 24, sinus floor intact"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.114Z",
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "specialty": "Ağız ve Diş Sağlığı • طب الأسنان"
+      },
+      "patient": {
+        "fullName": "David Miller",
+        "identityNo": "99300300005",
+        "phone": "+44 770 0900005",
+        "bloodType": "AB+"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327030-19",
+      "patientId": "pat-99300300004",
+      "doctorId": "doc-pedcardio-azzawi",
+      "appointmentId": "app-sim-1792920326992-19",
+      "diagnosis": "Z00.1 - Pre-participation Pediatric Cardiovascular Screening (Normal)",
+      "clinicalNotes": "S: Asymptomatic young athlete, no family history of sudden cardiac event.\nO: BP: 102/64 mmHg, regular sinus rhythm at 80 bpm, normal heart sounds S1 and S2.\nA: Fit and cleared for all competitive school athletics and swimming.\nP: Annual routine checkup recommended.",
+      "prescriptionItems": [],
+      "labTests": [
+        {
+          "testName": "Pediatric 12-Lead Electrocardiogram (ECG)",
+          "status": "COMPLETED",
+          "resultData": "Normal PR interval, normal QTc 410ms, no repolarization abnormalities"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.110Z",
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      },
+      "patient": {
+        "fullName": "Emma Watson (Guardian of Liam Watson)",
+        "identityNo": "99300300004",
+        "phone": "+44 770 0900004",
+        "bloodType": "O-"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327027-18",
+      "patientId": "pat-99300300003",
+      "doctorId": "doc-ped-ahmad",
+      "appointmentId": "app-sim-1792920326990-18",
+      "diagnosis": "J45.0 - Early Childhood Reactive Airway Disease & Viral Wheeze",
+      "clinicalNotes": "S: Night-time coughing fits, child is playful during the day.\nO: Respiration rate: 24 bpm, bilateral expiratory wheezes on chest auscultation.\nA: Post-viral bronchial hyperreactivity.\nP: Inhaled corticosteroid and short-acting bronchodilator via spacer chamber.",
+      "prescriptionItems": [
+        {
+          "itemName": "Ventolin Inhaler 100mcg (Salbutamol)",
+          "dosage": "2 puffs via spacer every 4-6 hours as needed",
+          "quantity": 1
+        },
+        {
+          "itemName": "Flixotide 50mcg (Fluticasone)",
+          "dosage": "1 puff twice daily for 2 weeks",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Pulse Oximetry & Peak Flow Screening",
+          "status": "COMPLETED",
+          "resultData": "SpO2: 99% on room air, good air entry bilaterally"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.105Z",
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      },
+      "patient": {
+        "fullName": "Michael Davis (Guardian of Oliver Davis)",
+        "identityNo": "99300300003",
+        "phone": "+44 770 0900003",
+        "bloodType": "B+"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327025-17",
+      "patientId": "pat-99300300002",
+      "doctorId": "doc-uro-qadi",
+      "appointmentId": "app-sim-1792920326988-17",
+      "diagnosis": "N39.3 - Stress Urinary Incontinence (Mild SUI)",
+      "clinicalNotes": "S: Sensation of bladder pressure and stress incontinence during physical exertion.\nO: Pelvic exam demonstrates intact mucosal support, positive cough stress test.\nA: Genuine stress urinary incontinence related to pelvic floor weakness.\nP: Kegel pelvic floor muscle training and lifestyle modification.",
+      "prescriptionItems": [
+        {
+          "itemName": "Vesicare 5mg (Solifenacin Succinate)",
+          "dosage": "Take 1 tablet daily with food",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Urodynamic Pressure Flow Study & Post-Void Residual",
+          "status": "COMPLETED",
+          "resultData": "Post-void residual volume: 15 mL (Normal/Adequate emptying)"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.101Z",
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi",
+        "specialty": "Üroloji • جراحة البولية"
+      },
+      "patient": {
+        "fullName": "Sarah Jenkins",
+        "identityNo": "99300300002",
+        "phone": "+44 770 0900002",
+        "bloodType": "A-"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327023-16",
+      "patientId": "pat-99300300001",
+      "doctorId": "doc-vasc-arr",
+      "appointmentId": "app-sim-1792920326986-16",
+      "diagnosis": "I73.9 - Peripheral Arterial Occlusive Disease & Claudication (PAD Fontaine IIa)",
+      "clinicalNotes": "S: Cramping calf pain after walking approximately 400 meters, relieved with rest.\nO: Posterior tibial and dorsalis pedis pulses diminished bilaterally. Ankle-Brachial Index (ABI): 0.82.\nA: Mild to moderate lower limb peripheral arterial insufficiency.\nP: Supervised walking program, smoking cessation, antiplatelet and statin therapy.",
+      "prescriptionItems": [
+        {
+          "itemName": "Plavix 75mg (Clopidogrel)",
+          "dosage": "One tablet daily with water",
+          "quantity": 1
+        },
+        {
+          "itemName": "Crestor 20mg (Rosuvastatin)",
+          "dosage": "One tablet every evening",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Arterial Duplex Ultrasound of Lower Extremities",
+          "status": "COMPLETED",
+          "resultData": "Superficial femoral artery 45% stenosis, patent distal runoff"
+        },
+        {
+          "testName": "Comprehensive Lipid Profile",
+          "status": "COMPLETED",
+          "resultData": "LDL: 154 mg/dL, HDL: 38 mg/dL, Triglycerides: 198 mg/dL"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.096Z",
+      "doctor": {
+        "fullName": "Dr. Fadi Al-Arr",
+        "specialty": "Damar Cerrahisi • جراحة الأوعية"
+      },
+      "patient": {
+        "fullName": "Alexander Wright",
+        "identityNo": "99300300001",
+        "phone": "+44 770 0900001",
+        "bloodType": "O+"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327022-15",
+      "patientId": "pat-99200200005",
+      "doctorId": "doc-derma-haddad",
+      "appointmentId": "app-sim-1792920326985-15",
+      "diagnosis": "L70.0 - Akne Vulgaris ve Sebase Hiperaktivite (Papulopustular Acne)",
+      "clinicalNotes": "S: Son aylarda strese bağlı çene ve alın bölgesinde artan komedon ve püstüller.\nO: Yüzde eritemli papüller ve açık/kapalı komedonlar, kistik nodül yok.\nA: Orta şiddette papülopüstüler akne.\nP: Topikal benzoil peroksit + klindamisin jeli ve yağsız güneş koruyucu.",
+      "prescriptionItems": [
+        {
+          "itemName": "Clindoxyl Jel (Klindamisin + Benzoil Peroksit)",
+          "dosage": "Akşamları temiz cilde ince tabaka",
+          "quantity": 1
+        },
+        {
+          "itemName": "La Roche-Posay Effaclar Jel Yüz Yıkama",
+          "dosage": "Sabah ve akşam cildi kurutmadan arındırma",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Total Testosteron & DHEA-SO4 Hormon Paneli",
+          "status": "COMPLETED",
+          "resultData": "Hormon seviyeleri referans aralıklar içerisinde normal"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.092Z",
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      },
+      "patient": {
+        "fullName": "Elif Çelik",
+        "identityNo": "99200200005",
+        "phone": "+90 532 1000005",
+        "bloodType": "A+"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327020-14",
+      "patientId": "pat-99200200004",
+      "doctorId": "doc-ortho-takko",
+      "appointmentId": "app-sim-1792920326983-14",
+      "diagnosis": "S93.4 - Sağ Ayak Bileği Lateral Ligaman Burkulması (Ankle Sprain Grade II)",
+      "clinicalNotes": "S: Ayağın içe dönmesiyle akut burkulma ve şiddetli acı hissi.\nO: Dış malleol çevresinde hematom ve ödem, kemik hassasiyeti yok.\nA: Ön talofibuler ligamanda parsiyel yırtık şüphesi.\nP: RICE protokolü (İstirahat, buz, elastik bandaj, elevasyon) ve stabilizasyon.",
+      "prescriptionItems": [
+        {
+          "itemName": "Diclomec Jel %1 (Diklofenak)",
+          "dosage": "Günde 3 kez burkulan bölgeye hafifçe sürülür",
+          "quantity": 1
+        },
+        {
+          "itemName": "Muscoril 8mg Kapsül (Tiyokolşikozit)",
+          "dosage": "Günde 2 kez tok karnına 1 kapsül",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Sağ Ayak Bileği İki Yönlü Grafi",
+          "status": "COMPLETED",
+          "resultData": "Kemiksel korteks devamlılığı tam, avülsiyon veya fraktür izlenmedi"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.088Z",
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "specialty": "Ortopedi • جراحة العظمية"
+      },
+      "patient": {
+        "fullName": "Burak Şahin",
+        "identityNo": "99200200004",
+        "phone": "+90 532 1000004",
+        "bloodType": "AB-"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327018-13",
+      "patientId": "pat-99200200003",
+      "doctorId": "doc-cardio-chebb",
+      "appointmentId": "app-sim-1792920326981-13",
+      "diagnosis": "I50.9 - Kronik Kalp Yetersizliği Evre II (NYHA Class II Heart Failure)",
+      "clinicalNotes": "S: İki kat merdiven çıkınca nefes darlığı hissi.\nO: TA: 130/80 mmHg, Nabız: 72 bpm. Pretibial +1 gode bırakan ödem.\nA: Korunmuş ejeksiyon fraksiyonlu kalp yetmezliği.\nP: Düşük doz diüretik ve ACE inhibitörü kombinasyonu, tuz kısıtlaması.",
+      "prescriptionItems": [
+        {
+          "itemName": "Lasix 40mg (Furosemid)",
+          "dosage": "Günde 1 kez sabah aç karna yarım tablet",
+          "quantity": 1
+        },
+        {
+          "itemName": "Triplixam 5/1.25/5mg",
+          "dosage": "Sabahları 1 tablet",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "NT-proBNP Kardiyak Biyobelirteç",
+          "status": "COMPLETED",
+          "resultData": "245 pg/mL (Hafif kardiyak yük artışı)"
+        },
+        {
+          "testName": "Serum Elektrolitleri (Na, K, Cl)",
+          "status": "COMPLETED",
+          "resultData": "K: 4.3 mmol/L, Na: 140 mmol/L (Normal sınırlar)"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.084Z",
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      },
+      "patient": {
+        "fullName": "Ayşe Demirkan",
+        "identityNo": "99200200003",
+        "phone": "+90 532 1000003",
+        "bloodType": "B+"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327016-12",
+      "patientId": "pat-99200200002",
+      "doctorId": "doc-gastro-horo",
+      "appointmentId": "app-sim-1792920326979-12",
+      "diagnosis": "K21.0 - Gastroözofageal Reflü Hastalığı ve Özofajit (GERD with Esophagitis)",
+      "clinicalNotes": "S: Özellikle gece yatarken artan retrosternal pyrozis ve kuru öksürük.\nO: Batın palpasyonda rahat, karaciğer ve dalak non-palpabl.\nA: Grade A reflü özofajit tablosu.\nP: Diyet düzenlemesi, başucunun yükseltilmesi ve PPI tedavisi.",
+      "prescriptionItems": [
+        {
+          "itemName": "Pantpas 40mg (Pantoprazol)",
+          "dosage": "Her sabah aç karnına 1 tablet",
+          "quantity": 2
+        },
+        {
+          "itemName": "Rennie Çiğneme Tableti",
+          "dosage": "Yanma hissi olduğunda 1-2 tablet çiğnenir",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Gaitada Gizli Kan Testi (FOBT)",
+          "status": "COMPLETED",
+          "resultData": "Negatif (Kanama bulgusu saptanmadı)"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.079Z",
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      },
+      "patient": {
+        "fullName": "Mehmet Emre Yıldız",
+        "identityNo": "99200200002",
+        "phone": "+90 532 1000002",
+        "bloodType": "O+"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327014-11",
+      "patientId": "pat-99200200001",
+      "doctorId": "doc-dental-shamoun",
+      "appointmentId": "app-sim-1792920326977-11",
+      "diagnosis": "K02.1 - Dentin Çürüğü ve Reversibl Pulpitis (Dental Caries in Dentin)",
+      "clinicalNotes": "S: Hasta sağ alt 6 numaralı dişte termal hassasiyetten şikayetçi.\nO: Oklüzal fissürde derin kavitasyon, perküsyon hassasiyeti negatif.\nA: Reversibl pulpa hiperemisi, pulpa canlı.\nP: Çürük temizliği, kuafaj ve ışınlı kompozit estetik dolgu yapıldı.",
+      "prescriptionItems": [
+        {
+          "itemName": "Sensodyne Hızlı Rahatlama Diş Macunu",
+          "dosage": "Günde 2 kez yumuşak fırçayla",
+          "quantity": 1
+        },
+        {
+          "itemName": "Apranax Fort 550mg (Naproksen)",
+          "dosage": "Şiddetli sızı durumunda tok karna 1 tablet",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Dijital Periapikal Dental Röntgen",
+          "status": "COMPLETED",
+          "resultData": "Periapikal radyolusensi saptanmadı, kök kanalları intakt"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.075Z",
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "specialty": "Ağız ve Diş Sağlığı • طب الأسنان"
+      },
+      "patient": {
+        "fullName": "Zeynep Kaya",
+        "identityNo": "99200200001",
+        "phone": "+90 532 1000001",
+        "bloodType": "A+"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327012-10",
+      "patientId": "pat-99100100010",
+      "doctorId": "doc-pedcardio-azzawi",
+      "appointmentId": "app-sim-1792920326975-10",
+      "diagnosis": "Q21.0 - نفخة قلبية بريئة دون تشوه ولادي (Innocent Still's Murmur)",
+      "clinicalNotes": "S: الطفلة نشيطة، رضاعتها ممتازة، لا تعاني من تعرق أو زرقة شفتين.\nO: نفخة انقباضية موسيقية الدرجة 2/6 على الحافة القصية اليسرى تتراجع بالجلوس.\nA: نفخة وظيفية حميدة تماماً، قلب سليم بنيوياً.\nP: طمأنة الأهل، لا داعي لأي تقييد للنشاط البدني أو أدوية.",
+      "prescriptionItems": [],
+      "labTests": [
+        {
+          "testName": "إيكو قلب دوبلر أطفال Pediatric Echocardiography",
+          "status": "COMPLETED",
+          "resultData": "Normal cardiac anatomy, intact septa, normal biventricular function EF 68%"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.071Z",
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      },
+      "patient": {
+        "fullName": "الطفلة جنى بشار السعيد",
+        "identityNo": "99100100010",
+        "phone": "+963 991 300010",
+        "bloodType": "A+"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327010-9",
+      "patientId": "pat-99100100009",
+      "doctorId": "doc-ped-ahmad",
+      "appointmentId": "app-sim-1792920326972-9",
+      "diagnosis": "J05.0 - الخناق الحنجري الفيروسي الحاد (Acute Laryngotracheobronchitis - Croup)",
+      "clinicalNotes": "S: سعال أجش مع صرير تنفسي شهيقي خفيف عند البكاء.\nO: درجة الحرارة 38.1°C، تشبع الأكسجين 98%، لا يوجد زرقة أو سحب صدري.\nA: التهاب حنجرة ورغامى فيروسي متوسط الشدة.\nP: جرعة وحيدة ديكساميثازون وجلسات رذاذ بارد مع ترطيب الغرفة.",
+      "prescriptionItems": [
+        {
+          "itemName": "Dexamethasone Oral Solution 2mg",
+          "dosage": "جرعة فموية وحيدة بالعيادة",
+          "quantity": 1
+        },
+        {
+          "itemName": "Paracetamol Syrup 120mg/5ml",
+          "dosage": "5 مل كل 6 ساعات عند ارتفاع الحرارة",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "فحص البروتين الارتكاسي التفاعلي CRP & CBC",
+          "status": "COMPLETED",
+          "resultData": "WBC: 8.2 K/uL (Lymphocytic predominance), CRP: 6 mg/L (Viral profile)"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.066Z",
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      },
+      "patient": {
+        "fullName": "الطفل حمزة زياد الجاسم",
+        "identityNo": "99100100009",
+        "phone": "+963 991 300009",
+        "bloodType": "O+"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327008-8",
+      "patientId": "pat-99100100008",
+      "doctorId": "doc-vasc-arr",
+      "appointmentId": "app-sim-1792920326970-8",
+      "diagnosis": "I83.9 - قصور وريدي سطحي ودوالي الأطراف السفلية (Varicose Veins Lower Limbs)",
+      "clinicalNotes": "S: تعب وثقل في الساقين بنهاية النهار بعد الوقوف الطويل.\nO: توسعات وريدية متعرجة في مسار الوريد الصافن الكبير الأيمن.\nA: دوالي وريدية درجة C2 وفق تصنيف CEAP.\nP: جوارب ضاغطة طبية وعلاج فلافونويدي مقوي لجدران الأوردة.",
+      "prescriptionItems": [
+        {
+          "itemName": "Daflon 500mg (Micronized Flavonoid)",
+          "dosage": "قرصان يومياً مع وجبة الغداء",
+          "quantity": 2
+        },
+        {
+          "itemName": "Medical Compression Stockings Class II",
+          "dosage": "ارتداء الجوارب صباحاً قبل النهوض من الفراش",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "إيكو دوبلر ملون للأوردة Venous Duplex Lower Limbs",
+          "status": "COMPLETED",
+          "resultData": "Reflux > 0.5s in Great Saphenous Vein junction, deep veins patent"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.062Z",
+      "doctor": {
+        "fullName": "Dr. Fadi Al-Arr",
+        "specialty": "Damar Cerrahisi • جراحة الأوعية"
+      },
+      "patient": {
+        "fullName": "بلال محمود عثمان",
+        "identityNo": "99100100008",
+        "phone": "+963 991 300008",
+        "bloodType": "A+"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327007-7",
+      "patientId": "pat-99100100007",
+      "doctorId": "doc-derma-haddad",
+      "appointmentId": "app-sim-1792920326968-7",
+      "diagnosis": "L21.9 - التهاب الجلد المثي والصدفية الموضعية (Seborrheic Dermatitis)",
+      "clinicalNotes": "S: قشور دهنية بيضاء وصفراء مع احمرار بالجلد وحكة.\nO: حمامى حرشفية في حافة شعر الرأس وثنايا الأنف.\nA: إكزيما دهنية مترافقة مع نشاط خمائر الملاسيزيا.\nP: شامبو طبي ومحلول كورتيكويد موضعي خفيف.",
+      "prescriptionItems": [
+        {
+          "itemName": "Nizoral 2% Medicated Shampoo (Ketoconazole)",
+          "dosage": "غسيل فروة الرأس مرتين أسبوعياً لمدة شهر",
+          "quantity": 1
+        },
+        {
+          "itemName": "Elocom 0.1% Scalp Lotion (Mometasone)",
+          "dosage": "بضع قطرات مساءً على المواضع المصابة لـ 10 أيام",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "فحص الفطريات المجهري المباشر KOH Mount",
+          "status": "COMPLETED",
+          "resultData": "Malassezia furfur spores detected, no dermatophytes"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.058Z",
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      },
+      "patient": {
+        "fullName": "ريم حسان كردي",
+        "identityNo": "99100100007",
+        "phone": "+963 991 300007",
+        "bloodType": "B-"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327005-6",
+      "patientId": "pat-99100100006",
+      "doctorId": "doc-uro-qadi",
+      "appointmentId": "app-sim-1792920326967-6",
+      "diagnosis": "N30.0 - التهاب المثانة الحاد الجرثومي (Acute Bacterial Cystitis)",
+      "clinicalNotes": "S: عسرة تبول حادة مع تكرار الذهاب للحمام.\nO: ألم خفيف فوق العانة، لا يوجد حرارة جهازية.\nA: إنتان بولي سفلي غير معقد.\nP: مضاد حيوي موجه مع مطهر مسالك بولية ومدر طبيعي.",
+      "prescriptionItems": [
+        {
+          "itemName": "Monuril 3g Sachet (Fosfomycin)",
+          "dosage": "كيس واحد يحل بكأس ماء قبل النوم لمرة واحدة",
+          "quantity": 1
+        },
+        {
+          "itemName": "Urispas 200mg (Flavoxate)",
+          "dosage": "قرص 3 مرات يومياً لتسكين التشنج البولي",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "زرع بول وتحسس Urine Culture & Sensitivity",
+          "status": "COMPLETED",
+          "resultData": "E. Coli > 100,000 CFU/mL - Sensitive to Fosfomycin"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.053Z",
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi",
+        "specialty": "Üroloji • جراحة البولية"
+      },
+      "patient": {
+        "fullName": "سارة مصطفى قدور",
+        "identityNo": "99100100006",
+        "phone": "+963 991 300006",
+        "bloodType": "O-"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327003-5",
+      "patientId": "pat-99100100005",
+      "doctorId": "doc-uro-razzaq",
+      "appointmentId": "app-sim-1792920326964-5",
+      "diagnosis": "N20.1 - حصاة في الحالب الأيسر مسببة لمغص كلوي (Left Ureteral Calculus)",
+      "clinicalNotes": "S: مغص كلوي حاد متقطع مع غثيان.\nO: إيلام شديد بالجس في الزاوية الضلعية الفقرية اليسرى.\nA: اشتباه حصاة حالبية دقيقة، حالة إفراغية مستقرة.\nP: مسكن تشنجي ومدر بولي ودفع سوائل بكميات كافية (3 لتر يومياً).",
+      "prescriptionItems": [
+        {
+          "itemName": "Rowatinex Capsules",
+          "dosage": "كبسولتان قبل الأكل 3 مرات يومياً",
+          "quantity": 2
+        },
+        {
+          "itemName": "Voltaren 75mg Ampoule / Suppository",
+          "dosage": "عند هجمة الألم الشديد فقط",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "فحص بول وراسب كامل Routine Urinalysis",
+          "status": "COMPLETED",
+          "resultData": "RBC: 25-30 / HPF (Microscopic Hematuria)"
+        },
+        {
+          "testName": "إيكو الكليتين والمثانة KUB Ultrasound",
+          "status": "COMPLETED",
+          "resultData": "4.5mm calculus in lower 1/3 left ureter, mild hydronephrosis"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.049Z",
+      "doctor": {
+        "fullName": "Dr. Ahmad Abdulrazzaq",
+        "specialty": "Üroloji • جراحة البولية"
+      },
+      "patient": {
+        "fullName": "عبدالكريم الصالح",
+        "identityNo": "99100100005",
+        "phone": "+963 991 300005",
+        "bloodType": "A-"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327001-4",
+      "patientId": "pat-99100100004",
+      "doctorId": "doc-ortho-takko",
+      "appointmentId": "app-sim-1792920326962-4",
+      "diagnosis": "M17.1 - فصال عظمي أولي في مفصل الركبة اليمنى (Right Knee Osteoarthritis)",
+      "clinicalNotes": "S: آلام متزايدة بالمفصل عند المشي والوقوف الطويل.\nO: تورم طفيف حول الركبة، تحديد خفيف في العطف الأقصى.\nA: تنكس مفصلي درجة ثانية مع خشونة غضروفية.\nP: مركب الجلوكوزامين والكوندرويتين وتمارين تقوية العضلة مربعة الرؤوس.",
+      "prescriptionItems": [
+        {
+          "itemName": "Celebrex 200mg (Celecoxib)",
+          "dosage": "حبة واحدة يومياً بعد وجبة الغداء عند اللزوم",
+          "quantity": 1
+        },
+        {
+          "itemName": "Osteocare Joint Glucosamine",
+          "dosage": "قرص مرتين يومياً مع الوجبات",
+          "quantity": 2
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "تصوير شعاعي بسيط للركبتين واقفاً X-Ray Bilateral Knees",
+          "status": "COMPLETED",
+          "resultData": "Narrowing of medial joint space, early osteophytes"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.045Z",
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "specialty": "Ortopedi • جراحة العظمية"
+      },
+      "patient": {
+        "fullName": "مريم خالد الباشا",
+        "identityNo": "99100100004",
+        "phone": "+963 991 300004",
+        "bloodType": "AB+"
+      }
+    },
+    {
+      "id": "rec-sim-1792920327000-3",
+      "patientId": "pat-99100100003",
+      "doctorId": "doc-cardio-horo",
+      "appointmentId": "app-sim-1792920326960-3",
+      "diagnosis": "I10 - ارتفاع ضغط الدم الشرياني الأولي (Essential Hypertension Stage 1)",
+      "clinicalNotes": "S: صداع قفوي صباحي مع شعور بالإجهاد.\nO: قياس الضغط: 148/92 mmHg، معدل النبض: 76 bpm.\nA: فرط ضغط شرياني، الحاجة لضبط دوائي وتعديل نمط الحياة.\nP: مونوبريل 10 ملغ ومراقبة الضغط لسبعة أيام متتالية.",
+      "prescriptionItems": [
+        {
+          "itemName": "Exforge 5/80mg (Amlodipine/Valsartan)",
+          "dosage": "حبة واحدة صباحاً مع كأس ماء",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "تحليل وظائف الكلى Urea & Serum Creatinine",
+          "status": "COMPLETED",
+          "resultData": "Creatinine: 0.9 mg/dL, eGFR > 90 (طبيعي)"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.041Z",
+      "doctor": {
+        "fullName": "Dr. Barkhadan Horo",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      },
+      "patient": {
+        "fullName": "يوسف أحمد النجار",
+        "identityNo": "99100100003",
+        "phone": "+963 991 300003",
+        "bloodType": "B+"
+      }
+    },
+    {
+      "id": "rec-sim-1792920326998-2",
+      "patientId": "pat-99100100002",
+      "doctorId": "doc-cardio-chebb",
+      "appointmentId": "app-sim-1792920326958-2",
+      "diagnosis": "I47.1 - تسرع قلب جيبي فوق بطيني متقطع (Supraventricular Tachycardia)",
+      "clinicalNotes": "S: خفقان قلب متسارع يظهر فجأة ويستمر لعدة دقائق.\nO: ضغط الدم: 125/80 mmHg، النبض: 88 bpm. أصوات القلب منتظمة.\nA: تسرع قلب انفعالي مع قلق خفيف.\nP: هولتر 24 ساعة، وإعطاء جرعة مخففة من حاصرات بيتا.",
+      "prescriptionItems": [
+        {
+          "itemName": "Concor 2.5mg (Bisoprolol)",
+          "dosage": "حبة واحدة صباحاً يومياً",
+          "quantity": 1
+        },
+        {
+          "itemName": "Magnesium B6 Forte",
+          "dosage": "حبة مساءً بعد العشاء",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "تخطيط قلب كهربائي EKG 12-Lead",
+          "status": "COMPLETED",
+          "resultData": "Sinus Rhythm with occasional PACs - No ST elevation"
+        },
+        {
+          "testName": "فحص هرمونات الغدة الدرقية TSH & Free T4",
+          "status": "COMPLETED",
+          "resultData": "TSH: 2.1 mIU/L (طبيعي)"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.037Z",
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      },
+      "patient": {
+        "fullName": "عمر فاروق الحلبي",
+        "identityNo": "99100100002",
+        "phone": "+963 991 300002",
+        "bloodType": "O+"
+      }
+    },
+    {
+      "id": "rec-sim-1792920326996-1",
+      "patientId": "pat-99100100001",
+      "doctorId": "doc-gastro-horo",
+      "appointmentId": "app-sim-1792920326956-1",
+      "diagnosis": "K29.7 - التهاب المعدة الحاد وعسر الهضم الوظيفي (Acute Gastritis)",
+      "clinicalNotes": "S: تعاني المريضة من حرقة فؤاد وألم شرسوفي منذ 3 أسابيع.\nO: بطن لين مع إيلام خفيف في الشرسوف، علامة بلومبرغ سلبية.\nA: التهاب مخاطية المعدة مع قلس مريئي خفيف.\nP: بدء علاج بمثبط مضخة البروتون وحمية غذائية.",
+      "prescriptionItems": [
+        {
+          "itemName": "Nexium 40mg (Esomeprazole)",
+          "dosage": "حبة واحدة صباحاً قبل الإفطار بنصف ساعة",
+          "quantity": 2
+        },
+        {
+          "itemName": "Gaviscon Advance Suspension",
+          "dosage": "10 مل بعد الوجبات وقبل النوم",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "فحص جرثومة المعدة H. Pylori Stool Antigen",
+          "status": "COMPLETED",
+          "resultData": "Positive (+ve) إيجابي"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-10-25T09:25:27.033Z",
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      },
+      "patient": {
+        "fullName": "فاطمة الزهراء المحمد",
+        "identityNo": "99100100001",
+        "phone": "+963 991 300001",
+        "bloodType": "A+"
+      }
+    }
+  ]
+}
