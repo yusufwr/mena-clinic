@@ -51,9 +51,10 @@ export function guarded(handler: Handler): Handler {
             request = new Request(url, request);
           }
         } else {
-          const body = await request.clone().json();
+          const body = await request.clone().json().catch(() => ({}));
           if (feature === "appointments" && request.method === "POST" && route === "appointments") {
-            const isFamilyBooking = db.patients.some(p => p.id === body.patientId && (p.id === session.id || p.familyHeadId === session.id));
+            const targetId = body.patientId || (body.patientIdentityNo ? db.patients.find(p => p.identityNo === body.patientIdentityNo)?.id : undefined) || session.id;
+            const isFamilyBooking = db.patients.some(p => p.id === targetId && (p.id === session.id || p.familyHeadId === session.id || (p.familyHeadId && p.familyHeadId === db.patients.find(curr => curr.id === session.id)?.familyHeadId)));
             if (!isFamilyBooking) return errorResponse("Kendi adınıza veya aile bireyiniz adına randevu alabilirsiniz", 403);
           } else if (route.startsWith("patients/family")) {
             // allow family member creation

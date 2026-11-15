@@ -36,7 +36,12 @@ export async function dispense(request: Request, id: string) {
     if (prescription.status === "DISPENSED") throw new HttpError(409, "Reçete zaten teslim edildi");
     const required = new Map<string, number>();
     for (const item of prescription.items) {
-      const stock = db.inventory?.find(i => item.inventoryItemId ? i.id === item.inventoryItemId : i.itemName === item.itemName);
+      const matchStock = (i: InventoryRecord) =>
+        item.inventoryItemId ? i.id === item.inventoryItemId : i.itemName.trim().toLowerCase() === item.itemName.trim().toLowerCase();
+      // Match available batch with sufficient stock and valid expiry, falling back to any matching item
+      const stock =
+        db.inventory?.find(i => matchStock(i) && i.stockQuantity >= item.quantity && new Date(i.expiryDate).getTime() > Date.now()) ||
+        db.inventory?.find(matchStock);
       if (!stock || !Number.isInteger(item.quantity) || item.quantity <= 0) throw new HttpError(409, "Reçete için stok eşleşmesi gerekli");
       required.set(stock.id, (required.get(stock.id) || 0) + item.quantity);
     }
