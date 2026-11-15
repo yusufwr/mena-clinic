@@ -9,6 +9,18 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  webpack: (config, { dev }) => {
+    if (dev) {
+      // Use in-memory cache during development to eliminate OneDrive disk lock latency & V8 heap crashes
+      config.cache = {
+        type: 'memory',
+      };
+    }
+    return config;
+  },
 };
 
 export default withNextIntl(nextConfig);

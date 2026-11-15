@@ -10,7 +10,7 @@ export const MOCK_DOCTORS: DoctorData[] = [
   { id: "doc-uro-razzaq", fullName: "Dr. Ahmad Abdulrazzaq (د. احمد عبدالرزاق)", email: "uro.razzaq@menaclinic.com", phone: "+963 991 223305" },
   { id: "doc-uro-qadi", fullName: "Dr. Abdulatif Qadi (د. عبداللطيف قاضي)", email: "uro.qadi@menaclinic.com", phone: "+963 991 223306" },
   { id: "doc-derma-haddad", fullName: "Dr. Lodia Haddad (د. لوديا حداد)", email: "derma.haddad@menaclinic.com", phone: "+963 991 223307" },
-  { id: "doc-vasc-arr", fullName: "Dr. Fadi Al-Arr (د. فادي العر)", email: "vasc.arr@menaclinic.com", phone: "+963 991 223308" },
+  { id: "doc-dental-masri", fullName: "Dr. Ibrahim Al-Masri (د. ابراهيم المصري)", email: "dental.masri@menaclinic.com", phone: "+963 991 223308" },
   { id: "doc-ped-ahmad", fullName: "Dr. Hussein Al-Ahmad (د. حسين الاحمد)", email: "ped.ahmad@menaclinic.com", phone: "+963 991 223309" },
   { id: "doc-pedcardio-azzawi", fullName: "Dr. Ahmad Azzawi (د. احمد عزاوي)", email: "pedcardio.azzawi@menaclinic.com", phone: "+963 991 223310" },
   { id: "doc-dental-shamoun", fullName: "Dr. Majid Shamoun (د. ماجد شمعون)", email: "dental.shamoun@menaclinic.com", phone: "+963 991 223311" },

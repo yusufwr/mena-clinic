@@ -9,11 +9,50 @@
   --foreground: #2C1810;
 }
 
+/* Fluid responsive typography and TV screen scaling */
+html {
+  font-size: 15px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (min-width: 640px) {
+  html {
+    font-size: 15.5px;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1920px) {
+  html {
+    font-size: 18px; /* Proportional scaling on large desktop & 1080p TV presentation */
+  }
+}
+
+@media (min-width: 2560px) {
+  html {
+    font-size: 21px; /* 2K & Large Clinic waiting room TVs */
+  }
+}
+
+@media (min-width: 3840px) {
+  html {
+    font-size: 26px; /* 4K / UHD TV screens */
+  }
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: 'Plus Jakarta Sans', sans-serif;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 /* Custom Soft Warm Scrollbar */
@@ -30,6 +69,15 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #B8A892;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 [dir="rtl"], [dir="rtl"] body {

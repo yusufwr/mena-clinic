@@ -12,15 +12,16 @@
       },
       "room": "Poliklinik 101",
       "hours": "09:00 - 17:00",
-      "consultationFee": 1200,
-      "fee": "250.000 SYP",
+      "consultationFee": 1000,
+      "fee": "1.000 SYP",
       "rating": 4.98,
       "unavailableSlots": [
         "12:00",
         "12:30",
         "15:00"
       ],
-      "role": "DOCTOR"
+      "role": "DOCTOR",
+      "feeAr": "1.000 ل.س جديدة"
     },
     {
       "id": "doc-cardio-chebb",
@@ -34,14 +35,15 @@
       },
       "room": "Poliklinik 102",
       "hours": "09:00 - 17:00",
-      "consultationFee": 1300,
-      "fee": "260.000 SYP",
+      "consultationFee": 1000,
+      "fee": "1.000 SYP",
       "rating": 4.97,
       "unavailableSlots": [
         "12:00",
         "12:30"
       ],
-      "role": "DOCTOR"
+      "role": "DOCTOR",
+      "feeAr": "1.000 ل.س جديدة"
     },
     {
       "id": "doc-cardio-horo",
@@ -55,14 +57,15 @@
       },
       "room": "Poliklinik 103",
       "hours": "09:00 - 17:00",
-      "consultationFee": 1300,
-      "fee": "260.000 SYP",
+      "consultationFee": 1000,
+      "fee": "1.000 SYP",
       "rating": 4.96,
       "unavailableSlots": [
         "12:00",
         "12:30"
       ],
-      "role": "DOCTOR"
+      "role": "DOCTOR",
+      "feeAr": "1.000 ل.س جديدة"
     },
     {
       "id": "doc-ortho-takko",
@@ -76,14 +79,15 @@
       },
       "room": "Poliklinik 104",
       "hours": "09:00 - 17:00",
-      "consultationFee": 1250,
-      "fee": "250.000 SYP",
+      "consultationFee": 1000,
+      "fee": "1.000 SYP",
       "rating": 4.99,
       "unavailableSlots": [
         "12:00",
         "12:30"
       ],
-      "role": "DOCTOR"
+      "role": "DOCTOR",
+      "feeAr": "1.000 ل.س جديدة"
     },
     {
       "id": "doc-uro-razzaq",
@@ -97,14 +101,15 @@
       },
       "room": "Poliklinik 105",
       "hours": "09:00 - 17:00",
-      "consultationFee": 1200,
-      "fee": "240.000 SYP",
+      "consultationFee": 1000,
+      "fee": "1.000 SYP",
       "rating": 4.94,
       "unavailableSlots": [
         "12:00",
         "12:30"
       ],
-      "role": "DOCTOR"
+      "role": "DOCTOR",
+      "feeAr": "1.000 ل.س جديدة"
     },
     {
       "id": "doc-uro-qadi",
@@ -118,14 +123,15 @@
       },
       "room": "Poliklinik 106",
       "hours": "09:00 - 17:00",
-      "consultationFee": 1200,
-      "fee": "240.000 SYP",
+      "consultationFee": 1000,
+      "fee": "1.000 SYP",
       "rating": 4.95,
       "unavailableSlots": [
         "12:00",
         "12:30"
       ],
-      "role": "DOCTOR"
+      "role": "DOCTOR",
+      "feeAr": "1.000 ل.س جديدة"
     },
     {
       "id": "doc-derma-haddad",
@@ -139,29 +145,32 @@
       },
       "room": "Poliklinik 107",
       "hours": "09:00 - 17:00",
-      "consultationFee": 1100,
-      "fee": "220.000 SYP",
+      "consultationFee": 1000,
+      "fee": "1.000 SYP",
       "rating": 4.97,
       "unavailableSlots": [
         "12:00",
         "12:30"
       ],
-      "role": "DOCTOR"
+      "role": "DOCTOR",
+      "feeAr": "1.000 ل.س جديدة"
     },
     {
-      "id": "doc-vasc-arr",
-      "fullName": "Dr. Fadi Al-Arr",
-      "fullNameAr": "د. فادي العر",
-      "email": "vasc.arr@menaclinic.com",
+      "id": "doc-dental-masri",
+      "fullName": "Dr. Ibrahim Al-Masri",
+      "fullNameAr": "د. ابراهيم المصري",
+      "email": "dental.masri@menaclinic.com",
       "phone": "+963 991 223308",
-      "specialty": "Damar Cerrahisi • جراحة الأوعية",
+      "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان",
+      "specialtyAr": "أخصائي في طب الأسنان وجراحتها • معالجات مجهرية وتجميل",
       "department": {
-        "name": "Damar Cerrahisi Kliniği"
+        "name": "Ağız ve Diş Sağlığı Kliniği"
       },
       "room": "Poliklinik 108",
       "hours": "09:00 - 17:00",
-      "consultationFee": 1350,
-      "fee": "270.000 SYP",
+      "consultationFee": 1000,
+      "fee": "1.000 SYP",
+      "feeAr": "1.000 ل.س جديدة",
       "rating": 4.98,
       "unavailableSlots": [
         "12:00",
@@ -182,13 +191,14 @@
       "room": "Poliklinik 109",
       "hours": "09:00 - 17:00",
       "consultationFee": 1000,
-      "fee": "200.000 SYP",
+      "fee": "1.000 SYP",
       "rating": 4.96,
       "unavailableSlots": [
         "12:00",
         "12:30"
       ],
-      "role": "DOCTOR"
+      "role": "DOCTOR",
+      "feeAr": "1.000 ل.س جديدة"
     },
     {
       "id": "doc-pedcardio-azzawi",
@@ -202,14 +212,15 @@
       },
       "room": "Poliklinik 110",
       "hours": "09:00 - 17:00",
-      "consultationFee": 1400,
-      "fee": "280.000 SYP",
+      "consultationFee": 2000,
+      "fee": "2.000 SYP",
       "rating": 4.99,
       "unavailableSlots": [
         "12:00",
         "12:30"
       ],
-      "role": "DOCTOR"
+      "role": "DOCTOR",
+      "feeAr": "2.000 ل.س جديدة"
     },
     {
       "id": "doc-dental-shamoun",
@@ -217,20 +228,22 @@
       "fullNameAr": "د. ماجد شمعون",
       "email": "dental.shamoun@menaclinic.com",
       "phone": "+963 991 223311",
-      "specialty": "Ağız ve Diş Sağlığı • طب الأسنان",
+      "specialty": "Ağız, Yüz ve Çene Cerrahisi • جراحة الفم والوجه والفكين",
       "department": {
-        "name": "Diş Sağlığı Kliniği"
+        "name": "Ağız, Yüz ve Çene Cerrahisi Kliniği"
       },
       "room": "Poliklinik 111",
       "hours": "09:00 - 17:00",
-      "consultationFee": 1100,
-      "fee": "220.000 SYP",
+      "consultationFee": 1000,
+      "fee": "1.000 SYP",
       "rating": 4.95,
       "unavailableSlots": [
         "12:00",
         "12:30"
       ],
-      "role": "DOCTOR"
+      "role": "DOCTOR",
+      "specialtyAr": "أخصائي في جراحة الفم والوجه والفكين • تشوهات ولادية وكسور وأورام",
+      "feeAr": "1.000 ل.س جديدة"
     }
   ],
   "staff": [
@@ -325,10 +338,10 @@
       "status": "ACTIVE"
     },
     {
-      "id": "doc-vasc-arr",
-      "email": "vasc.arr@menaclinic.com",
+      "id": "doc-dental-masri",
+      "email": "dental.masri@menaclinic.com",
       "password": "123",
-      "fullName": "Dr. Fadi Al-Arr (د. فادي العر)",
+      "fullName": "Dr. Ibrahim Al-Masri (د. ابراهيم المصري)",
       "role": "DOCTOR",
       "phone": "+963 991 223308",
       "identityNo": "99999999988",
@@ -699,6 +712,671 @@
       "bloodType": "O+",
       "createdAt": "2026-10-25T15:21:52.371Z",
       "password": "123"
+    },
+    {
+      "id": "pat-fam-66ca11b2-1015-4da8-aba5-8e2fc15cbddc",
+      "fullName": "يوسف أحمد عثمان (طفل)",
+      "identityNo": "FAM-66647869",
+      "phone": "+963 992 334455",
+      "email": "fam-66647869@family.menaclinic.com",
+      "bloodType": "A+",
+      "emergencyContact": "Zeynep Kaya (فاطمة الزهراء) (+963 992 334455)",
+      "familyHeadId": "pat-1",
+      "familyRelationship": "CHILD",
+      "familyNote": "",
+      "createdAt": "2026-11-14T14:30:47.869Z"
+    },
+    {
+      "id": "pat-fam-13f7e2c5-5913-4338-9d5c-c02a26d171a1",
+      "fullName": "يوسف أحمد عثمان (طفل)",
+      "identityNo": "FAM-67161477",
+      "phone": "+963 992 334455",
+      "email": "fam-67161477@family.menaclinic.com",
+      "bloodType": "A+",
+      "emergencyContact": "Zeynep Kaya (فاطمة الزهراء) (+963 992 334455)",
+      "familyHeadId": "pat-1",
+      "familyRelationship": "CHILD",
+      "familyNote": "",
+      "createdAt": "2026-11-14T14:39:21.477Z"
+    },
+    {
+      "id": "pat-fam-aa37c0eb-f604-4c12-994e-137ff3de84b5",
+      "fullName": "يوسف أحمد عثمان (طفل)",
+      "identityNo": "FAM-67176784",
+      "phone": "+963 992 334455",
+      "email": "fam-67176784@family.menaclinic.com",
+      "bloodType": "A+",
+      "emergencyContact": "Zeynep Kaya (فاطمة الزهراء) (+963 992 334455)",
+      "familyHeadId": "pat-1",
+      "familyRelationship": "CHILD",
+      "familyNote": "",
+      "createdAt": "2026-11-14T14:39:36.784Z"
+    },
+    {
+      "id": "pat-fb092bda-e0fe-45de-9268-45bc578d2f35",
+      "fullName": "محمد رضوان الكيالي",
+      "identityNo": "02010045811",
+      "phone": "+963944112233",
+      "email": "02010045811@mena-test.com",
+      "password": "scrypt$03c921ed1024382bf7138f03f56ae4ed$2cdc39932287aeb17197d6dd605ca00079e9e002f8edd8f98dc915482c0e184a",
+      "bloodType": "A+",
+      "preferredLang": "ar",
+      "createdAt": "2026-11-15T12:29:37.471Z"
+    },
+    {
+      "id": "pat-fam-abc23cf5-607f-425b-adcb-b0c202c32877",
+      "fullName": "فاطمة أحمد بيطار",
+      "identityNo": "02010045812",
+      "phone": "+963944112233",
+      "email": "02010045812@family.menaclinic.com",
+      "bloodType": "B+",
+      "emergencyContact": "+963944112233",
+      "familyHeadId": "pat-fb092bda-e0fe-45de-9268-45bc578d2f35",
+      "familyRelationship": "SPOUSE",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:29:38.941Z"
+    },
+    {
+      "id": "pat-fam-2d75b2bb-2619-41f8-8b49-f52225bec8a8",
+      "fullName": "عمر محمد الكيالي",
+      "identityNo": "02010045813",
+      "phone": "+963944112233",
+      "email": "02010045813@family.menaclinic.com",
+      "bloodType": "A+",
+      "emergencyContact": "+963944112233",
+      "familyHeadId": "pat-fb092bda-e0fe-45de-9268-45bc578d2f35",
+      "familyRelationship": "CHILD",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:29:39.085Z"
+    },
+    {
+      "id": "pat-9199a91d-5fe0-4888-8017-783ebe2666c0",
+      "fullName": "براء عبد القادر سراج",
+      "identityNo": "02010045814",
+      "phone": "+963955223344",
+      "email": "02010045814@mena-test.com",
+      "password": "scrypt$c6fcfaa536ba446c8850e99adb6fa419$8c1157c840f53b60b32b07a135b96647a170018cddb0c854e499ac7e69cc672a",
+      "bloodType": "O+",
+      "preferredLang": "ar",
+      "createdAt": "2026-11-15T12:29:39.239Z"
+    },
+    {
+      "id": "pat-fam-d1d15450-77e0-4395-8f42-ef7addc28e30",
+      "fullName": "سارة براء سراج",
+      "identityNo": "02010045815",
+      "phone": "+963955223344",
+      "email": "02010045815@family.menaclinic.com",
+      "bloodType": "O+",
+      "emergencyContact": "+963955223344",
+      "familyHeadId": "pat-9199a91d-5fe0-4888-8017-783ebe2666c0",
+      "familyRelationship": "CHILD",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:29:39.374Z"
+    },
+    {
+      "id": "pat-fam-ac16bbb0-aa83-4ef2-b90a-652eeb540532",
+      "fullName": "يحيى براء سراج",
+      "identityNo": "02010045816",
+      "phone": "+963955223344",
+      "email": "02010045816@family.menaclinic.com",
+      "bloodType": "A-",
+      "emergencyContact": "+963955223344",
+      "familyHeadId": "pat-9199a91d-5fe0-4888-8017-783ebe2666c0",
+      "familyRelationship": "CHILD",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:29:39.481Z"
+    },
+    {
+      "id": "pat-e0cac6f3-6931-42b5-aaef-2b150d683479",
+      "fullName": "عبد الرزاق مصطفى قصاب",
+      "identityNo": "02010045817",
+      "phone": "+963966334455",
+      "email": "02010045817@mena-test.com",
+      "password": "scrypt$91c36f5cac8104c452bdb1ca01e59bcd$71ddbdba03107db3ddcb5f486de5a720e118ef49478cdee103f89638682c9a7a",
+      "bloodType": "B-",
+      "preferredLang": "ar",
+      "createdAt": "2026-11-15T12:29:39.629Z"
+    },
+    {
+      "id": "pat-fam-ae4d4e71-b1c6-4a61-9246-3ec0d5dc74eb",
+      "fullName": "فاطمة أحمد بيطار",
+      "identityNo": "02010045812",
+      "phone": "+963944112233",
+      "email": "02010045812@family.menaclinic.com",
+      "bloodType": "B+",
+      "emergencyContact": "+963944112233",
+      "familyHeadId": "pat-fb092bda-e0fe-45de-9268-45bc578d2f35",
+      "familyRelationship": "SPOUSE",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:31:22.533Z"
+    },
+    {
+      "id": "pat-fam-fa8f2e89-47bd-4450-88f8-1df9ca94963a",
+      "fullName": "عمر محمد الكيالي",
+      "identityNo": "02010045813",
+      "phone": "+963944112233",
+      "email": "02010045813@family.menaclinic.com",
+      "bloodType": "A+",
+      "emergencyContact": "+963944112233",
+      "familyHeadId": "pat-fb092bda-e0fe-45de-9268-45bc578d2f35",
+      "familyRelationship": "CHILD",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:31:22.647Z"
+    },
+    {
+      "id": "pat-fam-a9360e00-65dc-4dc0-8baa-a7c1754bad34",
+      "fullName": "سارة براء سراج",
+      "identityNo": "02010045815",
+      "phone": "+963955223344",
+      "email": "02010045815@family.menaclinic.com",
+      "bloodType": "O+",
+      "emergencyContact": "+963955223344",
+      "familyHeadId": "pat-9199a91d-5fe0-4888-8017-783ebe2666c0",
+      "familyRelationship": "CHILD",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:31:22.963Z"
+    },
+    {
+      "id": "pat-fam-ea7552eb-fffe-4a6a-a7e7-cf69b843a154",
+      "fullName": "يحيى براء سراج",
+      "identityNo": "02010045816",
+      "phone": "+963955223344",
+      "email": "02010045816@family.menaclinic.com",
+      "bloodType": "A-",
+      "emergencyContact": "+963955223344",
+      "familyHeadId": "pat-9199a91d-5fe0-4888-8017-783ebe2666c0",
+      "familyRelationship": "CHILD",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:31:23.073Z"
+    },
+    {
+      "id": "pat-fam-d8441b76-f3da-4f65-aa9d-5aed7cc568fe",
+      "fullName": "خديجة عمر دباغ",
+      "identityNo": "02010045818",
+      "phone": "+963966334455",
+      "email": "02010045818@family.menaclinic.com",
+      "bloodType": "B+",
+      "emergencyContact": "+963966334455",
+      "familyHeadId": "pat-e0cac6f3-6931-42b5-aaef-2b150d683479",
+      "familyRelationship": "SPOUSE",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:31:23.350Z"
+    },
+    {
+      "id": "pat-fam-17a29a57-e85c-4f3b-b898-1b2f5056a646",
+      "fullName": "طارق عبد الرزاق قصاب",
+      "identityNo": "02010045819",
+      "phone": "+963966334455",
+      "email": "02010045819@family.menaclinic.com",
+      "bloodType": "AB+",
+      "emergencyContact": "+963966334455",
+      "familyHeadId": "pat-e0cac6f3-6931-42b5-aaef-2b150d683479",
+      "familyRelationship": "OTHER",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:31:23.475Z"
+    },
+    {
+      "id": "pat-0f4339c1-a101-49a4-8bd3-e09e3373f254",
+      "fullName": "نور الهدى عثمان",
+      "identityNo": "02010045820",
+      "phone": "+963977445566",
+      "email": "02010045820@mena-test.com",
+      "password": "scrypt$dce6f1dd0686a2510bd805e9a5bd9844$6c8f1199a0450233854d4970c5e18fb047a84b682c009a61ad41d18209b70e70",
+      "bloodType": "O-",
+      "preferredLang": "ar",
+      "createdAt": "2026-11-15T12:31:23.619Z"
+    },
+    {
+      "id": "pat-fam-312be851-54c7-4c31-b405-2448b927b10f",
+      "fullName": "كريم حسام دندل",
+      "identityNo": "02010045821",
+      "phone": "+963977445566",
+      "email": "02010045821@family.menaclinic.com",
+      "bloodType": "O+",
+      "emergencyContact": "+963977445566",
+      "familyHeadId": "pat-0f4339c1-a101-49a4-8bd3-e09e3373f254",
+      "familyRelationship": "CHILD",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:31:23.725Z"
+    },
+    {
+      "id": "pat-fam-978dac59-310f-4abe-b7f8-41283150e313",
+      "fullName": "ليلى حسام دندل",
+      "identityNo": "02010045822",
+      "phone": "+963977445566",
+      "email": "02010045822@family.menaclinic.com",
+      "bloodType": "A+",
+      "emergencyContact": "+963977445566",
+      "familyHeadId": "pat-0f4339c1-a101-49a4-8bd3-e09e3373f254",
+      "familyRelationship": "CHILD",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:31:23.836Z"
+    },
+    {
+      "id": "pat-b911db2f-ced7-44fa-a5b3-4d3c375fdc7e",
+      "fullName": "محمود حسن شريف",
+      "identityNo": "02010045823",
+      "phone": "+963988556677",
+      "email": "02010045823@mena-test.com",
+      "password": "scrypt$657a59c2d3cb7e35024f1c46e330d01d$36cff6ea27b8133a2a4d8b914bc6de1e3f8937a6f39bb40b197c7b242c2928d3",
+      "bloodType": "A-",
+      "preferredLang": "ar",
+      "createdAt": "2026-11-15T12:31:23.971Z"
+    },
+    {
+      "id": "pat-fam-f3a7861e-65b1-43f0-b7a4-cf88104373e8",
+      "fullName": "زينب محمود شريف",
+      "identityNo": "02010045824",
+      "phone": "+963988556677",
+      "email": "02010045824@family.menaclinic.com",
+      "bloodType": "B+",
+      "emergencyContact": "+963988556677",
+      "familyHeadId": "pat-b911db2f-ced7-44fa-a5b3-4d3c375fdc7e",
+      "familyRelationship": "CHILD",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:31:24.096Z"
+    },
+    {
+      "id": "pat-fam-bff2dde3-bffd-466a-b10f-f77c6e85eabe",
+      "fullName": "غيداء صبحي حلواني",
+      "identityNo": "02010045825",
+      "phone": "+963988556677",
+      "email": "02010045825@family.menaclinic.com",
+      "bloodType": "O+",
+      "emergencyContact": "+963988556677",
+      "familyHeadId": "pat-b911db2f-ced7-44fa-a5b3-4d3c375fdc7e",
+      "familyRelationship": "SPOUSE",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:31:24.225Z"
+    },
+    {
+      "id": "pat-65ff6ad6-5c66-4f47-aece-49cecc6600ce",
+      "fullName": "أحمد غسان صباغ",
+      "identityNo": "02010045826",
+      "phone": "+963999667788",
+      "email": "02010045826@mena-test.com",
+      "password": "scrypt$8bf5f338c5ef4bd78e2d28f087299757$7847de4c4629e3a44496f9a8a8a1d8909ad566bd92b68abcca1c2cfb3920644b",
+      "bloodType": "AB-",
+      "preferredLang": "ar",
+      "createdAt": "2026-11-15T12:31:24.377Z"
+    },
+    {
+      "id": "pat-10a969a0-3706-4cc8-ab3e-c8cc7f0f78a8",
+      "fullName": "رنا سمير عطار",
+      "identityNo": "02010045827",
+      "phone": "+963933778899",
+      "email": "02010045827@mena-test.com",
+      "password": "scrypt$ef2332bb3a350cf3d5a858ab861b95f1$aa2cae1dc09746e326117a4cebb3a9d21850a5245bf65b30e651dc3ade87123f",
+      "bloodType": "A+",
+      "preferredLang": "ar",
+      "createdAt": "2026-11-15T12:31:24.541Z"
+    },
+    {
+      "id": "pat-fa3342b1-9578-4df1-bc41-8885eb022ac2",
+      "fullName": "بشار وليد مكتبي",
+      "identityNo": "02010045828",
+      "phone": "+963944889900",
+      "email": "02010045828@mena-test.com",
+      "password": "scrypt$741c4101f55ae55a99f8012023d1e2c8$685633141963580a3ca1d5038b26b9355e3ad81040c20b0821fc7699734c41bf",
+      "bloodType": "O+",
+      "preferredLang": "ar",
+      "createdAt": "2026-11-15T12:31:24.744Z"
+    },
+    {
+      "id": "pat-59eef836-4a8a-481f-8c2e-dd9086b01907",
+      "fullName": "هدى فوزي بازرباشي",
+      "identityNo": "02010045829",
+      "phone": "+963955990011",
+      "email": "02010045829@mena-test.com",
+      "password": "scrypt$e3f3f98d0de8a45efcf0f5033c24dba6$5860fde9619c82e09a5e6ba414c7bfceb8e7a5a31ae9d19a4b9ed8921f2361df",
+      "bloodType": "B+",
+      "preferredLang": "ar",
+      "createdAt": "2026-11-15T12:31:24.958Z"
+    },
+    {
+      "id": "pat-e8df1565-c631-4d2f-9512-116cb2dd22e8",
+      "fullName": "بلال مأمون حبال",
+      "identityNo": "02010045830",
+      "phone": "+963966001122",
+      "email": "02010045830@mena-test.com",
+      "password": "scrypt$b8c4f187ff6adcacd7b895998fc90d09$a8ea4510259761350b4140b97ed7d13d351be29d97c4fe4943850459e55c9acd",
+      "bloodType": "A+",
+      "preferredLang": "ar",
+      "createdAt": "2026-11-15T12:31:25.143Z"
+    },
+    {
+      "id": "pat-8dfb7340-39fd-4765-a765-b29d504893b1",
+      "fullName": "Ahmet Hakan Yılmaz",
+      "identityNo": "99123456780",
+      "phone": "+905321112233",
+      "email": "99123456780@mena-test.com",
+      "password": "scrypt$a8893f8c7040054f71c6fd2fc4d1245d$ca333d0cb1f128d7ac19d76ad0b2c204d5dc0bf2b8b385e08de7dc39c1aed1f8",
+      "bloodType": "A+",
+      "preferredLang": "tr",
+      "createdAt": "2026-11-15T12:31:25.339Z"
+    },
+    {
+      "id": "pat-fam-a0322433-870b-4498-970c-b370da0458f9",
+      "fullName": "Zeynep Elif Kaya",
+      "identityNo": "99123456781",
+      "phone": "+905321112233",
+      "email": "99123456781@family.menaclinic.com",
+      "bloodType": "A+",
+      "emergencyContact": "+905321112233",
+      "familyHeadId": "pat-8dfb7340-39fd-4765-a765-b29d504893b1",
+      "familyRelationship": "SPOUSE",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:31:25.488Z"
+    },
+    {
+      "id": "pat-b747332f-2995-48f8-abb4-8213c1a6e9b0",
+      "fullName": "Murat Can Demir",
+      "identityNo": "99123456782",
+      "phone": "+905322223344",
+      "email": "99123456782@mena-test.com",
+      "password": "scrypt$4aa47f76fdfd330c36dcd332766affe8$b2964799eabce84396eea2f3a2b9e402e28038f2a37bca9a503d69a8cd6c4127",
+      "bloodType": "B+",
+      "preferredLang": "tr",
+      "createdAt": "2026-11-15T12:31:25.659Z"
+    },
+    {
+      "id": "pat-70eb4a7e-ec0b-4dd5-8655-eb012ce727b5",
+      "fullName": "Sevgi Şahin Öztürk",
+      "identityNo": "99123456783",
+      "phone": "+905323334455",
+      "email": "99123456783@mena-test.com",
+      "password": "scrypt$e5d4d3502c359433aa0ffba39ddcea20$a4c1026affa76c3b9ee233a20092c7ba1455792a108015b77c458aba6c09e190",
+      "bloodType": "O+",
+      "preferredLang": "tr",
+      "createdAt": "2026-11-15T12:31:25.827Z"
+    },
+    {
+      "id": "pat-9b3184d9-ca26-4dd5-a36b-03454e66827e",
+      "fullName": "Burak Kaan Çelik",
+      "identityNo": "99123456784",
+      "phone": "+905324445566",
+      "email": "99123456784@mena-test.com",
+      "password": "scrypt$e5a19d42ab8124fe6bd0fb84e26ad6ef$8a400722a8b6d76187cae4ee6697d4095ccbb3228f4912473052b5fb9e5e63e3",
+      "bloodType": "AB+",
+      "preferredLang": "tr",
+      "createdAt": "2026-11-15T12:31:25.984Z"
+    },
+    {
+      "id": "pat-c0046982-4d5a-4c58-b72f-56ad5cd8108a",
+      "fullName": "Deniz Arda Yıldırım",
+      "identityNo": "99123456785",
+      "phone": "+905325556677",
+      "email": "99123456785@mena-test.com",
+      "password": "scrypt$a564ae6955799ba837a5ac1745dcc466$142e823ac76e7c51f13bfbd640a39893ae6bb3d88ec6b6cef03c1acad91411de",
+      "bloodType": "A-",
+      "preferredLang": "tr",
+      "createdAt": "2026-11-15T12:31:26.143Z"
+    },
+    {
+      "id": "pat-015aef9c-50aa-46d2-91a5-68fe57f8614b",
+      "fullName": "Aylin Nazlı Aydın",
+      "identityNo": "99123456786",
+      "phone": "+905326667788",
+      "email": "99123456786@mena-test.com",
+      "password": "scrypt$34c1ecc8698bce56024680f231b9e1b0$91862b407f1fd0b46225bb061717f7ff4dece312e0f560b3f1d5eca4cdf2bb34",
+      "bloodType": "O-",
+      "preferredLang": "tr",
+      "createdAt": "2026-11-15T12:31:26.306Z"
+    },
+    {
+      "id": "pat-aa55609a-acc5-4541-8ac8-5f73c19b8686",
+      "fullName": "Emre Tolga Arslan",
+      "identityNo": "99123456787",
+      "phone": "+905327778899",
+      "email": "99123456787@mena-test.com",
+      "password": "scrypt$6cff6255f695a0b6ba914c229618f476$24e801b36f9a93c6ad47d53bf8bfbf23324f749a3ad33a71e7299a9b0540c69f",
+      "bloodType": "B-",
+      "preferredLang": "tr",
+      "createdAt": "2026-11-15T12:31:26.471Z"
+    },
+    {
+      "id": "pat-19d34072-c495-4562-914b-763c8bc147f0",
+      "fullName": "Gülümser Melis Doğan",
+      "identityNo": "99123456788",
+      "phone": "+905328889900",
+      "email": "99123456788@mena-test.com",
+      "password": "scrypt$c41587b2e8d2e3aa28030d334c7a584a$36f11004d053535b70785878ffe2f28376b07e8fd1c74b5232612dd5312c2985",
+      "bloodType": "A+",
+      "preferredLang": "tr",
+      "createdAt": "2026-11-15T12:31:26.672Z"
+    },
+    {
+      "id": "pat-90d3b91b-66b9-41de-8e41-274aef5d6923",
+      "fullName": "Serdar Volkan Kurt",
+      "identityNo": "99123456789",
+      "phone": "+905329990011",
+      "email": "99123456789@mena-test.com",
+      "password": "scrypt$5658fc2a390e3028d85e29af7191cd8b$4c124d3292151756629b1078069be48c5a6a19b2183f66e0b45b97b70d439363",
+      "bloodType": "O+",
+      "preferredLang": "tr",
+      "createdAt": "2026-11-15T12:31:26.880Z"
+    },
+    {
+      "id": "pat-24ecf2c9-f1b2-4746-9fb0-95acf7796656",
+      "fullName": "Berna Yasemin Koç",
+      "identityNo": "99123456790",
+      "phone": "+905330001122",
+      "email": "99123456790@mena-test.com",
+      "password": "scrypt$da439c3fb5ec028df685726da1177b26$81c4deba8ec27efb57055fed92fe5cae51d0a6152464af69cef67ef2eaaa8453",
+      "bloodType": "AB-",
+      "preferredLang": "tr",
+      "createdAt": "2026-11-15T12:31:27.084Z"
+    },
+    {
+      "id": "pat-2e71c928-aa23-4ce6-870d-eaf5947bc9c7",
+      "fullName": "Cem Berk Özdemir",
+      "identityNo": "99123456791",
+      "phone": "+905331112233",
+      "email": "99123456791@mena-test.com",
+      "password": "scrypt$252f522699cd3e408de6e614193cc779$1b57c333c9a384081e26935d9384a877a2da04bd61c2e4ba8f569c573dc5d018",
+      "bloodType": "B+",
+      "preferredLang": "tr",
+      "createdAt": "2026-11-15T12:31:27.286Z"
+    },
+    {
+      "id": "pat-1114ec26-42bf-406a-9e2c-e009d6ba60f5",
+      "fullName": "Dilek Nur Karaca",
+      "identityNo": "99123456792",
+      "phone": "+905332223344",
+      "email": "99123456792@mena-test.com",
+      "password": "scrypt$8c25d51073774c6079b85ae44c6a4a08$79cc631df2435161a982a28774f32a3087a176e3fb21c32190f07d9660a41934",
+      "bloodType": "A+",
+      "preferredLang": "tr",
+      "createdAt": "2026-11-15T12:31:27.463Z"
+    },
+    {
+      "id": "pat-bbd4fb9d-aaa7-4947-afb9-2e884e1e5d47",
+      "fullName": "Faruk Taner Güler",
+      "identityNo": "99123456793",
+      "phone": "+905333334455",
+      "email": "99123456793@mena-test.com",
+      "password": "scrypt$f78af75029957457bb1f0066a11f3a90$3b296439f5b2eec694ddc125de6b24a992629c8fcf329d78c2e6bb6ff8dc0468",
+      "bloodType": "O+",
+      "preferredLang": "tr",
+      "createdAt": "2026-11-15T12:31:27.622Z"
+    },
+    {
+      "id": "pat-80584d77-7529-46e1-ba2d-e1bb0478e4de",
+      "fullName": "Hale Şeyma Polat",
+      "identityNo": "99123456794",
+      "phone": "+905334445566",
+      "email": "99123456794@mena-test.com",
+      "password": "scrypt$b1ff691da8e8cf232a03a56c5a82f2c8$beb4af100e829e30e9d666c7d58f99ff5a55f9251fef2e7ef52052f13a2233d4",
+      "bloodType": "B+",
+      "preferredLang": "tr",
+      "createdAt": "2026-11-15T12:31:27.788Z"
+    },
+    {
+      "id": "pat-8e18f8c6-d866-4f6a-81e2-42fad607ac05",
+      "fullName": "Alexander James Wright",
+      "identityNo": "GBR98471201",
+      "phone": "+447700900111",
+      "email": "gbr98471201@mena-test.com",
+      "password": "scrypt$7ac798757728bbde0222c739714d0c1e$0a224159b90e508090f2f488085a58867d0f7dd1d5190f585315abfb25fdd3c8",
+      "bloodType": "A+",
+      "preferredLang": "en",
+      "createdAt": "2026-11-15T12:31:27.949Z"
+    },
+    {
+      "id": "pat-fam-0555282c-ba6d-4395-97f2-3b2f4bcf1df0",
+      "fullName": "Claire Elizabeth Morgan",
+      "identityNo": "GBR98471202",
+      "phone": "+447700900111",
+      "email": "gbr98471202@family.menaclinic.com",
+      "bloodType": "O+",
+      "emergencyContact": "+447700900111",
+      "familyHeadId": "pat-8e18f8c6-d866-4f6a-81e2-42fad607ac05",
+      "familyRelationship": "SPOUSE",
+      "familyNote": "",
+      "createdAt": "2026-11-15T12:31:28.072Z"
+    },
+    {
+      "id": "pat-c91ec22b-7389-4de5-b16a-00bd7f1660bd",
+      "fullName": "Lucas Benjamin Dupont",
+      "identityNo": "FRA44182901",
+      "phone": "+33612345678",
+      "email": "fra44182901@mena-test.com",
+      "password": "scrypt$d0240824681c9388d2c12164cda78ba4$7d1da57d8b3e0e5125fe8cf98907a5448208be60f6db91449abe0b779b459059",
+      "bloodType": "B+",
+      "preferredLang": "en",
+      "createdAt": "2026-11-15T12:31:28.236Z"
+    },
+    {
+      "id": "pat-e5d4c6b4-490a-4bc5-9ee4-e2d56fc87923",
+      "fullName": "Emma Charlotte Davies",
+      "identityNo": "USA88719203",
+      "phone": "+14155550199",
+      "email": "usa88719203@mena-test.com",
+      "password": "scrypt$bd707fc3748635a2e2e2f5e82ffbd1bc$a7b8c785944b5146d3ed7fa719bcd998d1520e40278541569160bfefeed3b600",
+      "bloodType": "A-",
+      "preferredLang": "en",
+      "createdAt": "2026-11-15T12:31:28.387Z"
+    },
+    {
+      "id": "pat-45853d08-3682-48db-8233-e44cb771b508",
+      "fullName": "Liam Oliver Smith",
+      "identityNo": "CAN77192804",
+      "phone": "+14165550144",
+      "email": "can77192804@mena-test.com",
+      "password": "scrypt$d407ed68a19d0ec4f84a5c907000c2b7$6f8e44521b075d9b2825bc94f2780a302e869b80b3089b4ba97ebf68bb8377b3",
+      "bloodType": "O+",
+      "preferredLang": "en",
+      "createdAt": "2026-11-15T12:31:28.550Z"
+    },
+    {
+      "id": "pat-5c96c62e-baf6-4e88-9174-c4424fa1b502",
+      "fullName": "Olivia Grace Taylor",
+      "identityNo": "AUS66182905",
+      "phone": "+61491570156",
+      "email": "aus66182905@mena-test.com",
+      "password": "scrypt$1ebd780c3433234eb79a347d37d258ed$d1dc37c46f6b7879f856ae6648f3209d4d7bbbf32eaf4d86a0c7134041997256",
+      "bloodType": "AB+",
+      "preferredLang": "en",
+      "createdAt": "2026-11-15T12:31:28.705Z"
+    },
+    {
+      "id": "pat-900acfad-d8c2-49c9-8aa7-340e93886e40",
+      "fullName": "William Henry Brown",
+      "identityNo": "DEU55182906",
+      "phone": "+491512345678",
+      "email": "deu55182906@mena-test.com",
+      "password": "scrypt$3894a7a75f060bb43ec67ab28773d13e$318bb037dd3d14d3e41f5f570766a57fd41fe24fd0b25819a856b6424c1ca03e",
+      "bloodType": "B-",
+      "preferredLang": "en",
+      "createdAt": "2026-11-15T12:31:28.881Z"
+    },
+    {
+      "id": "pat-a21d85bc-c2a2-4afb-854f-efaf29cc2ff2",
+      "fullName": "Sophia Rose Wilson",
+      "identityNo": "SWE44182907",
+      "phone": "+46701234567",
+      "email": "swe44182907@mena-test.com",
+      "password": "scrypt$6b0be0d14af7ec29b9c40b458ee9cdf8$a4a08e9172d052a84be649f848449ea687596d0917a7bb8b8210739981137e4c",
+      "bloodType": "A+",
+      "preferredLang": "en",
+      "createdAt": "2026-11-15T12:31:29.059Z"
+    },
+    {
+      "id": "pat-45e1e45e-57df-4b6c-9a84-e3ef07a8d0d9",
+      "fullName": "James Arthur Johnson",
+      "identityNo": "NLD33182908",
+      "phone": "+31612345678",
+      "email": "nld33182908@mena-test.com",
+      "password": "scrypt$ff3b34d9b020c02c8cf3468b8c283112$e3572c4e2fc03fbae834502b8cfe0d69d5fd0d31d510995a60e8e18dc12f192a",
+      "bloodType": "O-",
+      "preferredLang": "en",
+      "createdAt": "2026-11-15T12:31:29.249Z"
+    },
+    {
+      "id": "pat-47549e77-ffcf-4baf-8b87-b982bff1453c",
+      "fullName": "Isabella Marie Clark",
+      "identityNo": "ITA22182909",
+      "phone": "+393123456789",
+      "email": "ita22182909@mena-test.com",
+      "password": "scrypt$d706ad04f0edec830b0a1bd4d90d5c97$64e90bcacfe7d875812e848aad9623ff8971956abb2226d6f2a19bedbb630707",
+      "bloodType": "A+",
+      "preferredLang": "en",
+      "createdAt": "2026-11-15T12:31:29.418Z"
+    },
+    {
+      "id": "pat-c63e3316-45cd-49f5-90a6-63200f223c81",
+      "fullName": "Benjamin Paul Walker",
+      "identityNo": "ESP11182910",
+      "phone": "+34612345678",
+      "email": "esp11182910@mena-test.com",
+      "password": "scrypt$de63df4564a89fda6761336796d3fceb$75a3cb53b908e32d6ebc9cf5074bcdca13f781666bb7f73bab1d070bf80a6fb8",
+      "bloodType": "O+",
+      "preferredLang": "en",
+      "createdAt": "2026-11-15T12:31:29.621Z"
+    },
+    {
+      "id": "pat-4d810d62-e742-4969-b45c-8d9e286043e1",
+      "fullName": "Mia Christine Hall",
+      "identityNo": "CHE99182911",
+      "phone": "+41791234567",
+      "email": "che99182911@mena-test.com",
+      "password": "scrypt$026af852b3a09a354c57ab2f36bdb5c3$d360c2137e51afd18f99f47e4762afa17701c9c1c6240e2bc590ec985e7998d6",
+      "bloodType": "B+",
+      "preferredLang": "en",
+      "createdAt": "2026-11-15T12:31:29.803Z"
+    },
+    {
+      "id": "pat-462e274f-ba16-49e7-98eb-16a3d7928608",
+      "fullName": "Daniel Thomas Allen",
+      "identityNo": "AUT88182912",
+      "phone": "+436641234567",
+      "email": "aut88182912@mena-test.com",
+      "password": "scrypt$e3f31127f279523b04947a7a823509ba$3f701c95285814539b7cc0810d082cb981baefa79cb080c68f793b5f9d12ac83",
+      "bloodType": "A-",
+      "preferredLang": "en",
+      "createdAt": "2026-11-15T12:31:29.971Z"
+    },
+    {
+      "id": "pat-31132615-0c2e-4edf-9789-fee1358495ca",
+      "fullName": "Ava Rebecca Young",
+      "identityNo": "NOR77182913",
+      "phone": "+4791234567",
+      "email": "nor77182913@mena-test.com",
+      "password": "scrypt$14583125f50d8bba71a0328927d841c3$dff06ba7f0e7c309e8bbedd4d4cc5339b919aa2513fa65819346e5d4caede7e7",
+      "bloodType": "AB-",
+      "preferredLang": "en",
+      "createdAt": "2026-11-15T12:31:30.126Z"
+    },
+    {
+      "id": "pat-60083cd7-2c22-4e62-885f-679b285b4f42",
+      "fullName": "Noah Christopher King",
+      "identityNo": "DNK66182914",
+      "phone": "+4520123456",
+      "email": "dnk66182914@mena-test.com",
+      "password": "scrypt$9332146d203bbef7c9bea3629d540cb4$ea733b2f4a9638b4ab5858ec520c2d17bb701b7554161a1f74c1af022f298ec2",
+      "bloodType": "O+",
+      "preferredLang": "en",
+      "createdAt": "2026-11-15T12:31:30.294Z"
     }
   ],
   "appointments": [
@@ -1078,7 +1756,7 @@
     {
       "id": "app-sim-1792920326970-8",
       "patientId": "pat-99100100008",
-      "doctorId": "doc-vasc-arr",
+      "doctorId": "doc-dental-masri",
       "slotTime": "2026-10-26T14:30:00",
       "timeStr": "14:30",
       "dateStr": "2026-10-26",
@@ -1092,11 +1770,11 @@
         "bloodType": "A+"
       },
       "doctor": {
-        "fullName": "Dr. Fadi Al-Arr",
-        "email": "vasc.arr@menaclinic.com",
-        "specialty": "Damar Cerrahisi • جراحة الأوعية"
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "email": "dental.masri@menaclinic.com",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
       },
-      "departmentName": "Damar Cerrahisi Kliniği",
+      "departmentName": "Ağız ve Diş Sağlığı Kliniği",
       "createdAt": "2026-10-25T09:25:27.007Z"
     },
     {
@@ -1270,7 +1948,7 @@
     {
       "id": "app-sim-1792920326986-16",
       "patientId": "pat-99300300001",
-      "doctorId": "doc-vasc-arr",
+      "doctorId": "doc-dental-masri",
       "slotTime": "2026-10-26T13:30:00",
       "timeStr": "13:30",
       "dateStr": "2026-10-26",
@@ -1284,11 +1962,11 @@
         "bloodType": "O+"
       },
       "doctor": {
-        "fullName": "Dr. Fadi Al-Arr",
-        "email": "vasc.arr@menaclinic.com",
-        "specialty": "Damar Cerrahisi • جراحة الأوعية"
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "email": "dental.masri@menaclinic.com",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
       },
-      "departmentName": "Damar Cerrahisi Kliniği",
+      "departmentName": "Ağız ve Diş Sağlığı Kliniği",
       "createdAt": "2026-10-25T09:25:27.022Z"
     },
     {
@@ -1434,9 +2112,2745 @@
       },
       "departmentName": "Gastroenteroloji Kliniği",
       "createdAt": "2026-10-25T15:22:31.552Z"
+    },
+    {
+      "id": "app-a5740024-38c7-46f0-9b09-f9ece86b6fb2",
+      "patientId": "pat-1",
+      "doctorId": "doc-dental-masri",
+      "slotTime": "2026-11-20T10:30:00",
+      "timeStr": "10:30",
+      "dateStr": "2026-11-20",
+      "queueNumber": 1,
+      "status": "CONFIRMED",
+      "notes": "Diş muayenesi ve kontrol",
+      "patient": {
+        "fullName": "Zeynep Kaya (فاطمة الزهراء)",
+        "phone": "+963 992 334455",
+        "identityNo": "99999999996",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "email": "dental.masri@menaclinic.com",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      },
+      "departmentName": "Ağız ve Diş Sağlığı Kliniği",
+      "createdAt": "2026-11-14T14:30:47.981Z"
+    },
+    {
+      "id": "app-b604e63c-6838-4a34-ab03-1abe1977b4da",
+      "patientId": "pat-1",
+      "doctorId": "doc-dental-masri",
+      "slotTime": "2026-11-21T13:30:00",
+      "timeStr": "13:30",
+      "dateStr": "2026-11-21",
+      "queueNumber": 1,
+      "status": "CONFIRMED",
+      "notes": "Diş muayenesi ve kontrol",
+      "patient": {
+        "fullName": "Zeynep Kaya (فاطمة الزهراء)",
+        "phone": "+963 992 334455",
+        "identityNo": "99999999996",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "email": "dental.masri@menaclinic.com",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      },
+      "departmentName": "Ağız ve Diş Sağlığı Kliniği",
+      "createdAt": "2026-11-14T14:39:36.806Z"
+    },
+    {
+      "id": "app-23336b3d-208c-466c-9bb0-504887ea284b",
+      "patientId": "pat-fb092bda-e0fe-45de-9268-45bc578d2f35",
+      "doctorId": "doc-dental-masri",
+      "slotTime": "2026-11-20T09:00:00",
+      "timeStr": "09:00",
+      "dateStr": "2026-11-20",
+      "queueNumber": 2,
+      "status": "COMPLETED",
+      "notes": "فحص مجهري وتجميل سن أمامي",
+      "patient": {
+        "fullName": "محمد رضوان الكيالي",
+        "phone": "+963944112233",
+        "identityNo": "02010045811",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "email": "dental.masri@menaclinic.com",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      },
+      "departmentName": "Ağız ve Diş Sağlığı Kliniği",
+      "createdAt": "2026-11-15T12:29:37.568Z"
+    },
+    {
+      "id": "app-72f7f07c-2d20-4328-be98-af275ecbf545",
+      "patientId": "pat-fam-abc23cf5-607f-425b-adcb-b0c202c32877",
+      "doctorId": "doc-derma-haddad",
+      "slotTime": "2026-11-20T09:30:00",
+      "timeStr": "09:30",
+      "dateStr": "2026-11-20",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "علاج موضعي وترطيب مستمر",
+      "patient": {
+        "fullName": "فاطمة أحمد بيطار",
+        "phone": "+963944112233",
+        "identityNo": "02010045812",
+        "bloodType": "B+"
+      },
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "email": "derma.haddad@menaclinic.com",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      },
+      "departmentName": "Dermatoloji Kliniği",
+      "createdAt": "2026-11-15T12:29:38.985Z"
+    },
+    {
+      "id": "app-2e8ad5e5-ccfa-449a-a5a1-a4a52af83db2",
+      "patientId": "pat-fam-2d75b2bb-2619-41f8-8b49-f52225bec8a8",
+      "doctorId": "doc-ped-ahmad",
+      "slotTime": "2026-11-20T10:00:00",
+      "timeStr": "10:00",
+      "dateStr": "2026-11-20",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "خافض حرارة وراحة تامة",
+      "patient": {
+        "fullName": "عمر محمد الكيالي",
+        "phone": "+963944112233",
+        "identityNo": "02010045813",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "email": "ped.ahmad@menaclinic.com",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      },
+      "departmentName": "Çocuk Sağlığı Kliniği",
+      "createdAt": "2026-11-15T12:29:39.107Z"
+    },
+    {
+      "id": "app-97838ec6-95c4-48ef-bb32-bd3fdb61a83a",
+      "patientId": "pat-9199a91d-5fe0-4888-8017-783ebe2666c0",
+      "doctorId": "doc-gastro-horo",
+      "slotTime": "2026-11-20T10:30:00",
+      "timeStr": "10:30",
+      "dateStr": "2026-11-20",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "حمية غذائية وتنظير معدة لاحق",
+      "patient": {
+        "fullName": "براء عبد القادر سراج",
+        "phone": "+963955223344",
+        "identityNo": "02010045814",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "email": "gastro.horo@menaclinic.com",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      },
+      "departmentName": "Gastroenteroloji Kliniği",
+      "createdAt": "2026-11-15T12:29:39.271Z"
+    },
+    {
+      "id": "app-2cbfb297-5f75-4014-9df3-aed558079d9f",
+      "patientId": "pat-fam-d1d15450-77e0-4395-8f42-ef7addc28e30",
+      "doctorId": "doc-pedcardio-azzawi",
+      "slotTime": "2026-11-20T11:00:00",
+      "timeStr": "11:00",
+      "dateStr": "2026-11-20",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "إيكو قلب متكرر مع متابعة سريرية دقيقة",
+      "patient": {
+        "fullName": "سارة براء سراج",
+        "phone": "+963955223344",
+        "identityNo": "02010045815",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "email": "pedcardio.azzawi@menaclinic.com",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      },
+      "departmentName": "Çocuk Kardiyolojisi Kliniği",
+      "createdAt": "2026-11-15T12:29:39.398Z"
+    },
+    {
+      "id": "app-bf9276f4-dac2-4d1f-bcb8-c3e05c525031",
+      "patientId": "pat-fam-ac16bbb0-aa83-4ef2-b90a-652eeb540532",
+      "doctorId": "doc-ped-ahmad",
+      "slotTime": "2026-11-20T11:30:00",
+      "timeStr": "11:30",
+      "dateStr": "2026-11-20",
+      "queueNumber": 2,
+      "status": "COMPLETED",
+      "notes": "موسع قصبات ومضاد تحسس",
+      "patient": {
+        "fullName": "يحيى براء سراج",
+        "phone": "+963955223344",
+        "identityNo": "02010045816",
+        "bloodType": "A-"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "email": "ped.ahmad@menaclinic.com",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      },
+      "departmentName": "Çocuk Sağlığı Kliniği",
+      "createdAt": "2026-11-15T12:29:39.501Z"
+    },
+    {
+      "id": "app-24f5e5a8-541b-4505-93a0-3aa60fe8769d",
+      "patientId": "pat-e0cac6f3-6931-42b5-aaef-2b150d683479",
+      "doctorId": "doc-cardio-chebb",
+      "slotTime": "2026-11-20T13:30:00",
+      "timeStr": "13:30",
+      "dateStr": "2026-11-20",
+      "queueNumber": 1,
+      "status": "CONFIRMED",
+      "notes": "تخطيط قلب طبيعي وضبط الجرعة",
+      "patient": {
+        "fullName": "عبد الرزاق مصطفى قصاب",
+        "phone": "+963966334455",
+        "identityNo": "02010045817",
+        "bloodType": "B-"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb",
+        "email": "cardio.shebb@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      },
+      "departmentName": "Kardiyoloji Kliniği",
+      "createdAt": "2026-11-15T12:29:39.651Z"
+    },
+    {
+      "id": "app-fe55bc90-9716-4f3a-97b7-ae562bcd4986",
+      "patientId": "pat-fb092bda-e0fe-45de-9268-45bc578d2f35",
+      "doctorId": "doc-dental-masri",
+      "slotTime": "2026-11-21T09:00:00",
+      "timeStr": "09:00",
+      "dateStr": "2026-11-21",
+      "queueNumber": 2,
+      "status": "COMPLETED",
+      "notes": "فحص مجهري وتجميل سن أمامي",
+      "patient": {
+        "fullName": "محمد رضوان الكيالي",
+        "phone": "+963944112233",
+        "identityNo": "02010045811",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "email": "dental.masri@menaclinic.com",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      },
+      "departmentName": "Ağız ve Diş Sağlığı Kliniği",
+      "createdAt": "2026-11-15T12:31:22.412Z"
+    },
+    {
+      "id": "app-accbab34-3caf-47cb-bcd4-a12498fdbac7",
+      "patientId": "pat-fam-ae4d4e71-b1c6-4a61-9246-3ec0d5dc74eb",
+      "doctorId": "doc-derma-haddad",
+      "slotTime": "2026-11-21T09:30:00",
+      "timeStr": "09:30",
+      "dateStr": "2026-11-21",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "علاج موضعي وترطيب مستمر",
+      "patient": {
+        "fullName": "فاطمة أحمد بيطار",
+        "phone": "+963944112233",
+        "identityNo": "02010045812",
+        "bloodType": "B+"
+      },
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "email": "derma.haddad@menaclinic.com",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      },
+      "departmentName": "Dermatoloji Kliniği",
+      "createdAt": "2026-11-15T12:31:22.560Z"
+    },
+    {
+      "id": "app-7fc6505b-b3b3-4bfa-9186-4665be2fef37",
+      "patientId": "pat-fam-fa8f2e89-47bd-4450-88f8-1df9ca94963a",
+      "doctorId": "doc-ped-ahmad",
+      "slotTime": "2026-11-21T10:00:00",
+      "timeStr": "10:00",
+      "dateStr": "2026-11-21",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "خافض حرارة وراحة تامة",
+      "patient": {
+        "fullName": "عمر محمد الكيالي",
+        "phone": "+963944112233",
+        "identityNo": "02010045813",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "email": "ped.ahmad@menaclinic.com",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      },
+      "departmentName": "Çocuk Sağlığı Kliniği",
+      "createdAt": "2026-11-15T12:31:22.675Z"
+    },
+    {
+      "id": "app-25b9d631-70fb-4421-9924-6536b40cfc9c",
+      "patientId": "pat-9199a91d-5fe0-4888-8017-783ebe2666c0",
+      "doctorId": "doc-gastro-horo",
+      "slotTime": "2026-11-21T10:30:00",
+      "timeStr": "10:30",
+      "dateStr": "2026-11-21",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "حمية غذائية وتنظير معدة لاحق",
+      "patient": {
+        "fullName": "براء عبد القادر سراج",
+        "phone": "+963955223344",
+        "identityNo": "02010045814",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "email": "gastro.horo@menaclinic.com",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      },
+      "departmentName": "Gastroenteroloji Kliniği",
+      "createdAt": "2026-11-15T12:31:22.849Z"
+    },
+    {
+      "id": "app-a71fc0df-1ed8-4d69-86bd-2e851820b890",
+      "patientId": "pat-fam-a9360e00-65dc-4dc0-8baa-a7c1754bad34",
+      "doctorId": "doc-pedcardio-azzawi",
+      "slotTime": "2026-11-21T11:00:00",
+      "timeStr": "11:00",
+      "dateStr": "2026-11-21",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "إيكو قلب متكرر مع متابعة سريرية دقيقة",
+      "patient": {
+        "fullName": "سارة براء سراج",
+        "phone": "+963955223344",
+        "identityNo": "02010045815",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "email": "pedcardio.azzawi@menaclinic.com",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      },
+      "departmentName": "Çocuk Kardiyolojisi Kliniği",
+      "createdAt": "2026-11-15T12:31:22.988Z"
+    },
+    {
+      "id": "app-05efc321-1169-4344-8483-742e3d69d0ea",
+      "patientId": "pat-fam-ea7552eb-fffe-4a6a-a7e7-cf69b843a154",
+      "doctorId": "doc-ped-ahmad",
+      "slotTime": "2026-11-21T11:30:00",
+      "timeStr": "11:30",
+      "dateStr": "2026-11-21",
+      "queueNumber": 2,
+      "status": "COMPLETED",
+      "notes": "موسع قصبات ومضاد تحسس",
+      "patient": {
+        "fullName": "يحيى براء سراج",
+        "phone": "+963955223344",
+        "identityNo": "02010045816",
+        "bloodType": "A-"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "email": "ped.ahmad@menaclinic.com",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      },
+      "departmentName": "Çocuk Sağlığı Kliniği",
+      "createdAt": "2026-11-15T12:31:23.094Z"
+    },
+    {
+      "id": "app-cc2303c1-f759-49d7-9472-4be89a009442",
+      "patientId": "pat-e0cac6f3-6931-42b5-aaef-2b150d683479",
+      "doctorId": "doc-cardio-chebb",
+      "slotTime": "2026-11-22T13:30:00",
+      "timeStr": "13:30",
+      "dateStr": "2026-11-22",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "تخطيط قلب طبيعي وضبط الجرعة",
+      "patient": {
+        "fullName": "عبد الرزاق مصطفى قصاب",
+        "phone": "+963966334455",
+        "identityNo": "02010045817",
+        "bloodType": "B-"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb",
+        "email": "cardio.shebb@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      },
+      "departmentName": "Kardiyoloji Kliniği",
+      "createdAt": "2026-11-15T12:31:23.262Z"
+    },
+    {
+      "id": "app-d7920aa8-7931-4f9d-8938-137dd1877704",
+      "patientId": "pat-fam-d8441b76-f3da-4f65-aa9d-5aed7cc568fe",
+      "doctorId": "doc-ortho-takko",
+      "slotTime": "2026-11-22T14:00:00",
+      "timeStr": "14:00",
+      "dateStr": "2026-11-22",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "علاج فيزيائي ومسكنات",
+      "patient": {
+        "fullName": "خديجة عمر دباغ",
+        "phone": "+963966334455",
+        "identityNo": "02010045818",
+        "bloodType": "B+"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "email": "ortho.takko@menaclinic.com",
+        "specialty": "Ortopedi • جراحة العظمية"
+      },
+      "departmentName": "Ortopedi Kliniği",
+      "createdAt": "2026-11-15T12:31:23.377Z"
+    },
+    {
+      "id": "app-bbd2eb0a-5305-47ca-89da-0f63f0d8e29f",
+      "patientId": "pat-fam-17a29a57-e85c-4f3b-b898-1b2f5056a646",
+      "doctorId": "doc-dental-shamoun",
+      "slotTime": "2026-11-22T14:30:00",
+      "timeStr": "14:30",
+      "dateStr": "2026-11-22",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "استشارة جراحية وتصوير بانورامي",
+      "patient": {
+        "fullName": "طارق عبد الرزاق قصاب",
+        "phone": "+963966334455",
+        "identityNo": "02010045819",
+        "bloodType": "AB+"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "email": "dental.shamoun@menaclinic.com",
+        "specialty": "Ağız, Yüz ve Çene Cerrahisi • جراحة الفم والوجه والفكين"
+      },
+      "departmentName": "Ağız, Yüz ve Çene Cerrahisi Kliniği",
+      "createdAt": "2026-11-15T12:31:23.501Z"
+    },
+    {
+      "id": "app-02a79132-08fa-4b7c-9198-02530e969684",
+      "patientId": "pat-0f4339c1-a101-49a4-8bd3-e09e3373f254",
+      "doctorId": "doc-uro-razzaq",
+      "slotTime": "2026-11-22T15:30:00",
+      "timeStr": "15:30",
+      "dateStr": "2026-11-22",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "إكثار سوائل ومضاد حيوي مناسب",
+      "patient": {
+        "fullName": "نور الهدى عثمان",
+        "phone": "+963977445566",
+        "identityNo": "02010045820",
+        "bloodType": "O-"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Abdulrazzaq",
+        "email": "uro.razzaq@menaclinic.com",
+        "specialty": "Üroloji • جراحة البولية"
+      },
+      "departmentName": "Üroloji Kliniği",
+      "createdAt": "2026-11-15T12:31:23.640Z"
+    },
+    {
+      "id": "app-03381f97-c961-40c6-aa28-8426166c2cd0",
+      "patientId": "pat-fam-312be851-54c7-4c31-b405-2448b927b10f",
+      "doctorId": "doc-pedcardio-azzawi",
+      "slotTime": "2026-11-22T16:00:00",
+      "timeStr": "16:00",
+      "dateStr": "2026-11-22",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "متابعة دورية مطمئنة",
+      "patient": {
+        "fullName": "كريم حسام دندل",
+        "phone": "+963977445566",
+        "identityNo": "02010045821",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "email": "pedcardio.azzawi@menaclinic.com",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      },
+      "departmentName": "Çocuk Kardiyolojisi Kliniği",
+      "createdAt": "2026-11-15T12:31:23.749Z"
+    },
+    {
+      "id": "app-b6ea3d8d-5465-4e83-895b-2efc895c5dfd",
+      "patientId": "pat-fam-978dac59-310f-4abe-b7f8-41283150e313",
+      "doctorId": "doc-dental-masri",
+      "slotTime": "2026-11-22T16:30:00",
+      "timeStr": "16:30",
+      "dateStr": "2026-11-22",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "تطبيق فلورايد وحشوة وقائية",
+      "patient": {
+        "fullName": "ليلى حسام دندل",
+        "phone": "+963977445566",
+        "identityNo": "02010045822",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "email": "dental.masri@menaclinic.com",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      },
+      "departmentName": "Ağız ve Diş Sağlığı Kliniği",
+      "createdAt": "2026-11-15T12:31:23.858Z"
+    },
+    {
+      "id": "app-e4e9c707-fc34-441a-a457-b271e99d9bc0",
+      "patientId": "pat-b911db2f-ced7-44fa-a5b3-4d3c375fdc7e",
+      "doctorId": "doc-cardio-horo",
+      "slotTime": "2026-11-23T09:00:00",
+      "timeStr": "09:00",
+      "dateStr": "2026-11-23",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "تخطيط جهد ونيتروغليسرين إسلو",
+      "patient": {
+        "fullName": "محمود حسن شريف",
+        "phone": "+963988556677",
+        "identityNo": "02010045823",
+        "bloodType": "A-"
+      },
+      "doctor": {
+        "fullName": "Dr. Barkhadan Horo",
+        "email": "cardio.horo@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      },
+      "departmentName": "Kardiyoloji Kliniği",
+      "createdAt": "2026-11-15T12:31:23.993Z"
+    },
+    {
+      "id": "app-4c2d89e2-de4e-4f09-a141-6558f5f51f27",
+      "patientId": "pat-fam-f3a7861e-65b1-43f0-b7a4-cf88104373e8",
+      "doctorId": "doc-ped-ahmad",
+      "slotTime": "2026-11-23T09:30:00",
+      "timeStr": "09:30",
+      "dateStr": "2026-11-23",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "مرهم مضاد حيوي موضعي",
+      "patient": {
+        "fullName": "زينب محمود شريف",
+        "phone": "+963988556677",
+        "identityNo": "02010045824",
+        "bloodType": "B+"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "email": "ped.ahmad@menaclinic.com",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      },
+      "departmentName": "Çocuk Sağlığı Kliniği",
+      "createdAt": "2026-11-15T12:31:24.123Z"
+    },
+    {
+      "id": "app-88fd25c9-bbbc-49de-9d86-bff483c95a6d",
+      "patientId": "pat-fam-bff2dde3-bffd-466a-b10f-f77c6e85eabe",
+      "doctorId": "doc-uro-qadi",
+      "slotTime": "2026-11-23T10:00:00",
+      "timeStr": "10:00",
+      "dateStr": "2026-11-23",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "حمية مائية ومسكنات بولية",
+      "patient": {
+        "fullName": "غيداء صبحي حلواني",
+        "phone": "+963988556677",
+        "identityNo": "02010045825",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi",
+        "email": "uro.qadi@menaclinic.com",
+        "specialty": "Üroloji • جراحة البولية"
+      },
+      "departmentName": "Üroloji Kliniği",
+      "createdAt": "2026-11-15T12:31:24.250Z"
+    },
+    {
+      "id": "app-c98ce748-d362-4be7-965d-2cb3cea4e175",
+      "patientId": "pat-65ff6ad6-5c66-4f47-aece-49cecc6600ce",
+      "doctorId": "doc-dental-shamoun",
+      "slotTime": "2026-11-23T10:30:00",
+      "timeStr": "10:30",
+      "dateStr": "2026-11-23",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "تثبيت بين الفكين ومسكنات ألم",
+      "patient": {
+        "fullName": "أحمد غسان صباغ",
+        "phone": "+963999667788",
+        "identityNo": "02010045826",
+        "bloodType": "AB-"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "email": "dental.shamoun@menaclinic.com",
+        "specialty": "Ağız, Yüz ve Çene Cerrahisi • جراحة الفم والوجه والفكين"
+      },
+      "departmentName": "Ağız, Yüz ve Çene Cerrahisi Kliniği",
+      "createdAt": "2026-11-15T12:31:24.400Z"
+    },
+    {
+      "id": "app-c908c736-2835-400b-83fc-b8acc7438338",
+      "patientId": "pat-10a969a0-3706-4cc8-ab3e-c8cc7f0f78a8",
+      "doctorId": "doc-derma-haddad",
+      "slotTime": "2026-11-23T11:00:00",
+      "timeStr": "11:00",
+      "dateStr": "2026-11-23",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "مستحضر ريتينويد وغسول طبي",
+      "patient": {
+        "fullName": "رنا سمير عطار",
+        "phone": "+963933778899",
+        "identityNo": "02010045827",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "email": "derma.haddad@menaclinic.com",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      },
+      "departmentName": "Dermatoloji Kliniği",
+      "createdAt": "2026-11-15T12:31:24.570Z"
+    },
+    {
+      "id": "app-8d68dbf0-c528-4292-b471-7526b7d534e9",
+      "patientId": "pat-fa3342b1-9578-4df1-bc41-8885eb022ac2",
+      "doctorId": "doc-ortho-takko",
+      "slotTime": "2026-11-23T11:30:00",
+      "timeStr": "11:30",
+      "dateStr": "2026-11-23",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "تمارين تقوية عضلات الظهر",
+      "patient": {
+        "fullName": "بشار وليد مكتبي",
+        "phone": "+963944889900",
+        "identityNo": "02010045828",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "email": "ortho.takko@menaclinic.com",
+        "specialty": "Ortopedi • جراحة العظمية"
+      },
+      "departmentName": "Ortopedi Kliniği",
+      "createdAt": "2026-11-15T12:31:24.773Z"
+    },
+    {
+      "id": "app-f348f5c7-c04f-496d-a140-8ae9cf010f23",
+      "patientId": "pat-59eef836-4a8a-481f-8c2e-dd9086b01907",
+      "doctorId": "doc-gastro-horo",
+      "slotTime": "2026-11-24T13:30:00",
+      "timeStr": "13:30",
+      "dateStr": "2026-11-24",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "تنظيم الوجبات ومضاد تشنج",
+      "patient": {
+        "fullName": "هدى فوزي بازرباشي",
+        "phone": "+963955990011",
+        "identityNo": "02010045829",
+        "bloodType": "B+"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "email": "gastro.horo@menaclinic.com",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      },
+      "departmentName": "Gastroenteroloji Kliniği",
+      "createdAt": "2026-11-15T12:31:24.989Z"
+    },
+    {
+      "id": "app-4655c5c2-2a14-4136-b4fa-fab2cbfd4b91",
+      "patientId": "pat-e8df1565-c631-4d2f-9512-116cb2dd22e8",
+      "doctorId": "doc-dental-masri",
+      "slotTime": "2026-11-24T14:00:00",
+      "timeStr": "14:00",
+      "dateStr": "2026-11-24",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "تنظيف وتلميع أسنان بالموجات فوق الصوتية",
+      "patient": {
+        "fullName": "بلال مأمون حبال",
+        "phone": "+963966001122",
+        "identityNo": "02010045830",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "email": "dental.masri@menaclinic.com",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      },
+      "departmentName": "Ağız ve Diş Sağlığı Kliniği",
+      "createdAt": "2026-11-15T12:31:25.169Z"
+    },
+    {
+      "id": "app-7a5526a8-02dc-4eab-a623-273f5eebb42a",
+      "patientId": "pat-8dfb7340-39fd-4765-a765-b29d504893b1",
+      "doctorId": "doc-cardio-chebb",
+      "slotTime": "2026-11-24T14:30:00",
+      "timeStr": "14:30",
+      "dateStr": "2026-11-24",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Tansiyon takibi ve yaşam tarzı değişikliği",
+      "patient": {
+        "fullName": "Ahmet Hakan Yılmaz",
+        "phone": "+905321112233",
+        "identityNo": "99123456780",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb",
+        "email": "cardio.shebb@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      },
+      "departmentName": "Kardiyoloji Kliniği",
+      "createdAt": "2026-11-15T12:31:25.367Z"
+    },
+    {
+      "id": "app-08ad9aa6-14e3-47ce-b4b8-9cb8ed291219",
+      "patientId": "pat-fam-a0322433-870b-4498-970c-b370da0458f9",
+      "doctorId": "doc-derma-haddad",
+      "slotTime": "2026-11-24T15:30:00",
+      "timeStr": "15:30",
+      "dateStr": "2026-11-24",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Antihistaminik tedavi ve alerjen kısıtlama",
+      "patient": {
+        "fullName": "Zeynep Elif Kaya",
+        "phone": "+905321112233",
+        "identityNo": "99123456781",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "email": "derma.haddad@menaclinic.com",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      },
+      "departmentName": "Dermatoloji Kliniği",
+      "createdAt": "2026-11-15T12:31:25.516Z"
+    },
+    {
+      "id": "app-f8397605-5acf-4881-b27a-8b484c875b97",
+      "patientId": "pat-b747332f-2995-48f8-abb4-8213c1a6e9b0",
+      "doctorId": "doc-ortho-takko",
+      "slotTime": "2026-11-24T16:00:00",
+      "timeStr": "16:00",
+      "dateStr": "2026-11-24",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Diz istirahati, buz uygulaması ve MRG planı",
+      "patient": {
+        "fullName": "Murat Can Demir",
+        "phone": "+905322223344",
+        "identityNo": "99123456782",
+        "bloodType": "B+"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "email": "ortho.takko@menaclinic.com",
+        "specialty": "Ortopedi • جراحة العظمية"
+      },
+      "departmentName": "Ortopedi Kliniği",
+      "createdAt": "2026-11-15T12:31:25.695Z"
+    },
+    {
+      "id": "app-3dbfe966-c610-4ca0-b0b1-41ad2d5f6285",
+      "patientId": "pat-70eb4a7e-ec0b-4dd5-8655-eb012ce727b5",
+      "doctorId": "doc-dental-masri",
+      "slotTime": "2026-11-24T16:30:00",
+      "timeStr": "16:30",
+      "dateStr": "2026-11-24",
+      "queueNumber": 2,
+      "status": "COMPLETED",
+      "notes": "Mikroskop altında endodontik kanal tedavisi",
+      "patient": {
+        "fullName": "Sevgi Şahin Öztürk",
+        "phone": "+905323334455",
+        "identityNo": "99123456783",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "email": "dental.masri@menaclinic.com",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      },
+      "departmentName": "Ağız ve Diş Sağlığı Kliniği",
+      "createdAt": "2026-11-15T12:31:25.852Z"
+    },
+    {
+      "id": "app-930cc21e-f57a-497a-8c83-1a30ed2a97ec",
+      "patientId": "pat-9b3184d9-ca26-4dd5-a36b-03454e66827e",
+      "doctorId": "doc-gastro-horo",
+      "slotTime": "2026-11-25T09:00:00",
+      "timeStr": "09:00",
+      "dateStr": "2026-11-25",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "PPI tedavisi, yatmadan önce yemekten kaçınma",
+      "patient": {
+        "fullName": "Burak Kaan Çelik",
+        "phone": "+905324445566",
+        "identityNo": "99123456784",
+        "bloodType": "AB+"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "email": "gastro.horo@menaclinic.com",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      },
+      "departmentName": "Gastroenteroloji Kliniği",
+      "createdAt": "2026-11-15T12:31:26.012Z"
+    },
+    {
+      "id": "app-7cacdaf5-e347-45fe-9e02-7411364b57c5",
+      "patientId": "pat-c0046982-4d5a-4c58-b72f-56ad5cd8108a",
+      "doctorId": "doc-dental-shamoun",
+      "slotTime": "2026-11-25T09:30:00",
+      "timeStr": "09:30",
+      "dateStr": "2026-11-25",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Ortognatik cerrahi öncesi değerlendirme",
+      "patient": {
+        "fullName": "Deniz Arda Yıldırım",
+        "phone": "+905325556677",
+        "identityNo": "99123456785",
+        "bloodType": "A-"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "email": "dental.shamoun@menaclinic.com",
+        "specialty": "Ağız, Yüz ve Çene Cerrahisi • جراحة الفم والوجه والفكين"
+      },
+      "departmentName": "Ağız, Yüz ve Çene Cerrahisi Kliniği",
+      "createdAt": "2026-11-15T12:31:26.169Z"
+    },
+    {
+      "id": "app-d5fb36c0-dd14-4d21-afde-4d1f27fc725a",
+      "patientId": "pat-015aef9c-50aa-46d2-91a5-68fe57f8614b",
+      "doctorId": "doc-pedcardio-azzawi",
+      "slotTime": "2026-11-25T10:00:00",
+      "timeStr": "10:00",
+      "dateStr": "2026-11-25",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "24 saatlik Holter izlemi ve çocuk kardiyoloji konsültasyonu",
+      "patient": {
+        "fullName": "Aylin Nazlı Aydın",
+        "phone": "+905326667788",
+        "identityNo": "99123456786",
+        "bloodType": "O-"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "email": "pedcardio.azzawi@menaclinic.com",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      },
+      "departmentName": "Çocuk Kardiyolojisi Kliniği",
+      "createdAt": "2026-11-15T12:31:26.335Z"
+    },
+    {
+      "id": "app-37f0e68c-da09-42ec-b690-ab3640d98bf5",
+      "patientId": "pat-aa55609a-acc5-4541-8ac8-5f73c19b8686",
+      "doctorId": "doc-uro-razzaq",
+      "slotTime": "2026-11-25T10:30:00",
+      "timeStr": "10:30",
+      "dateStr": "2026-11-25",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Alfa bloker tedavi başlangıcı",
+      "patient": {
+        "fullName": "Emre Tolga Arslan",
+        "phone": "+905327778899",
+        "identityNo": "99123456787",
+        "bloodType": "B-"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Abdulrazzaq",
+        "email": "uro.razzaq@menaclinic.com",
+        "specialty": "Üroloji • جراحة البولية"
+      },
+      "departmentName": "Üroloji Kliniği",
+      "createdAt": "2026-11-15T12:31:26.499Z"
+    },
+    {
+      "id": "app-22f871ad-c4cc-423f-90e6-3ba79c9156c9",
+      "patientId": "pat-19d34072-c495-4562-914b-763c8bc147f0",
+      "doctorId": "doc-ped-ahmad",
+      "slotTime": "2026-11-25T11:00:00",
+      "timeStr": "11:00",
+      "dateStr": "2026-11-25",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Bol sıvı, dinlenme ve semptomatik tedavi",
+      "patient": {
+        "fullName": "Gülümser Melis Doğan",
+        "phone": "+905328889900",
+        "identityNo": "99123456788",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "email": "ped.ahmad@menaclinic.com",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      },
+      "departmentName": "Çocuk Sağlığı Kliniği",
+      "createdAt": "2026-11-15T12:31:26.706Z"
+    },
+    {
+      "id": "app-d4ff6af3-c1bc-4404-a407-8ab9a5a8ba3a",
+      "patientId": "pat-90d3b91b-66b9-41de-8e41-274aef5d6923",
+      "doctorId": "doc-cardio-horo",
+      "slotTime": "2026-11-25T11:30:00",
+      "timeStr": "11:30",
+      "dateStr": "2026-11-25",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Statin tedavisi ve kardiyovasküler risk taraması",
+      "patient": {
+        "fullName": "Serdar Volkan Kurt",
+        "phone": "+905329990011",
+        "identityNo": "99123456789",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Barkhadan Horo",
+        "email": "cardio.horo@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      },
+      "departmentName": "Kardiyoloji Kliniği",
+      "createdAt": "2026-11-15T12:31:26.910Z"
+    },
+    {
+      "id": "app-116769d2-bd80-43c2-b69e-3af63a336b34",
+      "patientId": "pat-24ecf2c9-f1b2-4746-9fb0-95acf7796656",
+      "doctorId": "doc-derma-haddad",
+      "slotTime": "2026-11-26T13:30:00",
+      "timeStr": "13:30",
+      "dateStr": "2026-11-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Topikal kortikosteroid ve nemlendirici kür",
+      "patient": {
+        "fullName": "Berna Yasemin Koç",
+        "phone": "+905330001122",
+        "identityNo": "99123456790",
+        "bloodType": "AB-"
+      },
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "email": "derma.haddad@menaclinic.com",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      },
+      "departmentName": "Dermatoloji Kliniği",
+      "createdAt": "2026-11-15T12:31:27.115Z"
+    },
+    {
+      "id": "app-9835de22-1d7e-44e6-b08e-31f168f5f61d",
+      "patientId": "pat-2e71c928-aa23-4ce6-870d-eaf5947bc9c7",
+      "doctorId": "doc-uro-qadi",
+      "slotTime": "2026-11-26T14:00:00",
+      "timeStr": "14:00",
+      "dateStr": "2026-11-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Medikal ekspulsif tedavi ve sıvı takviyesi",
+      "patient": {
+        "fullName": "Cem Berk Özdemir",
+        "phone": "+905331112233",
+        "identityNo": "99123456791",
+        "bloodType": "B+"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi",
+        "email": "uro.qadi@menaclinic.com",
+        "specialty": "Üroloji • جراحة البولية"
+      },
+      "departmentName": "Üroloji Kliniği",
+      "createdAt": "2026-11-15T12:31:27.312Z"
+    },
+    {
+      "id": "app-07131150-1e2e-452e-9938-dfd4f9620246",
+      "patientId": "pat-1114ec26-42bf-406a-9e2c-e009d6ba60f5",
+      "doctorId": "doc-dental-masri",
+      "slotTime": "2026-11-26T14:30:00",
+      "timeStr": "14:30",
+      "dateStr": "2026-11-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Detartraj ve estetik diş parlatma",
+      "patient": {
+        "fullName": "Dilek Nur Karaca",
+        "phone": "+905332223344",
+        "identityNo": "99123456792",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "email": "dental.masri@menaclinic.com",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      },
+      "departmentName": "Ağız ve Diş Sağlığı Kliniği",
+      "createdAt": "2026-11-15T12:31:27.491Z"
+    },
+    {
+      "id": "app-a8a38cfa-4347-48bc-9cfd-7881511bb15d",
+      "patientId": "pat-bbd4fb9d-aaa7-4947-afb9-2e884e1e5d47",
+      "doctorId": "doc-ortho-takko",
+      "slotTime": "2026-11-26T15:30:00",
+      "timeStr": "15:30",
+      "dateStr": "2026-11-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Dirseklik kullanımı ve lokal non-steroid krem",
+      "patient": {
+        "fullName": "Faruk Taner Güler",
+        "phone": "+905333334455",
+        "identityNo": "99123456793",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "email": "ortho.takko@menaclinic.com",
+        "specialty": "Ortopedi • جراحة العظمية"
+      },
+      "departmentName": "Ortopedi Kliniği",
+      "createdAt": "2026-11-15T12:31:27.649Z"
+    },
+    {
+      "id": "app-19cabd00-c989-4026-9cf4-d1504b624cab",
+      "patientId": "pat-80584d77-7529-46e1-ba2d-e1bb0478e4de",
+      "doctorId": "doc-dental-shamoun",
+      "slotTime": "2026-11-26T16:00:00",
+      "timeStr": "16:00",
+      "dateStr": "2026-11-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Gece plağı ve çene kas gevşetici egzersizleri",
+      "patient": {
+        "fullName": "Hale Şeyma Polat",
+        "phone": "+905334445566",
+        "identityNo": "99123456794",
+        "bloodType": "B+"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "email": "dental.shamoun@menaclinic.com",
+        "specialty": "Ağız, Yüz ve Çene Cerrahisi • جراحة الفم والوجه والفكين"
+      },
+      "departmentName": "Ağız, Yüz ve Çene Cerrahisi Kliniği",
+      "createdAt": "2026-11-15T12:31:27.817Z"
+    },
+    {
+      "id": "app-50cbb95c-09ac-4baf-b7c3-8ab35b385db4",
+      "patientId": "pat-8e18f8c6-d866-4f6a-81e2-42fad607ac05",
+      "doctorId": "doc-pedcardio-azzawi",
+      "slotTime": "2026-11-26T16:30:00",
+      "timeStr": "16:30",
+      "dateStr": "2026-11-26",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Specialist pediatric cardiology examination and doppler echo",
+      "patient": {
+        "fullName": "Alexander James Wright",
+        "phone": "+447700900111",
+        "identityNo": "GBR98471201",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "email": "pedcardio.azzawi@menaclinic.com",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      },
+      "departmentName": "Çocuk Kardiyolojisi Kliniği",
+      "createdAt": "2026-11-15T12:31:27.973Z"
+    },
+    {
+      "id": "app-4792799a-5be8-433c-8192-7336279d06c9",
+      "patientId": "pat-fam-0555282c-ba6d-4395-97f2-3b2f4bcf1df0",
+      "doctorId": "doc-dental-masri",
+      "slotTime": "2026-11-27T09:00:00",
+      "timeStr": "09:00",
+      "dateStr": "2026-11-27",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Microscopic inspection and aesthetic composite restoration",
+      "patient": {
+        "fullName": "Claire Elizabeth Morgan",
+        "phone": "+447700900111",
+        "identityNo": "GBR98471202",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "email": "dental.masri@menaclinic.com",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      },
+      "departmentName": "Ağız ve Diş Sağlığı Kliniği",
+      "createdAt": "2026-11-15T12:31:28.098Z"
+    },
+    {
+      "id": "app-53d0f6c2-c45b-4a62-8ac1-ec4dadbcfdc2",
+      "patientId": "pat-c91ec22b-7389-4de5-b16a-00bd7f1660bd",
+      "doctorId": "doc-gastro-horo",
+      "slotTime": "2026-11-27T09:30:00",
+      "timeStr": "09:30",
+      "dateStr": "2026-11-27",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "IV PPI maintenance and endoscopic monitoring",
+      "patient": {
+        "fullName": "Lucas Benjamin Dupont",
+        "phone": "+33612345678",
+        "identityNo": "FRA44182901",
+        "bloodType": "B+"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "email": "gastro.horo@menaclinic.com",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      },
+      "departmentName": "Gastroenteroloji Kliniği",
+      "createdAt": "2026-11-15T12:31:28.260Z"
+    },
+    {
+      "id": "app-e8a201d8-9f3d-485d-9b32-a549e8cba0b3",
+      "patientId": "pat-e5d4c6b4-490a-4bc5-9ee4-e2d56fc87923",
+      "doctorId": "doc-derma-haddad",
+      "slotTime": "2026-11-27T10:00:00",
+      "timeStr": "10:00",
+      "dateStr": "2026-11-27",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Allergen elimination and barrier repair cream",
+      "patient": {
+        "fullName": "Emma Charlotte Davies",
+        "phone": "+14155550199",
+        "identityNo": "USA88719203",
+        "bloodType": "A-"
+      },
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "email": "derma.haddad@menaclinic.com",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      },
+      "departmentName": "Dermatoloji Kliniği",
+      "createdAt": "2026-11-15T12:31:28.409Z"
+    },
+    {
+      "id": "app-4b51014d-62d2-4fe0-ab65-fa14cfcaaf8d",
+      "patientId": "pat-45853d08-3682-48db-8233-e44cb771b508",
+      "doctorId": "doc-ortho-takko",
+      "slotTime": "2026-11-27T10:30:00",
+      "timeStr": "10:30",
+      "dateStr": "2026-11-27",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Physical therapy protocol and rotatory cuff strengthening",
+      "patient": {
+        "fullName": "Liam Oliver Smith",
+        "phone": "+14165550144",
+        "identityNo": "CAN77192804",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "email": "ortho.takko@menaclinic.com",
+        "specialty": "Ortopedi • جراحة العظمية"
+      },
+      "departmentName": "Ortopedi Kliniği",
+      "createdAt": "2026-11-15T12:31:28.575Z"
+    },
+    {
+      "id": "app-4d6457f0-b5df-4b02-b390-9d5da7ecad83",
+      "patientId": "pat-5c96c62e-baf6-4e88-9174-c4424fa1b502",
+      "doctorId": "doc-dental-shamoun",
+      "slotTime": "2026-11-27T11:00:00",
+      "timeStr": "11:00",
+      "dateStr": "2026-11-27",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Surgical implant evaluation and bone graft review",
+      "patient": {
+        "fullName": "Olivia Grace Taylor",
+        "phone": "+61491570156",
+        "identityNo": "AUS66182905",
+        "bloodType": "AB+"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "email": "dental.shamoun@menaclinic.com",
+        "specialty": "Ağız, Yüz ve Çene Cerrahisi • جراحة الفم والوجه والفكين"
+      },
+      "departmentName": "Ağız, Yüz ve Çene Cerrahisi Kliniği",
+      "createdAt": "2026-11-15T12:31:28.735Z"
+    },
+    {
+      "id": "app-d122bb16-8625-4cb6-8b7f-ae2df053eff2",
+      "patientId": "pat-900acfad-d8c2-49c9-8aa7-340e93886e40",
+      "doctorId": "doc-cardio-chebb",
+      "slotTime": "2026-11-27T11:30:00",
+      "timeStr": "11:30",
+      "dateStr": "2026-11-27",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Echocardiography shows normal EF 60%. Continue medication",
+      "patient": {
+        "fullName": "William Henry Brown",
+        "phone": "+491512345678",
+        "identityNo": "DEU55182906",
+        "bloodType": "B-"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb",
+        "email": "cardio.shebb@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      },
+      "departmentName": "Kardiyoloji Kliniği",
+      "createdAt": "2026-11-15T12:31:28.909Z"
+    },
+    {
+      "id": "app-6de615f5-c371-49cc-a56b-e4856acbe164",
+      "patientId": "pat-a21d85bc-c2a2-4afb-854f-efaf29cc2ff2",
+      "doctorId": "doc-pedcardio-azzawi",
+      "slotTime": "2026-11-28T13:30:00",
+      "timeStr": "13:30",
+      "dateStr": "2026-11-28",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Periodic pediatric echo surveillance. Asymptomatic",
+      "patient": {
+        "fullName": "Sophia Rose Wilson",
+        "phone": "+46701234567",
+        "identityNo": "SWE44182907",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "email": "pedcardio.azzawi@menaclinic.com",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      },
+      "departmentName": "Çocuk Kardiyolojisi Kliniği",
+      "createdAt": "2026-11-15T12:31:29.086Z"
+    },
+    {
+      "id": "app-b65cf852-0e8e-4f12-8cbe-fecc623d0f50",
+      "patientId": "pat-45e1e45e-57df-4b6c-9a84-e3ef07a8d0d9",
+      "doctorId": "doc-uro-razzaq",
+      "slotTime": "2026-11-28T14:00:00",
+      "timeStr": "14:00",
+      "dateStr": "2026-11-28",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Antibiotic therapy for 14 days and follow-up urinalysis",
+      "patient": {
+        "fullName": "James Arthur Johnson",
+        "phone": "+31612345678",
+        "identityNo": "NLD33182908",
+        "bloodType": "O-"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Abdulrazzaq",
+        "email": "uro.razzaq@menaclinic.com",
+        "specialty": "Üroloji • جراحة البولية"
+      },
+      "departmentName": "Üroloji Kliniği",
+      "createdAt": "2026-11-15T12:31:29.276Z"
+    },
+    {
+      "id": "app-bf99bbe7-9602-48fe-aca1-2f66c7cb1bef",
+      "patientId": "pat-47549e77-ffcf-4baf-8b87-b982bff1453c",
+      "doctorId": "doc-dental-masri",
+      "slotTime": "2026-11-28T14:30:00",
+      "timeStr": "14:30",
+      "dateStr": "2026-11-28",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Vital pulp therapy using bioceramic capping under microscope",
+      "patient": {
+        "fullName": "Isabella Marie Clark",
+        "phone": "+393123456789",
+        "identityNo": "ITA22182909",
+        "bloodType": "A+"
+      },
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "email": "dental.masri@menaclinic.com",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      },
+      "departmentName": "Ağız ve Diş Sağlığı Kliniği",
+      "createdAt": "2026-11-15T12:31:29.447Z"
+    },
+    {
+      "id": "app-3504a171-a85b-4d8b-8261-8d9b62e72cea",
+      "patientId": "pat-c63e3316-45cd-49f5-90a6-63200f223c81",
+      "doctorId": "doc-ped-ahmad",
+      "slotTime": "2026-11-28T15:30:00",
+      "timeStr": "15:30",
+      "dateStr": "2026-11-28",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Supportive care, hydration, saline nasal irrigation",
+      "patient": {
+        "fullName": "Benjamin Paul Walker",
+        "phone": "+34612345678",
+        "identityNo": "ESP11182910",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "email": "ped.ahmad@menaclinic.com",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      },
+      "departmentName": "Çocuk Sağlığı Kliniği",
+      "createdAt": "2026-11-15T12:31:29.649Z"
+    },
+    {
+      "id": "app-53363f93-1e4f-4fea-9f67-903c2c7973e1",
+      "patientId": "pat-4d810d62-e742-4969-b45c-8d9e286043e1",
+      "doctorId": "doc-cardio-horo",
+      "slotTime": "2026-11-28T16:00:00",
+      "timeStr": "16:00",
+      "dateStr": "2026-11-28",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "ECG demonstrates sinus rhythm, vagal maneuver counseling",
+      "patient": {
+        "fullName": "Mia Christine Hall",
+        "phone": "+41791234567",
+        "identityNo": "CHE99182911",
+        "bloodType": "B+"
+      },
+      "doctor": {
+        "fullName": "Dr. Barkhadan Horo",
+        "email": "cardio.horo@menaclinic.com",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      },
+      "departmentName": "Kardiyoloji Kliniği",
+      "createdAt": "2026-11-15T12:31:29.828Z"
+    },
+    {
+      "id": "app-fdeee636-bb06-4301-afc4-03ccaf306711",
+      "patientId": "pat-462e274f-ba16-49e7-98eb-16a3d7928608",
+      "doctorId": "doc-ortho-takko",
+      "slotTime": "2026-11-28T16:30:00",
+      "timeStr": "16:30",
+      "dateStr": "2026-11-28",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Elastic strapping, elevation and RICE protocol",
+      "patient": {
+        "fullName": "Daniel Thomas Allen",
+        "phone": "+436641234567",
+        "identityNo": "AUT88182912",
+        "bloodType": "A-"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "email": "ortho.takko@menaclinic.com",
+        "specialty": "Ortopedi • جراحة العظمية"
+      },
+      "departmentName": "Ortopedi Kliniği",
+      "createdAt": "2026-11-15T12:31:29.995Z"
+    },
+    {
+      "id": "app-d683653c-4f12-4290-94fa-fd06cca0cea7",
+      "patientId": "pat-31132615-0c2e-4edf-9789-fee1358495ca",
+      "doctorId": "doc-uro-qadi",
+      "slotTime": "2026-11-29T09:00:00",
+      "timeStr": "09:00",
+      "dateStr": "2026-11-29",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "Urgent renal ultrasound and cystoscopy workup",
+      "patient": {
+        "fullName": "Ava Rebecca Young",
+        "phone": "+4791234567",
+        "identityNo": "NOR77182913",
+        "bloodType": "AB-"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi",
+        "email": "uro.qadi@menaclinic.com",
+        "specialty": "Üroloji • جراحة البولية"
+      },
+      "departmentName": "Üroloji Kliniği",
+      "createdAt": "2026-11-15T12:31:30.151Z"
+    },
+    {
+      "id": "app-dd247399-449c-4a9e-ac53-7b1bd3e22f66",
+      "patientId": "pat-60083cd7-2c22-4e62-885f-679b285b4f42",
+      "doctorId": "doc-dental-shamoun",
+      "slotTime": "2026-11-29T09:30:00",
+      "timeStr": "09:30",
+      "dateStr": "2026-11-29",
+      "queueNumber": 1,
+      "status": "COMPLETED",
+      "notes": "3D virtual surgical planning and aesthetic facial consultation",
+      "patient": {
+        "fullName": "Noah Christopher King",
+        "phone": "+4520123456",
+        "identityNo": "DNK66182914",
+        "bloodType": "O+"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "email": "dental.shamoun@menaclinic.com",
+        "specialty": "Ağız, Yüz ve Çene Cerrahisi • جراحة الفم والوجه والفكين"
+      },
+      "departmentName": "Ağız, Yüz ve Çene Cerrahisi Kliniği",
+      "createdAt": "2026-11-15T12:31:30.318Z"
     }
   ],
   "medicalRecords": [
+    {
+      "id": "rec-9d8e6dd5-cc57-4103-85a8-e6ba68ed81dc",
+      "patientId": "pat-60083cd7-2c22-4e62-885f-679b285b4f42",
+      "doctorId": "doc-dental-shamoun",
+      "appointmentId": "app-dd247399-449c-4a9e-ac53-7b1bd3e22f66",
+      "diagnosis": "K07.0 - Congenital Maxillofacial Asymmetry",
+      "clinicalNotes": "3D virtual surgical planning and aesthetic facial consultation",
+      "prescriptionItems": [],
+      "labTests": [
+        {
+          "testName": "3D Maxillofacial CT Reconstruction"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:30.357Z",
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "specialty": "Ağız, Yüz ve Çene Cerrahisi • جراحة الفم والوجه والفكين"
+      }
+    },
+    {
+      "id": "rec-2cc57bf7-d466-465b-8628-def6b2289dad",
+      "patientId": "pat-31132615-0c2e-4edf-9789-fee1358495ca",
+      "doctorId": "doc-uro-qadi",
+      "appointmentId": "app-d683653c-4f12-4290-94fa-fd06cca0cea7",
+      "diagnosis": "R31.0 - Gross Hematuria Investigational",
+      "clinicalNotes": "Urgent renal ultrasound and cystoscopy workup",
+      "prescriptionItems": [],
+      "labTests": [
+        {
+          "testName": "Urinary Cytology"
+        },
+        {
+          "testName": "Kidney Ultrasound"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:30.198Z",
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi",
+        "specialty": "Üroloji • جراحة البولية"
+      }
+    },
+    {
+      "id": "rec-8834b6fe-5c51-4139-b2d8-90bdc6e72477",
+      "patientId": "pat-462e274f-ba16-49e7-98eb-16a3d7928608",
+      "doctorId": "doc-ortho-takko",
+      "appointmentId": "app-fdeee636-bb06-4301-afc4-03ccaf306711",
+      "diagnosis": "M25.5 - Ankle Joint Sprain Grade II",
+      "clinicalNotes": "Elastic strapping, elevation and RICE protocol",
+      "prescriptionItems": [
+        {
+          "itemName": "Ibuprofen gel 5%",
+          "dosage": "3x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Ankle Mortise X-Ray"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:30.033Z",
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "specialty": "Ortopedi • جراحة العظمية"
+      }
+    },
+    {
+      "id": "rec-93c77fe1-7c6e-466e-83f8-de3b3aa1217e",
+      "patientId": "pat-4d810d62-e742-4969-b45c-8d9e286043e1",
+      "doctorId": "doc-cardio-horo",
+      "appointmentId": "app-53363f93-1e4f-4fea-9f67-903c2c7973e1",
+      "diagnosis": "I47.1 - Supraventricular Tachycardia",
+      "clinicalNotes": "ECG demonstrates sinus rhythm, vagal maneuver counseling",
+      "prescriptionItems": [
+        {
+          "itemName": "Verapamil 80mg",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Electrolyte Panel (K, Mg, Na)"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:29.874Z",
+      "doctor": {
+        "fullName": "Dr. Barkhadan Horo",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      }
+    },
+    {
+      "id": "rec-ddd8ced7-05fc-40d1-a9d4-4ef377069c66",
+      "patientId": "pat-c63e3316-45cd-49f5-90a6-63200f223c81",
+      "doctorId": "doc-ped-ahmad",
+      "appointmentId": "app-3504a171-a85b-4d8b-8261-8d9b62e72cea",
+      "diagnosis": "J00 - Acute Viral Nasopharyngitis",
+      "clinicalNotes": "Supportive care, hydration, saline nasal irrigation",
+      "prescriptionItems": [
+        {
+          "itemName": "Saline nasal spray",
+          "dosage": "4x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:29.702Z",
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      }
+    },
+    {
+      "id": "rec-bfc520a8-b62e-4b50-a183-9b33a7549463",
+      "patientId": "pat-47549e77-ffcf-4baf-8b87-b982bff1453c",
+      "doctorId": "doc-dental-masri",
+      "appointmentId": "app-bf99bbe7-9602-48fe-aca1-2f66c7cb1bef",
+      "diagnosis": "K02.5 - Caries with Pulp Exposure",
+      "clinicalNotes": "Vital pulp therapy using bioceramic capping under microscope",
+      "prescriptionItems": [],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:29.503Z",
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      }
+    },
+    {
+      "id": "rec-cd82c320-da67-4c16-aa5a-cfe94bb7acb1",
+      "patientId": "pat-45e1e45e-57df-4b6c-9a84-e3ef07a8d0d9",
+      "doctorId": "doc-uro-razzaq",
+      "appointmentId": "app-b65cf852-0e8e-4f12-8cbe-fecc623d0f50",
+      "diagnosis": "N41.0 - Acute Prostatitis",
+      "clinicalNotes": "Antibiotic therapy for 14 days and follow-up urinalysis",
+      "prescriptionItems": [
+        {
+          "itemName": "Levofloxacin 500mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Urine Culture & Sensitivity"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:29.320Z",
+      "doctor": {
+        "fullName": "Dr. Ahmad Abdulrazzaq",
+        "specialty": "Üroloji • جراحة البولية"
+      }
+    },
+    {
+      "id": "rec-a4b6c35e-6a15-4fd1-85a5-837c589ce220",
+      "patientId": "pat-a21d85bc-c2a2-4afb-854f-efaf29cc2ff2",
+      "doctorId": "doc-pedcardio-azzawi",
+      "appointmentId": "app-6de615f5-c371-49cc-a56b-e4856acbe164",
+      "diagnosis": "Q23.1 - Congenital Bicuspid Aortic Valve",
+      "clinicalNotes": "Periodic pediatric echo surveillance. Asymptomatic",
+      "prescriptionItems": [],
+      "labTests": [
+        {
+          "testName": "Color Doppler Echocardiogram"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:29.134Z",
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      }
+    },
+    {
+      "id": "rec-93616a59-8d59-49b0-ad18-79f2a8523960",
+      "patientId": "pat-900acfad-d8c2-49c9-8aa7-340e93886e40",
+      "doctorId": "doc-cardio-chebb",
+      "appointmentId": "app-d122bb16-8625-4cb6-8b7f-ae2df053eff2",
+      "diagnosis": "I25.1 - Atherosclerotic Heart Disease",
+      "clinicalNotes": "Echocardiography shows normal EF 60%. Continue medication",
+      "prescriptionItems": [
+        {
+          "itemName": "Bisoprolol 5mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "hs-CRP + Lipid Panel"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:28.958Z",
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      }
+    },
+    {
+      "id": "rec-1c1c4568-a1ed-4549-93a3-21c53be105ac",
+      "patientId": "pat-5c96c62e-baf6-4e88-9174-c4424fa1b502",
+      "doctorId": "doc-dental-shamoun",
+      "appointmentId": "app-4d6457f0-b5df-4b02-b390-9d5da7ecad83",
+      "diagnosis": "K08.1 - Loss of Teeth Due to Trauma",
+      "clinicalNotes": "Surgical implant evaluation and bone graft review",
+      "prescriptionItems": [
+        {
+          "itemName": "Amoxicillin/Clav 875mg",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Cone Beam 3D X-Ray"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:28.782Z",
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "specialty": "Ağız, Yüz ve Çene Cerrahisi • جراحة الفم والوجه والفكين"
+      }
+    },
+    {
+      "id": "rec-12f48e48-b1f5-475a-b4b9-dace5def50e4",
+      "patientId": "pat-45853d08-3682-48db-8233-e44cb771b508",
+      "doctorId": "doc-ortho-takko",
+      "appointmentId": "app-4b51014d-62d2-4fe0-ab65-fa14cfcaaf8d",
+      "diagnosis": "S43.0 - Shoulder Joint Impingement",
+      "clinicalNotes": "Physical therapy protocol and rotatory cuff strengthening",
+      "prescriptionItems": [
+        {
+          "itemName": "Meloxicam 15mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Shoulder Ultrasound"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:28.615Z",
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "specialty": "Ortopedi • جراحة العظمية"
+      }
+    },
+    {
+      "id": "rec-d9505030-0923-41d2-b47b-952207384b5c",
+      "patientId": "pat-e5d4c6b4-490a-4bc5-9ee4-e2d56fc87923",
+      "doctorId": "doc-derma-haddad",
+      "appointmentId": "app-e8a201d8-9f3d-485d-9b32-a549e8cba0b3",
+      "diagnosis": "L30.9 - Contact Dermatitis",
+      "clinicalNotes": "Allergen elimination and barrier repair cream",
+      "prescriptionItems": [
+        {
+          "itemName": "Betamethasone dipropionate",
+          "dosage": "1x2",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:28.452Z",
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      }
+    },
+    {
+      "id": "rec-1eb25ee0-0ad5-43b1-b618-b4c6a8598541",
+      "patientId": "pat-c91ec22b-7389-4de5-b16a-00bd7f1660bd",
+      "doctorId": "doc-gastro-horo",
+      "appointmentId": "app-53d0f6c2-c45b-4a62-8ac1-ec4dadbcfdc2",
+      "diagnosis": "K29.0 - Acute Hemorrhagic Gastritis",
+      "clinicalNotes": "IV PPI maintenance and endoscopic monitoring",
+      "prescriptionItems": [
+        {
+          "itemName": "Omeprazole 40mg",
+          "dosage": "1x2",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Complete Blood Count"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:28.301Z",
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      }
+    },
+    {
+      "id": "rec-1906e425-7cc6-475e-9d2d-0e26cb38d43b",
+      "patientId": "pat-fam-0555282c-ba6d-4395-97f2-3b2f4bcf1df0",
+      "doctorId": "doc-dental-masri",
+      "appointmentId": "app-4792799a-5be8-433c-8192-7336279d06c9",
+      "diagnosis": "K02.3 - Arrested Dental Caries",
+      "clinicalNotes": "Microscopic inspection and aesthetic composite restoration",
+      "prescriptionItems": [],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:28.146Z",
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      }
+    },
+    {
+      "id": "rec-ab6e7ef5-9753-4673-a0c1-45c20ff0367f",
+      "patientId": "pat-8e18f8c6-d866-4f6a-81e2-42fad607ac05",
+      "doctorId": "doc-pedcardio-azzawi",
+      "appointmentId": "app-50cbb95c-09ac-4baf-b7c3-8ab35b385db4",
+      "diagnosis": "Q25.1 - Coarctation of Aorta Follow-up",
+      "clinicalNotes": "Specialist pediatric cardiology examination and doppler echo",
+      "prescriptionItems": [
+        {
+          "itemName": "Atenolol 25mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Cardiac MRI Review"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:28.013Z",
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      }
+    },
+    {
+      "id": "rec-908da88b-a938-4aee-a7b1-79f27f40df1e",
+      "patientId": "pat-80584d77-7529-46e1-ba2d-e1bb0478e4de",
+      "doctorId": "doc-dental-shamoun",
+      "appointmentId": "app-19cabd00-c989-4026-9cf4-d1504b624cab",
+      "diagnosis": "K07.6 - Temporomandibular Eklem Bozukluğu",
+      "clinicalNotes": "Gece plağı ve çene kas gevşetici egzersizleri",
+      "prescriptionItems": [
+        {
+          "itemName": "Miyorelaksan 4mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:27.863Z",
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "specialty": "Ağız, Yüz ve Çene Cerrahisi • جراحة الفم والوجه والفكين"
+      }
+    },
+    {
+      "id": "rec-21b21606-dae9-4d31-b572-e0c5452d5950",
+      "patientId": "pat-bbd4fb9d-aaa7-4947-afb9-2e884e1e5d47",
+      "doctorId": "doc-ortho-takko",
+      "appointmentId": "app-a8a38cfa-4347-48bc-9cfd-7881511bb15d",
+      "diagnosis": "M77.1 - Lateral Epikondilit (Tenisçi Dirseği)",
+      "clinicalNotes": "Dirseklik kullanımı ve lokal non-steroid krem",
+      "prescriptionItems": [
+        {
+          "itemName": "Diklofenak jel",
+          "dosage": "3x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:27.691Z",
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "specialty": "Ortopedi • جراحة العظمية"
+      }
+    },
+    {
+      "id": "rec-b34c5c4b-a9c5-4701-a494-daf15f579651",
+      "patientId": "pat-1114ec26-42bf-406a-9e2c-e009d6ba60f5",
+      "doctorId": "doc-dental-masri",
+      "appointmentId": "app-07131150-1e2e-452e-9938-dfd4f9620246",
+      "diagnosis": "K03.6 - Diş Taşı ve Plak",
+      "clinicalNotes": "Detartraj ve estetik diş parlatma",
+      "prescriptionItems": [],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:27.536Z",
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      }
+    },
+    {
+      "id": "rec-b595dd14-1265-467e-a6e9-2c422726df65",
+      "patientId": "pat-2e71c928-aa23-4ce6-870d-eaf5947bc9c7",
+      "doctorId": "doc-uro-qadi",
+      "appointmentId": "app-9835de22-1d7e-44e6-b08e-31f168f5f61d",
+      "diagnosis": "N20.1 - Üreter Taşı",
+      "clinicalNotes": "Medikal ekspulsif tedavi ve sıvı takviyesi",
+      "prescriptionItems": [
+        {
+          "itemName": "Tamsulosin 0.4mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Üriner USG"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:27.359Z",
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi",
+        "specialty": "Üroloji • جراحة البولية"
+      }
+    },
+    {
+      "id": "rec-a60a19e8-2eff-4eb4-a185-28f0b04f2e5a",
+      "patientId": "pat-24ecf2c9-f1b2-4746-9fb0-95acf7796656",
+      "doctorId": "doc-derma-haddad",
+      "appointmentId": "app-116769d2-bd80-43c2-b69e-3af63a336b34",
+      "diagnosis": "L40.0 - Psoriazis Vulgaris",
+      "clinicalNotes": "Topikal kortikosteroid ve nemlendirici kür",
+      "prescriptionItems": [
+        {
+          "itemName": "Kalsipotriol merhem",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:27.162Z",
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      }
+    },
+    {
+      "id": "rec-4e0ab57f-6d5b-48aa-8c9a-328c637cd49c",
+      "patientId": "pat-90d3b91b-66b9-41de-8e41-274aef5d6923",
+      "doctorId": "doc-cardio-horo",
+      "appointmentId": "app-d4ff6af3-c1bc-4404-a407-8ab9a5a8ba3a",
+      "diagnosis": "E78.5 - Hiperlipidemi",
+      "clinicalNotes": "Statin tedavisi ve kardiyovasküler risk taraması",
+      "prescriptionItems": [
+        {
+          "itemName": "Rosuvastatin 10mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Tam Kolesterol Paneli"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:26.977Z",
+      "doctor": {
+        "fullName": "Dr. Barkhadan Horo",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      }
+    },
+    {
+      "id": "rec-aa2a9af3-3307-4812-8d8d-e57321ec06e0",
+      "patientId": "pat-19d34072-c495-4562-914b-763c8bc147f0",
+      "doctorId": "doc-ped-ahmad",
+      "appointmentId": "app-22f871ad-c4cc-423f-90e6-3ba79c9156c9",
+      "diagnosis": "J06.9 - Akut Üst Solunum Yolu Enfeksiyonu",
+      "clinicalNotes": "Bol sıvı, dinlenme ve semptomatik tedavi",
+      "prescriptionItems": [
+        {
+          "itemName": "İbuprofen şurup",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:26.755Z",
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      }
+    },
+    {
+      "id": "rec-5baa87f5-10cf-4e0a-bbce-aaff73ef26af",
+      "patientId": "pat-aa55609a-acc5-4541-8ac8-5f73c19b8686",
+      "doctorId": "doc-uro-razzaq",
+      "appointmentId": "app-37f0e68c-da09-42ec-b690-ab3640d98bf5",
+      "diagnosis": "N40 - Benign Prostat Hiperplazisi",
+      "clinicalNotes": "Alfa bloker tedavi başlangıcı",
+      "prescriptionItems": [
+        {
+          "itemName": "Tamsulosin 0.4mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "PSA Testi"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:26.551Z",
+      "doctor": {
+        "fullName": "Dr. Ahmad Abdulrazzaq",
+        "specialty": "Üroloji • جراحة البولية"
+      }
+    },
+    {
+      "id": "rec-5e54bc34-7c04-420a-a620-ea6cfe459042",
+      "patientId": "pat-015aef9c-50aa-46d2-91a5-68fe57f8614b",
+      "doctorId": "doc-pedcardio-azzawi",
+      "appointmentId": "app-d5fb36c0-dd14-4d21-afde-4d1f27fc725a",
+      "diagnosis": "Q24.8 - Pediyatrik Kalp Ritim Düzensizliği",
+      "clinicalNotes": "24 saatlik Holter izlemi ve çocuk kardiyoloji konsültasyonu",
+      "prescriptionItems": [],
+      "labTests": [
+        {
+          "testName": "Pediyatrik Eko + Holter"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:26.379Z",
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      }
+    },
+    {
+      "id": "rec-05fd04a4-b6ac-4d6c-afd2-4fe8a30bec73",
+      "patientId": "pat-c0046982-4d5a-4c58-b72f-56ad5cd8108a",
+      "doctorId": "doc-dental-shamoun",
+      "appointmentId": "app-7cacdaf5-e347-45fe-9e02-7411364b57c5",
+      "diagnosis": "K07.4 - Çene Maloklüzyonu",
+      "clinicalNotes": "Ortognatik cerrahi öncesi değerlendirme",
+      "prescriptionItems": [],
+      "labTests": [
+        {
+          "testName": "Sefalometrik Çene Grafisi"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:26.209Z",
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "specialty": "Ağız, Yüz ve Çene Cerrahisi • جراحة الفم والوجه والفكين"
+      }
+    },
+    {
+      "id": "rec-b8f651e9-e4e0-4dd5-85ab-d5bc4a86192e",
+      "patientId": "pat-9b3184d9-ca26-4dd5-a36b-03454e66827e",
+      "doctorId": "doc-gastro-horo",
+      "appointmentId": "app-930cc21e-f57a-497a-8c83-1a30ed2a97ec",
+      "diagnosis": "K21.9 - Gastroözofageal Reflü",
+      "clinicalNotes": "PPI tedavisi, yatmadan önce yemekten kaçınma",
+      "prescriptionItems": [
+        {
+          "itemName": "Pantoprazol 40mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:26.057Z",
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      }
+    },
+    {
+      "id": "rec-7844592e-d31d-4daa-b9e8-cde1568c2bb7",
+      "patientId": "pat-70eb4a7e-ec0b-4dd5-8655-eb012ce727b5",
+      "doctorId": "doc-dental-masri",
+      "appointmentId": "app-3dbfe966-c610-4ca0-b0b1-41ad2d5f6285",
+      "diagnosis": "K04.0 - Akut Pulpitis",
+      "clinicalNotes": "Mikroskop altında endodontik kanal tedavisi",
+      "prescriptionItems": [
+        {
+          "itemName": "Parasetamol 500mg",
+          "dosage": "3x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Periapikal Diş Röntgeni"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:25.892Z",
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      }
+    },
+    {
+      "id": "rec-c4ae17ff-c816-416f-aeda-66a537895a7a",
+      "patientId": "pat-b747332f-2995-48f8-abb4-8213c1a6e9b0",
+      "doctorId": "doc-ortho-takko",
+      "appointmentId": "app-f8397605-5acf-4881-b27a-8b484c875b97",
+      "diagnosis": "S83.2 - Menisküs Yırtığı Şüphesi",
+      "clinicalNotes": "Diz istirahati, buz uygulaması ve MRG planı",
+      "prescriptionItems": [
+        {
+          "itemName": "Dexketoprofen 25mg",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Diz MRG Tetkiki"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:25.740Z",
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "specialty": "Ortopedi • جراحة العظمية"
+      }
+    },
+    {
+      "id": "rec-2c232d53-5e30-4f84-a2eb-e836ea517378",
+      "patientId": "pat-fam-a0322433-870b-4498-970c-b370da0458f9",
+      "doctorId": "doc-derma-haddad",
+      "appointmentId": "app-08ad9aa6-14e3-47ce-b4b8-9cb8ed291219",
+      "diagnosis": "L50.0 - Alerjik Ürtiker",
+      "clinicalNotes": "Antihistaminik tedavi ve alerjen kısıtlama",
+      "prescriptionItems": [
+        {
+          "itemName": "Cetirizine 10mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Total IgE Testi"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:25.556Z",
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      }
+    },
+    {
+      "id": "rec-4ddac05a-5841-4bdf-af3a-75b82662e429",
+      "patientId": "pat-8dfb7340-39fd-4765-a765-b29d504893b1",
+      "doctorId": "doc-cardio-chebb",
+      "appointmentId": "app-7a5526a8-02dc-4eab-a623-273f5eebb42a",
+      "diagnosis": "I10 - Esansiyel Hipertansiyon",
+      "clinicalNotes": "Tansiyon takibi ve yaşam tarzı değişikliği",
+      "prescriptionItems": [
+        {
+          "itemName": "Ramipril 5mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Biyokimya + EKG"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:25.426Z",
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      }
+    },
+    {
+      "id": "rec-037b4767-2072-48d4-b837-3ab2b219afbb",
+      "patientId": "pat-e8df1565-c631-4d2f-9512-116cb2dd22e8",
+      "doctorId": "doc-dental-masri",
+      "appointmentId": "app-4655c5c2-2a14-4136-b4fa-fab2cbfd4b91",
+      "diagnosis": "K05.1 - التهاب لثة مزمن",
+      "clinicalNotes": "تنظيف وتلميع أسنان بالموجات فوق الصوتية",
+      "prescriptionItems": [
+        {
+          "itemName": "Chlorhexidine mouthwash",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:25.226Z",
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      }
+    },
+    {
+      "id": "rec-e907a02c-88b0-4009-aa70-a846d738aba6",
+      "patientId": "pat-59eef836-4a8a-481f-8c2e-dd9086b01907",
+      "doctorId": "doc-gastro-horo",
+      "appointmentId": "app-f348f5c7-c04f-496d-a140-8ae9cf010f23",
+      "diagnosis": "K58.0 - متلازمة القولون العصبي",
+      "clinicalNotes": "تنظيم الوجبات ومضاد تشنج",
+      "prescriptionItems": [
+        {
+          "itemName": "Mebeverine 135mg",
+          "dosage": "3x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:25.041Z",
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      }
+    },
+    {
+      "id": "rec-f2de261a-dc72-4d7b-821f-761ce9db7131",
+      "patientId": "pat-fa3342b1-9578-4df1-bc41-8885eb022ac2",
+      "doctorId": "doc-ortho-takko",
+      "appointmentId": "app-8d68dbf0-c528-4292-b471-7526b7d534e9",
+      "diagnosis": "M54.5 - ألم أسفل الظهر",
+      "clinicalNotes": "تمارين تقوية عضلات الظهر",
+      "prescriptionItems": [
+        {
+          "itemName": "Thiocolchicoside 4mg",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Lumbar Spine MRI"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:24.826Z",
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "specialty": "Ortopedi • جراحة العظمية"
+      }
+    },
+    {
+      "id": "rec-bb3e0b05-cbc7-4622-bbdb-43f2037017a2",
+      "patientId": "pat-10a969a0-3706-4cc8-ab3e-c8cc7f0f78a8",
+      "doctorId": "doc-derma-haddad",
+      "appointmentId": "app-c908c736-2835-400b-83fc-b8acc7438338",
+      "diagnosis": "L70.0 - حب شباب شائع",
+      "clinicalNotes": "مستحضر ريتينويد وغسول طبي",
+      "prescriptionItems": [
+        {
+          "itemName": "Adapalene gel",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:24.618Z",
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      }
+    },
+    {
+      "id": "rec-feb6fab3-1243-4a6c-b03e-d010fa7bf87b",
+      "patientId": "pat-65ff6ad6-5c66-4f47-aece-49cecc6600ce",
+      "doctorId": "doc-dental-shamoun",
+      "appointmentId": "app-c98ce748-d362-4be7-965d-2cb3cea4e175",
+      "diagnosis": "S02.6 - كسر الفك السفلي المغلق",
+      "clinicalNotes": "تثبيت بين الفكين ومسكنات ألم",
+      "prescriptionItems": [
+        {
+          "itemName": "Augmentin 1g",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Facial CT Scan"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:24.441Z",
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "specialty": "Ağız, Yüz ve Çene Cerrahisi • جراحة الفم والوجه والفكين"
+      }
+    },
+    {
+      "id": "rec-df7f826a-122a-4454-bf80-dd12f4235faa",
+      "patientId": "pat-fam-bff2dde3-bffd-466a-b10f-f77c6e85eabe",
+      "doctorId": "doc-uro-qadi",
+      "appointmentId": "app-88fd25c9-bbbc-49de-9d86-bff483c95a6d",
+      "diagnosis": "N20.0 - حصيات كلوية دقيقة",
+      "clinicalNotes": "حمية مائية ومسكنات بولية",
+      "prescriptionItems": [
+        {
+          "itemName": "Potassium citrate",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Renal Ultrasound"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:24.290Z",
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi",
+        "specialty": "Üroloji • جراحة البولية"
+      }
+    },
+    {
+      "id": "rec-cdc8ee82-7b4d-46a4-8da9-435475294d0d",
+      "patientId": "pat-fam-f3a7861e-65b1-43f0-b7a4-cf88104373e8",
+      "doctorId": "doc-ped-ahmad",
+      "appointmentId": "app-4c2d89e2-de4e-4f09-a141-6558f5f51f27",
+      "diagnosis": "L01.0 - قوباء جلدية طفولية",
+      "clinicalNotes": "مرهم مضاد حيوي موضعي",
+      "prescriptionItems": [
+        {
+          "itemName": "Fucidic acid cream",
+          "dosage": "3x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:24.170Z",
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      }
+    },
+    {
+      "id": "rec-57bcffed-2426-4920-961e-22a4f3beef09",
+      "patientId": "pat-b911db2f-ced7-44fa-a5b3-4d3c375fdc7e",
+      "doctorId": "doc-cardio-horo",
+      "appointmentId": "app-e4e9c707-fc34-441a-a457-b271e99d9bc0",
+      "diagnosis": "I20.9 - ذبحة صدرية مستقرة",
+      "clinicalNotes": "تخطيط جهد ونيتروغليسرين إسلو",
+      "prescriptionItems": [
+        {
+          "itemName": "Aspirin 81mg",
+          "dosage": "1x1",
+          "quantity": 1
+        },
+        {
+          "itemName": "Atorvastatin 20mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Cardiac Troponin"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:24.037Z",
+      "doctor": {
+        "fullName": "Dr. Barkhadan Horo",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      }
+    },
+    {
+      "id": "rec-635aacc1-6c60-4c56-88e1-922963bac2f2",
+      "patientId": "pat-fam-978dac59-310f-4abe-b7f8-41283150e313",
+      "doctorId": "doc-dental-masri",
+      "appointmentId": "app-b6ea3d8d-5465-4e83-895b-2efc895c5dfd",
+      "diagnosis": "K02.0 - نخر طبقة الميناء",
+      "clinicalNotes": "تطبيق فلورايد وحشوة وقائية",
+      "prescriptionItems": [],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:23.892Z",
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      }
+    },
+    {
+      "id": "rec-4463bc2c-da75-4661-88d0-3d7302e7fb6d",
+      "patientId": "pat-fam-312be851-54c7-4c31-b405-2448b927b10f",
+      "doctorId": "doc-pedcardio-azzawi",
+      "appointmentId": "app-03381f97-c961-40c6-aa28-8426166c2cd0",
+      "diagnosis": "R01.1 - نفخة قلبية حميدة",
+      "clinicalNotes": "متابعة دورية مطمئنة",
+      "prescriptionItems": [],
+      "labTests": [
+        {
+          "testName": "Pediatric ECG"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:23.787Z",
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      }
+    },
+    {
+      "id": "rec-9de1dcf4-1785-459c-8c3b-b6fd75023b76",
+      "patientId": "pat-0f4339c1-a101-49a4-8bd3-e09e3373f254",
+      "doctorId": "doc-uro-razzaq",
+      "appointmentId": "app-02a79132-08fa-4b7c-9198-02530e969684",
+      "diagnosis": "N39.0 - التهاب مسالك بولية",
+      "clinicalNotes": "إكثار سوائل ومضاد حيوي مناسب",
+      "prescriptionItems": [
+        {
+          "itemName": "Ciprofloxacin 500mg",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Urine Culture"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:23.676Z",
+      "doctor": {
+        "fullName": "Dr. Ahmad Abdulrazzaq",
+        "specialty": "Üroloji • جراحة البولية"
+      }
+    },
+    {
+      "id": "rec-5d913fe1-6010-4117-9201-f2ac4b0ae5a8",
+      "patientId": "pat-fam-17a29a57-e85c-4f3b-b898-1b2f5056a646",
+      "doctorId": "doc-dental-shamoun",
+      "appointmentId": "app-bbd2eb0a-5305-47ca-89da-0f63f0d8e29f",
+      "diagnosis": "K07.1 - تشوه عظمي بالفك السفلي",
+      "clinicalNotes": "استشارة جراحية وتصوير بانورامي",
+      "prescriptionItems": [
+        {
+          "itemName": "Ibuprofen 400mg",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "CBCT 3D Jaw Scan"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:23.540Z",
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun",
+        "specialty": "Ağız, Yüz ve Çene Cerrahisi • جراحة الفم والوجه والفكين"
+      }
+    },
+    {
+      "id": "rec-045ee002-22a0-46dd-ab5b-8bb645d7a4ba",
+      "patientId": "pat-fam-d8441b76-f3da-4f65-aa9d-5aed7cc568fe",
+      "doctorId": "doc-ortho-takko",
+      "appointmentId": "app-d7920aa8-7931-4f9d-8938-137dd1877704",
+      "diagnosis": "M17.9 - فصال عظمي في الركبة",
+      "clinicalNotes": "علاج فيزيائي ومسكنات",
+      "prescriptionItems": [
+        {
+          "itemName": "Glucosamine complex",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Knee X-Ray"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:23.419Z",
+      "doctor": {
+        "fullName": "Dr. Fouad Takko",
+        "specialty": "Ortopedi • جراحة العظمية"
+      }
+    },
+    {
+      "id": "rec-06206d54-dd59-4205-bb61-8a2a060688b5",
+      "patientId": "pat-e0cac6f3-6931-42b5-aaef-2b150d683479",
+      "doctorId": "doc-cardio-chebb",
+      "appointmentId": "app-cc2303c1-f759-49d7-9472-4be89a009442",
+      "diagnosis": "I10 - فرط ضغط الدم الأساسي",
+      "clinicalNotes": "تخطيط قلب طبيعي وضبط الجرعة",
+      "prescriptionItems": [
+        {
+          "itemName": "Amlodipine 5mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Lipid Profile + Serum Cr"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:23.300Z",
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb",
+        "specialty": "Kardiyoloji • أمراض القلبية"
+      }
+    },
+    {
+      "id": "rec-5157e733-4cdd-412e-b89f-37e39e25dd3f",
+      "patientId": "pat-fam-ea7552eb-fffe-4a6a-a7e7-cf69b843a154",
+      "doctorId": "doc-ped-ahmad",
+      "appointmentId": "app-05efc321-1169-4344-8483-742e3d69d0ea",
+      "diagnosis": "J20.9 - التهاب قصبات حاد",
+      "clinicalNotes": "موسع قصبات ومضاد تحسس",
+      "prescriptionItems": [
+        {
+          "itemName": "Salbutamol syrup",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:23.129Z",
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      }
+    },
+    {
+      "id": "rec-ba712cba-4598-462b-929f-c5ffc2894e0c",
+      "patientId": "pat-fam-a9360e00-65dc-4dc0-8baa-a7c1754bad34",
+      "doctorId": "doc-pedcardio-azzawi",
+      "appointmentId": "app-a71fc0df-1ed8-4d69-86bd-2e851820b890",
+      "diagnosis": "Q21.0 - عيب الحاجز البطيني VSD",
+      "clinicalNotes": "إيكو قلب متكرر مع متابعة سريرية دقيقة",
+      "prescriptionItems": [
+        {
+          "itemName": "Furosemide drops",
+          "dosage": "1x2",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Echocardiogram"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:23.024Z",
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      }
+    },
+    {
+      "id": "rec-1e34f69e-6f3c-4561-b25e-c656521b13fe",
+      "patientId": "pat-9199a91d-5fe0-4888-8017-783ebe2666c0",
+      "doctorId": "doc-gastro-horo",
+      "appointmentId": "app-25b9d631-70fb-4421-9924-6536b40cfc9c",
+      "diagnosis": "K29.7 - التهاب معدة مزمن",
+      "clinicalNotes": "حمية غذائية وتنظير معدة لاحق",
+      "prescriptionItems": [
+        {
+          "itemName": "Esomeprazole 40mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "H. Pylori Stool Antigen"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:22.887Z",
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      }
+    },
+    {
+      "id": "rec-af3102ac-b85a-4d24-ac03-0a5b2203f3ba",
+      "patientId": "pat-fam-fa8f2e89-47bd-4450-88f8-1df9ca94963a",
+      "doctorId": "doc-ped-ahmad",
+      "appointmentId": "app-7fc6505b-b3b3-4bfa-9186-4665be2fef37",
+      "diagnosis": "J02.9 - التهاب بلعوم حاد",
+      "clinicalNotes": "خافض حرارة وراحة تامة",
+      "prescriptionItems": [
+        {
+          "itemName": "Paracetamol syrup",
+          "dosage": "3x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "CBC + CRP"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:22.711Z",
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      }
+    },
+    {
+      "id": "rec-c9c03d39-d990-4ee8-9c32-d564ceeb1953",
+      "patientId": "pat-fam-ae4d4e71-b1c6-4a61-9246-3ec0d5dc74eb",
+      "doctorId": "doc-derma-haddad",
+      "appointmentId": "app-accbab34-3caf-47cb-bcd4-a12498fdbac7",
+      "diagnosis": "L20.9 - التهاب جلد تأتبي",
+      "clinicalNotes": "علاج موضعي وترطيب مستمر",
+      "prescriptionItems": [
+        {
+          "itemName": "Hydrocortisone cream",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:22.598Z",
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      }
+    },
+    {
+      "id": "rec-171e151a-79a1-442d-a241-ae840fa51b20",
+      "patientId": "pat-fb092bda-e0fe-45de-9268-45bc578d2f35",
+      "doctorId": "doc-dental-masri",
+      "appointmentId": "app-fe55bc90-9716-4f3a-97b7-ae562bcd4986",
+      "diagnosis": "K02.1 - تسوس عاجي عميق",
+      "clinicalNotes": "فحص مجهري وتجميل سن أمامي",
+      "prescriptionItems": [
+        {
+          "itemName": "Amoxicillin 500mg",
+          "dosage": "1x3",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:31:22.470Z",
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      }
+    },
+    {
+      "id": "rec-1a31545c-42bf-455a-818b-a5da1b7c036f",
+      "patientId": "pat-fam-ac16bbb0-aa83-4ef2-b90a-652eeb540532",
+      "doctorId": "doc-ped-ahmad",
+      "appointmentId": "app-bf9276f4-dac2-4d1f-bcb8-c3e05c525031",
+      "diagnosis": "J20.9 - التهاب قصبات حاد",
+      "clinicalNotes": "موسع قصبات ومضاد تحسس",
+      "prescriptionItems": [
+        {
+          "itemName": "Salbutamol syrup",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:29:39.542Z",
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      }
+    },
+    {
+      "id": "rec-a41e0e9a-e23e-4018-acaa-4ae67c218ba3",
+      "patientId": "pat-fam-d1d15450-77e0-4395-8f42-ef7addc28e30",
+      "doctorId": "doc-pedcardio-azzawi",
+      "appointmentId": "app-2cbfb297-5f75-4014-9df3-aed558079d9f",
+      "diagnosis": "Q21.0 - عيب الحاجز البطيني VSD",
+      "clinicalNotes": "إيكو قلب متكرر مع متابعة سريرية دقيقة",
+      "prescriptionItems": [
+        {
+          "itemName": "Furosemide drops",
+          "dosage": "1x2",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "Echocardiogram"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:29:39.433Z",
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi",
+        "specialty": "Çocuk Kardiyolojisi • قلبية أطفال"
+      }
+    },
+    {
+      "id": "rec-670375e5-a54c-4535-be17-b7ec0c8a2953",
+      "patientId": "pat-9199a91d-5fe0-4888-8017-783ebe2666c0",
+      "doctorId": "doc-gastro-horo",
+      "appointmentId": "app-97838ec6-95c4-48ef-bb32-bd3fdb61a83a",
+      "diagnosis": "K29.7 - التهاب معدة مزمن",
+      "clinicalNotes": "حمية غذائية وتنظير معدة لاحق",
+      "prescriptionItems": [
+        {
+          "itemName": "Esomeprazole 40mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "H. Pylori Stool Antigen"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:29:39.320Z",
+      "doctor": {
+        "fullName": "Dr. Rustam Horo",
+        "specialty": "Gastroenteroloji • أمراض الهضمية"
+      }
+    },
+    {
+      "id": "rec-84c73a8a-369a-4b4c-b1e3-70e76d3a6c26",
+      "patientId": "pat-fam-2d75b2bb-2619-41f8-8b49-f52225bec8a8",
+      "doctorId": "doc-ped-ahmad",
+      "appointmentId": "app-2e8ad5e5-ccfa-449a-a5a1-a4a52af83db2",
+      "diagnosis": "J02.9 - التهاب بلعوم حاد",
+      "clinicalNotes": "خافض حرارة وراحة تامة",
+      "prescriptionItems": [
+        {
+          "itemName": "Paracetamol syrup",
+          "dosage": "3x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [
+        {
+          "testName": "CBC + CRP"
+        }
+      ],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:29:39.145Z",
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad",
+        "specialty": "Çocuk Sağlığı • طب الأطفال"
+      }
+    },
+    {
+      "id": "rec-2bf7d59c-fde1-44c7-b6a8-635de82c4454",
+      "patientId": "pat-fam-abc23cf5-607f-425b-adcb-b0c202c32877",
+      "doctorId": "doc-derma-haddad",
+      "appointmentId": "app-72f7f07c-2d20-4328-be98-af275ecbf545",
+      "diagnosis": "L20.9 - التهاب جلد تأتبي",
+      "clinicalNotes": "علاج موضعي وترطيب مستمر",
+      "prescriptionItems": [
+        {
+          "itemName": "Hydrocortisone cream",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:29:39.028Z",
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad",
+        "specialty": "Dermatoloji • الأمراض الجلدية"
+      }
+    },
+    {
+      "id": "rec-733ac0f3-01f7-4a2e-946b-b9c07777a9e8",
+      "patientId": "pat-fb092bda-e0fe-45de-9268-45bc578d2f35",
+      "doctorId": "doc-dental-masri",
+      "appointmentId": "app-23336b3d-208c-466c-9bb0-504887ea284b",
+      "diagnosis": "K02.1 - تسوس عاجي عميق",
+      "clinicalNotes": "فحص مجهري وتجميل سن أمامي",
+      "prescriptionItems": [
+        {
+          "itemName": "Amoxicillin 500mg",
+          "dosage": "1x3",
+          "quantity": 1
+        }
+      ],
+      "labTests": [],
+      "amendments": [],
+      "createdAt": "2026-11-15T12:29:38.690Z",
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
+      }
+    },
     {
       "id": "rec-1792943426191-20co1",
       "patientId": "pat-1792941712371-mt53o",
@@ -1591,7 +5005,7 @@
     {
       "id": "rec-sim-1792920327023-16",
       "patientId": "pat-99300300001",
-      "doctorId": "doc-vasc-arr",
+      "doctorId": "doc-dental-masri",
       "appointmentId": "app-sim-1792920326986-16",
       "diagnosis": "I73.9 - Peripheral Arterial Occlusive Disease & Claudication (PAD Fontaine IIa)",
       "clinicalNotes": "S: Cramping calf pain after walking approximately 400 meters, relieved with rest.\nO: Posterior tibial and dorsalis pedis pulses diminished bilaterally. Ankle-Brachial Index (ABI): 0.82.\nA: Mild to moderate lower limb peripheral arterial insufficiency.\nP: Supervised walking program, smoking cessation, antiplatelet and statin therapy.",
@@ -1622,8 +5036,8 @@
       "amendments": [],
       "createdAt": "2026-10-25T09:25:27.096Z",
       "doctor": {
-        "fullName": "Dr. Fadi Al-Arr",
-        "specialty": "Damar Cerrahisi • جراحة الأوعية"
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
       },
       "patient": {
         "fullName": "Alexander Wright",
@@ -1902,7 +5316,7 @@
     {
       "id": "rec-sim-1792920327008-8",
       "patientId": "pat-99100100008",
-      "doctorId": "doc-vasc-arr",
+      "doctorId": "doc-dental-masri",
       "appointmentId": "app-sim-1792920326970-8",
       "diagnosis": "I83.9 - قصور وريدي سطحي ودوالي الأطراف السفلية (Varicose Veins Lower Limbs)",
       "clinicalNotes": "S: تعب وثقل في الساقين بنهاية النهار بعد الوقوف الطويل.\nO: توسعات وريدية متعرجة في مسار الوريد الصافن الكبير الأيمن.\nA: دوالي وريدية درجة C2 وفق تصنيف CEAP.\nP: جوارب ضاغطة طبية وعلاج فلافونويدي مقوي لجدران الأوردة.",
@@ -1928,8 +5342,8 @@
       "amendments": [],
       "createdAt": "2026-10-25T09:25:27.062Z",
       "doctor": {
-        "fullName": "Dr. Fadi Al-Arr",
-        "specialty": "Damar Cerrahisi • جراحة الأوعية"
+        "fullName": "Dr. Ibrahim Al-Masri",
+        "specialty": "Diş Hekimliği ve Cerrahisi • طب وجراحة الأسنان"
       },
       "patient": {
         "fullName": "بلال محمود عثمان",
@@ -2214,6 +5628,1558 @@
         "identityNo": "99100100001",
         "phone": "+963 991 300001",
         "bloodType": "A+"
+      }
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "audit-1794745902976",
+      "action": "DISASTER_RECOVERY_RESTORE",
+      "details": "Sistem yedeği geri yüklendi: 82 hasta, 11 hekim, 90 randevu.",
+      "createdAt": "2026-11-15T12:31:42.976Z",
+      "user": {
+        "fullName": "Yönetici (Admin)"
+      }
+    },
+    {
+      "id": "audit-1794667176866",
+      "action": "DISASTER_RECOVERY_RESTORE",
+      "details": "Sistem yedeği geri yüklendi: 28 hasta, 11 hekim, 33 randevu.",
+      "createdAt": "2026-11-14T14:39:36.866Z",
+      "user": {
+        "fullName": "Yönetici (Admin)"
+      }
+    },
+    {
+      "id": "audit-1794667162160",
+      "action": "DISASTER_RECOVERY_RESTORE",
+      "details": "Sistem yedeği geri yüklendi: 27 hasta, 11 hekim, 32 randevu.",
+      "createdAt": "2026-11-14T14:39:22.160Z",
+      "user": {
+        "fullName": "Yönetici (Admin)"
+      }
+    },
+    {
+      "id": "audit-1794666648546",
+      "action": "DISASTER_RECOVERY_RESTORE",
+      "details": "Sistem yedeği geri yüklendi: 26 hasta, 11 hekim, 32 randevu.",
+      "createdAt": "2026-11-14T14:30:48.546Z",
+      "user": {
+        "fullName": "Yönetici (Admin)"
+      }
+    },
+    {
+      "id": "audit-1794659921497",
+      "action": "DISASTER_RECOVERY_RESTORE",
+      "details": "Sistem yedeği geri yüklendi: 25 hasta, 11 hekim, 31 randevu.",
+      "createdAt": "2026-11-14T12:38:41.497Z",
+      "user": {
+        "fullName": "Yönetici (Admin)"
+      }
+    }
+  ],
+  "prescriptions": [
+    {
+      "id": "pr-58a80ec0-0b3f-4342-9747-81cecefee239",
+      "patientId": "pat-fb092bda-e0fe-45de-9268-45bc578d2f35",
+      "doctorId": "doc-dental-masri",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:29:38.690Z",
+      "items": [
+        {
+          "itemName": "Amoxicillin 500mg",
+          "dosage": "1x3",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "محمد رضوان الكيالي"
+      },
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri"
+      }
+    },
+    {
+      "id": "pr-5f0d5022-9819-49d9-8c74-9ee2fd5e1575",
+      "patientId": "pat-fam-abc23cf5-607f-425b-adcb-b0c202c32877",
+      "doctorId": "doc-derma-haddad",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:29:39.028Z",
+      "items": [
+        {
+          "itemName": "Hydrocortisone cream",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "فاطمة أحمد بيطار"
+      },
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad"
+      }
+    },
+    {
+      "id": "pr-7742fce4-91dc-4f7b-bd92-5d87ea0deed3",
+      "patientId": "pat-fam-2d75b2bb-2619-41f8-8b49-f52225bec8a8",
+      "doctorId": "doc-ped-ahmad",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:29:39.145Z",
+      "items": [
+        {
+          "itemName": "Paracetamol syrup",
+          "dosage": "3x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "عمر محمد الكيالي"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad"
+      }
+    },
+    {
+      "id": "pr-e98b3793-6c98-4fa4-b33a-a7ca79204b8b",
+      "patientId": "pat-9199a91d-5fe0-4888-8017-783ebe2666c0",
+      "doctorId": "doc-gastro-horo",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:29:39.320Z",
+      "items": [
+        {
+          "itemName": "Esomeprazole 40mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "براء عبد القادر سراج"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo"
+      }
+    },
+    {
+      "id": "pr-7ee56214-6c5c-45d7-8822-7678fcf84e9d",
+      "patientId": "pat-fam-d1d15450-77e0-4395-8f42-ef7addc28e30",
+      "doctorId": "doc-pedcardio-azzawi",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:29:39.433Z",
+      "items": [
+        {
+          "itemName": "Furosemide drops",
+          "dosage": "1x2",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "سارة براء سراج"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi"
+      }
+    },
+    {
+      "id": "pr-d045e67d-0f84-4683-a240-25ae7bb7eb50",
+      "patientId": "pat-fam-ac16bbb0-aa83-4ef2-b90a-652eeb540532",
+      "doctorId": "doc-ped-ahmad",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:29:39.542Z",
+      "items": [
+        {
+          "itemName": "Salbutamol syrup",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "يحيى براء سراج"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad"
+      }
+    },
+    {
+      "id": "pr-eae9cd21-51f4-4ae0-8a72-0de18269cc0c",
+      "patientId": "pat-fb092bda-e0fe-45de-9268-45bc578d2f35",
+      "doctorId": "doc-dental-masri",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:22.470Z",
+      "items": [
+        {
+          "itemName": "Amoxicillin 500mg",
+          "dosage": "1x3",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "محمد رضوان الكيالي"
+      },
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri"
+      }
+    },
+    {
+      "id": "pr-4e66465e-3abd-46fc-91b4-a166e4f70931",
+      "patientId": "pat-fam-ae4d4e71-b1c6-4a61-9246-3ec0d5dc74eb",
+      "doctorId": "doc-derma-haddad",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:22.598Z",
+      "items": [
+        {
+          "itemName": "Hydrocortisone cream",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "فاطمة أحمد بيطار"
+      },
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad"
+      }
+    },
+    {
+      "id": "pr-aa20f987-6913-4969-b96b-7be828c71058",
+      "patientId": "pat-fam-fa8f2e89-47bd-4450-88f8-1df9ca94963a",
+      "doctorId": "doc-ped-ahmad",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:22.711Z",
+      "items": [
+        {
+          "itemName": "Paracetamol syrup",
+          "dosage": "3x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "عمر محمد الكيالي"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad"
+      }
+    },
+    {
+      "id": "pr-06cf02b4-9824-4c83-931a-6dff1d031a7d",
+      "patientId": "pat-9199a91d-5fe0-4888-8017-783ebe2666c0",
+      "doctorId": "doc-gastro-horo",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:22.887Z",
+      "items": [
+        {
+          "itemName": "Esomeprazole 40mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "براء عبد القادر سراج"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo"
+      }
+    },
+    {
+      "id": "pr-e5826af2-0c30-444a-9043-e2644d1e1382",
+      "patientId": "pat-fam-a9360e00-65dc-4dc0-8baa-a7c1754bad34",
+      "doctorId": "doc-pedcardio-azzawi",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:23.024Z",
+      "items": [
+        {
+          "itemName": "Furosemide drops",
+          "dosage": "1x2",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "سارة براء سراج"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi"
+      }
+    },
+    {
+      "id": "pr-214da452-81d0-48f8-ae83-02bf624b67a6",
+      "patientId": "pat-fam-ea7552eb-fffe-4a6a-a7e7-cf69b843a154",
+      "doctorId": "doc-ped-ahmad",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:23.129Z",
+      "items": [
+        {
+          "itemName": "Salbutamol syrup",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "يحيى براء سراج"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad"
+      }
+    },
+    {
+      "id": "pr-6b7869ec-488a-4e31-81e1-f3e7f5e8651a",
+      "patientId": "pat-e0cac6f3-6931-42b5-aaef-2b150d683479",
+      "doctorId": "doc-cardio-chebb",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:23.300Z",
+      "items": [
+        {
+          "itemName": "Amlodipine 5mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "عبد الرزاق مصطفى قصاب"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb"
+      }
+    },
+    {
+      "id": "pr-ce50a75d-e625-4c60-8d53-bd2013482749",
+      "patientId": "pat-fam-d8441b76-f3da-4f65-aa9d-5aed7cc568fe",
+      "doctorId": "doc-ortho-takko",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:23.419Z",
+      "items": [
+        {
+          "itemName": "Glucosamine complex",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "خديجة عمر دباغ"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko"
+      }
+    },
+    {
+      "id": "pr-936d6da1-b5a9-496b-84b5-91b3cd356e9e",
+      "patientId": "pat-fam-17a29a57-e85c-4f3b-b898-1b2f5056a646",
+      "doctorId": "doc-dental-shamoun",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:23.540Z",
+      "items": [
+        {
+          "itemName": "Ibuprofen 400mg",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "طارق عبد الرزاق قصاب"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun"
+      }
+    },
+    {
+      "id": "pr-73c5c8ca-488a-403f-a72c-45495702889a",
+      "patientId": "pat-0f4339c1-a101-49a4-8bd3-e09e3373f254",
+      "doctorId": "doc-uro-razzaq",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:23.676Z",
+      "items": [
+        {
+          "itemName": "Ciprofloxacin 500mg",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "نور الهدى عثمان"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Abdulrazzaq"
+      }
+    },
+    {
+      "id": "pr-0a805e8f-4a02-4833-aa2c-0e010b12de8f",
+      "patientId": "pat-b911db2f-ced7-44fa-a5b3-4d3c375fdc7e",
+      "doctorId": "doc-cardio-horo",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:24.037Z",
+      "items": [
+        {
+          "itemName": "Aspirin 81mg",
+          "dosage": "1x1",
+          "quantity": 1
+        },
+        {
+          "itemName": "Atorvastatin 20mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "محمود حسن شريف"
+      },
+      "doctor": {
+        "fullName": "Dr. Barkhadan Horo"
+      }
+    },
+    {
+      "id": "pr-167e180f-30c7-4aa9-945d-39c49a448d55",
+      "patientId": "pat-fam-f3a7861e-65b1-43f0-b7a4-cf88104373e8",
+      "doctorId": "doc-ped-ahmad",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:24.170Z",
+      "items": [
+        {
+          "itemName": "Fucidic acid cream",
+          "dosage": "3x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "زينب محمود شريف"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad"
+      }
+    },
+    {
+      "id": "pr-5bf4e266-26a5-4964-bb5d-50b798902138",
+      "patientId": "pat-fam-bff2dde3-bffd-466a-b10f-f77c6e85eabe",
+      "doctorId": "doc-uro-qadi",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:24.290Z",
+      "items": [
+        {
+          "itemName": "Potassium citrate",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "غيداء صبحي حلواني"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi"
+      }
+    },
+    {
+      "id": "pr-9f055570-5b27-4a72-8387-f039ba99407b",
+      "patientId": "pat-65ff6ad6-5c66-4f47-aece-49cecc6600ce",
+      "doctorId": "doc-dental-shamoun",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:24.441Z",
+      "items": [
+        {
+          "itemName": "Augmentin 1g",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "أحمد غسان صباغ"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun"
+      }
+    },
+    {
+      "id": "pr-b0f900f0-1d93-4202-aa01-db8094578d8b",
+      "patientId": "pat-10a969a0-3706-4cc8-ab3e-c8cc7f0f78a8",
+      "doctorId": "doc-derma-haddad",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:24.618Z",
+      "items": [
+        {
+          "itemName": "Adapalene gel",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "رنا سمير عطار"
+      },
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad"
+      }
+    },
+    {
+      "id": "pr-949de985-5ee9-44ac-854b-b99f14bbd3f1",
+      "patientId": "pat-fa3342b1-9578-4df1-bc41-8885eb022ac2",
+      "doctorId": "doc-ortho-takko",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:24.826Z",
+      "items": [
+        {
+          "itemName": "Thiocolchicoside 4mg",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "بشار وليد مكتبي"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko"
+      }
+    },
+    {
+      "id": "pr-dd8b1586-df75-4aa6-98ab-8ef4f80326ce",
+      "patientId": "pat-59eef836-4a8a-481f-8c2e-dd9086b01907",
+      "doctorId": "doc-gastro-horo",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:25.041Z",
+      "items": [
+        {
+          "itemName": "Mebeverine 135mg",
+          "dosage": "3x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "هدى فوزي بازرباشي"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo"
+      }
+    },
+    {
+      "id": "pr-a4f3219b-df5a-46d1-a609-06ac2988f757",
+      "patientId": "pat-e8df1565-c631-4d2f-9512-116cb2dd22e8",
+      "doctorId": "doc-dental-masri",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:25.226Z",
+      "items": [
+        {
+          "itemName": "Chlorhexidine mouthwash",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "بلال مأمون حبال"
+      },
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri"
+      }
+    },
+    {
+      "id": "pr-1978bba5-3fa8-429d-9ab8-72a704b43f00",
+      "patientId": "pat-8dfb7340-39fd-4765-a765-b29d504893b1",
+      "doctorId": "doc-cardio-chebb",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:25.426Z",
+      "items": [
+        {
+          "itemName": "Ramipril 5mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Ahmet Hakan Yılmaz"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb"
+      }
+    },
+    {
+      "id": "pr-3b26edac-6e24-4acd-9b2e-e55266337c76",
+      "patientId": "pat-fam-a0322433-870b-4498-970c-b370da0458f9",
+      "doctorId": "doc-derma-haddad",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:25.556Z",
+      "items": [
+        {
+          "itemName": "Cetirizine 10mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Zeynep Elif Kaya"
+      },
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad"
+      }
+    },
+    {
+      "id": "pr-630112ae-33a6-4fad-be36-b17cb0a46374",
+      "patientId": "pat-b747332f-2995-48f8-abb4-8213c1a6e9b0",
+      "doctorId": "doc-ortho-takko",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:25.740Z",
+      "items": [
+        {
+          "itemName": "Dexketoprofen 25mg",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Murat Can Demir"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko"
+      }
+    },
+    {
+      "id": "pr-eafa52f4-684b-47cf-8191-7b36b3734792",
+      "patientId": "pat-70eb4a7e-ec0b-4dd5-8655-eb012ce727b5",
+      "doctorId": "doc-dental-masri",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:25.892Z",
+      "items": [
+        {
+          "itemName": "Parasetamol 500mg",
+          "dosage": "3x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Sevgi Şahin Öztürk"
+      },
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri"
+      }
+    },
+    {
+      "id": "pr-caa43c47-7022-4a61-ae0f-3ec7a28af52c",
+      "patientId": "pat-9b3184d9-ca26-4dd5-a36b-03454e66827e",
+      "doctorId": "doc-gastro-horo",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:26.057Z",
+      "items": [
+        {
+          "itemName": "Pantoprazol 40mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Burak Kaan Çelik"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo"
+      }
+    },
+    {
+      "id": "pr-c7454bf5-7a7e-4a92-bb65-43b2beb4b234",
+      "patientId": "pat-aa55609a-acc5-4541-8ac8-5f73c19b8686",
+      "doctorId": "doc-uro-razzaq",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:26.551Z",
+      "items": [
+        {
+          "itemName": "Tamsulosin 0.4mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Emre Tolga Arslan"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Abdulrazzaq"
+      }
+    },
+    {
+      "id": "pr-426a1739-550d-43e0-b0b4-724bdfefe00a",
+      "patientId": "pat-19d34072-c495-4562-914b-763c8bc147f0",
+      "doctorId": "doc-ped-ahmad",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:26.755Z",
+      "items": [
+        {
+          "itemName": "İbuprofen şurup",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Gülümser Melis Doğan"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad"
+      }
+    },
+    {
+      "id": "pr-1fb0ba96-78b7-4e9d-8938-ea8485c320e8",
+      "patientId": "pat-90d3b91b-66b9-41de-8e41-274aef5d6923",
+      "doctorId": "doc-cardio-horo",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:26.977Z",
+      "items": [
+        {
+          "itemName": "Rosuvastatin 10mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Serdar Volkan Kurt"
+      },
+      "doctor": {
+        "fullName": "Dr. Barkhadan Horo"
+      }
+    },
+    {
+      "id": "pr-7af2d894-a0bd-46ba-aeb4-29d29d62d7d5",
+      "patientId": "pat-24ecf2c9-f1b2-4746-9fb0-95acf7796656",
+      "doctorId": "doc-derma-haddad",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:27.162Z",
+      "items": [
+        {
+          "itemName": "Kalsipotriol merhem",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Berna Yasemin Koç"
+      },
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad"
+      }
+    },
+    {
+      "id": "pr-ca3fd15e-6c1f-4fec-816d-29b610a6e305",
+      "patientId": "pat-2e71c928-aa23-4ce6-870d-eaf5947bc9c7",
+      "doctorId": "doc-uro-qadi",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:27.359Z",
+      "items": [
+        {
+          "itemName": "Tamsulosin 0.4mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Cem Berk Özdemir"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi"
+      }
+    },
+    {
+      "id": "pr-a8631781-b564-42c7-b468-4a0fa7c19e1e",
+      "patientId": "pat-bbd4fb9d-aaa7-4947-afb9-2e884e1e5d47",
+      "doctorId": "doc-ortho-takko",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:27.691Z",
+      "items": [
+        {
+          "itemName": "Diklofenak jel",
+          "dosage": "3x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Faruk Taner Güler"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko"
+      }
+    },
+    {
+      "id": "pr-68d54014-9008-4eac-8532-dfdf0ae46eec",
+      "patientId": "pat-80584d77-7529-46e1-ba2d-e1bb0478e4de",
+      "doctorId": "doc-dental-shamoun",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:27.863Z",
+      "items": [
+        {
+          "itemName": "Miyorelaksan 4mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Hale Şeyma Polat"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun"
+      }
+    },
+    {
+      "id": "pr-822c034e-0b72-48dd-9330-78125179d1a8",
+      "patientId": "pat-8e18f8c6-d866-4f6a-81e2-42fad607ac05",
+      "doctorId": "doc-pedcardio-azzawi",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:28.013Z",
+      "items": [
+        {
+          "itemName": "Atenolol 25mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Alexander James Wright"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi"
+      }
+    },
+    {
+      "id": "pr-1e1f6bc8-490c-44ac-a7d1-658aa6a89a8a",
+      "patientId": "pat-c91ec22b-7389-4de5-b16a-00bd7f1660bd",
+      "doctorId": "doc-gastro-horo",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:28.301Z",
+      "items": [
+        {
+          "itemName": "Omeprazole 40mg",
+          "dosage": "1x2",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Lucas Benjamin Dupont"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo"
+      }
+    },
+    {
+      "id": "pr-8e7e9a2e-a0b9-4602-b28f-8ddaf4e148da",
+      "patientId": "pat-e5d4c6b4-490a-4bc5-9ee4-e2d56fc87923",
+      "doctorId": "doc-derma-haddad",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:28.452Z",
+      "items": [
+        {
+          "itemName": "Betamethasone dipropionate",
+          "dosage": "1x2",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Emma Charlotte Davies"
+      },
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad"
+      }
+    },
+    {
+      "id": "pr-5ed5c900-983f-4278-a3ff-acafa2d73b9e",
+      "patientId": "pat-45853d08-3682-48db-8233-e44cb771b508",
+      "doctorId": "doc-ortho-takko",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:28.615Z",
+      "items": [
+        {
+          "itemName": "Meloxicam 15mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Liam Oliver Smith"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko"
+      }
+    },
+    {
+      "id": "pr-f5944f81-b309-4383-90a2-bb82e2cb8c46",
+      "patientId": "pat-5c96c62e-baf6-4e88-9174-c4424fa1b502",
+      "doctorId": "doc-dental-shamoun",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:28.782Z",
+      "items": [
+        {
+          "itemName": "Amoxicillin/Clav 875mg",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Olivia Grace Taylor"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun"
+      }
+    },
+    {
+      "id": "pr-79892799-a15c-483c-bc2b-33270475e2de",
+      "patientId": "pat-900acfad-d8c2-49c9-8aa7-340e93886e40",
+      "doctorId": "doc-cardio-chebb",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:28.958Z",
+      "items": [
+        {
+          "itemName": "Bisoprolol 5mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "William Henry Brown"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb"
+      }
+    },
+    {
+      "id": "pr-c13132f6-c563-4664-9a67-1cfaa06ea4f6",
+      "patientId": "pat-45e1e45e-57df-4b6c-9a84-e3ef07a8d0d9",
+      "doctorId": "doc-uro-razzaq",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:29.320Z",
+      "items": [
+        {
+          "itemName": "Levofloxacin 500mg",
+          "dosage": "1x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "James Arthur Johnson"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Abdulrazzaq"
+      }
+    },
+    {
+      "id": "pr-38579e10-b916-4675-883a-e0fb1f7a7bbb",
+      "patientId": "pat-c63e3316-45cd-49f5-90a6-63200f223c81",
+      "doctorId": "doc-ped-ahmad",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:29.702Z",
+      "items": [
+        {
+          "itemName": "Saline nasal spray",
+          "dosage": "4x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Benjamin Paul Walker"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad"
+      }
+    },
+    {
+      "id": "pr-5d0f847f-ff07-4491-b271-687ccd3055fa",
+      "patientId": "pat-4d810d62-e742-4969-b45c-8d9e286043e1",
+      "doctorId": "doc-cardio-horo",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:29.874Z",
+      "items": [
+        {
+          "itemName": "Verapamil 80mg",
+          "dosage": "2x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Mia Christine Hall"
+      },
+      "doctor": {
+        "fullName": "Dr. Barkhadan Horo"
+      }
+    },
+    {
+      "id": "pr-d8b5cf1d-aad1-412d-8cb9-4340b6f622c2",
+      "patientId": "pat-462e274f-ba16-49e7-98eb-16a3d7928608",
+      "doctorId": "doc-ortho-takko",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:30.033Z",
+      "items": [
+        {
+          "itemName": "Ibuprofen gel 5%",
+          "dosage": "3x1",
+          "quantity": 1
+        }
+      ],
+      "patient": {
+        "fullName": "Daniel Thomas Allen"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko"
+      }
+    }
+  ],
+  "labOrders": [
+    {
+      "id": "lab-975675f4-349d-403b-bf9c-a6194eeb131c",
+      "medicalRecordId": "rec-84c73a8a-369a-4b4c-b1e3-70e76d3a6c26",
+      "testIndex": 0,
+      "patientId": "pat-fam-2d75b2bb-2619-41f8-8b49-f52225bec8a8",
+      "doctorId": "doc-ped-ahmad",
+      "testName": "CBC + CRP",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:29:39.145Z",
+      "patient": {
+        "fullName": "عمر محمد الكيالي"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad"
+      }
+    },
+    {
+      "id": "lab-a9de70b3-e9cc-499b-b4d5-68a776f640f2",
+      "medicalRecordId": "rec-670375e5-a54c-4535-be17-b7ec0c8a2953",
+      "testIndex": 0,
+      "patientId": "pat-9199a91d-5fe0-4888-8017-783ebe2666c0",
+      "doctorId": "doc-gastro-horo",
+      "testName": "H. Pylori Stool Antigen",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:29:39.320Z",
+      "patient": {
+        "fullName": "براء عبد القادر سراج"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo"
+      }
+    },
+    {
+      "id": "lab-9f54cab2-ba39-4d29-a7b4-3b07ee4805c9",
+      "medicalRecordId": "rec-a41e0e9a-e23e-4018-acaa-4ae67c218ba3",
+      "testIndex": 0,
+      "patientId": "pat-fam-d1d15450-77e0-4395-8f42-ef7addc28e30",
+      "doctorId": "doc-pedcardio-azzawi",
+      "testName": "Echocardiogram",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:29:39.433Z",
+      "patient": {
+        "fullName": "سارة براء سراج"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi"
+      }
+    },
+    {
+      "id": "lab-64985598-5393-4ce8-a13c-812144c08277",
+      "medicalRecordId": "rec-af3102ac-b85a-4d24-ac03-0a5b2203f3ba",
+      "testIndex": 0,
+      "patientId": "pat-fam-fa8f2e89-47bd-4450-88f8-1df9ca94963a",
+      "doctorId": "doc-ped-ahmad",
+      "testName": "CBC + CRP",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:22.711Z",
+      "patient": {
+        "fullName": "عمر محمد الكيالي"
+      },
+      "doctor": {
+        "fullName": "Dr. Hussein Al-Ahmad"
+      }
+    },
+    {
+      "id": "lab-4b135e4c-a135-40fa-a37e-053620f35175",
+      "medicalRecordId": "rec-1e34f69e-6f3c-4561-b25e-c656521b13fe",
+      "testIndex": 0,
+      "patientId": "pat-9199a91d-5fe0-4888-8017-783ebe2666c0",
+      "doctorId": "doc-gastro-horo",
+      "testName": "H. Pylori Stool Antigen",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:22.887Z",
+      "patient": {
+        "fullName": "براء عبد القادر سراج"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo"
+      }
+    },
+    {
+      "id": "lab-1924c5fb-aa40-4875-ab8b-06b9f956f1bb",
+      "medicalRecordId": "rec-ba712cba-4598-462b-929f-c5ffc2894e0c",
+      "testIndex": 0,
+      "patientId": "pat-fam-a9360e00-65dc-4dc0-8baa-a7c1754bad34",
+      "doctorId": "doc-pedcardio-azzawi",
+      "testName": "Echocardiogram",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:23.024Z",
+      "patient": {
+        "fullName": "سارة براء سراج"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi"
+      }
+    },
+    {
+      "id": "lab-ed1cd2b2-ed85-4490-9d65-c7bdc1bb4e4c",
+      "medicalRecordId": "rec-06206d54-dd59-4205-bb61-8a2a060688b5",
+      "testIndex": 0,
+      "patientId": "pat-e0cac6f3-6931-42b5-aaef-2b150d683479",
+      "doctorId": "doc-cardio-chebb",
+      "testName": "Lipid Profile + Serum Cr",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:23.300Z",
+      "patient": {
+        "fullName": "عبد الرزاق مصطفى قصاب"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb"
+      }
+    },
+    {
+      "id": "lab-22f0b582-f04d-496b-ac8a-1ea3858d5d28",
+      "medicalRecordId": "rec-045ee002-22a0-46dd-ab5b-8bb645d7a4ba",
+      "testIndex": 0,
+      "patientId": "pat-fam-d8441b76-f3da-4f65-aa9d-5aed7cc568fe",
+      "doctorId": "doc-ortho-takko",
+      "testName": "Knee X-Ray",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:23.419Z",
+      "patient": {
+        "fullName": "خديجة عمر دباغ"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko"
+      }
+    },
+    {
+      "id": "lab-de1151ec-0c4f-4ca1-8470-5d737c1b432a",
+      "medicalRecordId": "rec-5d913fe1-6010-4117-9201-f2ac4b0ae5a8",
+      "testIndex": 0,
+      "patientId": "pat-fam-17a29a57-e85c-4f3b-b898-1b2f5056a646",
+      "doctorId": "doc-dental-shamoun",
+      "testName": "CBCT 3D Jaw Scan",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:23.540Z",
+      "patient": {
+        "fullName": "طارق عبد الرزاق قصاب"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun"
+      }
+    },
+    {
+      "id": "lab-368b3a25-1015-4658-a017-da6968fb20c2",
+      "medicalRecordId": "rec-9de1dcf4-1785-459c-8c3b-b6fd75023b76",
+      "testIndex": 0,
+      "patientId": "pat-0f4339c1-a101-49a4-8bd3-e09e3373f254",
+      "doctorId": "doc-uro-razzaq",
+      "testName": "Urine Culture",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:23.676Z",
+      "patient": {
+        "fullName": "نور الهدى عثمان"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Abdulrazzaq"
+      }
+    },
+    {
+      "id": "lab-75a86059-32af-4c2c-b44e-527128c771e9",
+      "medicalRecordId": "rec-4463bc2c-da75-4661-88d0-3d7302e7fb6d",
+      "testIndex": 0,
+      "patientId": "pat-fam-312be851-54c7-4c31-b405-2448b927b10f",
+      "doctorId": "doc-pedcardio-azzawi",
+      "testName": "Pediatric ECG",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:23.787Z",
+      "patient": {
+        "fullName": "كريم حسام دندل"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi"
+      }
+    },
+    {
+      "id": "lab-14bef9d3-eede-48e7-b6f7-998ad77c9fbe",
+      "medicalRecordId": "rec-57bcffed-2426-4920-961e-22a4f3beef09",
+      "testIndex": 0,
+      "patientId": "pat-b911db2f-ced7-44fa-a5b3-4d3c375fdc7e",
+      "doctorId": "doc-cardio-horo",
+      "testName": "Cardiac Troponin",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:24.037Z",
+      "patient": {
+        "fullName": "محمود حسن شريف"
+      },
+      "doctor": {
+        "fullName": "Dr. Barkhadan Horo"
+      }
+    },
+    {
+      "id": "lab-47931bcf-1725-45e1-9aed-52b399c0a9f5",
+      "medicalRecordId": "rec-df7f826a-122a-4454-bf80-dd12f4235faa",
+      "testIndex": 0,
+      "patientId": "pat-fam-bff2dde3-bffd-466a-b10f-f77c6e85eabe",
+      "doctorId": "doc-uro-qadi",
+      "testName": "Renal Ultrasound",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:24.290Z",
+      "patient": {
+        "fullName": "غيداء صبحي حلواني"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi"
+      }
+    },
+    {
+      "id": "lab-b78271fe-c239-4f4e-9048-a82a32b4ded6",
+      "medicalRecordId": "rec-feb6fab3-1243-4a6c-b03e-d010fa7bf87b",
+      "testIndex": 0,
+      "patientId": "pat-65ff6ad6-5c66-4f47-aece-49cecc6600ce",
+      "doctorId": "doc-dental-shamoun",
+      "testName": "Facial CT Scan",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:24.441Z",
+      "patient": {
+        "fullName": "أحمد غسان صباغ"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun"
+      }
+    },
+    {
+      "id": "lab-b25f273a-c55f-4339-9ecf-f27c2970c3b4",
+      "medicalRecordId": "rec-f2de261a-dc72-4d7b-821f-761ce9db7131",
+      "testIndex": 0,
+      "patientId": "pat-fa3342b1-9578-4df1-bc41-8885eb022ac2",
+      "doctorId": "doc-ortho-takko",
+      "testName": "Lumbar Spine MRI",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:24.826Z",
+      "patient": {
+        "fullName": "بشار وليد مكتبي"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko"
+      }
+    },
+    {
+      "id": "lab-ac94d34c-4d51-49bd-8b83-c18d148adba4",
+      "medicalRecordId": "rec-4ddac05a-5841-4bdf-af3a-75b82662e429",
+      "testIndex": 0,
+      "patientId": "pat-8dfb7340-39fd-4765-a765-b29d504893b1",
+      "doctorId": "doc-cardio-chebb",
+      "testName": "Biyokimya + EKG",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:25.426Z",
+      "patient": {
+        "fullName": "Ahmet Hakan Yılmaz"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb"
+      }
+    },
+    {
+      "id": "lab-4e3c01b4-e2df-4134-a0df-559cb6cfea36",
+      "medicalRecordId": "rec-2c232d53-5e30-4f84-a2eb-e836ea517378",
+      "testIndex": 0,
+      "patientId": "pat-fam-a0322433-870b-4498-970c-b370da0458f9",
+      "doctorId": "doc-derma-haddad",
+      "testName": "Total IgE Testi",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:25.556Z",
+      "patient": {
+        "fullName": "Zeynep Elif Kaya"
+      },
+      "doctor": {
+        "fullName": "Dr. Lodia Haddad"
+      }
+    },
+    {
+      "id": "lab-3f5121bd-8128-496a-b41d-885e01d8081f",
+      "medicalRecordId": "rec-c4ae17ff-c816-416f-aeda-66a537895a7a",
+      "testIndex": 0,
+      "patientId": "pat-b747332f-2995-48f8-abb4-8213c1a6e9b0",
+      "doctorId": "doc-ortho-takko",
+      "testName": "Diz MRG Tetkiki",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:25.740Z",
+      "patient": {
+        "fullName": "Murat Can Demir"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko"
+      }
+    },
+    {
+      "id": "lab-d09eca06-5e6f-4860-862f-1bc4ca25c981",
+      "medicalRecordId": "rec-7844592e-d31d-4daa-b9e8-cde1568c2bb7",
+      "testIndex": 0,
+      "patientId": "pat-70eb4a7e-ec0b-4dd5-8655-eb012ce727b5",
+      "doctorId": "doc-dental-masri",
+      "testName": "Periapikal Diş Röntgeni",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:25.892Z",
+      "patient": {
+        "fullName": "Sevgi Şahin Öztürk"
+      },
+      "doctor": {
+        "fullName": "Dr. Ibrahim Al-Masri"
+      }
+    },
+    {
+      "id": "lab-7c8b6ac7-12c2-4a6e-aba8-240257e94831",
+      "medicalRecordId": "rec-05fd04a4-b6ac-4d6c-afd2-4fe8a30bec73",
+      "testIndex": 0,
+      "patientId": "pat-c0046982-4d5a-4c58-b72f-56ad5cd8108a",
+      "doctorId": "doc-dental-shamoun",
+      "testName": "Sefalometrik Çene Grafisi",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:26.209Z",
+      "patient": {
+        "fullName": "Deniz Arda Yıldırım"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun"
+      }
+    },
+    {
+      "id": "lab-ce9f8928-7624-4bdf-b76c-446c5a78035e",
+      "medicalRecordId": "rec-5e54bc34-7c04-420a-a620-ea6cfe459042",
+      "testIndex": 0,
+      "patientId": "pat-015aef9c-50aa-46d2-91a5-68fe57f8614b",
+      "doctorId": "doc-pedcardio-azzawi",
+      "testName": "Pediyatrik Eko + Holter",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:26.379Z",
+      "patient": {
+        "fullName": "Aylin Nazlı Aydın"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi"
+      }
+    },
+    {
+      "id": "lab-ba910661-e15f-491b-96b6-cc33162f8ff7",
+      "medicalRecordId": "rec-5baa87f5-10cf-4e0a-bbce-aaff73ef26af",
+      "testIndex": 0,
+      "patientId": "pat-aa55609a-acc5-4541-8ac8-5f73c19b8686",
+      "doctorId": "doc-uro-razzaq",
+      "testName": "PSA Testi",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:26.551Z",
+      "patient": {
+        "fullName": "Emre Tolga Arslan"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Abdulrazzaq"
+      }
+    },
+    {
+      "id": "lab-c910a596-0a99-462a-8ec5-488c0faec449",
+      "medicalRecordId": "rec-4e0ab57f-6d5b-48aa-8c9a-328c637cd49c",
+      "testIndex": 0,
+      "patientId": "pat-90d3b91b-66b9-41de-8e41-274aef5d6923",
+      "doctorId": "doc-cardio-horo",
+      "testName": "Tam Kolesterol Paneli",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:26.977Z",
+      "patient": {
+        "fullName": "Serdar Volkan Kurt"
+      },
+      "doctor": {
+        "fullName": "Dr. Barkhadan Horo"
+      }
+    },
+    {
+      "id": "lab-e23427f7-cf79-4d49-9904-f43e49bb92e7",
+      "medicalRecordId": "rec-b595dd14-1265-467e-a6e9-2c422726df65",
+      "testIndex": 0,
+      "patientId": "pat-2e71c928-aa23-4ce6-870d-eaf5947bc9c7",
+      "doctorId": "doc-uro-qadi",
+      "testName": "Üriner USG",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:27.359Z",
+      "patient": {
+        "fullName": "Cem Berk Özdemir"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi"
+      }
+    },
+    {
+      "id": "lab-bda31b19-b9d6-4736-9fc1-c67e09299949",
+      "medicalRecordId": "rec-ab6e7ef5-9753-4673-a0c1-45c20ff0367f",
+      "testIndex": 0,
+      "patientId": "pat-8e18f8c6-d866-4f6a-81e2-42fad607ac05",
+      "doctorId": "doc-pedcardio-azzawi",
+      "testName": "Cardiac MRI Review",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:28.013Z",
+      "patient": {
+        "fullName": "Alexander James Wright"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi"
+      }
+    },
+    {
+      "id": "lab-e0c5de38-84d2-43f5-aa36-7c58037c747c",
+      "medicalRecordId": "rec-1eb25ee0-0ad5-43b1-b618-b4c6a8598541",
+      "testIndex": 0,
+      "patientId": "pat-c91ec22b-7389-4de5-b16a-00bd7f1660bd",
+      "doctorId": "doc-gastro-horo",
+      "testName": "Complete Blood Count",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:28.301Z",
+      "patient": {
+        "fullName": "Lucas Benjamin Dupont"
+      },
+      "doctor": {
+        "fullName": "Dr. Rustam Horo"
+      }
+    },
+    {
+      "id": "lab-b70c3943-69ca-4113-b2e0-f3f79a9cf6b0",
+      "medicalRecordId": "rec-12f48e48-b1f5-475a-b4b9-dace5def50e4",
+      "testIndex": 0,
+      "patientId": "pat-45853d08-3682-48db-8233-e44cb771b508",
+      "doctorId": "doc-ortho-takko",
+      "testName": "Shoulder Ultrasound",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:28.615Z",
+      "patient": {
+        "fullName": "Liam Oliver Smith"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko"
+      }
+    },
+    {
+      "id": "lab-52876e1a-d499-4375-9552-93b89e242d58",
+      "medicalRecordId": "rec-1c1c4568-a1ed-4549-93a3-21c53be105ac",
+      "testIndex": 0,
+      "patientId": "pat-5c96c62e-baf6-4e88-9174-c4424fa1b502",
+      "doctorId": "doc-dental-shamoun",
+      "testName": "Cone Beam 3D X-Ray",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:28.782Z",
+      "patient": {
+        "fullName": "Olivia Grace Taylor"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun"
+      }
+    },
+    {
+      "id": "lab-b6cce33a-38d1-4ffe-aadd-1b2bbbd2e2e2",
+      "medicalRecordId": "rec-93616a59-8d59-49b0-ad18-79f2a8523960",
+      "testIndex": 0,
+      "patientId": "pat-900acfad-d8c2-49c9-8aa7-340e93886e40",
+      "doctorId": "doc-cardio-chebb",
+      "testName": "hs-CRP + Lipid Panel",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:28.958Z",
+      "patient": {
+        "fullName": "William Henry Brown"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulrahman Al-Shebb"
+      }
+    },
+    {
+      "id": "lab-cb58acce-1025-437f-b909-5c708b37a96e",
+      "medicalRecordId": "rec-a4b6c35e-6a15-4fd1-85a5-837c589ce220",
+      "testIndex": 0,
+      "patientId": "pat-a21d85bc-c2a2-4afb-854f-efaf29cc2ff2",
+      "doctorId": "doc-pedcardio-azzawi",
+      "testName": "Color Doppler Echocardiogram",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:29.134Z",
+      "patient": {
+        "fullName": "Sophia Rose Wilson"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Azzawi"
+      }
+    },
+    {
+      "id": "lab-c447f64c-8155-4525-b782-d789bf26d42a",
+      "medicalRecordId": "rec-cd82c320-da67-4c16-aa5a-cfe94bb7acb1",
+      "testIndex": 0,
+      "patientId": "pat-45e1e45e-57df-4b6c-9a84-e3ef07a8d0d9",
+      "doctorId": "doc-uro-razzaq",
+      "testName": "Urine Culture & Sensitivity",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:29.320Z",
+      "patient": {
+        "fullName": "James Arthur Johnson"
+      },
+      "doctor": {
+        "fullName": "Dr. Ahmad Abdulrazzaq"
+      }
+    },
+    {
+      "id": "lab-687e6203-6cf5-453e-adac-337c6375408a",
+      "medicalRecordId": "rec-93c77fe1-7c6e-466e-83f8-de3b3aa1217e",
+      "testIndex": 0,
+      "patientId": "pat-4d810d62-e742-4969-b45c-8d9e286043e1",
+      "doctorId": "doc-cardio-horo",
+      "testName": "Electrolyte Panel (K, Mg, Na)",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:29.874Z",
+      "patient": {
+        "fullName": "Mia Christine Hall"
+      },
+      "doctor": {
+        "fullName": "Dr. Barkhadan Horo"
+      }
+    },
+    {
+      "id": "lab-88fb905a-1062-4195-8b27-d1c39bb3d9a6",
+      "medicalRecordId": "rec-8834b6fe-5c51-4139-b2d8-90bdc6e72477",
+      "testIndex": 0,
+      "patientId": "pat-462e274f-ba16-49e7-98eb-16a3d7928608",
+      "doctorId": "doc-ortho-takko",
+      "testName": "Ankle Mortise X-Ray",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:30.033Z",
+      "patient": {
+        "fullName": "Daniel Thomas Allen"
+      },
+      "doctor": {
+        "fullName": "Dr. Fouad Takko"
+      }
+    },
+    {
+      "id": "lab-1b44e76b-45e5-4f98-9542-76ba2208b72d",
+      "medicalRecordId": "rec-2cc57bf7-d466-465b-8628-def6b2289dad",
+      "testIndex": 0,
+      "patientId": "pat-31132615-0c2e-4edf-9789-fee1358495ca",
+      "doctorId": "doc-uro-qadi",
+      "testName": "Urinary Cytology",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:30.198Z",
+      "patient": {
+        "fullName": "Ava Rebecca Young"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi"
+      }
+    },
+    {
+      "id": "lab-4d64634d-9f3c-4ced-a940-639ae436282f",
+      "medicalRecordId": "rec-2cc57bf7-d466-465b-8628-def6b2289dad",
+      "testIndex": 1,
+      "patientId": "pat-31132615-0c2e-4edf-9789-fee1358495ca",
+      "doctorId": "doc-uro-qadi",
+      "testName": "Kidney Ultrasound",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:30.198Z",
+      "patient": {
+        "fullName": "Ava Rebecca Young"
+      },
+      "doctor": {
+        "fullName": "Dr. Abdulatif Qadi"
+      }
+    },
+    {
+      "id": "lab-e53160a6-eab0-4e92-99e0-675fce7ce310",
+      "medicalRecordId": "rec-9d8e6dd5-cc57-4103-85a8-e6ba68ed81dc",
+      "testIndex": 0,
+      "patientId": "pat-60083cd7-2c22-4e62-885f-679b285b4f42",
+      "doctorId": "doc-dental-shamoun",
+      "testName": "3D Maxillofacial CT Reconstruction",
+      "status": "PENDING",
+      "createdAt": "2026-11-15T12:31:30.357Z",
+      "patient": {
+        "fullName": "Noah Christopher King"
+      },
+      "doctor": {
+        "fullName": "Dr. Majid Shamoun"
       }
     }
   ]

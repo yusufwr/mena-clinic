@@ -186,7 +186,7 @@ export const DoctorsHub: React.FC<DoctorsHubProps> = ({
       </div>
 
       {/* Doctors Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 tv:grid-cols-6 gap-4 sm:gap-5">
         {filteredDoctors.map((doc) => {
           const docApps = appointments.filter((a) => a.doctorId === doc.id || a.doctor?.fullName === doc.fullName || a.doctor?.email === doc.email);
           const activeQueueCount = docApps.filter((a) => a.status === "WAITING" || a.status === "CONFIRMED").length;

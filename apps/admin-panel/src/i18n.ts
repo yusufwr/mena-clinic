@@ -188,7 +188,7 @@ export const adminTranslations: Record<AdminLang, AdminTranslations> = {
     totalAppointments: "Toplam Randevu",
     activePatients: "Kayıtlı Hasta",
     stockAlerts: "Kritik Stok Uyarısı",
-    currency: "TL",
+    currency: "SYP",
 
     dailySchedule: "Günlük Çalışma Programı",
     weeklySchedule: "Haftalık Randevu Takvimi",
@@ -293,7 +293,7 @@ export const adminTranslations: Record<AdminLang, AdminTranslations> = {
     totalAppointments: "إجمالي المواعيد",
     activePatients: "المرضى المسجلون",
     stockAlerts: "تنبيهات نقص الأدوية",
-    currency: "ل.س / TL",
+    currency: "ل.س جديدة",
 
     dailySchedule: "جدول العمل اليومي",
     weeklySchedule: "جدول المواعيد الأسبوعي",
@@ -398,7 +398,7 @@ export const adminTranslations: Record<AdminLang, AdminTranslations> = {
     totalAppointments: "Total Appointments",
     activePatients: "Registered Patients",
     stockAlerts: "Low Stock Alerts",
-    currency: "TL",
+    currency: "SYP",
 
     dailySchedule: "Daily Work Schedule",
     weeklySchedule: "Weekly Appointment Calendar",

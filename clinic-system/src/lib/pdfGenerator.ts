@@ -47,7 +47,7 @@ export function generateClinicalPdfBuffer(data: ClinicalReportData): Buffer {
       "احمد عبدالرزاق": "Ahmad Abdulrazzaq",
       "عبداللطيف قاضي": "Abdulatif Qadi",
       "لوديا حداد": "Lodia Haddad",
-      "فادي العر": "Fadi Al-Arr",
+      "ابراهيم المصري": "Ibrahim Al-Masri",
       "حسين الاحمد": "Hussein Al-Ahmad",
       "احمد عزاوي": "Ahmad Azzawi",
       "ماجد شمعون": "Majid Shamoun",

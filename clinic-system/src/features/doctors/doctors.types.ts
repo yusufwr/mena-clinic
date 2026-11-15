@@ -24,5 +24,7 @@ export interface Doctor {
   room?: string;
   rating?: number;
   fee?: string;
+  feeAr?: string;
+  feeEn?: string;
   consultationFee?: number;
 }

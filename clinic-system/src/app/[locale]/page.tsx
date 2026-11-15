@@ -258,8 +258,8 @@ export default function LocalizedHomePage() {
         <section className="relative overflow-hidden py-20 md:py-28 border-b border-[#E5DCD0] bg-gradient-to-b from-[#F5EFEB] via-[#FAF7F2] to-[#FAF7F2]">
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#C5A880]/15 rounded-full blur-[140px] pointer-events-none" />
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1920px] tv:max-w-[2400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               
               <div className="lg:col-span-7 space-y-6 text-center lg:text-left rtl:lg:text-right">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFE7DA] border border-[#D5C7B3] text-[#6E492D] text-xs font-semibold shadow-sm">
@@ -267,27 +267,27 @@ export default function LocalizedHomePage() {
                   <span>{tHero("badge")}</span>
                 </div>
 
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-[#2C1810] font-serif tracking-tight leading-[1.15]">
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-black text-[#2C1810] font-serif tracking-tight leading-[1.15]">
                   {tHero("title1")}{" "}
                   <span className="text-[#8A5F35] underline decoration-[#C59B27]/40">
                     {tHero("titleAccent")}
                   </span>
                   <br />
-                  <span className="text-[#5A483B] text-3xl sm:text-4xl lg:text-5xl font-medium">
+                  <span className="text-[#5A483B] text-2xl sm:text-4xl lg:text-5xl 2xl:text-6xl font-medium">
                     {tHero("title2")}
                   </span>
                 </h1>
 
-                <p className="text-[#5A483B] text-sm sm:text-base leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                <p className="text-[#5A483B] text-sm sm:text-base 2xl:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
                   {tHero("desc")}
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-2">
                   <Link
                     href="/patient?tab=book"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto px-7 py-3.5 bg-[#4A2E1B] hover:bg-[#382112] text-white font-bold text-sm rounded-xl shadow-lg shadow-[#4A2E1B]/20 transition-all hover:scale-105 flex items-center justify-center gap-2.5 active:scale-95"
+                    className="w-full sm:w-auto px-6 sm:px-7 py-3 sm:py-3.5 bg-[#4A2E1B] hover:bg-[#382112] text-white font-bold text-xs sm:text-sm rounded-xl shadow-lg shadow-[#4A2E1B]/20 transition-all hover:scale-105 flex items-center justify-center gap-2.5 active:scale-95"
                   >
                     <Calendar className="w-4 h-4 text-amber-200" />
                     <span>{tHero("quickBook")}</span>
@@ -297,7 +297,7 @@ export default function LocalizedHomePage() {
                     href="/patient"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto px-6 py-3.5 bg-[#EFE8DC] hover:bg-[#E5DAC9] text-[#3B2215] font-bold text-sm rounded-xl border border-[#D5C7B3] shadow-sm transition-all hover:scale-105 flex items-center justify-center gap-2 group"
+                    className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-3.5 bg-[#EFE8DC] hover:bg-[#E5DAC9] text-[#3B2215] font-bold text-xs sm:text-sm rounded-xl border border-[#D5C7B3] shadow-sm transition-all hover:scale-105 flex items-center justify-center gap-2 group"
                   >
                     <QrCode className="w-4 h-4 text-[#8A5F35] group-hover:scale-110 transition-transform" />
                     <span>{locale === "ar" ? "بوابة المريض (رمز QR)" : locale === "en" ? "Patient Portal (QR Code)" : "Hasta Portalı & QR Girişi"}</span>
@@ -306,7 +306,7 @@ export default function LocalizedHomePage() {
 
                   <a
                     href="#doctors"
-                    className="w-full sm:w-auto px-6 py-3.5 bg-white hover:bg-[#F3EDE2] text-[#2C1810] font-semibold text-sm rounded-xl border border-[#E5DCD0] shadow-sm transition-all flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-3.5 bg-white hover:bg-[#F3EDE2] text-[#2C1810] font-semibold text-xs sm:text-sm rounded-xl border border-[#E5DCD0] shadow-sm transition-all flex items-center justify-center gap-2"
                   >
                     <span>{tHero("exploreDoctors")}</span>
                   </a>
@@ -398,8 +398,8 @@ export default function LocalizedHomePage() {
         </section>
 
         {/* 2. HAKKIMIZDA (ABOUT US) */}
-        <section id="about" className="py-20 bg-[#F3EDE2] border-b border-[#DDD2C1]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <section id="about" className="py-16 sm:py-20 bg-[#F3EDE2] border-b border-[#DDD2C1]">
+          <div className="max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1920px] tv:max-w-[2400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             
             <div className="text-center max-w-3xl mx-auto space-y-4">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E5DAC8] border border-[#D5C7B3] text-[#6E492D] text-xs font-semibold uppercase tracking-wider">
@@ -413,7 +413,7 @@ export default function LocalizedHomePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="p-6 rounded-2xl bg-white border border-[#E5DCD0] shadow-sm space-y-3">
                 <div className="w-12 h-12 rounded-xl bg-[#FAF7F2] border border-[#E5DCD0] flex items-center justify-center text-[#8A5F35] font-bold">
                   <Award className="w-6 h-6" />
@@ -443,8 +443,8 @@ export default function LocalizedHomePage() {
         </section>
 
         {/* 3. ALANLARIMIZ / BRANŞLAR (DEPARTMENTS) */}
-        <section id="departments" className="py-20 bg-[#FAF7F2] border-b border-[#E5DCD0]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <section id="departments" className="py-16 sm:py-20 bg-[#FAF7F2] border-b border-[#E5DCD0]">
+          <div className="max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1920px] tv:max-w-[2400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             
             <div className="text-center max-w-3xl mx-auto space-y-4">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFE7DA] border border-[#D5C7B3] text-[#6E492D] text-xs font-semibold uppercase tracking-wider">
@@ -458,7 +458,7 @@ export default function LocalizedHomePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-4 tv:grid-cols-5 gap-6">
               {DEPARTMENTS_DATA.map((dept) => {
                 const Icon = dept.icon;
                 const title = locale === "ar" ? dept.titleAr : locale === "en" ? dept.titleEn : dept.titleTr;
@@ -498,8 +498,8 @@ export default function LocalizedHomePage() {
         </section>
 
         {/* 4. DOKTORLARIMIZ (OUR DOCTORS) */}
-        <section id="doctors" className="py-20 bg-[#F3EDE2] border-b border-[#DDD2C1]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <section id="doctors" className="py-16 sm:py-20 bg-[#F3EDE2] border-b border-[#DDD2C1]">
+          <div className="max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1920px] tv:max-w-[2400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             
             <div className="text-center max-w-3xl mx-auto space-y-4">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E5DAC8] border border-[#D5C7B3] text-[#6E492D] text-xs font-semibold uppercase tracking-wider">
@@ -514,7 +514,7 @@ export default function LocalizedHomePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 tv:grid-cols-6 gap-6">
               {DOCTORS_DATA.map((doc) => (
                 <DoctorCard
                   key={doc.id}
@@ -528,8 +528,8 @@ export default function LocalizedHomePage() {
         </section>
 
         {/* 5. ÖNCEKİ HASTALARIMIZ / YORUMLAR (TESTIMONIALS) */}
-        <section id="testimonials" className="py-20 bg-[#FAF7F2] border-b border-[#E5DCD0]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <section id="testimonials" className="py-16 sm:py-20 bg-[#FAF7F2] border-b border-[#E5DCD0]">
+          <div className="max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1920px] tv:max-w-[2400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             
             <div className="text-center max-w-3xl mx-auto space-y-4">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFE7DA] border border-[#D5C7B3] text-[#6E492D] text-xs font-semibold uppercase tracking-wider">
@@ -544,7 +544,7 @@ export default function LocalizedHomePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 tv:grid-cols-4 gap-6">
               {(TESTIMONIALS_DATA[locale] || TESTIMONIALS_DATA.ar).map((item, idx) => (
                 <div
                   key={idx}

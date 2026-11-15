@@ -39,10 +39,13 @@ import {
   Stethoscope,
   Info,
   Eye,
-  EyeOff
+  EyeOff,
+  Users,
+  MessageCircle
 } from "lucide-react";
 import { DOCTORS_DATA, Doctor } from "@/features/doctors";
 import { FlagIcon } from "@/components/FlagIcon";
+import { buildWhatsAppAppointmentUrl, buildWhatsAppPrescriptionUrl } from "@/lib/whatsapp";
 
 // Interface for consultation records
 interface PatientConsultation {
@@ -128,6 +131,115 @@ export default function DedicatedPatientPortalPage() {
   const [businessCardModalOpen, setBusinessCardModalOpen] = useState(false);
   const [customOrigin, setCustomOrigin] = useState<string>("");
   const [copiedLink, setCopiedLink] = useState(false);
+
+  // Family Profile Management States
+  const [familyMembers, setFamilyMembers] = useState<any[]>([]);
+  const [showAddFamilyModal, setShowAddFamilyModal] = useState(false);
+  const [newDepName, setNewDepName] = useState("");
+  const [newDepRel, setNewDepRel] = useState<"CHILD" | "SPOUSE" | "PARENT" | "OTHER">("CHILD");
+  const [newDepBlood, setNewDepBlood] = useState("O+");
+  const [isAddingDep, setIsAddingDep] = useState(false);
+  const [lastBookedApp, setLastBookedApp] = useState<{
+    doctorName: string;
+    dateStr: string;
+    timeStr: string;
+    queueNumber: number;
+    feeText: string;
+  } | null>(null);
+
+  const loadFamilyMembers = async () => {
+    if (typeof window === "undefined") return;
+    const token = localStorage.getItem("mena_auth_token");
+    if (!token) return;
+    try {
+      const res = await fetch("/api/patients/family", {
+        headers: { Authorization: "Bearer " + token },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setFamilyMembers(data.familyMembers || []);
+      }
+    } catch {}
+  };
+
+  const handleSwitchFamilyMember = async (member: any) => {
+    const token = typeof window !== "undefined" ? localStorage.getItem("mena_auth_token") : null;
+    const headers = token ? { Authorization: "Bearer " + token } : undefined;
+    try {
+      let consultations: PatientConsultation[] = [];
+      const recRes = await fetch(`/api/medical-records/patient/${member.id}`, { headers, cache: "no-store" });
+      if (recRes.ok) {
+        const recData = await recRes.json();
+        if (Array.isArray(recData)) {
+          consultations = recData.map((record) => ({
+            ...record,
+            doctorName: record.doctor?.fullName || "",
+            specialty: record.doctor?.specialty || "",
+            date: record.createdAt?.slice(0, 10) || "",
+            prescriptions: record.prescriptionItems || [],
+            labTests: record.labTests || [],
+          }));
+        }
+      }
+
+      let appList: any[] = [];
+      const appRes = await fetch("/api/appointments", { headers, cache: "no-store" });
+      if (appRes.ok) {
+        const allApps = await appRes.json();
+        if (Array.isArray(allApps)) {
+          appList = allApps.filter((a: any) => a.patientId === member.id || a.patient?.identityNo === member.identityNo);
+        }
+      }
+
+      const switchedProfile: PatientProfile = {
+        id: member.id,
+        fullName: member.fullName,
+        identityNo: member.identityNo,
+        phone: member.phone,
+        email: member.email,
+        bloodType: member.bloodType || "—",
+        emergencyContact: member.emergencyContact,
+        consultations,
+        appointments: appList.map((a: any) => ({
+          id: a.id,
+          doctorName: a.doctor?.fullName || a.doctorName || "Dr. Mena Clinic",
+          slotTime: a.slotTime,
+          queueNumber: a.queueNumber || 1,
+          status: a.status,
+        })),
+      };
+
+      setActivePatient(switchedProfile);
+    } catch {}
+  };
+
+  const handleAddFamilyMember = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newDepName.trim()) return;
+    setIsAddingDep(true);
+    const token = typeof window !== "undefined" ? localStorage.getItem("mena_auth_token") : null;
+    try {
+      const res = await fetch("/api/patients/family", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: "Bearer " + token } : {}),
+        },
+        body: JSON.stringify({
+          fullName: newDepName.trim(),
+          relationship: newDepRel,
+          bloodType: newDepBlood,
+        }),
+      });
+      if (res.ok) {
+        setNewDepName("");
+        setShowAddFamilyModal(false);
+        await loadFamilyMembers();
+      }
+    } catch {} finally {
+      setIsAddingDep(false);
+    }
+  };
 
   // Initialize from LocalStorage or URL params on mount
   useEffect(() => {
@@ -327,6 +439,12 @@ export default function DedicatedPatientPortalPage() {
       };
 
       setActivePatient(profile);
+      if (typeof window !== "undefined") {
+        try {
+          localStorage.setItem("mena_offline_patient_cache", JSON.stringify(profile));
+        } catch {}
+      }
+      loadFamilyMembers();
       setNotFoundIdentity(null);
       setLoginErrorMsg(null);
       if (forceBookTab || isBookingIntent) {
@@ -423,6 +541,14 @@ export default function DedicatedPatientPortalPage() {
 
       setActivePatient(updatedPatient);
 
+      setLastBookedApp({
+        doctorName: docObj.fullName,
+        dateStr: bookDate,
+        timeStr: bookSlot,
+        queueNumber: newQueueNo,
+        feeText: docObj.consultationFee === 2000 ? "2.000 ل.س جديدة" : "1.000 ل.س جديدة",
+      });
+
       setBookingSuccessMsg(
         locale === "ar"
           ? `تم تأكيد موعدك بنجاح مع ${docObj.fullName} في ${bookDate} الساعة ${bookSlot}. رقم الدور: #${newQueueNo}`
@@ -449,24 +575,24 @@ export default function DedicatedPatientPortalPage() {
       
       {/* 1. TOP HEADER & NAVIGATION */}
       <header className="sticky top-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E5DCD0] shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+        <div className="max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1920px] tv:max-w-[2400px] mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 sm:h-20">
             
             {/* Brand Logo & Back to Home */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0 min-w-0">
               <Link 
                 href="/" 
-                className="flex items-center gap-3 group text-left rtl:text-right"
+                className="flex items-center gap-2 sm:gap-2.5 group text-left rtl:text-right min-w-0"
                 title={locale === "ar" ? "العودة للموقع الرئيسي" : locale === "en" ? "Back to Main Website" : "Ana Web Sitesine Dön"}
               >
-                <div className="w-12 h-12 rounded-full overflow-hidden border border-[#D5C7B3] shadow-md shadow-[#4A2E1B]/15 group-hover:scale-105 transition-transform bg-[#FAF7F2] flex items-center justify-center p-0.5">
+                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full overflow-hidden border border-[#D5C7B3] shadow-md shadow-[#4A2E1B]/15 group-hover:scale-105 transition-transform bg-[#FAF7F2] flex items-center justify-center p-0.5 shrink-0">
                   <img src="/logo.png" alt="Mena Clinic Logo" className="w-full h-full object-contain rounded-full" />
                 </div>
-                <div>
-                  <div className="text-xl font-bold tracking-tight text-[#2C1810] font-serif group-hover:text-[#6E492D] transition-colors">
+                <div className="min-w-0">
+                  <div className="text-sm sm:text-lg font-bold tracking-tight text-[#2C1810] font-serif group-hover:text-[#6E492D] transition-colors leading-tight truncate">
                     {tCommon("clinicName")}
                   </div>
-                  <div className="text-[10px] uppercase tracking-widest text-[#8A6445] font-semibold flex items-center gap-1.5">
+                  <div className="text-[9px] sm:text-[10px] uppercase tracking-widest text-[#8A6445] font-semibold flex items-center gap-1 truncate">
                     <span>{t("badge")}</span>
                   </div>
                 </div>
@@ -474,17 +600,18 @@ export default function DedicatedPatientPortalPage() {
             </div>
 
             {/* Right Tools: Business Card QR Button, Language, Logout */}
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
               
               {/* VİZİT KARTI QR MODAL BUTONU */}
               <button
                 type="button"
                 onClick={() => setBusinessCardModalOpen(true)}
-                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white hover:bg-[#F5EFEB] text-[#4A2E1B] text-xs font-bold border border-[#D5C7B3] shadow-sm transition-all hover:scale-105"
+                className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 sm:py-2 rounded-xl bg-white hover:bg-[#F5EFEB] text-[#4A2E1B] text-xs font-bold border border-[#D5C7B3] shadow-xs transition-all hover:scale-105"
+                title="Dijital Vizit Kartı / QR"
               >
-                <QrCode className="w-4 h-4 text-[#8A5F35]" />
-                <span className="hidden md:inline">{t("businessCardBtn")}</span>
-                <span className="md:hidden">QR Kart</span>
+                <QrCode className="w-3.5 h-3.5 text-[#8A5F35]" />
+                <span className="hidden sm:inline">{t("businessCardBtn")}</span>
+                <span className="sm:hidden text-[10px] font-bold">QR</span>
               </button>
 
               {/* Language Selector */}
@@ -492,11 +619,12 @@ export default function DedicatedPatientPortalPage() {
                 <button
                   type="button"
                   onClick={() => setLangDropdown(!langDropdown)}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-[#E5DCD0] text-[#4E3D30] hover:text-[#2C1810] text-xs font-medium transition-colors shadow-sm"
+                  className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1.5 sm:py-2 rounded-xl bg-white border border-[#E5DCD0] text-[#4E3D30] hover:text-[#2C1810] text-xs font-medium transition-colors shadow-xs"
+                  aria-label="Dil seçimi"
                 >
-                  <Globe className="w-3.5 h-3.5 text-[#8A6445]" />
                   <FlagIcon code={currentLang.code} />
                   <span className="hidden sm:inline font-semibold">{currentLang.label}</span>
+                  <span className="sm:hidden font-semibold uppercase text-[10px]">{currentLang.code}</span>
                   <ChevronDown className="w-3 h-3 text-[#8A796D]" />
                 </button>
 
@@ -537,7 +665,7 @@ export default function DedicatedPatientPortalPage() {
                       void fetch("/api/auth/logout", { method: "POST" });
                     }
                   }}
-                  className="p-2 rounded-xl bg-white hover:bg-rose-50 text-rose-700 border border-[#E5DCD0] hover:border-rose-300 transition-colors shadow-sm"
+                  className="p-1.5 sm:p-2 rounded-xl bg-white hover:bg-rose-50 text-rose-700 border border-[#E5DCD0] hover:border-rose-300 transition-colors shadow-xs"
                   title={tCommon("logout")}
                 >
                   <LogOut className="w-4 h-4" />
@@ -551,7 +679,7 @@ export default function DedicatedPatientPortalPage() {
       </header>
 
       {/* 2. MAIN BODY */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
+      <main className="max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1920px] tv:max-w-[2400px] mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8 flex-1 w-full space-y-6 sm:space-y-8">
         
         {/* HERO TITLE & QR NOTICE */}
         <div className="bg-gradient-to-r from-[#F5EFEB] via-[#FAF7F2] to-[#F5EFEB] border border-[#E5DCD0] rounded-3xl p-6 sm:p-8 shadow-sm text-center relative overflow-hidden">
@@ -836,6 +964,52 @@ export default function DedicatedPatientPortalPage() {
         {activePatient && (
           <div className="space-y-6 animate-fadeIn">
             
+            {/* AİLE DOSYASI & FERTLERİ PANELİ */}
+            {familyMembers.length > 0 && (
+              <div className="bg-[#FAF7F2] border border-[#E5DCD0] rounded-2xl p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3 shadow-xs">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-[#4A2E1B] text-amber-200 flex items-center justify-center font-bold shrink-0">
+                    <Users className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold text-[#2C1810]">
+                      {locale === "ar" ? "ملف العائلة الموحد" : "Birleşik Aile Dosyası"}
+                    </span>
+                    <p className="text-[10px] text-[#8C6D53]">
+                      {locale === "ar" ? "إدارة أفراد العائلة والأطفال من حساب واحد" : "Çocuk ve aile fertlerinizi tek hesaptan yönetin"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  {familyMembers.map((m) => (
+                    <button
+                      key={m.id}
+                      type="button"
+                      onClick={() => handleSwitchFamilyMember(m)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                        activePatient.id === m.id
+                          ? "bg-[#4A2E1B] text-white shadow-xs"
+                          : "bg-white text-[#6E492D] border border-[#E5DCD0] hover:bg-[#EFE8DC]"
+                      }`}
+                    >
+                      <span>{m.isHead ? "👑" : m.relationship === "CHILD" ? "👶" : "👤"}</span>
+                      <span>{m.fullName.split(" ")[0]}</span>
+                    </button>
+                  ))}
+
+                  <button
+                    type="button"
+                    onClick={() => setShowAddFamilyModal(true)}
+                    className="px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-bold transition-all flex items-center gap-1"
+                  >
+                    <UserPlus className="w-3.5 h-3.5" />
+                    <span>{locale === "ar" ? "+ إضافة فرد" : "+ Fert Ekle"}</span>
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* Patient Header Card */}
             <div className="bg-white border border-[#E5DCD0] rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
               
@@ -891,11 +1065,11 @@ export default function DedicatedPatientPortalPage() {
             </div>
 
             {/* TAB SELECTOR STRIP */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-[#E5DCD0]">
+            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-2 border-b border-[#E5DCD0] no-scrollbar scroll-smooth">
               <button
                 type="button"
                 onClick={() => setActiveTab("history")}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 ${
+                className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 ${
                   activeTab === "history"
                     ? "bg-[#4A2E1B] text-white shadow-sm"
                     : "bg-white text-[#6A584A] hover:bg-[#F5EFEB] border border-[#E5DCD0]"
@@ -911,7 +1085,7 @@ export default function DedicatedPatientPortalPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab("prescriptions")}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 ${
+                className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 ${
                   activeTab === "prescriptions"
                     ? "bg-[#4A2E1B] text-white shadow-sm"
                     : "bg-white text-[#6A584A] hover:bg-[#F5EFEB] border border-[#E5DCD0]"
@@ -924,7 +1098,7 @@ export default function DedicatedPatientPortalPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab("labs")}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 ${
+                className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 ${
                   activeTab === "labs"
                     ? "bg-[#4A2E1B] text-white shadow-sm"
                     : "bg-white text-[#6A584A] hover:bg-[#F5EFEB] border border-[#E5DCD0]"
@@ -937,7 +1111,7 @@ export default function DedicatedPatientPortalPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab("doctors")}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 ${
+                className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 ${
                   activeTab === "doctors"
                     ? "bg-[#4A2E1B] text-white shadow-sm"
                     : "bg-white text-[#6A584A] hover:bg-[#F5EFEB] border border-[#E5DCD0]"
@@ -953,7 +1127,7 @@ export default function DedicatedPatientPortalPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab("book")}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 ${
+                className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 ${
                   activeTab === "book"
                     ? "bg-[#4A2E1B] text-white shadow-sm"
                     : "bg-white text-[#6A584A] hover:bg-[#F5EFEB] border border-[#E5DCD0]"
@@ -1061,7 +1235,7 @@ export default function DedicatedPatientPortalPage() {
             {/* TAB CONTENT 2: PRESCRIPTIONS */}
             {activeTab === "prescriptions" && (
               <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
                   {activePatient.consultations.flatMap((c) => c.prescriptions).map((pr, idx) => (
                     <div key={idx} className="p-5 bg-white border border-[#E5DCD0] rounded-2xl shadow-sm space-y-2 text-left rtl:text-right">
                       <div className="flex items-center justify-between text-xs">
@@ -1084,7 +1258,7 @@ export default function DedicatedPatientPortalPage() {
             {/* TAB CONTENT 3: LAB RESULTS */}
             {activeTab === "labs" && (
               <div className="space-y-4">
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
                   {activePatient.consultations.flatMap((c) => c.labTests).map((lab, idx) => (
                     <div key={idx} className="p-5 bg-white border border-[#E5DCD0] rounded-2xl shadow-sm space-y-2 text-left rtl:text-right">
                       <div className="flex items-center justify-between text-xs">
@@ -1119,12 +1293,38 @@ export default function DedicatedPatientPortalPage() {
                 </div>
 
                 {bookingSuccessMsg && (
-                  <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
-                    <div>
-                      <p className="font-bold text-emerald-950">{bookingSuccessMsg}</p>
-                      <p className="text-[11px] text-emerald-800">Randevunuz hekim takvimine ve klinik yönetim paneline işlendi.</p>
+                  <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs space-y-2">
+                    <div className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                      <div>
+                        <p className="font-bold text-emerald-950">{bookingSuccessMsg}</p>
+                        <p className="text-[11px] text-emerald-800">Randevunuz hekim takvimine ve klinik yönetim paneline işlendi.</p>
+                      </div>
                     </div>
+                    {lastBookedApp && (
+                      <div className="pt-2 border-t border-emerald-200/80 flex items-center justify-between">
+                        <span className="text-[11px] text-emerald-800 font-medium">
+                          {locale === "ar" ? "إرسال تأكيد الموعد إلى هاتفك:" : "Randevu kartını telefonunuza kaydedin:"}
+                        </span>
+                        <a
+                          href={buildWhatsAppAppointmentUrl({
+                            patientName: activePatient.fullName,
+                            patientPhone: activePatient.phone,
+                            doctorName: lastBookedApp.doctorName,
+                            dateStr: lastBookedApp.dateStr,
+                            timeStr: lastBookedApp.timeStr,
+                            queueNumber: lastBookedApp.queueNumber,
+                            fee: lastBookedApp.feeText,
+                          }, locale as any)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-transform active:scale-95"
+                        >
+                          <MessageCircle className="w-3.5 h-3.5" />
+                          <span>{locale === "ar" ? "إرسال إلى واتساب 📲" : "WhatsApp'a İlet 📲"}</span>
+                        </a>
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -1149,7 +1349,7 @@ export default function DedicatedPatientPortalPage() {
                     >
                       {liveDoctors.map((d) => (
                         <option key={d.id} value={d.id}>
-                          {d.fullName} ({d.specialty || d.department?.name || "Poliklinik"}) • {d.fee || `${d.consultationFee || 1000} SYP`}
+                          {locale === "ar" ? (d.fullNameAr || d.fullName) : d.fullName} ({locale === "ar" ? (d.specialtyAr || d.specialty) : (d.specialty || d.department?.name || "Poliklinik")}) • {locale === "ar" ? (d.consultationFee === 2000 ? "2.000 ل.س جديدة" : "1.000 ل.س جديدة") : `${d.consultationFee === 2000 ? "2.000" : "1.000"} SYP`}
                         </option>
                       ))}
                     </select>
@@ -1252,7 +1452,24 @@ export default function DedicatedPatientPortalPage() {
                             <span className="font-bold text-[#2C1810]">{app.doctorName}</span>
                             <div className="text-[11px] text-[#7D6E63] font-mono">{app.slotTime}</div>
                           </div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-1.5">
+                            <a
+                              href={buildWhatsAppAppointmentUrl({
+                                patientName: activePatient.fullName,
+                                patientPhone: activePatient.phone,
+                                doctorName: app.doctorName,
+                                dateStr: app.slotTime.slice(0, 10),
+                                timeStr: app.slotTime.slice(11, 16),
+                                queueNumber: app.queueNumber,
+                                fee: "1.000 ل.س جديدة",
+                              }, locale as any)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="p-1 rounded-lg bg-emerald-100 hover:bg-emerald-200 text-emerald-800 transition-colors"
+                              title="WhatsApp"
+                            >
+                              <MessageCircle className="w-3.5 h-3.5" />
+                            </a>
                             <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-bold font-mono text-[10px]">
                               Sıra #{app.queueNumber}
                             </span>
@@ -1290,7 +1507,7 @@ export default function DedicatedPatientPortalPage() {
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 tv:grid-cols-5 gap-4 sm:gap-5">
                   {liveDoctors.map((doc) => {
                     const docName = locale === "ar" ? (doc.fullNameAr || doc.fullName) : locale === "en" ? (doc.fullNameEn || doc.fullName) : doc.fullName;
                     const docSpec = locale === "ar" ? (doc.specialtyAr || doc.specialty) : locale === "en" ? (doc.specialtyEn || doc.specialty) : doc.specialty;
@@ -1320,7 +1537,9 @@ export default function DedicatedPatientPortalPage() {
                         <div className="pt-3 border-t border-[#E5DCD0] flex items-center justify-between">
                           <div>
                             <span className="text-[10px] text-[#7D6E63] block">{locale === "ar" ? "أجرة المعاينة" : "Muayene Ücreti"}</span>
-                            <strong className="text-xs font-bold text-[#4A2E1B]">{doc.fee || `${doc.consultationFee} TL`}</strong>
+                            <strong className="text-xs font-bold text-[#4A2E1B] font-mono">
+                              {locale === "ar" ? (doc.consultationFee === 2000 ? "2.000 ل.س جديدة" : "1.000 ل.س جديدة") : `${doc.consultationFee === 2000 ? "2.000" : "1.000"} SYP`}
+                            </strong>
                           </div>
 
                           <button
@@ -1485,6 +1704,95 @@ export default function DedicatedPatientPortalPage() {
 
             </div>
 
+          </div>
+        </div>
+      )}
+
+      {/* 6.5 ADD FAMILY MEMBER MODAL */}
+      {showAddFamilyModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
+          <div className="relative w-full max-w-md bg-white border border-[#E5DCD0] rounded-3xl shadow-2xl p-6 text-[#2C1810] space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E5DCD0]">
+              <div className="flex items-center gap-2">
+                <Users className="w-5 h-5 text-[#8A5F35]" />
+                <h3 className="font-serif font-bold text-base text-[#2C1810]">
+                  {locale === "ar" ? "إضافة فرد إلى ملف العائلة" : "Aile Dosyasına Birey Ekle"}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowAddFamilyModal(false)}
+                className="p-1 rounded-full text-[#7D6E63] hover:text-[#2C1810]"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleAddFamilyMember} className="space-y-4">
+              <div>
+                <label className="block text-xs font-semibold text-[#4E3D30] mb-1">
+                  {locale === "ar" ? "الاسم الكامل (الطفل / الزوج / القريب):" : "İsim Soyisim:"}
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder={locale === "ar" ? "مثال: يوسف أحمد عثمان" : "Örn: Zeynep Kaya"}
+                  value={newDepName}
+                  onChange={(e) => setNewDepName(e.target.value)}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7F2] border border-[#DDD2C1] text-xs focus:bg-white focus:outline-none"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-[#4E3D30] mb-1">
+                    {locale === "ar" ? "صلة القرابة:" : "Yakınlık Derecesi:"}
+                  </label>
+                  <select
+                    value={newDepRel}
+                    onChange={(e: any) => setNewDepRel(e.target.value)}
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#FAF7F2] border border-[#DDD2C1] text-xs focus:bg-white focus:outline-none"
+                  >
+                    <option value="CHILD">{locale === "ar" ? "ابن / ابنة (طفل)" : "Çocuk"}</option>
+                    <option value="SPOUSE">{locale === "ar" ? "زوج / زوجة" : "Eş"}</option>
+                    <option value="PARENT">{locale === "ar" ? "أب / أم" : "Anne / Baba"}</option>
+                    <option value="OTHER">{locale === "ar" ? "قريب آخر" : "Diğer"}</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[#4E3D30] mb-1">
+                    {locale === "ar" ? "فصيلة الدم:" : "Kan Grubu:"}
+                  </label>
+                  <select
+                    value={newDepBlood}
+                    onChange={(e) => setNewDepBlood(e.target.value)}
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#FAF7F2] border border-[#DDD2C1] text-xs focus:bg-white focus:outline-none"
+                  >
+                    {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((bt) => (
+                      <option key={bt} value={bt}>{bt}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#E5DCD0]">
+                <button
+                  type="button"
+                  onClick={() => setShowAddFamilyModal(false)}
+                  className="px-3 py-2 rounded-xl text-xs text-[#7D6E63] hover:bg-[#FAF7F2]"
+                >
+                  {locale === "ar" ? "إلغاء" : "İptal"}
+                </button>
+                <button
+                  type="submit"
+                  disabled={isAddingDep}
+                  className="px-4 py-2 rounded-xl bg-[#4A2E1B] hover:bg-[#382112] text-white text-xs font-bold transition-all shadow-xs disabled:opacity-50"
+                >
+                  {isAddingDep ? "..." : locale === "ar" ? "حفظ وإضافة للملف" : "Kaydet ve Ekle"}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

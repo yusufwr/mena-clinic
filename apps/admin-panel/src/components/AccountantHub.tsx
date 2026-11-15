@@ -161,7 +161,7 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
       {activeTab === "doctors" && (
         <div className="space-y-6">
           {/* Top KPI Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4 tv:grid-cols-4 gap-3 sm:gap-4">
             <div className="bg-white border border-[#E5DCD0] rounded-2xl p-5 shadow-sm">
               <div className="flex items-center justify-between text-xs font-semibold text-[#8C6D53] mb-2 uppercase tracking-wide">
                 <span>{t.patientCount}</span>
@@ -329,7 +329,7 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
                       : "Patient Visits & Billing Breakdown for this Doctor"}
                 </h4>
                 <div className="overflow-x-auto border border-[#E5DCD0] rounded-xl">
-                  <table className="w-full text-left text-sm">
+                  <table className="w-full min-w-[700px] text-left text-sm">
                     <thead className="bg-[#FAF7F2] text-[#6E492D] text-xs uppercase font-semibold border-b border-[#E5DCD0]">
                       <tr>
                         <th className="py-3 px-4">#</th>
@@ -409,7 +409,7 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
               </div>
 
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-sm">
+                <table className="w-full min-w-[750px] text-left text-sm">
                   <thead className="bg-[#FAF7F2] text-[#6E492D] text-xs uppercase font-semibold border-b border-[#E5DCD0]">
                     <tr>
                       <th className="py-3.5 px-4">{t.roleDoctor}</th>
@@ -577,7 +577,7 @@ export const AccountantHub: React.FC<AccountantHubProps> = ({
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-sm">
+              <table className="w-full min-w-[700px] text-left text-sm">
                 <thead className="bg-[#FAF7F2] text-[#6E492D] text-xs uppercase font-semibold border-b border-[#E5DCD0]">
                   <tr>
                     <th className="py-3.5 px-4">{lang === "ar" ? "اسم الدواء" : lang === "tr" ? "İlaç Adı" : "Medication"}</th>

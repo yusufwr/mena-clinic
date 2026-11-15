@@ -61,7 +61,7 @@ export const DoctorCard: React.FC<DoctorCardProps> = ({ doctor, onBook }) => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between p-3 rounded-xl bg-[#FAF7F2] border border-[#E5DCD0] mb-5 text-xs">
+        <div className="flex items-center justify-between p-3 rounded-xl bg-[#FAF7F2] border border-[#E5DCD0] mb-3 text-xs">
           <div className="flex items-center gap-1.5 text-[#B8860B]">
             <Star className="w-3.5 h-3.5 fill-[#B8860B]" />
             <span className="font-bold text-[#2C1810]">4.95</span>
@@ -71,7 +71,19 @@ export const DoctorCard: React.FC<DoctorCardProps> = ({ doctor, onBook }) => {
           </span>
         </div>
 
-        <div className="flex items-center gap-2 text-[#7D6E63] text-xs mb-6 font-medium">
+        {/* Consultation Fee Display */}
+        <div className="flex items-center justify-between px-3 py-2 rounded-xl bg-[#F6F0E6] border border-[#E5DCD0] mb-3 text-xs">
+          <span className="text-[11px] font-semibold text-[#7D6E63]">
+            {locale === "ar" ? "أجرة المعاينة:" : locale === "en" ? "Consultation Fee:" : "Muayene Ücreti:"}
+          </span>
+          <strong className="font-bold text-[#4A2E1B] font-mono">
+            {locale === "ar"
+              ? (doctor.consultationFee === 2000 ? "2.000 ل.س جديدة" : "1.000 ل.س جديدة")
+              : (doctor.fee || (doctor.consultationFee === 2000 ? "2.000 SYP" : "1.000 SYP"))}
+          </strong>
+        </div>
+
+        <div className="flex items-center gap-2 text-[#7D6E63] text-xs mb-5 font-medium">
           <Globe className="w-3.5 h-3.5 text-[#8A6445]" />
           <span>{languagesText}</span>
         </div>

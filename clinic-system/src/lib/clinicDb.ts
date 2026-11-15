@@ -42,6 +42,39 @@ export async function verifyPasswordAsync(password: string, stored?: string): Pr
 
 const DB_PATH = process.env.CLINIC_DB_PATH || path.join(process.cwd(), "src", "data", "db.json");
 
+// ---------------------------------------------------------------------------
+// AES-256-GCM SENSITIVE DATA ENCRYPTION (KVKK / HIPAA / DATA-AT-REST SECURITY)
+// ---------------------------------------------------------------------------
+const ENCRYPTION_KEY = process.env.CLINIC_ENCRYPTION_KEY
+  ? Buffer.from(process.env.CLINIC_ENCRYPTION_KEY, "hex")
+  : crypto.createHash("sha256").update("mena-clinic-aleppo-hipaa-secure-key-2026").digest();
+
+export function encryptField(plainText: string | undefined | null): string {
+  if (!plainText) return "";
+  if (plainText.startsWith("enc:gcm$")) return plainText;
+  const iv = crypto.randomBytes(12);
+  const cipher = crypto.createCipheriv("aes-256-gcm", ENCRYPTION_KEY, iv);
+  let encrypted = cipher.update(plainText, "utf8", "hex");
+  encrypted += cipher.final("hex");
+  const authTag = cipher.getAuthTag().toString("hex");
+  return `enc:gcm$${iv.toString("hex")}$${authTag}$${encrypted}`;
+}
+
+export function decryptField(cipherText: string | undefined | null): string {
+  if (!cipherText) return "";
+  if (!cipherText.startsWith("enc:gcm$")) return cipherText;
+  try {
+    const [, ivHex, authTagHex, encryptedHex] = cipherText.split("$");
+    const decipher = crypto.createDecipheriv("aes-256-gcm", ENCRYPTION_KEY, Buffer.from(ivHex, "hex"));
+    decipher.setAuthTag(Buffer.from(authTagHex, "hex"));
+    let decrypted = decipher.update(encryptedHex, "hex", "utf8");
+    decrypted += decipher.final("utf8");
+    return decrypted;
+  } catch {
+    return cipherText;
+  }
+}
+
 export interface DoctorRecord {
   id: string;
   fullName: string;
@@ -71,6 +104,9 @@ export interface PatientRecord {
   insuranceInfo?: string;
   preferredLang?: string;
   createdAt?: string;
+  familyHeadId?: string;
+  familyRelationship?: "HEAD" | "CHILD" | "SPOUSE" | "PARENT" | "OTHER";
+  familyNote?: string;
 }
 
 export interface AppointmentRecord {

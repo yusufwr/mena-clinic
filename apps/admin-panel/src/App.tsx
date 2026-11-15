@@ -29,13 +29,15 @@ import {
   PieChart,
   HeartPulse,
   Receipt,
-  FileDown
+  FileDown,
+  Menu
 } from "lucide-react";
 import { adminTranslations, AdminLang } from "./i18n";
 import { DoctorsHub } from "./components/DoctorsHub";
 import { AccountantHub } from "./components/AccountantHub";
 import { DoctorWorkspace } from "./components/DoctorWorkspace";
 import { LegacyDataBackup } from "./components/LegacyDataBackup";
+import { SystemBackupRestore } from "./components/SystemBackupRestore";
 
 const API_URL = "http://localhost:3000/api";
 
@@ -47,10 +49,10 @@ export const DOCTOR_ACCOUNTS_LIST = [
   { role: "DOCTOR", name: "Dr. Ahmad Abdulrazzaq (د. احمد عبدالرزاق)", email: "uro.razzaq@menaclinic.com", specialty: "Üroloji • البولية", room: "Poliklinik 105" },
   { role: "DOCTOR", name: "Dr. Abdulatif Qadi (د. عبداللطيف قاضي)", email: "uro.qadi@menaclinic.com", specialty: "Üroloji • البولية", room: "Poliklinik 106" },
   { role: "DOCTOR", name: "Dr. Lodia Haddad (د. لوديا حداد)", email: "derma.haddad@menaclinic.com", specialty: "Dermatoloji • الجلدية", room: "Poliklinik 107" },
-  { role: "DOCTOR", name: "Dr. Fadi Al-Arr (د. فادي العر)", email: "vasc.arr@menaclinic.com", specialty: "Damar Cerrahisi • الأوعية", room: "Poliklinik 108" },
+  { role: "DOCTOR", name: "Dr. Ibrahim Al-Masri (د. ابراهيم المصري)", email: "dental.masri@menaclinic.com", specialty: "Diş Cerrahisi • جراحة الأسنان وتجميلها", room: "Poliklinik 108" },
   { role: "DOCTOR", name: "Dr. Hussein Al-Ahmad (د. حسين الاحمد)", email: "ped.ahmad@menaclinic.com", specialty: "Çocuk Sağlığı • الأطفال", room: "Poliklinik 109" },
   { role: "DOCTOR", name: "Dr. Ahmad Azzawi (د. احمد عزاوي)", email: "pedcardio.azzawi@menaclinic.com", specialty: "Çocuk Kardiyo • قلبية أطفال", room: "Poliklinik 110" },
-  { role: "DOCTOR", name: "Dr. Majid Shamoun (د. ماجد شمعون)", email: "dental.shamoun@menaclinic.com", specialty: "Diş Sağlığı • طب الأسنان", room: "Poliklinik 111" },
+  { role: "DOCTOR", name: "Dr. Majid Shamoun (د. ماجد شمعون)", email: "dental.shamoun@menaclinic.com", specialty: "Ağız ve Çene Cerrahisi • جراحة الفم والوجه والفكين", room: "Poliklinik 111" },
   { role: "ADMIN", name: "Yönetici Ahmet", email: "admin@menaclinic.com", specialty: "Genel Yönetim", room: "Yönetim 301" }
 ];
 
@@ -58,6 +60,7 @@ export default function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem("staff_token"));
   const [user, setUser] = useState<any>(null);
   const [activeMenu, setActiveMenu] = useState<string>("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [lang, setLang] = useState<AdminLang>(() => (localStorage.getItem("admin_lang") as AdminLang) || "tr");
@@ -643,69 +646,79 @@ export default function App() {
     >
       {user?.role === "ADMIN" && <LegacyDataBackup />}
       {/* HEADER */}
-      <header className="border-b border-[#E5DCD0] bg-white/95 backdrop-blur-md px-6 py-3.5 flex justify-between items-center z-10 sticky top-0 shadow-xs">
-        <div className="flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-full p-0.5 bg-[#FAF7F2] border border-[#E5DCD0] flex items-center justify-center shadow-xs overflow-hidden">
+      <header className="border-b border-[#E5DCD0] bg-white/95 backdrop-blur-md px-3 sm:px-6 py-2.5 sm:py-3.5 flex justify-between items-center z-30 sticky top-0 shadow-xs gap-2">
+        <div className="flex items-center gap-2 sm:gap-3.5">
+          {token && user && (
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-xl bg-[#FAF7F2] border border-[#E5DCD0] text-[#4A2E1B] hover:bg-[#F3EDE2] transition-colors shadow-xs"
+              aria-label="Menü"
+            >
+              {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
+            </button>
+          )}
+          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full p-0.5 bg-[#FAF7F2] border border-[#E5DCD0] flex items-center justify-center shadow-xs overflow-hidden shrink-0">
             <img
               src="/logo.png"
               alt="Mena Clinic Logo"
               className="w-full h-full object-contain"
             />
           </div>
-          <div>
-            <h1 className="text-base font-serif font-bold tracking-wide text-[#2C1810]">
+          <div className="min-w-0 max-w-[130px] xs:max-w-[200px] sm:max-w-none">
+            <h1 className="text-xs sm:text-base font-serif font-bold tracking-wide text-[#2C1810] truncate">
               {t.clinicTitle}
             </h1>
-            <p className="text-[10px] tracking-widest text-[#8C6D53] font-sans font-semibold uppercase">
+            <p className="text-[8px] sm:text-[10px] tracking-widest text-[#8C6D53] font-sans font-semibold uppercase truncate">
               {t.panelSubtitle}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 sm:gap-4">
+        <div className="flex items-center gap-1.5 sm:gap-4 shrink-0">
           {/* Language Switcher */}
-          <div className="flex items-center gap-1 bg-[#FAF7F2] p-1 rounded-xl border border-[#E5DCD0]">
+          <div className="flex items-center gap-0.5 sm:gap-1 bg-[#FAF7F2] p-0.5 sm:p-1 rounded-xl border border-[#E5DCD0]">
             <button
               onClick={() => handleLanguageChange("tr")}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-1.5 sm:px-2.5 py-1 rounded-lg text-[10px] sm:text-xs font-semibold transition-all flex items-center gap-1 sm:gap-1.5 ${
                 lang === "tr"
                   ? "bg-[#4A2E1B] text-white shadow-xs"
                   : "text-[#6E492D] hover:bg-[#EFE8DC]"
               }`}
               title="Türkçe"
             >
-              <TurkishFlag className="w-4 h-2.5" />
-              <span>TR</span>
+              <TurkishFlag className="w-3.5 h-2 sm:w-4 sm:h-2.5" />
+              <span className="hidden xs:inline">TR</span>
             </button>
             <button
               onClick={() => handleLanguageChange("ar")}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-1.5 sm:px-2.5 py-1 rounded-lg text-[10px] sm:text-xs font-semibold transition-all flex items-center gap-1 sm:gap-1.5 ${
                 lang === "ar"
                   ? "bg-[#4A2E1B] text-white shadow-xs"
                   : "text-[#6E492D] hover:bg-[#EFE8DC]"
               }`}
               title="العربية"
             >
-              <SyrianFlag className="w-4 h-2.5" />
-              <span>AR</span>
+              <SyrianFlag className="w-3.5 h-2 sm:w-4 sm:h-2.5" />
+              <span className="hidden xs:inline">AR</span>
             </button>
             <button
               onClick={() => handleLanguageChange("en")}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-1.5 sm:px-2.5 py-1 rounded-lg text-[10px] sm:text-xs font-semibold transition-all flex items-center gap-1 sm:gap-1.5 ${
                 lang === "en"
                   ? "bg-[#4A2E1B] text-white shadow-xs"
                   : "text-[#6E492D] hover:bg-[#EFE8DC]"
               }`}
               title="English"
             >
-              <UkFlag className="w-4 h-2.5" />
-              <span>EN</span>
+              <UkFlag className="w-3.5 h-2 sm:w-4 sm:h-2.5" />
+              <span className="hidden xs:inline">EN</span>
             </button>
           </div>
 
           {token && user && (
-            <div className="flex items-center gap-3">
-              <div className="text-right">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="text-right hidden sm:block">
                 <span className="block text-xs font-bold text-[#2C1810]">{user.fullName}</span>
                 <span className="block text-[9px] text-[#8C6D53] uppercase font-semibold tracking-wider">
                   {user.role === "ADMIN"
@@ -725,10 +738,11 @@ export default function App() {
               </div>
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-1.5 text-xs text-[#4A2E1B] hover:text-red-700 hover:bg-red-50 border border-[#E5DCD0] px-3 py-1.5 rounded-xl bg-white transition-all font-semibold shadow-xs"
+                className="flex items-center gap-1 sm:gap-1.5 text-xs text-[#4A2E1B] hover:text-red-700 hover:bg-red-50 border border-[#E5DCD0] px-2.5 sm:px-3 py-1.5 rounded-xl bg-white transition-all font-semibold shadow-xs"
+                title={t.logout}
               >
                 <LogOut size={13} />
-                <span>{t.logout}</span>
+                <span className="hidden sm:inline">{t.logout}</span>
               </button>
             </div>
           )}
@@ -860,8 +874,172 @@ export default function App() {
         // DASHBOARD INTERFACE
         <div className="flex-grow flex flex-col md:flex-row">
 
-          {/* Side Menu */}
-          <aside className="w-full md:w-64 border-r border-[#E5DCD0] bg-white p-5 space-y-6">
+          {/* Mobile Fast Tab Pill Bar */}
+          <div className="md:hidden flex items-center gap-1.5 overflow-x-auto p-2 bg-white border-b border-[#E5DCD0] no-scrollbar shadow-xs shrink-0">
+            {user.role === "ADMIN" && (
+              <>
+                <button
+                  onClick={() => { setActiveMenu("admin_overview"); setMobileMenuOpen(false); }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 ${
+                    activeMenu === "admin_overview"
+                      ? "bg-[#4A2E1B] text-white shadow-xs"
+                      : "text-[#6E492D] bg-[#FAF7F2] border border-[#E5DCD0]"
+                  }`}
+                >
+                  <Activity size={13} className="text-[#D4AF37]" />
+                  <span>{t.menuAdminOverview}</span>
+                </button>
+                <button
+                  onClick={() => { setActiveMenu("doctors_hub"); setMobileMenuOpen(false); }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 ${
+                    activeMenu === "doctors_hub"
+                      ? "bg-[#4A2E1B] text-white shadow-xs"
+                      : "text-[#6E492D] bg-[#FAF7F2] border border-[#E5DCD0]"
+                  }`}
+                >
+                  <Stethoscope size={13} className="text-[#B8860B]" />
+                  <span>{t.menuDoctorsHub}</span>
+                </button>
+                <button
+                  onClick={() => { setActiveMenu("reception"); setMobileMenuOpen(false); }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 ${
+                    activeMenu === "reception"
+                      ? "bg-[#4A2E1B] text-white shadow-xs"
+                      : "text-[#6E492D] bg-[#FAF7F2] border border-[#E5DCD0]"
+                  }`}
+                >
+                  <UserCheck size={13} />
+                  <span>{t.menuPatients}</span>
+                </button>
+                <button
+                  onClick={() => { setActiveMenu("pharmacy"); setMobileMenuOpen(false); }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 ${
+                    activeMenu === "pharmacy"
+                      ? "bg-[#4A2E1B] text-white shadow-xs"
+                      : "text-[#6E492D] bg-[#FAF7F2] border border-[#E5DCD0]"
+                  }`}
+                >
+                  <Package size={13} />
+                  <span>{t.menuPharmacy}</span>
+                </button>
+                <button
+                  onClick={() => { setActiveMenu("lab"); setMobileMenuOpen(false); }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 ${
+                    activeMenu === "lab"
+                      ? "bg-[#4A2E1B] text-white shadow-xs"
+                      : "text-[#6E492D] bg-[#FAF7F2] border border-[#E5DCD0]"
+                  }`}
+                >
+                  <Layers size={13} />
+                  <span>{t.menuLaboratory}</span>
+                </button>
+                <button
+                  onClick={() => { setActiveMenu("accountant"); setMobileMenuOpen(false); }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 ${
+                    activeMenu === "accountant"
+                      ? "bg-[#4A2E1B] text-white shadow-xs"
+                      : "text-[#6E492D] bg-[#FAF7F2] border border-[#E5DCD0]"
+                  }`}
+                >
+                  <DollarSign size={13} className="text-emerald-600" />
+                  <span>{t.menuDoctorReports}</span>
+                </button>
+                <button
+                  onClick={() => { setActiveMenu("admin_fin"); setMobileMenuOpen(false); }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 ${
+                    activeMenu === "admin_fin"
+                      ? "bg-[#4A2E1B] text-white shadow-xs"
+                      : "text-[#6E492D] bg-[#FAF7F2] border border-[#E5DCD0]"
+                  }`}
+                >
+                  <TrendingUp size={13} />
+                  <span>{t.menuFinance}</span>
+                </button>
+              </>
+            )}
+            {user.role === "ACCOUNTANT" && (
+              <>
+                <button
+                  onClick={() => { setActiveMenu("accountant"); setMobileMenuOpen(false); }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 ${
+                    activeMenu === "accountant"
+                      ? "bg-[#4A2E1B] text-white shadow-xs"
+                      : "text-[#6E492D] bg-[#FAF7F2] border border-[#E5DCD0]"
+                  }`}
+                >
+                  <DollarSign size={13} className="text-emerald-600" />
+                  <span>{t.doctorFinancialReports}</span>
+                </button>
+                <button
+                  onClick={() => { setActiveMenu("pharmacy"); setMobileMenuOpen(false); }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 ${
+                    activeMenu === "pharmacy"
+                      ? "bg-[#4A2E1B] text-white shadow-xs"
+                      : "text-[#6E492D] bg-[#FAF7F2] border border-[#E5DCD0]"
+                  }`}
+                >
+                  <Package size={13} />
+                  <span>{t.pharmacyFinancialReport}</span>
+                </button>
+                <button
+                  onClick={() => { setActiveMenu("admin_fin"); setMobileMenuOpen(false); }}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 ${
+                    activeMenu === "admin_fin"
+                      ? "bg-[#4A2E1B] text-white shadow-xs"
+                      : "text-[#6E492D] bg-[#FAF7F2] border border-[#E5DCD0]"
+                  }`}
+                >
+                  <TrendingUp size={13} />
+                  <span>{t.menuFinance}</span>
+                </button>
+              </>
+            )}
+            {user.role === "DOCTOR" && (
+              <button
+                onClick={() => { setActiveMenu("doctor"); setMobileMenuOpen(false); }}
+                className="px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-[#4A2E1B] text-white shadow-xs flex items-center gap-1.5 shrink-0"
+              >
+                <Activity size={13} />
+                <span>{t.roleDoctor}</span>
+              </button>
+            )}
+            {user.role === "RECEPTIONIST" && (
+              <button
+                onClick={() => { setActiveMenu("reception"); setMobileMenuOpen(false); }}
+                className="px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-[#4A2E1B] text-white shadow-xs flex items-center gap-1.5 shrink-0"
+              >
+                <UserCheck size={13} />
+                <span>{t.roleReceptionist}</span>
+              </button>
+            )}
+            {user.role === "PHARMACIST" && (
+              <button
+                onClick={() => { setActiveMenu("pharmacy"); setMobileMenuOpen(false); }}
+                className="px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-[#4A2E1B] text-white shadow-xs flex items-center gap-1.5 shrink-0"
+              >
+                <Package size={13} />
+                <span>{t.rolePharmacist}</span>
+              </button>
+            )}
+            {user.role === "LAB_TECH" && (
+              <button
+                onClick={() => { setActiveMenu("lab"); setMobileMenuOpen(false); }}
+                className="px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-[#4A2E1B] text-white shadow-xs flex items-center gap-1.5 shrink-0"
+              >
+                <Layers size={13} />
+                <span>{t.roleLabTech}</span>
+              </button>
+            )}
+          </div>
+
+          {/* Side Menu Drawer / Persistent on Desktop & TV */}
+          <aside
+            className={`border-r border-[#E5DCD0] bg-white p-4 sm:p-5 space-y-6 shrink-0 transition-all ${
+              mobileMenuOpen
+                ? "block w-full border-b"
+                : "hidden md:block md:w-60 lg:w-64 xl:w-72 2xl:w-80 tv:w-96"
+            }`}
+          >
             <span className="text-[10px] uppercase tracking-wider text-[#8C6D53] font-bold block">
               {t.roleSpecialScreens}
             </span>
@@ -870,7 +1048,7 @@ export default function App() {
               {user.role === "ADMIN" && (
                 <>
                   <button
-                    onClick={() => setActiveMenu("admin_overview")}
+                    onClick={() => { setActiveMenu("admin_overview"); setMobileMenuOpen(false); }}
                     className={`w-full text-left flex items-center gap-2.5 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all ${
                       activeMenu === "admin_overview"
                         ? "bg-[#4A2E1B] text-white shadow-sm"
@@ -882,7 +1060,7 @@ export default function App() {
                   </button>
 
                   <button
-                    onClick={() => setActiveMenu("doctors_hub")}
+                    onClick={() => { setActiveMenu("doctors_hub"); setMobileMenuOpen(false); }}
                     className={`w-full text-left flex items-center gap-2.5 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all ${
                       activeMenu === "doctors_hub"
                         ? "bg-[#4A2E1B] text-white shadow-sm"
@@ -894,7 +1072,7 @@ export default function App() {
                   </button>
 
                   <button
-                    onClick={() => setActiveMenu("reception")}
+                    onClick={() => { setActiveMenu("reception"); setMobileMenuOpen(false); }}
                     className={`w-full text-left flex items-center gap-2.5 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all ${
                       activeMenu === "reception"
                         ? "bg-[#4A2E1B] text-white shadow-sm"
@@ -906,7 +1084,7 @@ export default function App() {
                   </button>
 
                   <button
-                    onClick={() => setActiveMenu("pharmacy")}
+                    onClick={() => { setActiveMenu("pharmacy"); setMobileMenuOpen(false); }}
                     className={`w-full text-left flex items-center gap-2.5 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all ${
                       activeMenu === "pharmacy"
                         ? "bg-[#4A2E1B] text-white shadow-sm"
@@ -918,7 +1096,7 @@ export default function App() {
                   </button>
 
                   <button
-                    onClick={() => setActiveMenu("lab")}
+                    onClick={() => { setActiveMenu("lab"); setMobileMenuOpen(false); }}
                     className={`w-full text-left flex items-center gap-2.5 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all ${
                       activeMenu === "lab"
                         ? "bg-[#4A2E1B] text-white shadow-sm"
@@ -930,7 +1108,7 @@ export default function App() {
                   </button>
 
                   <button
-                    onClick={() => setActiveMenu("accountant")}
+                    onClick={() => { setActiveMenu("accountant"); setMobileMenuOpen(false); }}
                     className={`w-full text-left flex items-center gap-2.5 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all ${
                       activeMenu === "accountant"
                         ? "bg-[#4A2E1B] text-white shadow-sm"
@@ -942,7 +1120,7 @@ export default function App() {
                   </button>
 
                   <button
-                    onClick={() => setActiveMenu("admin_fin")}
+                    onClick={() => { setActiveMenu("admin_fin"); setMobileMenuOpen(false); }}
                     className={`w-full text-left flex items-center gap-2.5 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all ${
                       activeMenu === "admin_fin"
                         ? "bg-[#4A2E1B] text-white shadow-sm"
@@ -959,7 +1137,7 @@ export default function App() {
               {user.role === "ACCOUNTANT" && (
                 <>
                   <button
-                    onClick={() => setActiveMenu("accountant")}
+                    onClick={() => { setActiveMenu("accountant"); setMobileMenuOpen(false); }}
                     className={`w-full text-left flex items-center gap-2.5 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all ${
                       activeMenu === "accountant"
                         ? "bg-[#4A2E1B] text-white shadow-sm"
@@ -971,7 +1149,7 @@ export default function App() {
                   </button>
 
                   <button
-                    onClick={() => setActiveMenu("pharmacy")}
+                    onClick={() => { setActiveMenu("pharmacy"); setMobileMenuOpen(false); }}
                     className={`w-full text-left flex items-center gap-2.5 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all ${
                       activeMenu === "pharmacy"
                         ? "bg-[#4A2E1B] text-white shadow-sm"
@@ -983,7 +1161,7 @@ export default function App() {
                   </button>
 
                   <button
-                    onClick={() => setActiveMenu("admin_fin")}
+                    onClick={() => { setActiveMenu("admin_fin"); setMobileMenuOpen(false); }}
                     className={`w-full text-left flex items-center gap-2.5 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all ${
                       activeMenu === "admin_fin"
                         ? "bg-[#4A2E1B] text-white shadow-sm"
@@ -999,7 +1177,7 @@ export default function App() {
               {/* RECEPTIONIST */}
               {user.role === "RECEPTIONIST" && (
                 <button
-                  onClick={() => setActiveMenu("reception")}
+                  onClick={() => { setActiveMenu("reception"); setMobileMenuOpen(false); }}
                   className={`w-full text-left flex items-center gap-2.5 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all ${
                     activeMenu === "reception"
                       ? "bg-[#4A2E1B] text-white shadow-sm"
@@ -1014,7 +1192,7 @@ export default function App() {
               {/* DOCTOR */}
               {user.role === "DOCTOR" && (
                 <button
-                  onClick={() => setActiveMenu("doctor")}
+                  onClick={() => { setActiveMenu("doctor"); setMobileMenuOpen(false); }}
                   className={`w-full text-left flex items-center gap-2.5 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all ${
                     activeMenu === "doctor"
                       ? "bg-[#4A2E1B] text-white shadow-sm"
@@ -1029,7 +1207,7 @@ export default function App() {
               {/* PHARMACIST */}
               {user.role === "PHARMACIST" && (
                 <button
-                  onClick={() => setActiveMenu("pharmacy")}
+                  onClick={() => { setActiveMenu("pharmacy"); setMobileMenuOpen(false); }}
                   className={`w-full text-left flex items-center gap-2.5 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all ${
                     activeMenu === "pharmacy"
                       ? "bg-[#4A2E1B] text-white shadow-sm"
@@ -1044,7 +1222,7 @@ export default function App() {
               {/* LAB TECH */}
               {user.role === "LAB_TECH" && (
                 <button
-                  onClick={() => setActiveMenu("lab")}
+                  onClick={() => { setActiveMenu("lab"); setMobileMenuOpen(false); }}
                   className={`w-full text-left flex items-center gap-2.5 text-xs font-semibold px-3.5 py-2.5 rounded-xl transition-all ${
                     activeMenu === "lab"
                       ? "bg-[#4A2E1B] text-white shadow-sm"
@@ -1065,7 +1243,7 @@ export default function App() {
           </aside>
 
           {/* Main workspace */}
-          <main className="flex-grow p-8 space-y-8 overflow-y-auto">
+          <main className="flex-grow p-3.5 sm:p-5 md:p-6 lg:p-8 2xl:p-10 space-y-6 sm:space-y-8 overflow-y-auto w-full max-w-[1920px] 2xl:max-w-[2400px] tv:max-w-[3200px] mx-auto">
 
             {/* Feedback Notifications */}
             {successMsg && (
@@ -1270,6 +1448,19 @@ export default function App() {
                     </button>
                   </div>
                 </div>
+
+                {/* 5. DISASTER RECOVERY & SYSTEM BACKUP MODULE */}
+                <SystemBackupRestore
+                  token={token}
+                  apiUrl={API_URL}
+                  lang={lang}
+                  onRefreshAll={() => {
+                    fetchDoctors();
+                    fetchPatients();
+                    fetchAppointments();
+                    fetchStaffList();
+                  }}
+                />
               </div>
             )}
 
@@ -1311,21 +1502,21 @@ export default function App() {
             {/* 1. RECEPTIONIST MODULE */}
             {activeMenu === "reception" && (
               <div className="space-y-8">
-                <div className="flex justify-between items-center border-b border-clinicBorder pb-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-clinicBorder pb-3 gap-3">
                   <div>
                     <h3 className="text-xl font-serif text-[#2C1810]">Danışma & Hasta Kabul</h3>
                     <p className="text-xs text-[#4E3D30]">Hasta kaydı yapabilir, canlı randevu ve doktor kuyruğunu düzenleyebilirsiniz.</p>
                   </div>
-                  <div className="flex gap-3">
+                  <div className="flex flex-wrap gap-2 sm:gap-3">
                     <button
                       onClick={() => setShowAddPatient(true)}
-                      className="flex items-center gap-1 bg-[#4A2E1B] border border-[#382112] text-white hover:bg-[#382112] shadow-sm text-xs uppercase px-4 py-2 rounded hover:bg-clinicGold hover:text-neutral-950 transition-all font-semibold"
+                      className="flex items-center gap-1 bg-[#4A2E1B] border border-[#382112] text-white hover:bg-[#382112] shadow-sm text-xs uppercase px-3 sm:px-4 py-2 rounded hover:bg-clinicGold hover:text-neutral-950 transition-all font-semibold"
                     >
                       <Plus size={12} /> Hasta Kaydet
                     </button>
                     <button
                       onClick={() => setShowAddApp(true)}
-                      className="flex items-center gap-1 bg-[#FAF7F2] border border-clinicBorder text-[#2C1810] text-xs uppercase px-4 py-2 rounded hover:text-white hover:border-clinicGold/40 transition-all font-semibold"
+                      className="flex items-center gap-1 bg-[#FAF7F2] border border-clinicBorder text-[#2C1810] text-xs uppercase px-3 sm:px-4 py-2 rounded hover:text-white hover:border-clinicGold/40 transition-all font-semibold"
                     >
                       <Plus size={12} /> Randevu Oluştur
                     </button>
@@ -1432,7 +1623,7 @@ export default function App() {
                 <div className="space-y-3">
                   <h4 className="text-xs uppercase tracking-wider text-clinicGold font-bold">Kayıtlı Klinik Hastaları</h4>
                   <div className="bg-[#FAF7F2] border border-clinicBorder rounded-lg overflow-x-auto">
-                    <table className="w-full text-left text-xs border-collapse">
+                    <table className="w-full min-w-[650px] text-left text-xs border-collapse">
                       <thead>
                         <tr className="border-b border-clinicBorder text-[#4E3D30] bg-[#FAF7F2]">
                           <th className="p-3">Hasta Adı</th>
@@ -1461,8 +1652,8 @@ export default function App() {
 
                 {/* MODAL: ADD PATIENT */}
                 {showAddPatient && (
-                  <div className="fixed inset-0 bg-[#2C1810]/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                    <div className="bg-white border border-clinicBorder rounded-xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative">
+                  <div className="fixed inset-0 bg-[#2C1810]/50 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50">
+                    <div className="bg-white border border-clinicBorder rounded-2xl max-w-lg w-full p-4 sm:p-6 space-y-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
                       <button onClick={() => setShowAddPatient(false)} className="absolute right-4 top-4 text-stone-500 hover:text-[#2C1810] text-lg">×</button>
                       <h4 className="text-lg font-serif text-clinicGold uppercase tracking-wider">Walk-in Hasta Kayıt Formu</h4>
                       <form onSubmit={handleAddPatient} className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1505,8 +1696,8 @@ export default function App() {
 
                 {/* MODAL: ADD APPOINTMENT */}
                 {showAddApp && (
-                  <div className="fixed inset-0 bg-[#2C1810]/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                    <div className="bg-white border border-clinicBorder rounded-xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
+                  <div className="fixed inset-0 bg-[#2C1810]/50 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50">
+                    <div className="bg-white border border-clinicBorder rounded-2xl max-w-md w-full p-4 sm:p-6 space-y-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
                       <button onClick={() => setShowAddApp(false)} className="absolute right-4 top-4 text-stone-500 hover:text-[#2C1810] text-lg">×</button>
                       <h4 className="text-lg font-serif text-clinicGold uppercase tracking-wider">Randevu Planlama</h4>
                       <form onSubmit={handleAddAppointment} className="space-y-3">
@@ -1633,7 +1824,7 @@ export default function App() {
                     </div>
 
                     <div className="bg-[#FAF7F2] border border-clinicBorder rounded-lg overflow-x-auto">
-                      <table className="w-full text-left text-xs border-collapse">
+                      <table className="w-full min-w-[650px] text-left text-xs border-collapse">
                         <thead>
                           <tr className="border-b border-clinicBorder text-[#4E3D30] bg-[#FAF7F2]">
                             <th className="p-3">İlaç Adı</th>
@@ -1880,7 +2071,7 @@ export default function App() {
                 <div className="space-y-3">
                   <h4 className="text-xs uppercase tracking-wider text-clinicGold font-bold">Klinik Personel Listesi</h4>
                   <div className="bg-[#FAF7F2] border border-clinicBorder rounded-lg overflow-x-auto">
-                    <table className="w-full text-left text-xs border-collapse">
+                    <table className="w-full min-w-[600px] text-left text-xs border-collapse">
                       <thead>
                         <tr className="border-b border-clinicBorder text-[#4E3D30] bg-[#FAF7F2]">
                           <th className="p-3">Ad Soyad</th>
@@ -1916,8 +2107,8 @@ export default function App() {
 
                 {/* MODAL: ADD STAFF */}
                 {showAddStaff && (
-                  <div className="fixed inset-0 bg-[#2C1810]/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                    <div className="bg-white border border-clinicBorder rounded-xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
+                  <div className="fixed inset-0 bg-[#2C1810]/50 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50">
+                    <div className="bg-white border border-clinicBorder rounded-2xl max-w-md w-full p-4 sm:p-6 space-y-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
                       <button onClick={() => setShowAddStaff(false)} className="absolute right-4 top-4 text-stone-500 hover:text-[#2C1810] text-lg">×</button>
                       <h4 className="text-lg font-serif text-clinicGold uppercase tracking-wider font-semibold">Yeni Personel Hesabı Ekle</h4>
                       <form onSubmit={handleAddStaff} className="space-y-3">
@@ -1954,8 +2145,8 @@ export default function App() {
 
                 {/* MODAL: ADD INVENTORY */}
                 {showAddItem && (
-                  <div className="fixed inset-0 bg-[#2C1810]/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                    <div className="bg-white border border-clinicBorder rounded-xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
+                  <div className="fixed inset-0 bg-[#2C1810]/50 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50">
+                    <div className="bg-white border border-clinicBorder rounded-2xl max-w-md w-full p-4 sm:p-6 space-y-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
                       <button onClick={() => setShowAddItem(false)} className="absolute right-4 top-4 text-stone-500 hover:text-[#2C1810] text-lg">×</button>
                       <h4 className="text-lg font-serif text-clinicGold uppercase tracking-wider font-semibold">Eczane Depo Yeni İlaç Ekle</h4>
                       <form onSubmit={handleAddInventory} className="space-y-3">
@@ -1991,8 +2182,8 @@ export default function App() {
 
                 {/* MODAL: EDIT INVENTORY ITEM */}
                 {showEditItem && (
-                  <div className="fixed inset-0 bg-[#2C1810]/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                    <div className="bg-white border border-clinicBorder rounded-xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
+                  <div className="fixed inset-0 bg-[#2C1810]/50 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50">
+                    <div className="bg-white border border-clinicBorder rounded-2xl max-w-md w-full p-4 sm:p-6 space-y-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
                       <button onClick={() => setShowEditItem(null)} className="absolute right-4 top-4 text-stone-500 hover:text-[#2C1810] text-lg">×</button>
                       <h4 className="text-lg font-serif text-clinicGold uppercase tracking-wider font-semibold">İlaç Stok Kartını Düzenle</h4>
                       <form onSubmit={handleUpdateInventory} className="space-y-3">

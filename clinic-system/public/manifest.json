@@ -1,0 +1,28 @@
+{
+  "name": "Mena Clinic Aleppo - مجمع مينا الطبي",
+  "short_name": "Mena Clinic",
+  "description": "نظام مجمع مينا الطبي بحلب - حجز المواعيد، بطاقة المريض الإلكترونية، والوصفات الطبية",
+  "start_url": "/ar/patient",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#FAF7F2",
+  "theme_color": "#4A2E1B",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["medical", "health"],
+  "lang": "ar",
+  "dir": "rtl"
+}
+

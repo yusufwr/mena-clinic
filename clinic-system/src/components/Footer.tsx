@@ -7,7 +7,7 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="bg-[#F3EDE2] border-t border-[#DDD2C1] text-[#6A584A] text-xs py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div className="max-w-7xl 2xl:max-w-[1600px] 3xl:max-w-[1920px] tv:max-w-[2400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-full overflow-hidden border border-[#D5C7B3] shadow-sm bg-[#FAF7F2] p-0.5">

@@ -20,7 +20,7 @@ export function guarded(handler: Handler): Handler {
       if (route === "auth/me") return await handler(request, context);
       const feature = route.split("/")[0];
       const access: Record<string, string[]> = {
-        patients: read && route === "patients/lookup" ? ["ADMIN", "RECEPTIONIST", "DOCTOR", "PATIENT"] : ["ADMIN", "RECEPTIONIST", "DOCTOR"],
+        patients: (read && route === "patients/lookup") || route.startsWith("patients/family") ? ["ADMIN", "RECEPTIONIST", "DOCTOR", "PATIENT"] : ["ADMIN", "RECEPTIONIST", "DOCTOR"],
         appointments: read ? ["ADMIN", "RECEPTIONIST", "DOCTOR", "PATIENT", "ACCOUNTANT", "FINANCE"] : ["ADMIN", "RECEPTIONIST", "DOCTOR", "PATIENT"],
         doctors: ["ADMIN"],
         users: ["ADMIN"],
@@ -30,29 +30,40 @@ export function guarded(handler: Handler): Handler {
         "lab-orders": read ? ["ADMIN", "LAB_TECH", "DOCTOR"] : ["ADMIN", "LAB_TECH"],
         finance: ["ADMIN", "FINANCE", "ACCOUNTANT"],
         "audit-logs": ["ADMIN"],
+        backup: ["ADMIN"],
       };
       if (!access[feature]?.includes(role)) return errorResponse("Bu işlem için yetkiniz yok", 403);
       if (role === "PATIENT") {
         if (feature === "medical-records") {
           if (!read) return errorResponse("Bu işlem için yetkiniz yok", 403);
           const segments = route.split("/");
-          if (segments[1] === "patient" && segments[2] !== session.id) return errorResponse("Erişim yetkiniz yok", 403);
-          if (segments[2] === "pdf" && !db.medicalRecords.some(r => r.id === segments[1] && r.patientId === session.id)) return errorResponse("Kayıt bulunamadı", 404);
+          if (segments[1] === "patient") {
+            const targetPatientId = segments[2];
+            const isFamilyMember = db.patients.some(p => p.id === targetPatientId && (p.id === session.id || p.familyHeadId === session.id));
+            if (!isFamilyMember) return errorResponse("Erişim yetkiniz yok", 403);
+          }
+          if (segments[2] === "pdf" && !db.medicalRecords.some(r => r.id === segments[1] && (r.patientId === session.id || db.patients.some(p => p.id === r.patientId && p.familyHeadId === session.id)))) return errorResponse("Kayıt bulunamadı", 404);
           if (segments[1] === "export-pdf") return errorResponse("Erişim yetkiniz yok", 403);
         }
         if (read) {
-          url.searchParams.set("patientId", session.id);
-          request = new Request(url, request);
+          if (!route.startsWith("patients/family")) {
+            url.searchParams.set("patientId", session.id);
+            request = new Request(url, request);
+          }
         } else {
           const body = await request.clone().json();
           if (feature === "appointments" && request.method === "POST" && route === "appointments") {
-            if (body.patientId !== session.id) return errorResponse("Kendi adınıza randevu alabilirsiniz", 403);
+            const isFamilyBooking = db.patients.some(p => p.id === body.patientId && (p.id === session.id || p.familyHeadId === session.id));
+            if (!isFamilyBooking) return errorResponse("Kendi adınıza veya aile bireyiniz adına randevu alabilirsiniz", 403);
+          } else if (route.startsWith("patients/family")) {
+            // allow family member creation
           } else return errorResponse("Bu işlem için yetkiniz yok", 403);
         }
       }
       if (role === "DOCTOR") {
         if (["users", "inventory", "finance"].includes(feature) || (feature === "patients" && !read)) return errorResponse("Erişim yetkiniz yok", 403);
-        if (read && ["appointments", "medical-records"].includes(feature)) {
+        // Doctors have full cross-disciplinary view of patient records (Dentistry, Cardiology, Ortho, etc.)
+        if (read && feature === "appointments") {
           url.searchParams.set("doctorId", session.id);
           request = new Request(url, request);
         }

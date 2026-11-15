@@ -25,7 +25,8 @@ import {
   Phone,
   FileDown,
   Building,
-  DollarSign
+  DollarSign,
+  MessageCircle
 } from "lucide-react";
 import { AdminTranslations } from "../i18n";
 import { DoctorModel, apiFetch } from "../apiClient";
@@ -66,7 +67,7 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
     fullName: currentUser?.fullName || "Dr. Mena Clinic",
     email: currentUser?.email || "doctor@menaclinic.com",
     phone: currentUser?.phone || "+963 991 223301",
-    consultationFee: 1200,
+    consultationFee: 1000,
     room: "Poliklinik 101",
     hours: "09:00 - 17:00",
     monthlyPatients: 42,
@@ -327,14 +328,14 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
   return (
     <div className="space-y-6 animate-fadeIn text-[#2C1810]">
       {/* 1. DOCTOR POLICLINIC HEADER */}
-      <div className="bg-white border border-[#E5DCD0] rounded-3xl p-6 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-[#4A2E1B] text-amber-200 flex items-center justify-center font-bold shadow-md">
-            <Stethoscope className="w-7 h-7" />
+      <div className="bg-white border border-[#E5DCD0] rounded-3xl p-4 sm:p-6 2xl:p-8 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#4A2E1B] text-amber-200 flex items-center justify-center font-bold shadow-md shrink-0">
+            <Stethoscope className="w-6 h-6 sm:w-7 sm:h-7" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-xl font-bold font-serif text-[#2C1810]">
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="text-lg sm:text-xl font-bold font-serif text-[#2C1810]">
                 {currentDoctor.fullName}
               </h2>
               <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
@@ -351,20 +352,20 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
         </div>
 
         {/* Doctor Stats & Consultation Fee */}
-        <div className="flex items-center gap-3">
-          <div className="px-4 py-2.5 rounded-2xl bg-[#FAF7F2] border border-[#E5DCD0] text-center">
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2.5 sm:gap-3">
+          <div className="px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-2xl bg-[#FAF7F2] border border-[#E5DCD0] text-center flex-1 sm:flex-initial">
             <span className="block text-[10px] text-[#7D6E63] uppercase font-bold">{t.feePerVisit}</span>
-            <strong className="text-sm font-bold text-[#4A2E1B]">{currentDoctor.consultationFee?.toLocaleString()} TL / 250.000 SYP</strong>
+            <strong className="text-xs sm:text-sm font-bold text-[#4A2E1B]">{currentDoctor.consultationFee?.toLocaleString()} {lang === 'ar' ? 'ل.س جديدة' : 'SYP'}</strong>
           </div>
-          <div className="px-4 py-2.5 rounded-2xl bg-[#FAF7F2] border border-[#E5DCD0] text-center">
+          <div className="px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-2xl bg-[#FAF7F2] border border-[#E5DCD0] text-center flex-1 sm:flex-initial">
             <span className="block text-[10px] text-[#7D6E63] uppercase font-bold">{t.totalAppointments}</span>
-            <strong className="text-sm font-bold text-[#4A2E1B]">{docAppointments.length} {lang === "ar" ? "مريض" : "Hasta"}</strong>
+            <strong className="text-xs sm:text-sm font-bold text-[#4A2E1B]">{docAppointments.length} {lang === "ar" ? "مريض" : "Hasta"}</strong>
           </div>
         </div>
       </div>
 
       {/* 2. NAVIGATION TABS */}
-      <div className="flex items-center gap-2 border-b border-[#E5DCD0] pb-2 overflow-x-auto">
+      <div className="flex items-center gap-2 border-b border-[#E5DCD0] pb-2 overflow-x-auto no-scrollbar scroll-smooth">
         <button
           onClick={() => setActiveTab("queue")}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-xs ${
@@ -421,7 +422,7 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
 
       {/* TAB 1: PATIENT QUEUE & ACTIVE CONSULTATION */}
       {activeTab === "queue" && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
           {/* QUEUE COLUMN */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -519,7 +520,7 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
           </div>
 
           {/* ACTIVE CONSULTATION WORKSPACE */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 2xl:col-span-3 space-y-6">
             {selectedApp ? (
               <div className="bg-white border border-[#E5DCD0] rounded-3xl p-6 shadow-md space-y-6">
                 
@@ -705,6 +706,22 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
 
                     {prescDrugs.length > 0 && (
                       <div className="space-y-1.5 pt-2">
+                        <div className="flex items-center justify-between pb-1">
+                          <span className="text-[11px] font-bold text-[#8A5F35]">
+                            {lang === "ar" ? "قائمة الأدوية المضافة:" : "Eklenen İlaçlar:"}
+                          </span>
+                          <a
+                            href={`https://api.whatsapp.com/send?phone=${(selectedApp?.patient?.phone || "").replace(/\D/g, "")}&text=${encodeURIComponent(
+                              `🏥 *مجمع مينا الطبي - وصفة علاجية*\nالمريض: ${selectedApp?.patient?.fullName || ""}\nالطبيب المعالج: ${currentDoctor.fullName}\nالتاريخ: ${new Date().toISOString().slice(0, 10)}\n${soapNotes.diagnosis ? `التشخيص: ${soapNotes.diagnosis}\n` : ""}الأدوية الموصوفة:\n${prescDrugs.map((d: any, i: number) => `  ${i + 1}. *${d.itemName}* (${d.dosage}) - ${d.quantity} عبوة`).join("\n")}\n\nيرجى مراجعة الصيدلية لصرف الدواء.`
+                            )}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] transition-colors shadow-xs"
+                          >
+                            <MessageCircle size={12} />
+                            <span>{lang === "ar" ? "إرسال للواتساب 📲" : "WhatsApp ile Paylaş 📲"}</span>
+                          </a>
+                        </div>
                         {prescDrugs.map((d, index) => (
                           <div
                             key={index}
@@ -898,7 +915,7 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 tv:grid-cols-5 gap-3">
             {scheduleSlots.map((slot) => {
               const matchedApp = docAppointments.find((a) => (a.timeStr || a.slotTime || "").includes(slot));
               const isPast = slot < "12:00";
@@ -991,7 +1008,7 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
             <h4 className="text-xs uppercase font-bold text-[#6E492D]">
               {lang === "ar" ? "مواعيد اليوم المحدد" : "Seçili Günün Randevu Listesi"}
             </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 tv:grid-cols-5 gap-3">
               {docAppointments.slice(0, 4).map((app, idx) => (
                 <div key={app.id || idx} className="p-3.5 rounded-2xl bg-[#FAF7F2] border border-[#E5DCD0] flex items-center justify-between">
                   <div>
@@ -1043,7 +1060,7 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
 
           {/* Archive Table */}
           <div className="overflow-x-auto rounded-2xl border border-[#E5DCD0]">
-            <table className="w-full text-left rtl:text-right text-xs">
+            <table className="w-full min-w-[650px] text-left rtl:text-right text-xs">
               <thead className="bg-[#FAF7F2] border-b border-[#E5DCD0] text-[#6E492D] font-bold">
                 <tr>
                   <th className="p-3">{t.patientName}</th>

@@ -4,6 +4,7 @@ audit/*.log
 audit/load-db-path.txt
 .next-audit/
 clinic-system/.next-audit/
+clinic-system/backups/
 clinic-system/src/data/*.lock
 clinic-system/src/data/*.tmp
 clinic-system/src/data/*.bak
