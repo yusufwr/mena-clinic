@@ -22,6 +22,9 @@ export interface Doctor {
   specialtyEn?: string;
   departmentName?: string;
   room?: string;
+  hours?: string;
+  availabilityStatus?: "AVAILABLE" | "EVENING_SHIFT" | "ON_LEAVE" | "EMERGENCY_ONLY";
+  availabilityNote?: string;
   rating?: number;
   fee?: string;
   feeAr?: string;

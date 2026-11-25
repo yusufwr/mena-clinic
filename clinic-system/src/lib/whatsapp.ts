@@ -64,7 +64,7 @@ export function buildWhatsAppAppointmentUrl(
 💰 *أجرة المعاينة:* ${feeText}
 
 📍 *العنوان:* حلب - مجمع مينا الطبي التخصصي
-📞 *للاستفسار والطوارئ:* +963 21 222 3344
+📞 *للاستفسار والطوارئ:* 0989111242 - 0989111245
 نتمنى لكم دوام الصحة والعافية! ✨`;
   } else if (lang === "en") {
     msg =
@@ -80,7 +80,7 @@ Your appointment has been successfully scheduled:
 💰 *Consultation Fee:* ${feeText}
 
 📍 *Address:* Mena Medical Complex, Aleppo
-📞 *Emergency & Inquiries:* +963 21 222 3344
+📞 *Emergency & Inquiries:* 0989111242 - 0989111245
 Wishing you quick recovery & good health! ✨`;
   } else {
     msg =
@@ -96,7 +96,7 @@ Randevunuz başarıyla oluşturulmuştur:
 💰 *Muayene Ücreti:* ${feeText}
 
 📍 *Adres:* Mena Tıp Merkezi, Halep
-📞 *İletişim:* +963 21 222 3344
+📞 *İletişim & Acil:* 0989111242 - 0989111245
 Geçmiş olsun dileklerimizle! ✨`;
   }
 
@@ -126,7 +126,7 @@ ${data.diagnosis ? `📋 *التشخيص:* ${data.diagnosis}\n` : ""}
 ${itemsText}
 
 ⚠️ يرجى الالتزام بالجرعات المحددة واستشارة الصيدلي.
-لأي استفسار: +963 21 222 3344`;
+لأي استفسار: 0989111242 - 0989111245`;
   } else {
     msg =
 `🏥 *Mena Clinic - Dijital Reçete Bildirimi*
@@ -137,7 +137,7 @@ ${data.diagnosis ? `Tanı: ${data.diagnosis}\n` : ""}
 💊 *Reçete İlaçları:*
 ${itemsText}
 
-İlaçlarınızı belirtilen dozda kullanınız. İletişim: +963 21 222 3344`;
+İlaçlarınızı belirtilen dozda kullanınız. İletişim: 0989111242 - 0989111245`;
   }
 
   return `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(msg)}`;

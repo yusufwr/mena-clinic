@@ -123,6 +123,11 @@ export default function DedicatedPatientPortalPage() {
   const [bookDate, setBookDate] = useState<string>(() => clinicDate());
   const [bookSlot, setBookSlot] = useState("10:00");
   const [blockedSlots, setBlockedSlots] = useState<string[]>(["12:00", "12:30", "15:00"]);
+  const [allStandardSlots, setAllStandardSlots] = useState<string[]>([
+    "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
+    "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+    "15:00", "15:30", "16:00", "16:30",
+  ]);
   const [bookingSuccessMsg, setBookingSuccessMsg] = useState("");
   const [bookErrorMsg, setBookErrorMsg] = useState("");
   const [isBookingIntent, setIsBookingIntent] = useState(false);
@@ -260,6 +265,9 @@ export default function DedicatedPatientPortalPage() {
         setBookDoctorId(targetDoc);
       }
 
+      // Always fetch live doctors from unified API on port 3000
+      loadDoctors();
+
       if (queryId) {
         setSearchInput(queryId);
         // Identity from a URL only pre-fills the form; it never authenticates.
@@ -277,8 +285,6 @@ export default function DedicatedPatientPortalPage() {
         } catch {}
       }
 
-      // Fetch live doctors from unified API on port 3000
-      loadDoctors();
       const token = localStorage.getItem("mena_auth_token");
       const headers = token ? { Authorization: "Bearer " + token } : undefined;
       fetch("/api/auth/me", { headers })
@@ -306,26 +312,43 @@ export default function DedicatedPatientPortalPage() {
     } catch {}
   };
 
-  const loadDoctorSchedule = async (docId: string) => {
+  const loadDoctorSchedule = async (docId: string, dateOverride?: string) => {
+    const targetDate = dateOverride || bookDate;
+    if (!docId || !targetDate) return;
     try {
-      const res = await fetch(`/api/doctors/${docId}/schedule`, { cache: "no-store" });
+      const res = await fetch(
+        `/api/doctors/${encodeURIComponent(docId)}/schedule?date=${encodeURIComponent(targetDate)}&_t=${Date.now()}`,
+        { cache: "no-store" }
+      );
       if (res.ok) {
         const data = await res.json();
-        if (data.allBlockedSlots) {
+        if (Array.isArray(data.allStandardSlots) && data.allStandardSlots.length > 0) {
+          setAllStandardSlots(data.allStandardSlots);
+        }
+        if (Array.isArray(data.allBlockedSlots)) {
           setBlockedSlots(data.allBlockedSlots);
-          if (data.allBlockedSlots.includes(bookSlot) && data.availableSlots && data.availableSlots.length > 0) {
-            setBookSlot(data.availableSlots[0]);
-          }
+          setBookSlot((prevSlot) => {
+            if (data.allBlockedSlots.includes(prevSlot)) {
+              return Array.isArray(data.availableSlots) && data.availableSlots.length > 0
+                ? data.availableSlots[0]
+                : "";
+            }
+            return prevSlot;
+          });
         }
       }
     } catch {}
   };
 
   useEffect(() => {
-    if (bookDoctorId) {
-      loadDoctorSchedule(bookDoctorId);
-    }
-  }, [bookDoctorId, bookDate]);
+    if (!bookDoctorId) return;
+    loadDoctorSchedule(bookDoctorId, bookDate);
+    if (activeTab !== "book") return;
+    const timer = setInterval(() => {
+      loadDoctorSchedule(bookDoctorId, bookDate);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [bookDoctorId, bookDate, activeTab]);
 
   // Compute Permanent QR Code Target URL
   const qrTargetUrl = useMemo(() => {
@@ -451,7 +474,14 @@ export default function DedicatedPatientPortalPage() {
         setActiveTab("book");
       }
     } catch (err: any) {
-      setLoginErrorMsg(err.message || "Giriş işlemi sırasında bağlantı hatası oluştu.");
+      setLoginErrorMsg(
+        err.message ||
+          (locale === "ar"
+            ? "حدث خطأ في الاتصال أثناء تسجيل الدخول."
+            : locale === "en"
+            ? "A connection error occurred during sign in."
+            : "Giriş işlemi sırasında bağlantı hatası oluştu.")
+      );
     } finally {
       setIsSearching(false);
     }
@@ -491,25 +521,38 @@ export default function DedicatedPatientPortalPage() {
     setBookErrorMsg("");
     setBookingSuccessMsg("");
 
-    if (blockedSlots.includes(bookSlot)) {
-      setBookErrorMsg(`Seçilen saat (${bookSlot}) doktor için uygun değildir (Mola/Ameliyat/Dolu). Lütfen yeşil renkli müsait saatlerden birini seçiniz.`);
+    const P = (tr: string, ar: string, en: string) => (locale === "ar" ? ar : locale === "en" ? en : tr);
+
+    if (!bookSlot || blockedSlots.includes(bookSlot)) {
+      setBookErrorMsg(
+        P(
+          `Seçilen saat (${bookSlot || "-"}) doktor için uygun değildir (Kırmızı / Dolu). Lütfen yeşil renkli müsait saatlerden birini seçiniz.`,
+          `الوقت المحدد (${bookSlot || "-"}) غير متاح أو محجوز (باللون الأحمر). يرجى اختيار وقت متاح باللون الأخضر.`,
+          `The selected slot (${bookSlot || "-"}) is unavailable (Red / Booked). Please select an available green slot.`
+        )
+      );
       return;
     }
 
     const docObj = liveDoctors.find((d) => d.id === bookDoctorId) || liveDoctors[0] || DOCTORS_DATA[0];
+    const bookedSlotValue = bookSlot;
 
     try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("mena_auth_token") : null;
       const res = await fetch("/api/appointments", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify({
           patientId: activePatient.id,
           patientIdentityNo: activePatient.identityNo,
           doctorId: docObj.id,
-          slotTime: `${bookDate}T${bookSlot}:00.000Z`,
-          timeStr: bookSlot,
+          slotTime: `${bookDate}T${bookedSlotValue}:00`,
+          timeStr: bookedSlotValue,
           dateStr: bookDate,
-          notes: "Hasta portalı randevusu",
+          notes: P("Hasta portalı randevusu", "حجز عبر بوابة المريض", "Patient portal booking"),
           patient: {
             fullName: activePatient.fullName,
             phone: activePatient.phone,
@@ -521,15 +564,30 @@ export default function DedicatedPatientPortalPage() {
 
       const data = await res.json();
       if (!res.ok) {
-        setBookErrorMsg(data.error || "Randevu oluşturulamadı.");
+        await loadDoctorSchedule(docObj.id, bookDate);
+        setBookErrorMsg(
+          P(
+            "Bu saat az önce başka bir hasta tarafından alındı.",
+            "هذا الموعد تم حجزه للتو من قبل مريض آخر.",
+            "This time slot was just booked by another patient."
+          )
+        );
         return;
       }
 
+      // Immediately turn the booked slot RED and advance selection to the next available green slot
+      const updatedBlocked = Array.from(new Set([...blockedSlots, bookedSlotValue]));
+      setBlockedSlots(updatedBlocked);
+      const nextFreeSlot = allStandardSlots.find((s) => !updatedBlocked.includes(s)) || "";
+      setBookSlot(nextFreeSlot);
+
       const newQueueNo = data.queueNumber || (activePatient.appointments.length + 1) * 2;
+      const localizedDocName =
+        locale === "ar" ? docObj.fullNameAr || docObj.fullName : locale === "en" ? docObj.fullNameEn || docObj.fullName : docObj.fullName;
       const newAppointment = {
         id: data.id || `app-${Date.now()}`,
-        doctorName: docObj.fullName,
-        slotTime: `${bookDate} ${bookSlot}`,
+        doctorName: localizedDocName,
+        slotTime: `${bookDate} ${bookedSlotValue}`,
         queueNumber: newQueueNo,
         status: "CONFIRMED" as const
       };
@@ -541,24 +599,29 @@ export default function DedicatedPatientPortalPage() {
 
       setActivePatient(updatedPatient);
 
+      const feeNum = docObj.consultationFee || 1000;
       setLastBookedApp({
-        doctorName: docObj.fullName,
+        doctorName: localizedDocName,
         dateStr: bookDate,
-        timeStr: bookSlot,
+        timeStr: bookedSlotValue,
         queueNumber: newQueueNo,
-        feeText: docObj.consultationFee === 2000 ? "2.000 ل.س جديدة" : "1.000 ل.س جديدة",
+        feeText: locale === "ar" ? `${feeNum.toLocaleString("tr-TR")} ل.س` : `${feeNum.toLocaleString("tr-TR")} SYP`,
       });
 
       setBookingSuccessMsg(
-        locale === "ar"
-          ? `تم تأكيد موعدك بنجاح مع ${docObj.fullName} في ${bookDate} الساعة ${bookSlot}. رقم الدور: #${newQueueNo}`
-          : `${docObj.fullName} için ${bookDate} saat ${bookSlot} randevunuz başarıyla oluşturuldu! (Sıra Numaranız: #${newQueueNo})`
+        P(
+          `${localizedDocName} için ${bookDate} saat ${bookedSlotValue} randevunuz başarıyla oluşturuldu! (Sıra No: #${newQueueNo})`,
+          `تم تأكيد موعدك بنجاح مع ${localizedDocName} في ${bookDate} الساعة ${bookedSlotValue}. رقم الدور: #${newQueueNo}`,
+          `Your appointment with ${localizedDocName} on ${bookDate} at ${bookedSlotValue} is confirmed! (Queue No: #${newQueueNo})`
+        )
       );
 
-      // Refresh doctor blocked slots
-      loadDoctorSchedule(docObj.id);
+      // Re-sync live blocked slots from backend
+      await loadDoctorSchedule(docObj.id, bookDate);
     } catch {
-      setBookErrorMsg("Sunucuya bağlanırken hata oluştu.");
+      setBookErrorMsg(
+        P("Sunucuya bağlanırken hata oluştu.", "حدث خطأ أثناء الاتصال بالخادم.", "Connection error while contacting server.")
+      );
     }
   };
 
@@ -973,10 +1036,10 @@ export default function DedicatedPatientPortalPage() {
                   </div>
                   <div>
                     <span className="text-xs font-bold text-[#2C1810]">
-                      {locale === "ar" ? "ملف العائلة الموحد" : "Birleşik Aile Dosyası"}
+                      {locale === "ar" ? "ملف العائلة الموحد" : locale === "en" ? "Unified Family Chart" : "Birleşik Aile Dosyası"}
                     </span>
                     <p className="text-[10px] text-[#8C6D53]">
-                      {locale === "ar" ? "إدارة أفراد العائلة والأطفال من حساب واحد" : "Çocuk ve aile fertlerinizi tek hesaptan yönetin"}
+                      {locale === "ar" ? "إدارة أفراد العائلة والأطفال من حساب واحد" : locale === "en" ? "Manage your children and family members from a single account" : "Çocuk ve aile fertlerinizi tek hesaptan yönetin"}
                     </p>
                   </div>
                 </div>
@@ -1004,7 +1067,7 @@ export default function DedicatedPatientPortalPage() {
                     className="px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-bold transition-all flex items-center gap-1"
                   >
                     <UserPlus className="w-3.5 h-3.5" />
-                    <span>{locale === "ar" ? "+ إضافة فرد" : "+ Fert Ekle"}</span>
+                    <span>{locale === "ar" ? "+ إضافة فرد" : locale === "en" ? "+ Add Member" : "+ Fert Ekle"}</span>
                   </button>
                 </div>
               </div>
@@ -1029,15 +1092,15 @@ export default function DedicatedPatientPortalPage() {
                     {activePatient.fullName}
                   </h2>
                   <div className="flex flex-wrap items-center gap-3 text-xs text-[#6A584A]">
-                    <span>{locale === "ar" ? "الرقم الوطني: " : "T.C. / Kimlik: "}<bdi dir="ltr" className="font-mono font-semibold">{activePatient.identityNo}</bdi></span>
+                    <span>{locale === "ar" ? "الرقم الوطني: " : locale === "en" ? "National ID: " : "T.C. / Kimlik: "}<bdi dir="ltr" className="font-mono font-semibold">{activePatient.identityNo}</bdi></span>
                     <span>•</span>
-                    <span>{locale === "ar" ? "الهاتف: " : "Tel: "}<bdi dir="ltr" className="font-mono font-semibold">{activePatient.phone}</bdi></span>
+                    <span>{locale === "ar" ? "الهاتف: " : locale === "en" ? "Phone: " : "Tel: "}<bdi dir="ltr" className="font-mono font-semibold">{activePatient.phone}</bdi></span>
                     <span>•</span>
-                    <span className="font-semibold text-rose-800">{locale === "ar" ? "فصيلة الدم: " : "Kan: "}{activePatient.bloodType}</span>
+                    <span className="font-semibold text-rose-800">{locale === "ar" ? "فصيلة الدم: " : locale === "en" ? "Blood: " : "Kan: "}{activePatient.bloodType}</span>
                     {activePatient.emergencyContact && (
                       <>
                         <span>•</span>
-                        <span className="text-[#8A5F35] font-medium">{locale === "ar" ? "جهة الطوارئ: " : "Acil: "}{activePatient.emergencyContact}</span>
+                        <span className="text-[#8A5F35] font-medium">{locale === "ar" ? "جهة الطوارئ: " : locale === "en" ? "Emergency: " : "Acil: "}{activePatient.emergencyContact}</span>
                       </>
                     )}
                     {activePatient.email && (
@@ -1162,14 +1225,14 @@ export default function DedicatedPatientPortalPage() {
                           </div>
                         </div>
                         <span className="text-xs font-mono font-semibold text-[#6E492D] bg-[#FAF7F2] px-2.5 py-1 rounded-lg self-start sm:self-auto border border-[#E5DCD0]">
-                          Tarih: {c.date}
+                          {locale === "ar" ? "التاريخ: " : locale === "en" ? "Date: " : "Tarih: "}{c.date}
                         </span>
                       </div>
 
                       {/* Diagnosis */}
                       <div className="p-3 rounded-xl bg-[#FAF7F2] border border-[#E5DCD0] space-y-1">
                         <div className="text-[10px] uppercase tracking-wider font-bold text-[#8A5F35]">
-                          Teşhis & ICD-10 Tanı Kodu:
+                          {locale === "ar" ? "التشخيص الطبي (ICD-10):" : locale === "en" ? "Diagnosis & ICD-10 Code:" : "Teşhis & ICD-10 Tanı Kodu:"}
                         </div>
                         <div className="text-xs font-bold text-[#2C1810]">
                           {c.diagnosis}
@@ -1179,7 +1242,7 @@ export default function DedicatedPatientPortalPage() {
                       {/* SOAP Notes */}
                       <div className="space-y-1">
                         <div className="text-[10px] uppercase tracking-wider font-bold text-[#8A5F35]">
-                          Hekim Muayene & Klinik Notları (SOAP):
+                          {locale === "ar" ? "الملاحظات السريرية وخطة العلاج (SOAP):" : locale === "en" ? "Clinical Notes & Assessment (SOAP):" : "Hekim Muayene & Klinik Notları (SOAP):"}
                         </div>
                         <pre className="text-xs text-[#4E3D30] font-sans whitespace-pre-line leading-relaxed bg-[#FDFBF7] p-3 rounded-xl border border-[#E5DCD0]/60">
                           {c.clinicalNotes}
@@ -1191,7 +1254,7 @@ export default function DedicatedPatientPortalPage() {
                         <div className="pt-2 flex flex-wrap items-center gap-2">
                           <span className="text-[11px] font-bold text-[#6E492D] flex items-center gap-1">
                             <Pill className="w-3.5 h-3.5 text-[#8A5F35]" />
-                            <span>Reçete:</span>
+                            <span>{locale === "ar" ? "الوصفة:" : locale === "en" ? "Prescription:" : "Reçete:"}</span>
                           </span>
                           {c.prescriptions.map((p, idx) => (
                             <span key={idx} className="text-xs bg-[#EFE8DC] text-[#3B2215] px-2.5 py-1 rounded-lg border border-[#D5C7B3] font-medium">
@@ -1244,11 +1307,19 @@ export default function DedicatedPatientPortalPage() {
                           <span>{pr.itemName}</span>
                         </div>
                         <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">
-                          E-Reçete Aktif
+                          {locale === "ar" ? "وصفة إلكترونية" : locale === "en" ? "Active E-Rx" : "E-Reçete Aktif"}
                         </span>
                       </div>
-                      <p className="text-xs text-[#6A584A]">Dozaj: <bdi className="font-semibold text-[#2C1810]">{pr.dosage}</bdi></p>
-                      <p className="text-xs text-[#6A584A]">Kutu Adedi: <bdi className="font-semibold text-[#2C1810]">{pr.quantity} Kutu</bdi></p>
+                      <p className="text-xs text-[#6A584A]">
+                        {locale === "ar" ? "الجرعة: " : locale === "en" ? "Dosage: " : "Dozaj: "}
+                        <bdi className="font-semibold text-[#2C1810]">{pr.dosage}</bdi>
+                      </p>
+                      <p className="text-xs text-[#6A584A]">
+                        {locale === "ar" ? "الكمية: " : locale === "en" ? "Quantity: " : "Kutu Adedi: "}
+                        <bdi className="font-semibold text-[#2C1810]">
+                          {pr.quantity} {locale === "ar" ? "علبة" : locale === "en" ? "Box" : "Kutu"}
+                        </bdi>
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -1267,12 +1338,14 @@ export default function DedicatedPatientPortalPage() {
                           <span>{lab.testName}</span>
                         </div>
                         <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">
-                          {lab.status}
+                          {lab.status === "COMPLETED"
+                            ? locale === "ar" ? "مكتمل" : locale === "en" ? "Completed" : "Tamamlandı"
+                            : locale === "ar" ? "قيد الانتظار" : locale === "en" ? "Pending" : "Bekliyor"}
                         </span>
                       </div>
                       {lab.resultData && (
-                        <div className="p-3 bg-[#FAF7F2] rounded-xl text-xs font-mono text-[#4A2E1B] border border-[#E5DCD0]">
-                          Sonuç: {lab.resultData}
+                        <div className="p-3 bg-[#FAF7F2] rounded-xl text-xs font-mono text-[#4A2E1B] border border-[#E5DCD0] whitespace-pre-wrap">
+                          {locale === "ar" ? "النتيجة: " : locale === "en" ? "Result: " : "Sonuç: "}{lab.resultData}
                         </div>
                       )}
                     </div>
@@ -1288,7 +1361,11 @@ export default function DedicatedPatientPortalPage() {
                 <div className="space-y-1 text-left rtl:text-right">
                   <h3 className="text-xl font-bold text-[#2C1810] font-serif">{t("tabNewAppointment")}</h3>
                   <p className="text-xs text-[#6A584A]">
-                    {activePatient.fullName} için hızlı poliklinik randevusu oluşturun.
+                    {locale === "ar"
+                      ? `حجز موعد عيادة فوري للمريض: ${activePatient.fullName}`
+                      : locale === "en"
+                      ? `Schedule an outpatient clinic appointment for ${activePatient.fullName}.`
+                      : `${activePatient.fullName} için hızlı poliklinik randevusu oluşturun.`}
                   </p>
                 </div>
 
@@ -1298,13 +1375,23 @@ export default function DedicatedPatientPortalPage() {
                       <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
                       <div>
                         <p className="font-bold text-emerald-950">{bookingSuccessMsg}</p>
-                        <p className="text-[11px] text-emerald-800">Randevunuz hekim takvimine ve klinik yönetim paneline işlendi.</p>
+                        <p className="text-[11px] text-emerald-800">
+                          {locale === "ar"
+                            ? "تم تثبيت الموعد في جدول الطبيب ولوحة الاستقبال."
+                            : locale === "en"
+                            ? "Your appointment has been synced with the physician's schedule and reception queue."
+                            : "Randevunuz hekim takvimine ve klinik yönetim paneline işlendi."}
+                        </p>
                       </div>
                     </div>
                     {lastBookedApp && (
                       <div className="pt-2 border-t border-emerald-200/80 flex items-center justify-between">
                         <span className="text-[11px] text-emerald-800 font-medium">
-                          {locale === "ar" ? "إرسال تأكيد الموعد إلى هاتفك:" : "Randevu kartını telefonunuza kaydedin:"}
+                          {locale === "ar"
+                            ? "إرسال تأكيد الموعد إلى هاتفك:"
+                            : locale === "en"
+                            ? "Save appointment ticket to your phone:"
+                            : "Randevu kartını telefonunuza kaydedin:"}
                         </span>
                         <a
                           href={buildWhatsAppAppointmentUrl({
@@ -1321,7 +1408,13 @@ export default function DedicatedPatientPortalPage() {
                           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-transform active:scale-95"
                         >
                           <MessageCircle className="w-3.5 h-3.5" />
-                          <span>{locale === "ar" ? "إرسال إلى واتساب 📲" : "WhatsApp'a İlet 📲"}</span>
+                          <span>
+                            {locale === "ar"
+                              ? "إرسال إلى واتساب 📲"
+                              : locale === "en"
+                              ? "Send to WhatsApp 📲"
+                              : "WhatsApp'a İlet 📲"}
+                          </span>
                         </a>
                       </div>
                     )}
@@ -1342,24 +1435,67 @@ export default function DedicatedPatientPortalPage() {
                     <label className="text-xs font-bold text-[#4E3D30] uppercase tracking-wider">
                       {tBooking("stepDoctor")}
                     </label>
-                    <select
-                      value={bookDoctorId}
-                      onChange={(e) => setBookDoctorId(e.target.value)}
-                      className="w-full px-4 py-3 rounded-2xl bg-[#FAF7F2] border border-[#DDD2C1] text-xs font-semibold text-[#2C1810] focus:bg-white focus:outline-none focus:border-[#4A2E1B]"
-                    >
-                      {liveDoctors.map((d) => (
-                        <option key={d.id} value={d.id}>
-                          {locale === "ar" ? (d.fullNameAr || d.fullName) : d.fullName} ({locale === "ar" ? (d.specialtyAr || d.specialty) : (d.specialty || d.department?.name || "Poliklinik")}) • {locale === "ar" ? (d.consultationFee === 2000 ? "2.000 ل.س جديدة" : "1.000 ل.س جديدة") : `${d.consultationFee === 2000 ? "2.000" : "1.000"} SYP`}
-                        </option>
-                      ))}
-                    </select>
+                      <select
+                        value={bookDoctorId}
+                        onChange={(e) => setBookDoctorId(e.target.value)}
+                        className="w-full px-4 py-3 rounded-2xl bg-[#FAF7F2] border border-[#DDD2C1] text-xs font-semibold text-[#2C1810] focus:bg-white focus:outline-none focus:border-[#4A2E1B]"
+                      >
+                        {liveDoctors.map((d) => {
+                          const st = d.availabilityStatus || "AVAILABLE";
+                          const stTag =
+                            st === "ON_LEAVE"
+                              ? locale === "ar" ? " [في إجازة]" : locale === "en" ? " [ON LEAVE]" : " [İZİNLİ/RAPORLU]"
+                              : st === "EVENING_SHIFT"
+                              ? locale === "ar" ? " [مناوبة مسائية]" : locale === "en" ? " [EVENING SHIFT]" : " [AKŞAM MESAİSİ]"
+                              : "";
+                          const dName = locale === "ar" ? (d.fullNameAr || d.fullName) : locale === "en" ? (d.fullNameEn || d.fullName) : d.fullName;
+                          const dSpec = locale === "ar" ? (d.specialtyAr || d.specialty) : locale === "en" ? (d.specialtyEn || d.specialty) : (d.specialty || d.department?.name || "Poliklinik");
+                          const feeAmt = (d.consultationFee || 1000).toLocaleString("tr-TR");
+                          return (
+                            <option key={d.id} value={d.id}>
+                              {dName}{stTag} ({dSpec}) • {d.hours || "09:00 - 17:00"} • {locale === "ar" ? `${feeAmt} ل.س` : `${feeAmt} SYP`}
+                            </option>
+                          );
+                        })}
+                      </select>
+                      {(() => {
+                        const selDoc = liveDoctors.find((d) => d.id === bookDoctorId);
+                        if (!selDoc) return null;
+                        const st = selDoc.availabilityStatus || "AVAILABLE";
+                        if (st === "ON_LEAVE") {
+                          return (
+                            <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-900 text-xs font-semibold">
+                              {locale === "ar"
+                                ? "الطبيب في إجازة / غير متاح حالياً"
+                                : locale === "en"
+                                ? "The selected physician is currently on leave and unavailable for booking."
+                                : "Seçilen hekim şu anda izinli/raporlu olduğu için randevuya kapalıdır."}
+                            </div>
+                          );
+                        }
+                        if (st === "EVENING_SHIFT" || selDoc.availabilityNote) {
+                          return (
+                            <div className="p-2.5 rounded-xl bg-purple-50 border border-purple-200 text-purple-900 text-xs font-medium">
+                              {st === "EVENING_SHIFT"
+                                ? locale === "ar"
+                                  ? "🌙 مناوبة مسائية مفتوحة"
+                                  : locale === "en"
+                                  ? "🌙 Evening Shift Open"
+                                  : "🌙 Akşam Mesaisi Açık"
+                                : ""}{" "}
+                              ({selDoc.hours || "09:00 - 21:00"})
+                            </div>
+                          );
+                        }
+                        return null;
+                      })()}
                   </div>
 
                   {/* Select Date & Interactive Time Slots */}
                   <div className="space-y-4">
                     <div className="space-y-1.5 text-left rtl:text-right">
                       <label className="text-xs font-bold text-[#4E3D30] uppercase tracking-wider">
-                        Randevu Tarihi *
+                        {locale === "ar" ? "تاريخ الموعد *" : locale === "en" ? "Appointment Date *" : "Randevu Tarihi *"}
                       </label>
                       <input
                         type="date"
@@ -1374,25 +1510,23 @@ export default function DedicatedPatientPortalPage() {
                     <div className="space-y-2 text-left rtl:text-right">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                         <label className="text-xs font-bold text-[#4E3D30] uppercase tracking-wider">
-                          Saat Dilimi Seçimi *
+                          {locale === "ar" ? "اختيار الوقت *" : locale === "en" ? "Select Time Slot *" : "Saat Dilimi Seçimi *"}
                         </label>
                         <div className="flex items-center gap-2 text-[10px]">
                           <span className="flex items-center gap-1 text-emerald-800 font-semibold">
-                            <span className="w-2 h-2 rounded-full bg-emerald-500"></span> Müsait
+                            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>{" "}
+                            {locale === "ar" ? "متاح" : locale === "en" ? "Available" : "Müsait"}
                           </span>
                           <span className="flex items-center gap-1 text-red-700 font-semibold">
-                            <span className="w-2 h-2 rounded-full bg-red-500"></span> Müsait Değil
+                            <span className="w-2 h-2 rounded-full bg-red-500"></span>{" "}
+                            {locale === "ar" ? "غير متاح / محجوز" : locale === "en" ? "Booked / Unavailable" : "Müsait Değil"}
                           </span>
                         </div>
                       </div>
 
                       {/* Interactive Slot Buttons */}
                       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 pt-1">
-                        {[
-                          "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-                          "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
-                          "15:00", "15:30", "16:00", "16:30"
-                        ].map((slot) => {
+                        {allStandardSlots.map((slot) => {
                           const isBlocked = blockedSlots.includes(slot);
                           const isSelected = bookSlot === slot;
 
@@ -1412,15 +1546,25 @@ export default function DedicatedPatientPortalPage() {
                                   ? "bg-[#4A2E1B] text-white border-[#4A2E1B] shadow-md scale-105"
                                   : "bg-emerald-50 text-emerald-900 border-emerald-300 hover:bg-emerald-100 hover:scale-102"
                               }`}
-                              title={isBlocked ? `${slot} Hekim Müsait Değil (Seçilemez)` : `${slot} Hekim Müsait (Seç)`}
+                              title={
+                                isBlocked
+                                  ? `${slot} — ${locale === "ar" ? "غير متاح" : locale === "en" ? "Unavailable" : "Müsait Değil"}`
+                                  : `${slot} — ${locale === "ar" ? "متاح" : locale === "en" ? "Available" : "Müsait"}`
+                              }
                             >
                               <span>{slot}</span>
                               {isBlocked ? (
-                                <span className="block text-[8px] font-sans no-underline opacity-80">Müsait Değil</span>
+                                <span className="block text-[8px] font-sans no-underline opacity-80">
+                                  {locale === "ar" ? "محجوز" : locale === "en" ? "Booked" : "Müsait Değil"}
+                                </span>
                               ) : isSelected ? (
-                                <span className="block text-[8px] font-sans text-amber-200">Seçildi ✓</span>
+                                <span className="block text-[8px] font-sans text-amber-200">
+                                  {locale === "ar" ? "تم الاختيار ✓" : locale === "en" ? "Selected ✓" : "Seçildi ✓"}
+                                </span>
                               ) : (
-                                <span className="block text-[8px] font-sans text-emerald-700">Müsait</span>
+                                <span className="block text-[8px] font-sans text-emerald-700">
+                                  {locale === "ar" ? "متاح" : locale === "en" ? "Available" : "Müsait"}
+                                </span>
                               )}
                             </button>
                           );
@@ -1443,7 +1587,11 @@ export default function DedicatedPatientPortalPage() {
                 {activePatient.appointments.length > 0 && (
                   <div className="pt-4 border-t border-[#E5DCD0] space-y-3">
                     <h4 className="text-xs font-bold text-[#4E3D30] uppercase tracking-wider text-left rtl:text-right">
-                      Aktif Randevularınız ({activePatient.appointments.length})
+                      {locale === "ar"
+                        ? `مواعيدك النشطة (${activePatient.appointments.length})`
+                        : locale === "en"
+                        ? `Your Active Appointments (${activePatient.appointments.length})`
+                        : `Aktif Randevularınız (${activePatient.appointments.length})`}
                     </h4>
                     <div className="space-y-2">
                       {activePatient.appointments.map((app) => (
@@ -1461,7 +1609,7 @@ export default function DedicatedPatientPortalPage() {
                                 dateStr: app.slotTime.slice(0, 10),
                                 timeStr: app.slotTime.slice(11, 16),
                                 queueNumber: app.queueNumber,
-                                fee: "1.000 ل.س جديدة",
+                                fee: locale === "ar" ? "1.000 ل.س" : "1.000 SYP",
                               }, locale as any)}
                               target="_blank"
                               rel="noopener noreferrer"
@@ -1471,10 +1619,14 @@ export default function DedicatedPatientPortalPage() {
                               <MessageCircle className="w-3.5 h-3.5" />
                             </a>
                             <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-bold font-mono text-[10px]">
-                              Sıra #{app.queueNumber}
+                              {locale === "ar" ? `الدور #${app.queueNumber}` : locale === "en" ? `Queue #${app.queueNumber}` : `Sıra #${app.queueNumber}`}
                             </span>
                             <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">
-                              {app.status}
+                              {app.status === "CONFIRMED"
+                                ? locale === "ar" ? "مؤكد" : locale === "en" ? "Confirmed" : "Onaylı"
+                                : app.status === "COMPLETED"
+                                ? locale === "ar" ? "مكتمل" : locale === "en" ? "Completed" : "Tamamlandı"
+                                : app.status}
                             </span>
                           </div>
                         </div>
@@ -1503,7 +1655,7 @@ export default function DedicatedPatientPortalPage() {
                     </p>
                   </div>
                   <span className="px-3 py-1.5 rounded-xl bg-white border border-[#E5DCD0] text-xs font-bold text-[#4A2E1B] self-start sm:self-auto">
-                    {liveDoctors.length} {locale === "ar" ? "طبيب" : "Hekim"}
+                    {liveDoctors.length} {locale === "ar" ? "طبيب" : locale === "en" ? "Doctors" : "Hekim"}
                   </span>
                 </div>
 
@@ -1530,15 +1682,42 @@ export default function DedicatedPatientPortalPage() {
                           <div>
                             <h4 className="text-sm font-bold text-[#2C1810] font-serif">{docName}</h4>
                             <p className="text-xs text-[#8A5F35] font-medium mt-0.5">{docSpec}</p>
-                            <span className="text-[10px] text-[#7D6E63] block font-mono mt-1">{doc.room} • {doc.phone}</span>
+                            <span className="text-[10px] text-[#7D6E63] block font-mono mt-1">
+                              {(doc.room || "").replace(/Poliklinik/gi, locale === "ar" ? "عيادة" : locale === "en" ? "Clinic" : "Poliklinik")} • {doc.hours || "09:00 - 17:00"}
+                            </span>
+                            <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                              <span
+                                className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${
+                                  doc.availabilityStatus === "ON_LEAVE"
+                                    ? "bg-red-50 text-red-800 border-red-200"
+                                    : doc.availabilityStatus === "EVENING_SHIFT"
+                                    ? "bg-purple-50 text-purple-900 border-purple-200"
+                                    : doc.availabilityStatus === "EMERGENCY_ONLY"
+                                    ? "bg-amber-50 text-amber-900 border-amber-200"
+                                    : "bg-emerald-50 text-emerald-800 border-emerald-200"
+                                }`}
+                              >
+                                {doc.availabilityStatus === "ON_LEAVE"
+                                  ? locale === "ar" ? "في إجازة" : locale === "en" ? "On Leave" : "İzinli / Raporlu"
+                                  : doc.availabilityStatus === "EVENING_SHIFT"
+                                  ? locale === "ar" ? "مناوبة مسائية" : locale === "en" ? "Evening Shift" : "Akşam Mesaisinde"
+                                  : doc.availabilityStatus === "EMERGENCY_ONLY"
+                                  ? locale === "ar" ? "طوارئ فقط" : locale === "en" ? "Emergency Only" : "Sadece Acil"
+                                  : locale === "ar" ? "متاح" : locale === "en" ? "Available" : "Müsait"}
+                              </span>
+                            </div>
                           </div>
                         </div>
 
                         <div className="pt-3 border-t border-[#E5DCD0] flex items-center justify-between">
                           <div>
-                            <span className="text-[10px] text-[#7D6E63] block">{locale === "ar" ? "أجرة المعاينة" : "Muayene Ücreti"}</span>
+                            <span className="text-[10px] text-[#7D6E63] block">
+                              {locale === "ar" ? "أجرة المعاينة" : locale === "en" ? "Consultation Fee" : "Muayene Ücreti"}
+                            </span>
                             <strong className="text-xs font-bold text-[#4A2E1B] font-mono">
-                              {locale === "ar" ? (doc.consultationFee === 2000 ? "2.000 ل.س جديدة" : "1.000 ل.س جديدة") : `${doc.consultationFee === 2000 ? "2.000" : "1.000"} SYP`}
+                              {locale === "ar"
+                                ? `${(doc.consultationFee || 1000).toLocaleString("tr-TR")} ل.س`
+                                : `${(doc.consultationFee || 1000).toLocaleString("tr-TR")} SYP`}
                             </strong>
                           </div>
 
@@ -1605,7 +1784,7 @@ export default function DedicatedPatientPortalPage() {
                     dir="ltr"
                     value={customOrigin}
                     onChange={(e) => setCustomOrigin(e.target.value)}
-                    placeholder="Örn: http://192.168.0.13:3000 veya https://mena-clinic.com"
+                    placeholder="https://mena-clinic.com"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#DDD2C1] text-xs font-mono text-[#2C1810] focus:outline-none focus:border-[#4A2E1B]"
                   />
                   <button
@@ -1614,7 +1793,11 @@ export default function DedicatedPatientPortalPage() {
                     className="shrink-0 px-4 py-2.5 rounded-xl bg-white hover:bg-[#F3EDE2] border border-[#DDD2C1] text-xs font-semibold text-[#4A2E1B] flex items-center gap-1.5"
                   >
                     {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedLink ? "Kopyalandı!" : "Kopyala"}</span>
+                    <span>
+                      {copiedLink
+                        ? locale === "ar" ? "تم النسخ!" : locale === "en" ? "Copied!" : "Kopyalandı!"
+                        : locale === "ar" ? "نسخ" : locale === "en" ? "Copy" : "Kopyala"}
+                    </span>
                   </button>
                 </div>
                 <p className="text-[11px] text-[#7D6E63]">
@@ -1625,7 +1808,11 @@ export default function DedicatedPatientPortalPage() {
               {/* Business Card Preview (85mm x 55mm Ratio) */}
               <div className="space-y-2">
                 <div className="text-xs font-bold text-[#4E3D30] uppercase tracking-wider text-left rtl:text-right">
-                  Vizit Kartı Baskı Önizlemesi (85mm x 55mm):
+                  {locale === "ar"
+                    ? "معاينة طباعة بطاقة المراجعة (85mm × 55mm):"
+                    : locale === "en"
+                    ? "Business Card Print Preview (85mm × 55mm):"
+                    : "Vizit Kartı Baskı Önizlemesi (85mm x 55mm):"}
                 </div>
 
                 <div 
@@ -1643,21 +1830,26 @@ export default function DedicatedPatientPortalPage() {
                           {tCommon("clinicName")}
                         </div>
                         <div className="text-[9px] uppercase tracking-wider text-[#8A5F35] font-semibold">
-                          Tıp Merkezi & Poliklinikler
+                          {locale === "ar" ? "مركز طبي وعيادات تخصصية" : locale === "en" ? "Medical Center & Polyclinics" : "Tıp Merkezi & Poliklinikler"}
                         </div>
                       </div>
                     </div>
 
                     <div className="pt-2 text-xs text-[#5A483B] space-y-0.5">
-                      <p className="font-semibold text-[#2C1810]">Hasta Portalı & E-Nabız QR</p>
-                      <p className="text-[10px] text-[#7D6E63]">Kameranızla okutarak geçmişinize erişin</p>
+                      <p className="font-semibold text-[#2C1810]">
+                        {locale === "ar" ? "بوابة المريض الإلكترونية & QR" : locale === "en" ? "Patient Portal & QR Access" : "Hasta Portalı & E-Nabız QR"}
+                      </p>
+                      <p className="text-[10px] text-[#7D6E63]">
+                        {locale === "ar" ? "امسح الرمز بالكاميرا للوصول لملفك الطبي" : locale === "en" ? "Scan with your camera to open your medical chart" : "Kameranızla okutarak geçmişinize erişin"}
+                      </p>
                       <p className="text-[9px] font-mono text-[#8A5F35] truncate max-w-[200px]" dir="ltr">
                         {qrTargetUrl}
                       </p>
                     </div>
 
-                    <div className="pt-1 text-[9px] text-[#8C6D53]">
-                      Santral: +963 (21) 222 3344
+                    <div className="pt-1 text-[9px] text-[#8C6D53] font-mono">
+                      {locale === "ar" ? "للاتصال والطوارئ: " : locale === "en" ? "Phone & Emergency: " : "İletişim & Acil: "}
+                      0989111242 • 0989111245
                     </div>
                   </div>
 
@@ -1716,7 +1908,7 @@ export default function DedicatedPatientPortalPage() {
               <div className="flex items-center gap-2">
                 <Users className="w-5 h-5 text-[#8A5F35]" />
                 <h3 className="font-serif font-bold text-base text-[#2C1810]">
-                  {locale === "ar" ? "إضافة فرد إلى ملف العائلة" : "Aile Dosyasına Birey Ekle"}
+                  {locale === "ar" ? "إضافة فرد إلى ملف العائلة" : locale === "en" ? "Add Member to Family Chart" : "Aile Dosyasına Birey Ekle"}
                 </h3>
               </div>
               <button
@@ -1731,12 +1923,12 @@ export default function DedicatedPatientPortalPage() {
             <form onSubmit={handleAddFamilyMember} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-[#4E3D30] mb-1">
-                  {locale === "ar" ? "الاسم الكامل (الطفل / الزوج / القريب):" : "İsim Soyisim:"}
+                  {locale === "ar" ? "الاسم الكامل (الطفل / الزوج / القريب):" : locale === "en" ? "Full Name:" : "İsim Soyisim:"}
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder={locale === "ar" ? "مثال: يوسف أحمد عثمان" : "Örn: Zeynep Kaya"}
+                  placeholder={locale === "ar" ? "مثال: يوسف أحمد عثمان" : locale === "en" ? "e.g. Yusuf Ahmad" : "Örn: Zeynep Kaya"}
                   value={newDepName}
                   onChange={(e) => setNewDepName(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF7F2] border border-[#DDD2C1] text-xs focus:bg-white focus:outline-none"
@@ -1746,23 +1938,23 @@ export default function DedicatedPatientPortalPage() {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-[#4E3D30] mb-1">
-                    {locale === "ar" ? "صلة القرابة:" : "Yakınlık Derecesi:"}
+                    {locale === "ar" ? "صلة القرابة:" : locale === "en" ? "Relationship:" : "Yakınlık Derecesi:"}
                   </label>
                   <select
                     value={newDepRel}
                     onChange={(e: any) => setNewDepRel(e.target.value)}
                     className="w-full px-3 py-2.5 rounded-xl bg-[#FAF7F2] border border-[#DDD2C1] text-xs focus:bg-white focus:outline-none"
                   >
-                    <option value="CHILD">{locale === "ar" ? "ابن / ابنة (طفل)" : "Çocuk"}</option>
-                    <option value="SPOUSE">{locale === "ar" ? "زوج / زوجة" : "Eş"}</option>
-                    <option value="PARENT">{locale === "ar" ? "أب / أم" : "Anne / Baba"}</option>
-                    <option value="OTHER">{locale === "ar" ? "قريب آخر" : "Diğer"}</option>
+                    <option value="CHILD">{locale === "ar" ? "ابن / ابنة (طفل)" : locale === "en" ? "Child" : "Çocuk"}</option>
+                    <option value="SPOUSE">{locale === "ar" ? "زوج / زوجة" : locale === "en" ? "Spouse" : "Eş"}</option>
+                    <option value="PARENT">{locale === "ar" ? "أب / أم" : locale === "en" ? "Parent" : "Anne / Baba"}</option>
+                    <option value="OTHER">{locale === "ar" ? "قريب آخر" : locale === "en" ? "Other Relative" : "Diğer"}</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-xs font-semibold text-[#4E3D30] mb-1">
-                    {locale === "ar" ? "فصيلة الدم:" : "Kan Grubu:"}
+                    {locale === "ar" ? "فصيلة الدم:" : locale === "en" ? "Blood Group:" : "Kan Grubu:"}
                   </label>
                   <select
                     value={newDepBlood}
@@ -1782,14 +1974,14 @@ export default function DedicatedPatientPortalPage() {
                   onClick={() => setShowAddFamilyModal(false)}
                   className="px-3 py-2 rounded-xl text-xs text-[#7D6E63] hover:bg-[#FAF7F2]"
                 >
-                  {locale === "ar" ? "إلغاء" : "İptal"}
+                  {locale === "ar" ? "إلغاء" : locale === "en" ? "Cancel" : "İptal"}
                 </button>
                 <button
                   type="submit"
                   disabled={isAddingDep}
                   className="px-4 py-2 rounded-xl bg-[#4A2E1B] hover:bg-[#382112] text-white text-xs font-bold transition-all shadow-xs disabled:opacity-50"
                 >
-                  {isAddingDep ? "..." : locale === "ar" ? "حفظ وإضافة للملف" : "Kaydet ve Ekle"}
+                  {isAddingDep ? "..." : locale === "ar" ? "حفظ وإضافة للملف" : locale === "en" ? "Save & Add" : "Kaydet ve Ekle"}
                 </button>
               </div>
             </form>

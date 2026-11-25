@@ -46,6 +46,9 @@ async function handlePOST(req: Request) {
       const doctor = db.doctors.find((d) => d.id === body.doctorId);
       if (!doctor) throw new HttpError(404, "Doktor bulunamadı");
 
+      if (doctor.availabilityStatus === "ON_LEAVE") {
+        throw new HttpError(409, `DOCTOR_ON_LEAVE: ${doctor.fullName} şu anda izinli/raporlu olduğu için randevuya kapalıdır${doctor.availabilityNote ? ` (${doctor.availabilityNote})` : ""}`);
+      }
       if (doctor.unavailableSlots?.includes(timeStr)) {
         throw new HttpError(409, `SLOT_UNAVAILABLE: ${doctor.fullName} ${timeStr} saatinde müsait değil`);
       }

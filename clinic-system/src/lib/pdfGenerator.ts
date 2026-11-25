@@ -97,7 +97,7 @@ export function generateClinicalPdfBuffer(data: ClinicalReportData): Buffer {
   // Subheader
   lines.push("/F1 9 Tf");
   lines.push("0 -15 Td");
-  lines.push(`(Al-Aziziyah District, Aleppo, Syria | Tel: +963 21 223344 | EMR System) Tj`);
+  lines.push(`(Al-Aziziyah District, Aleppo, Syria | Tel: 0989111242 - 0989111245 | EMR System) Tj`);
   lines.push("0 -12 Td");
   lines.push(`(Report ID: ${sanitize(data.reportId)} | Date: ${sanitize(data.date)}) Tj`);
 

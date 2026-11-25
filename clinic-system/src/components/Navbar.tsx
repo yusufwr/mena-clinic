@@ -91,8 +91,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenPatientPort
                 type="button"
                 onClick={() => setLangDropdown(!langDropdown)}
                 className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 rounded-xl bg-white border border-[#E5DCD0] text-[#4E3D30] hover:text-[#2C1810] text-xs font-medium transition-colors shadow-xs"
-                title="Dil / Language / اللغة"
-                aria-label="Dil seçimi"
+                title={locale === "ar" ? "اللغة" : locale === "en" ? "Language" : "Dil"}
+                aria-label={locale === "ar" ? "اختيار اللغة" : locale === "en" ? "Select language" : "Dil seçimi"}
               >
                 <Globe className="w-3.5 h-3.5 text-[#8A6445] hidden xs:inline" />
                 <FlagIcon code={currentLang.code} />
@@ -154,8 +154,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenPatientPort
               type="button"
               onClick={() => setMobileNavOpen(!mobileNavOpen)}
               className="lg:hidden p-2 rounded-xl bg-white border border-[#D5C7B3] text-[#4A2E1B] hover:bg-[#FAF7F2] transition-colors shadow-xs flex items-center justify-center gap-1"
-              aria-label="Menü / Navigation Toggle"
-              title="Menü"
+              aria-label={locale === "ar" ? "القائمة" : locale === "en" ? "Menu" : "Menü"}
+              title={locale === "ar" ? "القائمة" : locale === "en" ? "Menu" : "Menü"}
             >
               {mobileNavOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>

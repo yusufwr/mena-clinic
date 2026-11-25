@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Link } from "@/i18n/routing";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { 
   Stethoscope, 
   ShieldAlert, 
@@ -43,6 +43,8 @@ interface PortalAppointment {
 
 export default function ManagementPortalPage() {
   const t = useTranslations("portal");
+  const locale = useLocale();
+  const L = (tr: string, ar: string, en: string) => (locale === "ar" ? ar : locale === "en" ? en : tr);
 
   const [role, setRole] = useState<"DOCTOR" | "ADMIN">("DOCTOR");
   const [selectedDoctorId, setSelectedDoctorId] = useState<string>("doc-cardio");
@@ -160,7 +162,7 @@ export default function ManagementPortalPage() {
               className="p-2 rounded-xl bg-white hover:bg-[#FAF7F2] text-[#4E3D30] hover:text-[#2C1810] border border-[#E5DCD0] transition-colors flex items-center gap-1.5 text-xs font-semibold shadow-sm"
             >
               <ArrowLeft className="w-4 h-4 rtl:rotate-180 text-[#8A5F35]" />
-              <span>Web Sitesine Dön</span>
+              <span>{L("Web Sitesine Dön", "العودة للموقع الرئيسي", "Back to Website")}</span>
             </Link>
 
             <div className="h-6 w-px bg-[#DDD2C1] hidden sm:block" />
@@ -171,7 +173,9 @@ export default function ManagementPortalPage() {
               </div>
               <div>
                 <h1 className="text-base font-bold text-[#2C1810] font-serif">{t("title")}</h1>
-                <p className="text-[10px] text-[#8A5F35] font-semibold">Yetkili Klinik Personel & Hekim Girişi</p>
+                <p className="text-[10px] text-[#8A5F35] font-semibold">
+                  {L("Yetkili Klinik Personel & Hekim Girişi", "بوابة الكادر الطبي والإداري المصرح له", "Authorized Clinical Staff & Physician Access")}
+                </p>
               </div>
             </div>
           </div>
@@ -239,12 +243,20 @@ export default function ManagementPortalPage() {
           <div className="space-y-1">
             <div className="flex items-center gap-2 text-[#4A2E1B] font-bold uppercase tracking-wider text-[11px]">
               <Lock className="w-4 h-4 text-[#8A5F35]" />
-              <span>Strict Role-Based Access Control (RBAC) & Hasta Mahremiyeti</span>
+              <span>{L("Rol Bazlı Erişim Kontrolü & Hasta Mahremiyeti", "صلاحيات الوصول المحددة وسرية بيانات المرضى", "Role-Based Access Control & Patient Confidentiality")}</span>
             </div>
             <p className="text-[#5A483B]">
               {role === "DOCTOR"
-                ? "Hekim Kuralı: Yalnızca kendi polikliniğinize gelen hastaların randevularını ve muayene notlarını görebilirsiniz."
-                : "Admin Kuralı: Klinik genel akışını, tüm randevuları ve poliklinikleri denetleme yetkisine sahipsiniz."}
+                ? L(
+                    "Hekim Kuralı: Yalnızca kendi polikliniğinize gelen hastaların randevularını ve muayene notlarını görebilirsiniz.",
+                    "صلاحية الطبيب: يمكنك الاطلاع على مواعيد وسجلات مرضى عيادتك فقط.",
+                    "Physician Rule: You may view appointments and clinical notes exclusively for your own clinic."
+                  )
+                : L(
+                    "Admin Kuralı: Klinik genel akışını, tüm randevuları ve poliklinikleri denetleme yetkisine sahipsiniz.",
+                    "صلاحية الإدارة: الإشراف الكامل على جميع المواعيد والعيادات في المجمع.",
+                    "Admin Rule: Full supervision over all appointments and outpatient clinics."
+                  )}
             </p>
           </div>
 
@@ -252,7 +264,7 @@ export default function ManagementPortalPage() {
           <div className="flex flex-wrap items-center gap-3 shrink-0">
             {role === "DOCTOR" && (
               <div className="flex items-center gap-2 bg-[#FAF7F2] p-1.5 rounded-xl border border-[#E5DCD0]">
-                <span className="text-[11px] text-[#7D6E63] font-semibold">Aktif Hekim:</span>
+                <span className="text-[11px] text-[#7D6E63] font-semibold">{L("Aktif Hekim:", "الطبيب النشط:", "Active Doctor:")}</span>
                 <select
                   value={selectedDoctorId}
                   onChange={(e) => setSelectedDoctorId(e.target.value)}
@@ -260,7 +272,7 @@ export default function ManagementPortalPage() {
                 >
                   {DOCTORS_DATA.map((d) => (
                     <option key={d.id} value={d.id}>
-                      {d.fullName} ({d.specialty})
+                      {locale === "ar" ? d.fullNameAr || d.fullName : locale === "en" ? d.fullNameEn || d.fullName : d.fullName}
                     </option>
                   ))}
                 </select>
@@ -274,7 +286,7 @@ export default function ManagementPortalPage() {
               className="px-3 py-1.5 rounded-xl bg-[#4A2E1B] hover:bg-[#382112] text-amber-200 text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
             >
               <ExternalLink className="w-3.5 h-3.5" />
-              <span>Gelişmiş Klinik Paneli (Port 3003)</span>
+              <span>{L("Gelişmiş Klinik Paneli (Port 3003)", "لوحة الإدارة الشاملة (3003)", "Advanced Clinic Panel (Port 3003)")}</span>
             </a>
           </div>
         </div>
@@ -284,16 +296,18 @@ export default function ManagementPortalPage() {
           <div className="flex items-center justify-between pb-4 border-b border-[#E5DCD0]">
             <div>
               <h2 className="text-xl font-bold text-[#2C1810] font-serif">
-                {role === "DOCTOR" ? "Poliklinik Randevu Akışı & Muayene Defteri" : "Tüm Poliklinikler Randevu İzleme"}
+                {role === "DOCTOR"
+                  ? L("Poliklinik Randevu Akışı & Muayene Defteri", "طابور مواعيد العيادة وسجل المعاينة", "Outpatient Appointment Queue & Consultation Ledger")
+                  : L("Tüm Poliklinikler Randevu İzleme", "متابعة مواعيد جميع العيادات", "All Polyclinics Appointment Overview")}
               </h2>
               <p className="text-xs text-[#7D6E63] mt-0.5">
-                {role === "DOCTOR" 
-                  ? "Hastanın görüşmesini not edebilir, teşhis koyabilir ve e-reçete gönderebilirsiniz."
-                  : "Sistemdeki tüm hekimlerin o günkü hasta randevu akışı."}
+                {role === "DOCTOR"
+                  ? L("Hastanın görüşmesini not edebilir, teşhis koyabilir ve e-reçete gönderebilirsiniz.", "يمكنك تدوين ملاحظات المعاينة، التشخيص وإصدار الوصفة الطبية.", "Record consultation notes, ICD-10 diagnosis, and prescriptions.")
+                  : L("Sistemdeki tüm hekimlerin o günkü hasta randevu akışı.", "حركة مواعيد المرضى لجميع أطباء المجمع.", "Live appointment schedule across all clinic physicians.")}
               </p>
             </div>
             <span className="px-3 py-1 bg-[#FAF7F2] border border-[#E5DCD0] text-[#6E492D] text-xs font-bold rounded-xl">
-              {displayedAppointments.length} Kayıtlı Randevu
+              {displayedAppointments.length} {L("Kayıtlı Randevu", "موعد مسجل", "Appointments")}
             </span>
           </div>
 
@@ -306,7 +320,7 @@ export default function ManagementPortalPage() {
                 {/* Left: Patient Details & Queue No */}
                 <div className="flex items-start gap-4">
                   <div className="w-14 h-14 rounded-2xl bg-white border border-[#E5DCD0] flex flex-col items-center justify-center text-[#4A2E1B] font-mono shrink-0 shadow-sm">
-                    <span className="text-[10px] text-[#7D6E63] uppercase">Sıra</span>
+                    <span className="text-[10px] text-[#7D6E63] uppercase">{L("Sıra", "الدور", "Queue")}</span>
                     <span className="text-base font-black">#{app.queueNumber}</span>
                   </div>
 
@@ -320,19 +334,23 @@ export default function ManagementPortalPage() {
                           ? "bg-rose-100 text-rose-800"
                           : "bg-emerald-100 text-emerald-800"
                       }`}>
-                        {app.status}
+                        {app.status === "COMPLETED"
+                          ? L("Tamamlandı", "مكتمل", "Completed")
+                          : app.status === "CANCELLED"
+                          ? L("İptal", "ملغى", "Cancelled")
+                          : L("Onaylı", "مؤكد", "Confirmed")}
                       </span>
                     </div>
 
                     <div className="flex flex-wrap items-center gap-3 text-xs text-[#6A584A]">
                       <span className="text-[#8A5F35] font-bold flex items-center gap-1">
                         <Clock className="w-3.5 h-3.5 text-[#8A5F35]" />
-                        <span>Saat: {app.slotTime}</span>
+                        <span>{L("Saat:", "الوقت:", "Time:")} {app.slotTime}</span>
                       </span>
                       <span>•</span>
-                      <span>T.C.: {app.patientIdNo}</span>
+                      <span>{L("Kimlik:", "الهوية:", "ID:")} {app.patientIdNo}</span>
                       <span>•</span>
-                      <span>Tel: {app.patientPhone}</span>
+                      <span>{L("Tel:", "الهاتف:", "Phone:")} {app.patientPhone}</span>
                       {role === "ADMIN" && (
                         <>
                           <span>•</span>
@@ -346,10 +364,10 @@ export default function ManagementPortalPage() {
                       <div className="mt-2 p-2.5 rounded-xl bg-white border border-[#E5DCD0] text-xs space-y-1 shadow-sm">
                         <div className="text-[#6E492D] font-semibold flex items-center gap-1.5">
                           <FileText className="w-3.5 h-3.5 text-[#8A5F35]" />
-                          <span>Teşhis: {app.consultationNote.illnessReason}</span>
+                          <span>{L("Teşhis:", "التشخيص:", "Diagnosis:")} {app.consultationNote.illnessReason}</span>
                         </div>
                         <p className="text-[#6A584A] text-[11px] line-clamp-1">
-                          Not: {app.consultationNote.soapNotes}
+                          {L("Not:", "ملاحظات:", "Notes:")} {app.consultationNote.soapNotes}
                         </p>
                       </div>
                     )}
@@ -364,7 +382,11 @@ export default function ManagementPortalPage() {
                     className="py-2.5 px-4 rounded-xl bg-[#4A2E1B] hover:bg-[#382112] text-white font-bold text-xs flex items-center gap-1.5 shadow-md shadow-[#4A2E1B]/20 transition-all hover:scale-105"
                   >
                     <Stethoscope className="w-4 h-4 text-amber-200" />
-                    <span>{app.consultationNote ? "Notu Güncelle / İncele" : "Görüşmeyi Not Et"}</span>
+                    <span>
+                      {app.consultationNote
+                        ? L("Notu Güncelle / İncele", "تعديل / عرض الملاحظات", "Update / View Notes")
+                        : L("Görüşmeyi Not Et", "تدوين المعاينة", "Record Consultation")}
+                    </span>
                   </button>
                 </div>
               </div>
@@ -388,7 +410,7 @@ export default function ManagementPortalPage() {
                 <div>
                   <h3 className="text-xl font-bold text-[#2C1810] font-serif">{t("doctorNotes")}</h3>
                   <p className="text-xs text-[#8A5F35] font-semibold">
-                    Hasta: {editingApp.patientName} (Sıra #{editingApp.queueNumber}) • {editingApp.doctorName}
+                    {L("Hasta:", "المريض:", "Patient:")} {editingApp.patientName} (#{editingApp.queueNumber}) • {editingApp.doctorName}
                   </p>
                 </div>
               </div>
@@ -408,7 +430,7 @@ export default function ManagementPortalPage() {
               {saveSuccess && (
                 <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Klinik not ve teşhis başarıyla kaydedildi!</span>
+                  <span>{L("Klinik not ve teşhis başarıyla kaydedildi!", "تم حفظ الملاحظات السريرية والتشخيص بنجاح!", "Clinical notes and diagnosis saved successfully!")}</span>
                 </div>
               )}
 
@@ -422,7 +444,7 @@ export default function ManagementPortalPage() {
                   required
                   value={illnessReason}
                   onChange={(e) => setIllnessReason(e.target.value)}
-                  placeholder="Örn: I20.9 - Angina Pektoris (Retrosternal göğüs baskısı) / L20.9 - Atopik Egzama"
+                  placeholder="ICD-10: I20.9 - Angina Pectoris / K29.7 - Gastritis"
                   className="w-full bg-[#FAF7F2] border border-[#DDD2C1] rounded-xl py-2.5 px-3.5 text-sm text-[#2C1810] placeholder-[#9E8E81] focus:bg-white focus:outline-none focus:border-[#4A2E1B] focus:ring-1 focus:ring-[#4A2E1B] transition-colors"
                 />
               </div>
@@ -437,7 +459,11 @@ export default function ManagementPortalPage() {
                   rows={4}
                   value={soapNotes}
                   onChange={(e) => setSoapNotes(e.target.value)}
-                  placeholder="S: Hastanın anlattığı şikayet ve semptomlar...&#10;O: Fizik muayene, nabız, tansiyon, steteskop dinleme bulguları...&#10;A: Klinik değerlendirme ve tanı gerekçesi...&#10;P: Tedavi planı, istirahat ve takip randevusu..."
+                  placeholder={L(
+                    "S: Şikayet ve semptomlar...\nO: Fizik muayene bulguları...\nA: Değerlendirme...\nP: Tedavi planı...",
+                    "S: الشكوى والأعراض...\nO: الفحص السريري...\nA: التقييم الطبي...\nP: الخطة العلاجية...",
+                    "S: Subjective symptoms...\nO: Objective findings...\nA: Assessment...\nP: Treatment plan..."
+                  )}
                   className="w-full bg-[#FAF7F2] border border-[#DDD2C1] rounded-xl p-3 text-xs text-[#2C1810] placeholder-[#9E8E81] focus:bg-white focus:outline-none focus:border-[#4A2E1B] focus:ring-1 focus:ring-[#4A2E1B] font-mono leading-relaxed transition-colors"
                 />
               </div>
@@ -452,7 +478,11 @@ export default function ManagementPortalPage() {
                   type="text"
                   value={prescription}
                   onChange={(e) => setPrescription(e.target.value)}
-                  placeholder="Örn: Lipitor 10mg (1x1 Akşam) - 1 Kutu, Coraspin 100mg (1x1 Tok) - 1 Kutu"
+                  placeholder={L(
+                    "Örn: Lipitor 10mg (1x1), Aspirin 100mg (1x1)",
+                    "مثال: Lipitor 10mg (1x1)، Aspirin 100mg (1x1)",
+                    "e.g. Lipitor 10mg (1x1), Aspirin 100mg (1x1)"
+                  )}
                   className="w-full bg-[#FAF7F2] border border-[#DDD2C1] rounded-xl py-2 px-3 text-xs text-[#2C1810] placeholder-[#9E8E81] focus:bg-white focus:outline-none focus:border-[#4A2E1B] focus:ring-1 focus:ring-[#4A2E1B] transition-colors"
                 />
               </div>
@@ -467,7 +497,7 @@ export default function ManagementPortalPage() {
                   type="text"
                   value={labTest}
                   onChange={(e) => setLabTest(e.target.value)}
-                  placeholder="Örn: Lipid Paneli, Hemogram, Troponin I, Karaciğer Enzimleri"
+                  placeholder="CBC, Glucose, Creatinine, Lipid Profile, TSH"
                   className="w-full bg-[#FAF7F2] border border-[#DDD2C1] rounded-xl py-2 px-3 text-xs text-[#2C1810] placeholder-[#9E8E81] focus:bg-white focus:outline-none focus:border-[#4A2E1B] focus:ring-1 focus:ring-[#4A2E1B] transition-colors"
                 />
               </div>
@@ -479,14 +509,14 @@ export default function ManagementPortalPage() {
                   onClick={() => setEditingApp(null)}
                   className="py-2.5 px-4 rounded-xl bg-[#FAF7F2] hover:bg-[#F3EDE2] text-[#4E3D30] text-xs font-semibold border border-[#E5DCD0]"
                 >
-                  Kapat
+                  {L("Kapat", "إغلاق", "Close")}
                 </button>
                 <button
                   type="submit"
                   className="py-2.5 px-6 rounded-xl bg-[#4A2E1B] hover:bg-[#382112] text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-[#4A2E1B]/20"
                 >
                   <Save className="w-4 h-4 text-amber-200" />
-                  <span>Muayene Notunu Kaydet</span>
+                  <span>{L("Muayene Notunu Kaydet", "حفظ سجل المعاينة", "Save Consultation")}</span>
                 </button>
               </div>
 

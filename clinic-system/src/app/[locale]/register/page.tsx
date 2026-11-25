@@ -124,7 +124,13 @@ export default function RegisterPage() {
     setPhone("+963 933 554422");
     setEmail(`tarek.${randomSuffix}@example.com`);
     setBloodType("O+");
-    setEmergencyContact(locale === "ar" ? "الأخ: عمر - 0944112233" : "Kardeşi: Omar - 0944112233");
+    setEmergencyContact(
+      locale === "ar"
+        ? "الأخ: عمر - 0944112233"
+        : locale === "en"
+        ? "Brother: Omar - 0944112233"
+        : "Kardeşi: Omar - 0944112233"
+    );
     setPassword("PatientPass123!");
     setConfirmPassword("PatientPass123!");
     setErrorMsg(null);
@@ -214,7 +220,13 @@ export default function RegisterPage() {
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FAF7F2] hover:bg-[#F3EDE2] border border-[#E5DCD0] text-[#4A2E1B] text-xs font-semibold transition-all hover:scale-105 shadow-sm"
               >
                 <Sparkles className="w-3.5 h-3.5 text-[#B8860B]" />
-                <span>Örnek Hasta Bilgilerini Otomatik Doldur (Test)</span>
+                <span>
+                  {locale === "ar"
+                    ? "تعبئة بيانات مريض تجريبي تلقائياً"
+                    : locale === "en"
+                    ? "Auto-Fill Sample Patient Details"
+                    : "Örnek Hasta Bilgilerini Otomatik Doldur (Test)"}
+                </span>
               </button>
             </div>
           </div>

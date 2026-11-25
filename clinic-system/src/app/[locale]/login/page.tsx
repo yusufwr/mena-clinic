@@ -178,7 +178,10 @@ export default function LoginPage() {
             <div className="mb-6 p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-start gap-3 text-emerald-800 text-xs animate-fadeIn">
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold">{tCommon("status")}: Giriş Başarılı</p>
+                <p className="font-semibold">
+                  {tCommon("status")}:{" "}
+                  {locale === "ar" ? "تم تسجيل الدخول بنجاح" : locale === "en" ? "Signed In Successfully" : "Giriş Başarılı"}
+                </p>
                 <p className="text-[11px] text-emerald-700">{successMsg}</p>
               </div>
             </div>

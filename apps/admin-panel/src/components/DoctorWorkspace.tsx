@@ -28,16 +28,21 @@ import {
   DollarSign,
   MessageCircle
 } from "lucide-react";
-import { AdminTranslations } from "../i18n";
+import { AdminTranslations, tr3 } from "../i18n";
 import { DoctorModel, apiFetch } from "../apiClient";
+import { LabReportModal, LabReportOrder, openLabReportPrintWindow } from "./LabReportModal";
 
 interface DoctorWorkspaceProps {
   currentUser: any;
   allDoctors: DoctorModel[];
   appointments: any[];
   patients: any[];
+  labOrders?: LabReportOrder[];
+  onRefreshLabs?: () => void;
   t: AdminTranslations;
   lang: string;
+  selectedDoctorOverrideId?: string;
+  onChangeDoctorOverride?: (docId: string) => void;
   onUpdateAppStatus: (id: string, status: string) => void;
   onAppointmentCreated?: () => void;
   apiUrl?: string;
@@ -49,17 +54,22 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
   allDoctors,
   appointments,
   patients,
+  labOrders = [],
+  onRefreshLabs,
   t,
   lang,
+  selectedDoctorOverrideId,
+  onChangeDoctorOverride,
   onUpdateAppStatus,
   onAppointmentCreated,
-  apiUrl = "http://localhost:3000/api",
+  apiUrl = "/api",
   token = null,
 }) => {
   const isRtl = lang === "ar";
 
   // Active view tab
-  const [activeTab, setActiveTab] = useState<"queue" | "schedule" | "weekly" | "archive">("queue");
+  const [activeTab, setActiveTab] = useState<"queue" | "labs" | "schedule" | "weekly" | "archive">("queue");
+  const [selectedLabReportModal, setSelectedLabReportModal] = useState<LabReportOrder | null>(null);
 
   // Selected doctor with safe fallback
   const fallbackDoctor: DoctorModel = {
@@ -75,8 +85,21 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
     department: { name: "Genel Poliklinik" },
   };
 
-  const currentDoctor = allDoctors.find((d) => d.id === currentUser?.id || d.email === currentUser?.email) 
-    || (allDoctors.length > 0 ? allDoctors[0] : fallbackDoctor);
+  const canActAsAnyDoctor = currentUser?.role === "ADMIN" || currentUser?.role === "RECEPTIONIST";
+  const [internalDocId, setInternalDocId] = useState<string>("");
+  const activeOverrideId = selectedDoctorOverrideId || internalDocId;
+
+  const currentDoctor =
+    (canActAsAnyDoctor && activeOverrideId ? allDoctors.find((d) => d.id === activeOverrideId) : undefined) ||
+    allDoctors.find((d) => d.id === currentUser?.id || d.email === currentUser?.email) ||
+    (allDoctors.length > 0 ? allDoctors[0] : fallbackDoctor);
+
+  const handleSelectActiveDoctor = (docId: string) => {
+    setInternalDocId(docId);
+    setSelectedApp(null);
+    setSessionStarted(false);
+    if (onChangeDoctorOverride) onChangeDoctorOverride(docId);
+  };
 
   // Selected patient appointment for consultation
   const [selectedApp, setSelectedApp] = useState<any>(null);
@@ -92,6 +115,10 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
   const [drugInput, setDrugInput] = useState({ itemName: "", dosage: "", quantity: 1 });
   const [reqTests, setReqTests] = useState<string[]>([]);
   const [testInput, setTestInput] = useState("");
+
+  // Extra Procedure / Surgery Payment Items sent to Cashier (Kasa)
+  const [extraCharges, setExtraCharges] = useState<{ title: string; amount: number; category: string; notes: string }[]>([]);
+  const [chargeInput, setChargeInput] = useState({ title: "", amount: "", category: "PROCEDURE", notes: "" });
 
   // Patient past records history
   const [pastRecords, setPastRecords] = useState<any[]>([]);
@@ -138,10 +165,12 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
     setSelectedApp(app);
     setSessionStarted(app.status === "IN_CONSULTATION");
     setSessionSeconds(0);
-    setChiefComplaint(app.notes || app.chiefComplaint || (lang === "ar" ? "أعراض فحص عام واستشارة طبية" : "Genel muayene ve klinik başvuru"));
+    setChiefComplaint(app.notes || app.chiefComplaint || tr3(lang, "Genel muayene ve klinik başvuru", "أعراض فحص عام واستشارة طبية", "General clinical consultation"));
     setSoapNotes({ diagnosis: "", clinicalNotes: "" });
     setPrescDrugs([]);
     setReqTests([]);
+    setExtraCharges([]);
+    setChargeInput({ title: "", amount: "", category: "PROCEDURE", notes: "" });
     setReferralSuccess("");
     setSaveSuccess("");
     setSaveError("");
@@ -196,13 +225,33 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
     setReqTests(reqTests.filter((_, i) => i !== index));
   };
 
+  // Action: Add Extra Procedure / Surgery Charge
+  const addExtraCharge = () => {
+    const amt = Number(chargeInput.amount);
+    if (!chargeInput.title.trim() || !Number.isFinite(amt) || amt <= 0) return;
+    setExtraCharges([
+      ...extraCharges,
+      {
+        title: chargeInput.title.trim(),
+        amount: amt,
+        category: chargeInput.category,
+        notes: chargeInput.notes.trim(),
+      },
+    ]);
+    setChargeInput({ title: "", amount: "", category: "PROCEDURE", notes: "" });
+  };
+
+  const removeExtraCharge = (index: number) => {
+    setExtraCharges(extraCharges.filter((_, i) => i !== index));
+  };
+
   // Action: Finalize & Complete Consultation
   const handleFinalizeConsultation = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedApp) return;
 
     if (!soapNotes.diagnosis.trim() || !soapNotes.clinicalNotes.trim()) {
-      setSaveError(lang === "ar" ? "يرجى إدخال التشخيص والملاحظات السريرية قبل إنهاء الجلسة." : "Lütfen tanı ve SOAP klinik notlarını doldurunuz.");
+      setSaveError(tr3(lang, "Lütfen tanı ve SOAP klinik notlarını doldurunuz.", "يرجى إدخال التشخيص والملاحظات السريرية قبل إنهاء الجلسة.", "Please fill in the diagnosis and SOAP clinical notes before completing."));
       return;
     }
 
@@ -215,6 +264,7 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
         clinicalNotes: `Şikayet: ${chiefComplaint}\n\n${soapNotes.clinicalNotes}`,
         prescriptionItems: prescDrugs,
         labTests: reqTests.map((t) => ({ testName: t, status: "PENDING" })),
+        additionalCharges: extraCharges,
       };
 
       const saved = await apiFetch(`${apiUrl}/medical-records`, {
@@ -226,18 +276,18 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
         body: JSON.stringify(payload),
       });
 
-      if (!saved.ok) throw new Error((await saved.json()).message || "Kayıt kaydedilmedi");
+      if (!saved.ok) throw new Error((await saved.json()).message || tr3(lang, "Kayıt kaydedilmedi", "تعذر حفظ السجل", "Could not save medical record"));
       // Update appointment status to COMPLETED
       onUpdateAppStatus(selectedApp.id, "COMPLETED");
       setSessionStarted(false);
-      setSaveSuccess(lang === "ar" ? "تم إنهاء المعاينة وتثبيت السجل الطبي والوصفة بنجاح!" : "Muayene başarıyla tamamlandı, EMR ve reçete kaydedildi.");
+      setSaveSuccess(tr3(lang, "Muayene başarıyla tamamlandı, EMR ve reçete kaydedildi.", "تم إنهاء المعاينة وتثبيت السجل الطبي والوصفة بنجاح!", "Consultation completed; medical record and prescription saved!"));
 
       setTimeout(() => {
         setSelectedApp(null);
         setSaveSuccess("");
       }, 2000);
     } catch (err: any) {
-      setSaveError(err.message || "Kayıt hatası oluştu.");
+      setSaveError(err.message || tr3(lang, "Kayıt hatası oluştu.", "حدث خطأ في الحفظ.", "Save error occurred."));
     }
   };
 
@@ -266,16 +316,19 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
         }),
       });
 
-      if (!referral.ok) throw new Error((await referral.json()).message || "Sevk kaydedilmedi");
+      if (!referral.ok) throw new Error((await referral.json()).message || tr3(lang, "Sevk kaydedilmedi", "تعذر حفظ الإحالة", "Could not save referral"));
       setReferralSuccess(
-        lang === "ar"
-          ? `تمت إحالة المريض بنجاح إلى ${targetDoc.fullName} (${referralPriority === "URGENT" ? "عاجل" : "عادي"}).`
-          : `Hasta ${targetDoc.fullName} polikliniğine başarıyla sevk edildi (${referralPriority === "URGENT" ? "ACİL" : "Rutin"}).`
+        tr3(
+          lang,
+          `Hasta ${targetDoc.fullName} polikliniğine başarıyla sevk edildi (${referralPriority === "URGENT" ? "ACİL" : "Rutin"}).`,
+          `تمت إحالة المريض بنجاح إلى ${targetDoc.fullName} (${referralPriority === "URGENT" ? "عاجل" : "عادي"}).`,
+          `Patient referred to ${targetDoc.fullName} (${referralPriority === "URGENT" ? "URGENT" : "Routine"}).`
+        )
       );
       setReferralReason("");
       if (onAppointmentCreated) onAppointmentCreated();
     } catch (error: any) {
-      setSaveError(error.message || "Sevk kaydedilmedi");
+      setSaveError(error.message || tr3(lang, "Sevk kaydedilmedi", "تعذر حفظ الإحالة", "Could not save referral"));
     }
   };
 
@@ -283,6 +336,23 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
   let docAppointments = appointments.filter(
     (a) => a.doctorId === currentDoctor.id || a.doctor?.email === currentDoctor.email || a.doctor?.id === currentDoctor.id
   );
+
+  // Filter lab reports sent to this doctor or belonging to this doctor's patients
+  const doctorLabReports = labOrders.filter((ord) => {
+    if (ord.status !== "COMPLETED") return false;
+    if (ord.doctorId === currentDoctor.id) return true;
+    if (Array.isArray(ord.sharedDoctorIds) && ord.sharedDoctorIds.includes(currentDoctor.id)) return true;
+    if (docAppointments.some((a) => a.patientId === ord.patientId)) return true;
+    return false;
+  });
+
+  const activePatientLabReports = selectedApp
+    ? labOrders.filter(
+        (ord) =>
+          ord.status === "COMPLETED" &&
+          (ord.patientId === selectedApp.patientId || ord.patientId === selectedApp.patient?.id)
+      )
+    : [];
 
 
 
@@ -327,6 +397,33 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
 
   return (
     <div className="space-y-6 animate-fadeIn text-[#2C1810]">
+      {/* ADMIN / RECEPTIONIST POLYCLINIC SWITCHER */}
+      {canActAsAnyDoctor && (
+        <div className="bg-[#FAF7F2] border border-[#D5C7B5] rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="text-xs">
+            <span className="font-bold text-[#4A2E1B] uppercase tracking-wider block">
+              {currentUser?.role === "ADMIN"
+                ? tr3(lang, "Yönetici Süper Yetki • Poliklinik Seçimi", "صلاحية المدير العام • اختيار العيادة", "Admin Super Access • Select Clinic")
+                : tr3(lang, "Danışma Destek Yetkisi • Poliklinik Seçimi", "صلاحية دعم الاستقبال • اختيار العيادة", "Reception Support Access • Select Clinic")}
+            </span>
+            <span className="text-[11px] text-[#7D6E63]">
+              {tr3(lang, "İşlem yapmak, muayene/reçete girmek veya ek ödeme oluşturmak istediğiniz hekimi seçin:", "اختر الطبيب لإجراء المعاينة أو كتابة الوصفة أو تسجيل رسوم إضافية:", "Select the physician whose clinic, consultation, prescription, or extra charges you want to manage:")}
+            </span>
+          </div>
+          <select
+            value={currentDoctor.id}
+            onChange={(e) => handleSelectActiveDoctor(e.target.value)}
+            className="px-3.5 py-2 rounded-xl bg-white border border-[#B8860B] text-xs font-bold text-[#2C1810] min-w-[240px]"
+          >
+            {allDoctors.map((d) => (
+              <option key={d.id} value={d.id}>
+                {d.fullName} ({d.department?.name || d.room})
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
       {/* 1. DOCTOR POLICLINIC HEADER */}
       <div className="bg-white border border-[#E5DCD0] rounded-3xl p-4 sm:p-6 2xl:p-8 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="flex items-center gap-3 sm:gap-4">
@@ -339,7 +436,7 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                 {currentDoctor.fullName}
               </h2>
               <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
-                {lang === "ar" ? "متواجد في العيادة" : "Poliklinik Aktif"}
+                {tr3(lang, "Poliklinik Aktif", "متواجد في العيادة", "Clinic Active")}
               </span>
             </div>
             <p className="text-xs text-[#8A5F35] font-semibold mt-0.5">
@@ -355,11 +452,11 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
         <div className="flex flex-wrap sm:flex-nowrap items-center gap-2.5 sm:gap-3">
           <div className="px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-2xl bg-[#FAF7F2] border border-[#E5DCD0] text-center flex-1 sm:flex-initial">
             <span className="block text-[10px] text-[#7D6E63] uppercase font-bold">{t.feePerVisit}</span>
-            <strong className="text-xs sm:text-sm font-bold text-[#4A2E1B]">{currentDoctor.consultationFee?.toLocaleString()} {lang === 'ar' ? 'ل.س جديدة' : 'SYP'}</strong>
+            <strong className="text-xs sm:text-sm font-bold text-[#4A2E1B]">{currentDoctor.consultationFee?.toLocaleString()} {t.currency}</strong>
           </div>
           <div className="px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-2xl bg-[#FAF7F2] border border-[#E5DCD0] text-center flex-1 sm:flex-initial">
             <span className="block text-[10px] text-[#7D6E63] uppercase font-bold">{t.totalAppointments}</span>
-            <strong className="text-xs sm:text-sm font-bold text-[#4A2E1B]">{docAppointments.length} {lang === "ar" ? "مريض" : "Hasta"}</strong>
+            <strong className="text-xs sm:text-sm font-bold text-[#4A2E1B]">{docAppointments.length} {tr3(lang, "Hasta", "مريض", "Patients")}</strong>
           </div>
         </div>
       </div>
@@ -378,6 +475,24 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
           <span>{t.patientQueue}</span>
           <span className="px-1.5 py-0.2 rounded-full bg-white/20 text-[10px]">
             {todayQueue.length}
+          </span>
+        </button>
+
+        <button
+          onClick={() => {
+            setActiveTab("labs");
+            onRefreshLabs?.();
+          }}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all shadow-xs ${
+            activeTab === "labs"
+              ? "bg-[#4A2E1B] text-white shadow-sm"
+              : "bg-white text-[#5A483B] hover:bg-[#FAF7F2] border border-[#E5DCD0]"
+          }`}
+        >
+          <FlaskConical className="w-4 h-4 text-amber-200" />
+          <span>{tr3(lang, "Laboratuvar Raporları", "تقارير المختبر", "Lab Reports")}</span>
+          <span className="px-1.5 py-0.2 rounded-full bg-white/20 text-[10px]">
+            {doctorLabReports.length}
           </span>
         </button>
 
@@ -428,22 +543,22 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
             <div className="flex items-center justify-between">
               <h3 className="text-xs uppercase font-bold tracking-wider text-[#6E492D] flex items-center gap-2">
                 <Clock className="w-4 h-4 text-[#8A5F35]" />
-                <span>{lang === "ar" ? "قائمة انتظار اليوم" : "Bugünkü Hasta Muayene Kuyruğu"}</span>
+                <span>{tr3(lang, "Bugünkü Hasta Muayene Kuyruğu", "قائمة انتظار اليوم", "Today's Patient Queue")}</span>
               </h3>
-              <span className="text-xs text-[#7D6E63] font-mono">{todayQueue.length} {lang === "ar" ? "حالة" : "Kayıt"}</span>
+              <span className="text-xs text-[#7D6E63] font-mono">{todayQueue.length} {tr3(lang, "Kayıt", "حالة", "Records")}</span>
             </div>
 
             <div className="space-y-3">
               {todayQueue.length === 0 ? (
                 <div className="p-8 text-center bg-white border border-[#E5DCD0] rounded-2xl text-xs text-[#7D6E63] italic">
-                  {lang === "ar" ? "لا توجد مواعيد متبقية في طابور اليوم." : "Bugünkü kuyrukta bekleyen hasta bulunmamaktadır."}
+                  {tr3(lang, "Bugünkü kuyrukta bekleyen hasta bulunmamaktadır.", "لا توجد مواعيد متبقية في طابور اليوم.", "No patients waiting in today's queue.")}
                 </div>
               ) : (
                 todayQueue.map((app) => {
                   const isSelected = selectedApp?.id === app.id;
-                  const patName = app.patient?.fullName || app.patient?.user?.fullName || "Kayıtlı Hasta";
+                  const patName = app.patient?.fullName || app.patient?.user?.fullName || tr3(lang, "Kayıtlı Hasta", "مريض مسجل", "Registered Patient");
                   const slotStr = app.timeStr || (app.slotTime ? new Date(app.slotTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "10:00");
-                  const complaint = app.notes || app.chiefComplaint || (lang === "ar" ? "معاينة عامة" : "Genel Muayene");
+                  const complaint = app.notes || app.chiefComplaint || tr3(lang, "Genel Muayene", "معاينة عامة", "General Consultation");
 
                   return (
                     <div
@@ -469,7 +584,7 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
 
                       {/* Complaint Preview */}
                       <p className="text-[11px] text-[#6A584A] line-clamp-1 italic bg-[#FAF7F2] p-1.5 rounded-lg border border-[#EFE8DC]">
-                        <strong>{lang === "ar" ? "الشكوى: " : "Şikayet: "}</strong>
+                        <strong>{tr3(lang, "Şikayet: ", "الشكوى: ", "Complaint: ")}</strong>
                         {complaint}
                       </p>
 
@@ -487,12 +602,12 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                           }`}
                         >
                           {app.status === "IN_CONSULTATION"
-                            ? lang === "ar" ? "في غرفة المعاينة" : "Muayenede"
+                            ? tr3(lang, "Muayenede", "في غرفة المعاينة", "In Consultation")
                             : app.status === "COMPLETED"
-                            ? lang === "ar" ? "تمت المعاينة" : "Tamamlandı"
+                            ? tr3(lang, "Tamamlandı", "تمت المعاينة", "Completed")
                             : app.status === "CANCELLED"
-                            ? lang === "ar" ? "ملغى / لم يحضر" : "Gelmedi / İptal"
-                            : lang === "ar" ? "في الانتظار" : "Bekliyor"}
+                            ? tr3(lang, "Gelmedi / İptal", "ملغى / لم يحضر", "Cancelled / No-Show")
+                            : tr3(lang, "Bekliyor", "في الانتظار", "Waiting")}
                         </span>
 
                         <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
@@ -528,16 +643,16 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-[#E5DCD0] gap-4">
                   <div>
                     <span className="text-[10px] text-[#8A5F35] font-bold uppercase tracking-wider block">
-                      {lang === "ar" ? "المريض تحت المعاينة" : "Muayene Edilen Hasta"}
+                      {tr3(lang, "Muayene Edilen Hasta", "المريض تحت المعاينة", "Active Consultation Patient")}
                     </span>
                     <h3 className="text-xl font-bold font-serif text-[#2C1810]">
                       {selectedApp.patient?.fullName || selectedApp.patient?.user?.fullName}
                     </h3>
                     <p className="text-xs text-[#6A584A] mt-0.5">
-                      {lang === "ar" ? "الرقم الوطني: " : "Kimlik No: "}
+                      {tr3(lang, "Kimlik No: ", "الرقم الوطني: ", "National ID: ")}
                       <span className="font-mono">{selectedApp.patient?.identityNo || selectedApp.patient?.user?.identityNo}</span>
                       {" • "}
-                      {lang === "ar" ? "الهاتف: " : "Telefon: "}
+                      {tr3(lang, "Telefon: ", "الهاتف: ", "Phone: ")}
                       <span className="font-mono">{selectedApp.patient?.phone || selectedApp.patient?.user?.phone}</span>
                     </p>
                   </div>
@@ -581,12 +696,15 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                     </div>
                     <div>
                       <h4 className="text-base font-bold font-serif text-[#2C1810]">
-                        {lang === "ar" ? "جلسة المعاينة الطبية جاهزة للبدء" : "Muayene Oturumu Başlamaya Hazır"}
+                        {tr3(lang, "Muayene Oturumu Başlamaya Hazır", "جلسة المعاينة الطبية جاهزة للبدء", "Consultation Session Ready to Start")}
                       </h4>
                       <p className="text-xs text-[#7D6E63] max-w-md mx-auto">
-                        {lang === "ar"
-                          ? "اضغط على زر بدء الجلسة لتفعيل الملاحظات السريرية، الوصفة الطبية، وطلب الفحوصات."
-                          : "SOAP notları, e-reçete ve sevk araçlarını aktifleştirmek için oturumu başlatın."}
+                        {tr3(
+                          lang,
+                          "SOAP notları, e-reçete ve sevk araçlarını aktifleştirmek için oturumu başlatın.",
+                          "اضغط على زر بدء الجلسة لتفعيل الملاحظات السريرية، الوصفة الطبية، وطلب الفحوصات.",
+                          "Click Start Consultation to activate SOAP notes, e-prescriptions, lab requests, and referrals."
+                        )}
                       </p>
                     </div>
                     <button
@@ -633,12 +751,12 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                   {/* Diagnosis Field */}
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold text-[#4A2E1B] uppercase tracking-wider block">
-                      {lang === "ar" ? "التشخيص الطبي (ICD-10)" : "Klinik Tanı (ICD-10 Kodu & Açıklama)"}
+                      {tr3(lang, "Klinik Tanı (ICD-10 Kodu & Açıklama)", "التشخيص الطبي (ICD-10)", "Clinical Diagnosis (ICD-10 Code & Description)")}
                     </label>
                     <input
                       type="text"
                       required
-                      placeholder={lang === "ar" ? "مثال: K29.7 - التهاب المعدة الحاد أو I10 - ارتفاع ضغط الدم الشرياني" : "Örn: K29.7 - Akut Gastrit veya I10 - Primer Hipertansiyon"}
+                      placeholder={tr3(lang, "Örn: K29.7 - Akut Gastrit veya I10 - Primer Hipertansiyon", "مثال: K29.7 - التهاب المعدة الحاد أو I10 - ارتفاع ضغط الدم الشرياني", "e.g., K29.7 - Acute Gastritis or I10 - Essential Hypertension")}
                       value={soapNotes.diagnosis}
                       onChange={(e) => setSoapNotes({ ...soapNotes, diagnosis: e.target.value })}
                       className="w-full bg-[#FAF7F2] border border-[#DDD2C1] rounded-2xl px-4 py-2.5 text-xs text-[#2C1810] focus:outline-none focus:border-[#4A2E1B] font-medium"
@@ -648,16 +766,17 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                   {/* SOAP Notes */}
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold text-[#4A2E1B] uppercase tracking-wider block">
-                      {lang === "ar" ? "ملاحظات المعاينة وخطة العلاج (SOAP Notes)" : "SOAP Klinik Notları & Bulgular"}
+                      {tr3(lang, "SOAP Klinik Notları & Bulgular", "ملاحظات المعاينة وخطة العلاج (SOAP Notes)", "SOAP Clinical Notes & Examination Findings")}
                     </label>
                     <textarea
                       required
                       rows={4}
-                      placeholder={
-                        lang === "ar"
-                          ? "S (الشكوى): ألم شرسوفي بعد الأكل.\nO (الفحص السريري): البطن لينة مع إيلام خفيف.\nA (التقييم): أعراض التهاب غشاء المعدة.\nP (الخطة): حمية ومثبط مضخة البروتون."
-                          : "S (Şikayet): Yemek sonrası epigastrik yanma ve dolgunluk.\nO (Bulgular): TA: 120/80 mmHg, batın palpasyonda hassas.\nA (Değerlendirme): Akut gastrit alevlenmesi.\nP (Plan): PPI tedavisi ve diyet önerileri."
-                      }
+                      placeholder={tr3(
+                        lang,
+                        "S (Şikayet): Yemek sonrası epigastrik yanma ve dolgunluk.\nO (Bulgular): TA: 120/80 mmHg, batın palpasyonda hassas.\nA (Değerlendirme): Akut gastrit alevlenmesi.\nP (Plan): PPI tedavisi ve diyet önerileri.",
+                        "S (الشكوى): ألم شرسوفي بعد الأكل.\nO (الفحص السريري): البطن لينة مع إيلام خفيف.\nA (التقييم): أعراض التهاب غشاء المعدة.\nP (الخطة): حمية ومثبط مضخة البروتون.",
+                        "S (Subjective): Postprandial epigastric burning.\nO (Objective): BP 120/80 mmHg, mild epigastric tenderness.\nA (Assessment): Acute gastritis flare.\nP (Plan): PPI therapy and dietary guidance."
+                      )}
                       value={soapNotes.clinicalNotes}
                       onChange={(e) => setSoapNotes({ ...soapNotes, clinicalNotes: e.target.value })}
                       className="w-full bg-[#FAF7F2] border border-[#DDD2C1] rounded-2xl p-4 text-xs font-mono text-[#2C1810] focus:outline-none focus:border-[#4A2E1B]"
@@ -674,14 +793,14 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                     <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
                       <input
                         type="text"
-                        placeholder={lang === "ar" ? "اسم الدواء (مثال: Nexium 40mg)" : "İlaç Adı (Örn: Nexium 40mg)"}
+                        placeholder={tr3(lang, "İlaç Adı (Örn: Nexium 40mg)", "اسم الدواء (مثال: Nexium 40mg)", "Medication Name (e.g., Nexium 40mg)")}
                         value={drugInput.itemName}
                         onChange={(e) => setDrugInput({ ...drugInput, itemName: e.target.value })}
                         className="sm:col-span-2 bg-white border border-[#DDD2C1] rounded-xl px-3 py-2 text-xs"
                       />
                       <input
                         type="text"
-                        placeholder={lang === "ar" ? "الجرعة (مثال: 1x1 صباحاً قبل الأكل)" : "Dozaj (Örn: 1x1 Aç Karnına)"}
+                        placeholder={tr3(lang, "Dozaj (Örn: 1x1 Aç Karnına)", "الجرعة (مثال: 1x1 صباحاً قبل الأكل)", "Dosage (e.g., 1x1 Before Meals)")}
                         value={drugInput.dosage}
                         onChange={(e) => setDrugInput({ ...drugInput, dosage: e.target.value })}
                         className="bg-white border border-[#DDD2C1] rounded-xl px-3 py-2 text-xs"
@@ -708,18 +827,18 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                       <div className="space-y-1.5 pt-2">
                         <div className="flex items-center justify-between pb-1">
                           <span className="text-[11px] font-bold text-[#8A5F35]">
-                            {lang === "ar" ? "قائمة الأدوية المضافة:" : "Eklenen İlaçlar:"}
+                            {tr3(lang, "Eklenen İlaçlar:", "قائمة الأدوية المضافة:", "Added Medications:")}
                           </span>
                           <a
                             href={`https://api.whatsapp.com/send?phone=${(selectedApp?.patient?.phone || "").replace(/\D/g, "")}&text=${encodeURIComponent(
-                              `🏥 *مجمع مينا الطبي - وصفة علاجية*\nالمريض: ${selectedApp?.patient?.fullName || ""}\nالطبيب المعالج: ${currentDoctor.fullName}\nالتاريخ: ${new Date().toISOString().slice(0, 10)}\n${soapNotes.diagnosis ? `التشخيص: ${soapNotes.diagnosis}\n` : ""}الأدوية الموصوفة:\n${prescDrugs.map((d: any, i: number) => `  ${i + 1}. *${d.itemName}* (${d.dosage}) - ${d.quantity} عبوة`).join("\n")}\n\nيرجى مراجعة الصيدلية لصرف الدواء.`
+                              `🏥 *Mena Clinic - Rx*\n${selectedApp?.patient?.fullName || ""}\n${currentDoctor.fullName}\n${new Date().toISOString().slice(0, 10)}\n${prescDrugs.map((d: any, i: number) => `  ${i + 1}. *${d.itemName}* (${d.dosage}) - ${d.quantity}`).join("\n")}`
                             )}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] transition-colors shadow-xs"
                           >
                             <MessageCircle size={12} />
-                            <span>{lang === "ar" ? "إرسال للواتساب 📲" : "WhatsApp ile Paylaş 📲"}</span>
+                            <span>{tr3(lang, "WhatsApp ile Paylaş 📲", "إرسال للواتساب 📲", "Share via WhatsApp 📲")}</span>
                           </a>
                         </div>
                         {prescDrugs.map((d, index) => (
@@ -730,14 +849,14 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                             <div>
                               <strong className="text-[#2C1810]">{d.itemName}</strong>
                               <span className="text-[#7D6E63] mx-2">• {d.dosage}</span>
-                              <span className="text-[#8A5F35] font-bold font-mono">({d.quantity} {lang === "ar" ? "علبة" : "Kutu"})</span>
+                              <span className="text-[#8A5F35] font-bold font-mono">({d.quantity} {tr3(lang, "Kutu", "علبة", "Box")})</span>
                             </div>
                             <button
                               type="button"
                               onClick={() => removeDrug(index)}
                               className="text-rose-600 hover:text-rose-800 text-[11px] font-bold"
                             >
-                              {lang === "ar" ? "حذف" : "Kaldır"}
+                              {tr3(lang, "Kaldır", "حذف", "Remove")}
                             </button>
                           </div>
                         ))}
@@ -745,17 +864,44 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                     )}
                   </div>
 
-                  {/* LAB ORDERS */}
+                  {/* LAB ORDERS + COMPLETED LAB REPORTS FOR THIS PATIENT */}
                   <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#E5DCD0] space-y-3">
                     <span className="text-xs font-bold text-[#4A2E1B] flex items-center gap-1.5 uppercase tracking-wider">
                       <FlaskConical className="w-4 h-4 text-[#8A5F35]" />
                       <span>{t.labOrders}</span>
                     </span>
 
+                    {/* Quick Panel Request Presets */}
+                    <div className="flex flex-wrap gap-1.5 text-[10px]">
+                      {[
+                        "CBC (Hemogram)",
+                        "Biochemistry (Glucose, Urea, Creatinine, Cholesterol, ALT)",
+                        "Coagulation (D-Dimer, ESR, PTT)",
+                        "Hormones (TSH, Free T4, Prolactin)",
+                        "Serology (CRP, RF, ASLO, Wright, Widal)",
+                        "Urinalysis (Complete Urine)",
+                        "Hepatitis Profile (HBsAg, HCV, HAV)",
+                        "Tumor Markers (PSA, CEA, AFP, CA125)",
+                      ].map((presetName) => (
+                        <button
+                          key={presetName}
+                          type="button"
+                          onClick={() => {
+                            if (!reqTests.includes(presetName)) {
+                              setReqTests([...reqTests, presetName]);
+                            }
+                          }}
+                          className="px-2.5 py-1 rounded-lg bg-white hover:bg-[#EFE8DC] border border-[#DDD2C1] text-[#4A2E1B] font-semibold"
+                        >
+                          + {presetName}
+                        </button>
+                      ))}
+                    </div>
+
                     <div className="flex gap-2">
                       <input
                         type="text"
-                        placeholder={lang === "ar" ? "اسم التحليل (مثال: تنظير هضمي علوي، فحص جرثومة المعدة H. Pylori)" : "İstenecek Tahlil (Örn: H. Pylori Antijeni, CBC, ALT/AST)"}
+                        placeholder={tr3(lang, "İstenecek Tahlil (Örn: CBC, CRP, Urinalysis, TSH)", "اسم التحليل (مثال: CBC, CRP, TSH, Urinalysis)", "Lab Test to Order (e.g., CBC, CRP, Urinalysis, TSH)")}
                         value={testInput}
                         onChange={(e) => setTestInput(e.target.value)}
                         className="flex-grow bg-white border border-[#DDD2C1] rounded-xl px-3 py-2 text-xs"
@@ -788,6 +934,159 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                         ))}
                       </div>
                     )}
+
+                    {/* Completed Lab Reports for this Patient */}
+                    {activePatientLabReports.length > 0 && (
+                      <div className="pt-3 border-t border-[#E5DCD0] space-y-2">
+                        <span className="text-[11px] font-bold text-[#4A2E1B] block">
+                          {tr3(lang, `Bu Hastanın Tamamlanan Laboratuvar Sonuçları (${activePatientLabReports.length}):`, `نتائج التحاليل المخبرية المكتملة لهذا المريض (${activePatientLabReports.length}):`, `Completed Laboratory Reports for This Patient (${activePatientLabReports.length}):`)}
+                        </span>
+                        {activePatientLabReports.map((rep) => {
+                          const outCount = (rep.structuredResults || []).filter((r) => r.flag !== "NORMAL").length;
+                          return (
+                            <div
+                              key={rep.id}
+                              className="p-3 rounded-xl bg-white border border-[#DDD2C1] flex flex-wrap items-center justify-between gap-2 text-xs"
+                            >
+                              <div>
+                                <strong className="text-[#2C1810]">{rep.testName}</strong>
+                                {outCount > 0 && (
+                                  <span className="ml-2 px-2 py-0.5 rounded bg-red-100 text-red-700 font-bold text-[10px]">
+                                    {outCount} {tr3(lang, "Referans Dışı Değer", "قيمة خارج الطبيعي", "Out-of-Range")}
+                                  </span>
+                                )}
+                                <div className="text-[10px] text-[#7D6E63] font-mono mt-0.5">
+                                  {new Date(rep.completedAt || rep.createdAt).toLocaleString(lang === "ar" ? "ar-SY" : lang === "en" ? "en-US" : "tr-TR", {
+                                    dateStyle: "short",
+                                    timeStyle: "short",
+                                  })}{" "}
+                                  • {tr3(lang, "Yapan:", "المختبر:", "By:")} {rep.performedBy || tr3(lang, "Laboratuvar", "المختبر", "Laboratory")}
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-1.5">
+                                <button
+                                  type="button"
+                                  onClick={() => setSelectedLabReportModal(rep)}
+                                  className="px-2.5 py-1.5 rounded-lg bg-[#FAF7F2] hover:bg-[#EFE8DC] border border-[#D5C7B5] text-[#4A2E1B] text-[11px] font-bold"
+                                >
+                                  {tr3(lang, "Sonuçları Gör", "عرض النتائج", "View Results")}
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => openLabReportPrintWindow(rep, lang)}
+                                  className="px-2.5 py-1.5 rounded-lg bg-[#4A2E1B] hover:bg-[#382112] text-white text-[11px] font-bold flex items-center gap-1"
+                                >
+                                  <FileDown size={12} className="text-amber-200" />
+                                  <span>{tr3(lang, "PDF Çıkart", "تصدير PDF", "Export PDF")}</span>
+                                </button>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* EXTRA PROCEDURE / SURGERY PAYMENT CHARGES (SENT TO CASHIER / KASA) */}
+                  <div className="p-4 rounded-2xl bg-amber-50/50 border border-amber-200 space-y-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span className="text-xs font-bold text-[#4A2E1B] flex items-center gap-1.5 uppercase tracking-wider">
+                        <DollarSign className="w-4 h-4 text-[#B8860B]" />
+                        <span>
+                          {tr3(
+                            lang,
+                            "Ek Tedavi / Ameliyat / Protez Ücreti Ekle (Kasaya Gönderilir)",
+                            "رسوم إجراءات / عمليات إضافية (تُرسل للصندوق)",
+                            "Add Extra Procedure / Surgery Fee (Sent to Cashier)"
+                          )}
+                        </span>
+                      </span>
+                      <span className="text-[10px] text-[#7D6E63]">
+                        {tr3(lang, "Muayene harici ek işlemler Danışma Kasasına tahsilat için düşer", "تُرسل الرسوم الإضافية مباشرة إلى صندوق الاستقبال للتحصيل", "Extra procedure fees are sent to the Reception Cashier for cash collection")}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-wrap gap-1.5 text-[10px]">
+                      {[
+                        { t: tr3(lang, "Protez Ameliyatı", "عملية تركيب طرف صناعي", "Prosthesis Surgery"), c: "SURGERY", a: "15000" },
+                        { t: tr3(lang, "Kanal Tedavisi / İmplant", "سحب عصب / زراعة أسنان", "Root Canal / Dental Implant"), c: "PROCEDURE", a: "5000" },
+                        { t: tr3(lang, "Küçük Cerrahi Müdahale", "تداخل جراحي صغرى", "Minor Surgical Procedure"), c: "SURGERY", a: "4000" },
+                        { t: tr3(lang, "Ekokardiyografi / Endoskopi", "إيكو قلب / تنظير", "Echocardiography / Endoscopy"), c: "PROCEDURE", a: "2500" },
+                      ].map((p) => (
+                        <button
+                          key={p.t}
+                          type="button"
+                          onClick={() => setChargeInput({ title: p.t, category: p.c, amount: p.a, notes: "" })}
+                          className="px-2.5 py-1 rounded-lg bg-white hover:bg-[#FAF7F2] border border-[#E5DCD0] text-[#4A2E1B] font-semibold"
+                        >
+                          + {p.t} ({p.a} {t.currency})
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
+                      <input
+                        type="text"
+                        placeholder={tr3(lang, "İşlem / Ödeme Türü (Örn: Protez Ameliyatı)", "اسم الإجراء أو العملية...", "Procedure / Surgery Title...")}
+                        value={chargeInput.title}
+                        onChange={(e) => setChargeInput({ ...chargeInput, title: e.target.value })}
+                        className="sm:col-span-2 bg-white border border-[#DDD2C1] rounded-xl px-3 py-2 text-xs"
+                      />
+                      <select
+                        value={chargeInput.category}
+                        onChange={(e) => setChargeInput({ ...chargeInput, category: e.target.value })}
+                        className="bg-white border border-[#DDD2C1] rounded-xl px-2.5 py-2 text-xs"
+                      >
+                        <option value="PROCEDURE">{tr3(lang, "Ek Tedavi / İşlem", "إجراء علاجي إضافي", "Extra Procedure")}</option>
+                        <option value="SURGERY">{tr3(lang, "Ameliyat / Protez", "عملية جراحية", "Surgery / Prosthesis")}</option>
+                        <option value="OTHER">{tr3(lang, "Diğer Ücret", "رسوم أخرى", "Other Fee")}</option>
+                      </select>
+                      <div className="flex gap-2">
+                        <input
+                          type="number"
+                          min={1}
+                          placeholder={`${tr3(lang, "Tutar", "المبلغ", "Amount")} (${t.currency})`}
+                          value={chargeInput.amount}
+                          onChange={(e) => setChargeInput({ ...chargeInput, amount: e.target.value })}
+                          className="w-full bg-white border border-[#DDD2C1] rounded-xl px-2.5 py-2 text-xs font-mono font-bold"
+                        />
+                        <button
+                          type="button"
+                          onClick={addExtraCharge}
+                          className="px-3.5 py-2 rounded-xl bg-[#4A2E1B] text-amber-200 font-bold hover:bg-[#382112] text-xs shrink-0"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+
+                    {extraCharges.length > 0 && (
+                      <div className="space-y-1.5 pt-1">
+                        {extraCharges.map((chg, idx) => (
+                          <div
+                            key={idx}
+                            className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-amber-200 text-xs"
+                          >
+                            <div>
+                              <strong className="text-[#2C1810]">{chg.title}</strong>
+                              <span className="mx-2 text-[#8A5F35] font-mono font-bold">
+                                {chg.amount.toLocaleString("tr-TR")} {t.currency}
+                              </span>
+                              <span className="text-[10px] text-[#7D6E63]">
+                                ({chg.category === "SURGERY" ? tr3(lang, "Ameliyat/Protez", "عملية جراحية", "Surgery") : tr3(lang, "Ek İşlem", "إجراء إضافي", "Extra Procedure")})
+                              </span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => removeExtraCharge(idx)}
+                              className="text-rose-600 hover:text-rose-800 text-[11px] font-bold"
+                            >
+                              {tr3(lang, "Kaldır", "حذف", "Remove")}
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   {/* DOCTOR REFERRAL SYSTEM (BAŞKA DOKTORA SEVK) */}
@@ -807,7 +1106,7 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                           onChange={(e) => setReferralDoctorId(e.target.value)}
                           className="w-full bg-white border border-[#DDD2C1] rounded-xl px-3 py-2 text-xs text-[#2C1810]"
                         >
-                          <option value="">{lang === "ar" ? "-- اختر استشاري للتحويل --" : "-- Sevk Edilecek Doktor Seçin --"}</option>
+                          <option value="">{tr3(lang, "-- Sevk Edilecek Doktor Seçin --", "-- اختر استشاري للتحويل --", "-- Select Specialist to Refer --")}</option>
                           {allDoctors
                             .filter((d) => d.id !== currentDoctor.id)
                             .map((d) => (
@@ -889,16 +1188,124 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
               <div className="bg-white border border-[#E5DCD0] rounded-3xl p-12 text-center text-[#7D6E63] space-y-3">
                 <Stethoscope className="w-12 h-12 text-[#8A5F35] mx-auto opacity-40" />
                 <h4 className="text-base font-bold font-serif text-[#2C1810]">
-                  {lang === "ar" ? "يرجى اختيار مريض من قائمة الانتظار" : "Lütfen sol taraftaki kuyruktan bir hasta seçiniz"}
+                  {tr3(lang, "Lütfen sol taraftaki kuyruktan bir hasta seçiniz", "يرجى اختيار مريض من قائمة الانتظار", "Please select a patient from the queue on the left")}
                 </h4>
                 <p className="text-xs text-[#8A796D] max-w-sm mx-auto">
-                  {lang === "ar"
-                    ? "عند اختيار المريض ستظهر كافة معلوماته السريرية وشكواه، وتتمكن من بدء جلسة المعاينة الطبية."
-                    : "Hasta seçildiğinde geliş şikayeti, geçmiş muayene arşivi ve e-reçete alanı açılacaktır."}
+                  {tr3(
+                    lang,
+                    "Hasta seçildiğinde geliş şikayeti, geçmiş muayene arşivi ve e-reçete alanı açılacaktır.",
+                    "عند اختيار المريض ستظهر كافة معلوماته السريرية وشكواه، وتتمكن من بدء جلسة المعاينة الطبية.",
+                    "Selecting a patient opens their chief complaint, medical history archive, SOAP notes, and e-prescription workspace."
+                  )}
                 </p>
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {/* TAB: INCOMING / SHARED LABORATORY REPORTS FOR DOCTOR */}
+      {activeTab === "labs" && (
+        <div className="bg-white border border-[#E5DCD0] rounded-3xl p-6 shadow-sm space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#E5DCD0] pb-4 gap-3">
+            <div>
+              <h3 className="text-lg font-bold font-serif text-[#2C1810]">
+                {tr3(lang, "Gelen Laboratuvar Tahlil Sonuçları & PDF Çıktıları", "نتائج وتقارير التحاليل المخبرية", "Incoming Laboratory Test Reports & PDF Exports")}
+              </h3>
+              <p className="text-xs text-[#7D6E63]">
+                {tr3(
+                  lang,
+                  "Laboratuvardan size veya hastalarınıza gönderilen tahlil sonuçlarını inceleyin, başka bir doktora iletin veya resmi PDF şablonunda çıkartın.",
+                  "راجع نتائج التحاليل المرسلة إليك أو لمرضاك من المختبر، أو شاركها مع طبيب آخر أو اطبعها كـ PDF رسمي.",
+                  "Inspect laboratory reports sent to you or your patients, forward them to another specialist, or export them as official A4 PDFs."
+                )}
+              </p>
+            </div>
+            {onRefreshLabs && (
+              <button
+                type="button"
+                onClick={onRefreshLabs}
+                className="px-3.5 py-2 rounded-xl bg-[#FAF7F2] hover:bg-[#EFE8DC] border border-[#E5DCD0] text-xs font-bold text-[#4A2E1B]"
+              >
+                {tr3(lang, "Listeyi Yenile", "تحديث القائمة", "Refresh List")}
+              </button>
+            )}
+          </div>
+
+          {doctorLabReports.length === 0 ? (
+            <div className="p-10 text-center text-xs text-[#7D6E63] italic">
+              {tr3(lang, "Bu polikliniğe gönderilmiş tamamlanmış bir laboratuvar tahlil sonucu bulunmamaktadır.", "لا توجد تقارير تحاليل مخبرية مكتملة مرسلة إلى هذه العيادة بعد.", "No completed laboratory reports have been sent to this clinic yet.")}
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {doctorLabReports.map((rep) => {
+                const patName =
+                  rep.patient?.fullName ||
+                  rep.patient?.user?.fullName ||
+                  rep.record?.patient?.user?.fullName ||
+                  tr3(lang, "Kayıtlı Hasta", "مريض مسجل", "Registered Patient");
+                const outItems = (rep.structuredResults || []).filter((r) => r.flag !== "NORMAL");
+                return (
+                  <div
+                    key={rep.id}
+                    className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#E5DCD0] flex flex-col md:flex-row md:items-center justify-between gap-4"
+                  >
+                    <div className="space-y-1.5">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <strong className="text-sm font-bold text-[#2C1810]">{patName}</strong>
+                        <span className="px-2.5 py-0.5 rounded-full bg-white border border-[#DDD2C1] text-[11px] font-semibold text-[#4A2E1B]">
+                          {rep.testName}
+                        </span>
+                        {outItems.length > 0 && (
+                          <span className="px-2.5 py-0.5 rounded-full bg-red-100 border border-red-300 text-red-700 text-[10px] font-extrabold">
+                            {outItems.length} {tr3(lang, "Referans Dışı Değer", "قيمة خارج الطبيعي", "Out-of-Range Values")}
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-[11px] text-[#6E492D] font-mono">
+                        {tr3(lang, "Tarih/Saat:", "التاريخ والوقت:", "Date/Time:")}{" "}
+                        {new Date(rep.completedAt || rep.createdAt).toLocaleString(lang === "ar" ? "ar-SY" : lang === "en" ? "en-US" : "tr-TR", {
+                          dateStyle: "short",
+                          timeStyle: "short",
+                        })}{" "}
+                        • {tr3(lang, "Yapan Laboratuvarcı:", "فني المختبر:", "Performed By:")} <strong>{rep.performedBy || tr3(lang, "Laboratuvar Uzmanı", "أخصائي المختبر", "Lab Specialist")}</strong>
+                      </div>
+                      {outItems.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 pt-0.5">
+                          {outItems.slice(0, 6).map((ab) => (
+                            <span
+                              key={ab.code}
+                              className="px-2 py-0.5 rounded bg-white border border-red-300 text-red-600 font-mono font-bold text-[10px]"
+                            >
+                              {ab.name}: {ab.value} {ab.unit} ({ab.flag === "HIGH" ? "↑" : ab.flag === "LOW" ? "↓" : "!"})
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-2 shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedLabReportModal(rep)}
+                        className="px-3.5 py-2 rounded-xl bg-white hover:bg-[#EFE8DC] border border-[#D5C7B5] text-xs font-bold text-[#4A2E1B]"
+                      >
+                        {tr3(lang, "Raporu Gör / Doktora İlet", "عرض التقرير / إرسال لطبيب", "View Report / Forward")}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => openLabReportPrintWindow(rep, lang)}
+                        className="px-4 py-2 rounded-xl bg-[#4A2E1B] hover:bg-[#382112] text-white text-xs font-bold flex items-center gap-1.5 shadow-xs"
+                      >
+                        <FileDown size={14} className="text-amber-200" />
+                        <span>{tr3(lang, "PDF Çıkart", "تصدير PDF", "Export PDF")}</span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       )}
 
@@ -908,29 +1315,39 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
           <div className="flex items-center justify-between border-b border-[#E5DCD0] pb-4">
             <div>
               <h3 className="text-lg font-bold font-serif text-[#2C1810]">{t.dailySchedule}</h3>
-              <p className="text-xs text-[#7D6E63]">{currentDoctor.fullName} • {new Date().toLocaleDateString(lang === "ar" ? "ar-SY" : "tr-TR", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
+              <p className="text-xs text-[#7D6E63]">{currentDoctor.fullName} • {new Date().toLocaleDateString(lang === "ar" ? "ar-SY" : lang === "en" ? "en-US" : "tr-TR", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
             </div>
             <span className="px-3 py-1.5 rounded-xl bg-[#FAF7F2] border border-[#E5DCD0] text-xs font-bold text-[#4A2E1B]">
-              09:00 - 17:00 ({scheduleSlots.length} {lang === "ar" ? "فترة" : "Slot"})
+              09:00 - 17:00 ({scheduleSlots.length} {tr3(lang, "Slot", "فترة", "Slots")})
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 tv:grid-cols-5 gap-3">
             {scheduleSlots.map((slot) => {
-              const matchedApp = docAppointments.find((a) => (a.timeStr || a.slotTime || "").includes(slot));
-              const isPast = slot < "12:00";
+              const matchedApp = docAppointments.find(
+                (a) =>
+                  a.status !== "CANCELLED" &&
+                  (a.dateStr === todayStr || (a.slotTime || "").startsWith(todayStr)) &&
+                  (a.timeStr || a.slotTime || "").includes(slot)
+              );
+              const isClosedByDoctor = (currentDoctor.unavailableSlots || []).includes(slot);
+              const isRedSlot = Boolean(matchedApp) || isClosedByDoctor;
 
               return (
                 <div
                   key={slot}
                   className={`p-3.5 rounded-2xl border flex items-center justify-between transition-all ${
-                    matchedApp
-                      ? "bg-[#FAF7F2] border-[#C5A880] shadow-xs"
-                      : "bg-white border-[#E5DCD0] opacity-80"
+                    isRedSlot
+                      ? "bg-red-50/70 border-red-300 shadow-xs"
+                      : "bg-emerald-50/40 border-emerald-200"
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="w-14 text-center font-mono font-bold text-xs px-2 py-1 rounded-lg bg-[#4A2E1B] text-amber-200">
+                    <span
+                      className={`w-14 text-center font-mono font-bold text-xs px-2 py-1 rounded-lg ${
+                        isRedSlot ? "bg-red-700 text-white" : "bg-emerald-700 text-white"
+                      }`}
+                    >
                       {slot}
                     </span>
                     <div>
@@ -939,25 +1356,33 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                           <strong className="text-xs text-[#2C1810] block">
                             {matchedApp.patient?.fullName || matchedApp.patient?.user?.fullName}
                           </strong>
-                          <span className="text-[10px] text-[#7D6E63] italic line-clamp-1">
-                            {matchedApp.notes || (lang === "ar" ? "معاينة عادية" : "Rutin Kontrol")}
+                          <span className="text-[10px] text-red-800 italic line-clamp-1">
+                            {matchedApp.notes || tr3(lang, "Dolu • Randevulu", "موعد محجوز", "Booked Appointment")}
                           </span>
                         </>
+                      ) : isClosedByDoctor ? (
+                        <span className="text-xs text-red-800 font-semibold">
+                          {tr3(lang, "Kapalı / Mola", "مغلق / استراحة", "Closed / Break")}
+                        </span>
                       ) : (
-                        <span className="text-xs text-[#7D6E63] italic">
-                          {lang === "ar" ? "فترة متاحة للحجز" : "Randevuya Açık Müsait Slot"}
+                        <span className="text-xs text-emerald-900 font-medium">
+                          {tr3(lang, "Randevuya Açık Müsait", "فترة متاحة للحجز", "Open for Booking")}
                         </span>
                       )}
                     </div>
                   </div>
 
                   {matchedApp ? (
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300">
-                      #{matchedApp.queueNumber || 1}
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-900 border border-red-300">
+                      {tr3(lang, "Dolu", "محجوز", "Booked")} #{matchedApp.queueNumber || 1}
+                    </span>
+                  ) : isClosedByDoctor ? (
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-900 border border-red-300">
+                      {tr3(lang, "Kapalı", "مغلق", "Closed")}
                     </span>
                   ) : (
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">
-                      {lang === "ar" ? "متاح" : "Müsait"}
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                      {tr3(lang, "Müsait", "متاح", "Available")}
                     </span>
                   )}
                 </div>
@@ -973,14 +1398,14 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
           <div className="flex items-center justify-between border-b border-[#E5DCD0] pb-4">
             <div>
               <h3 className="text-lg font-bold font-serif text-[#2C1810]">{t.weeklySchedule}</h3>
-              <p className="text-xs text-[#7D6E63]">{lang === "ar" ? "جدول توزيع مواعيد المرضى على مدار الأسبوع" : "Haftalık hasta randevu dağılımı ve poliklinik akışı"}</p>
+              <p className="text-xs text-[#7D6E63]">{tr3(lang, "Haftalık hasta randevu dağılımı ve poliklinik akışı", "جدول توزيع مواعيد المرضى على مدار الأسبوع", "Weekly patient appointment distribution and clinic flow")}</p>
             </div>
           </div>
 
           {/* Day Cards Row */}
           <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2">
             {weekDays.map((day) => {
-              const dayName = lang === "ar" ? day.nameAr : lang === "en" ? day.nameEn : day.nameTr;
+              const dayName = tr3(lang, day.nameTr, day.nameAr, day.nameEn);
               const isSelected = selectedWeekDay === day.dayIndex;
               const count = docAppointments.length > 0 ? (day.dayIndex === 1 || day.dayIndex === 3 ? 4 : 2) : 0;
 
@@ -997,7 +1422,7 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                 >
                   <span className="block text-[11px] font-bold">{dayName}</span>
                   <strong className="text-lg font-mono block mt-1">{count}</strong>
-                  <span className="text-[9px] opacity-80 block">{lang === "ar" ? "مرضى" : "Hasta"}</span>
+                  <span className="text-[9px] opacity-80 block">{tr3(lang, "Hasta", "مرضى", "Patients")}</span>
                 </button>
               );
             })}
@@ -1006,17 +1431,17 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
           {/* Appointments for Selected Day */}
           <div className="space-y-3 pt-4 border-t border-[#E5DCD0]">
             <h4 className="text-xs uppercase font-bold text-[#6E492D]">
-              {lang === "ar" ? "مواعيد اليوم المحدد" : "Seçili Günün Randevu Listesi"}
+              {tr3(lang, "Seçili Günün Randevu Listesi", "مواعيد اليوم المحدد", "Appointments for Selected Day")}
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 tv:grid-cols-5 gap-3">
               {docAppointments.slice(0, 4).map((app, idx) => (
                 <div key={app.id || idx} className="p-3.5 rounded-2xl bg-[#FAF7F2] border border-[#E5DCD0] flex items-center justify-between">
                   <div>
                     <strong className="text-xs text-[#2C1810] block">{app.patient?.fullName || app.patient?.user?.fullName}</strong>
-                    <span className="text-[11px] text-[#7D6E63] font-mono">{app.timeStr || "10:30"} • Sıra #{app.queueNumber || idx + 1}</span>
+                    <span className="text-[11px] text-[#7D6E63] font-mono">{app.timeStr || "10:30"} • {tr3(lang, "Sıra", "الدور", "Queue")} #{app.queueNumber || idx + 1}</span>
                   </div>
                   <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
-                    {lang === "ar" ? "مؤكد" : "Onaylı"}
+                    {tr3(lang, "Onaylı", "مؤكد", "Confirmed")}
                   </span>
                 </div>
               ))}
@@ -1031,7 +1456,7 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-[#E5DCD0] gap-4">
             <div>
               <h3 className="text-lg font-bold font-serif text-[#2C1810]">{t.patientArchive}</h3>
-              <p className="text-xs text-[#7D6E63]">{lang === "ar" ? "أرشيف كامل للمرضى المراجعين مع سجل التشخيصات السابقة" : "Klinik muayenesine gelen tüm hastaların ve tanıların arşivi"}</p>
+              <p className="text-xs text-[#7D6E63]">{tr3(lang, "Klinik muayenesine gelen tüm hastaların ve tanıların arşivi", "أرشيف كامل للمرضى المراجعين مع سجل التشخيصات السابقة", "Complete archive of clinic patients and past diagnoses")}</p>
             </div>
 
             <div className="flex items-center gap-2">
@@ -1067,8 +1492,8 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                   <th className="p-3">{t.identityNo}</th>
                   <th className="p-3">{t.phone}</th>
                   <th className="p-3">{t.bloodType}</th>
-                  <th className="p-3">{lang === "ar" ? "آخر تشخيص مسجل" : "Son Tanı & Şikayet"}</th>
-                  <th className="p-3 text-center">{lang === "ar" ? "تقرير PDF" : "PDF Rapor"}</th>
+                  <th className="p-3">{tr3(lang, "Son Tanı & Şikayet", "آخر تشخيص مسجل", "Latest Diagnosis & Notes")}</th>
+                  <th className="p-3 text-center">{tr3(lang, "PDF Rapor", "تقرير PDF", "PDF Report")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#E5DCD0]">
@@ -1089,7 +1514,7 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
                         </span>
                       </td>
                       <td className="p-3 text-[#6A584A] max-w-xs truncate">
-                        {p.emergencyContact || (lang === "ar" ? "فحص سريري دوري" : "Periyodik Klinik Kontrol")}
+                        {p.emergencyContact || tr3(lang, "Periyodik Klinik Kontrol", "فحص سريري دوري", "Routine Clinical Checkup")}
                       </td>
                       <td className="p-3 text-center">
                         <button
@@ -1108,6 +1533,18 @@ export const DoctorWorkspace: React.FC<DoctorWorkspaceProps> = ({
             </table>
           </div>
         </div>
+      )}
+
+      {/* MODAL: LAB REPORT VIEWER, FORWARDING & PDF PRINT */}
+      {selectedLabReportModal && (
+        <LabReportModal
+          order={selectedLabReportModal}
+          onClose={() => setSelectedLabReportModal(null)}
+          allDoctors={allDoctors}
+          canSendToDoctors={true}
+          onUpdated={onRefreshLabs}
+          lang={lang}
+        />
       )}
 
       {/* MODAL: PAST CONSULTATIONS & MEDICAL HISTORY */}

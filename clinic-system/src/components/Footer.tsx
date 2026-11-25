@@ -23,7 +23,13 @@ export const Footer: React.FC = () => {
             <Phone className="w-4 h-4 text-[#8A6445] shrink-0" />
             <span className="flex items-center gap-1.5 flex-wrap">
               <span>{t("emergency").split(":")[0]}:</span>
-              <bdi dir="ltr" className="font-mono font-bold tracking-tight text-[#2C1810]">+963 (21) 222 3344</bdi>
+              <a href="tel:0989111242" className="hover:underline">
+                <bdi dir="ltr" className="font-mono font-bold tracking-tight text-[#2C1810]">0989111242</bdi>
+              </a>
+              <span>•</span>
+              <a href="tel:0989111245" className="hover:underline">
+                <bdi dir="ltr" className="font-mono font-bold tracking-tight text-[#2C1810]">0989111245</bdi>
+              </a>
             </span>
           </div>
         </div>

@@ -75,6 +75,8 @@ export function decryptField(cipherText: string | undefined | null): string {
   }
 }
 
+export type DoctorAvailabilityStatus = "AVAILABLE" | "EVENING_SHIFT" | "ON_LEAVE" | "EMERGENCY_ONLY";
+
 export interface DoctorRecord {
   id: string;
   fullName: string;
@@ -89,6 +91,8 @@ export interface DoctorRecord {
   fee?: string;
   rating?: number;
   unavailableSlots: string[];
+  availabilityStatus?: DoctorAvailabilityStatus;
+  availabilityNote?: string;
   role: "DOCTOR";
 }
 
@@ -134,9 +138,42 @@ export interface MedicalRecordEntry {
   clinicalNotes: string;
   prescriptionItems: { itemName: string; dosage: string; quantity: number }[];
   labTests: { testName: string; status: string; resultData?: string | null }[];
+  additionalCharges?: { id?: string; title: string; amount: number; category?: string; notes?: string }[];
   amendments: { id: string; notes: string; createdAt: string }[];
   createdAt: string;
   doctor: { fullName: string; specialty?: string };
+}
+
+export interface BillingPaymentEntry {
+  id: string;
+  amount: number;
+  method: "CASH" | "CARD" | "TRANSFER" | "OTHER";
+  note?: string;
+  collectedBy: string;
+  createdAt: string;
+}
+
+export interface BillingChargeRecord {
+  id: string;
+  patientId: string;
+  patientName: string;
+  patientPhone?: string;
+  patientIdentityNo?: string;
+  doctorId?: string;
+  doctorName?: string;
+  appointmentId?: string;
+  medicalRecordId?: string;
+  title: string;
+  category: "CONSULTATION" | "PROCEDURE" | "SURGERY" | "OTHER";
+  totalAmount: number;
+  paidAmount: number;
+  remainingAmount: number;
+  status: "UNPAID" | "PARTIAL" | "PAID";
+  notes?: string;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+  payments: BillingPaymentEntry[];
 }
 
 export interface StaffRecord {
@@ -150,10 +187,24 @@ export interface StaffRecord {
   status: string;
 }
 
+export interface ExpenseRecord {
+  id: string;
+  title: string;
+  category: "CONSULTATION_EXPENSE" | "MEDICAL_SUPPLIES" | "OPERATIONAL" | "OTHER";
+  doctorId?: string;
+  doctorName?: string;
+  amount: number;
+  notes?: string;
+  createdBy: string;
+  createdAt: string;
+}
+
 export interface ClinicDb {
   inventory?: InventoryRecord[];
   prescriptions?: PrescriptionRecord[];
   labOrders?: LabOrderRecord[];
+  billingCharges?: BillingChargeRecord[];
+  expenses?: ExpenseRecord[];
   auditLogs?: { id: string; action: string; details: string; createdAt: string; user: { fullName: string } }[];
   doctors: DoctorRecord[];
   staff: StaffRecord[];
@@ -172,11 +223,51 @@ export interface PrescriptionRecord {
   items: { itemName: string; dosage: string; quantity: number; inventoryItemId?: string }[];
   patient: { fullName: string }; doctor: { fullName: string };
 }
+export interface LabParameterResult {
+  code: string;
+  name: string;
+  sectionTitle: string;
+  value: string;
+  unit: string;
+  referenceText: string;
+  min?: number;
+  max?: number;
+  normalQualitative?: string;
+  flag: "NORMAL" | "HIGH" | "LOW" | "ABNORMAL";
+}
+
 export interface LabOrderRecord {
-  medicalRecordId?: string; testIndex?: number;
-  id: string; patientId: string; doctorId: string; testName: string; status: string;
-  resultData?: string; fileUrl?: string; createdAt: string;
-  patient: { fullName: string }; doctor: { fullName: string };
+  medicalRecordId?: string;
+  testIndex?: number;
+  id: string;
+  patientId: string;
+  doctorId: string;
+  sharedDoctorIds?: string[];
+  sharedDoctorNames?: string[];
+  specimenCategory?: "BLOOD" | "URINE" | "MICROBIOLOGY";
+  panelIds?: string[];
+  testName: string;
+  status: string;
+  resultData?: string;
+  structuredResults?: LabParameterResult[];
+  performedBy?: string;
+  performedByRole?: string;
+  completedAt?: string;
+  roomNumber?: string;
+  notes?: string;
+  fileUrl?: string;
+  createdAt: string;
+  patient: {
+    fullName: string;
+    identityNo?: string;
+    phone?: string;
+    bloodType?: string;
+  };
+  doctor: {
+    fullName: string;
+    specialty?: string;
+    room?: string;
+  };
 }
 
 const EMPTY: ClinicDb = { doctors: [], staff: [], patients: [], appointments: [], medicalRecords: [] };
@@ -332,11 +423,12 @@ export function sessionResponse(kind: "staff" | "patient", id: string, user: unk
   return response;
 }
 
-export function corsHeaders() {
+export function corsHeaders(origin?: string | null) {
   return {
-    "Access-Control-Allow-Origin": "http://localhost:3003",
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Allow-Origin": origin || "*",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, Accept",
+    "Access-Control-Allow-Credentials": "true",
   };
 }
 

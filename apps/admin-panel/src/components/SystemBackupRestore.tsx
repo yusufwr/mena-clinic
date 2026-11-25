@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
-import { ShieldCheck, Download, Upload, RefreshCw, AlertTriangle, CheckCircle2, FileJson, Lock, Database, Info } from "lucide-react";
-import { AdminLang } from "../i18n";
+import { ShieldCheck, Download, Upload, AlertTriangle, CheckCircle2, FileJson, Info } from "lucide-react";
+import { AdminLang, tr3 } from "../i18n";
+import { apiFetch } from "../apiClient";
 
 interface SystemBackupRestoreProps {
   token: string | null;
@@ -19,18 +20,16 @@ export const SystemBackupRestore: React.FC<SystemBackupRestoreProps> = ({
   const [isRestoring, setIsRestoring] = useState(false);
   const [lastExportTime, setLastExportTime] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<{ type: "success" | "error" | "info"; text: string } | null>(null);
-  
-  // Pending file for restore confirmation
+
   const [pendingFileContent, setPendingFileContent] = useState<any | null>(null);
   const [pendingFileName, setPendingFileName] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // 1. Export Snapshot
   const handleExportBackup = async () => {
     setIsExporting(true);
     setStatusMessage(null);
     try {
-      const res = await fetch(`${apiUrl}/backup/export`, {
+      const res = await apiFetch(`${apiUrl}/backup/export`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +39,7 @@ export const SystemBackupRestore: React.FC<SystemBackupRestoreProps> = ({
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error(err.message || "Yedek oluşturulamadı");
+        throw new Error(err.message || tr3(lang, "Yedek oluşturulamadı", "تعذر إنشاء النسخة الاحتياطية", "Failed to generate backup"));
       }
 
       const backupData = await res.json();
@@ -61,21 +60,23 @@ export const SystemBackupRestore: React.FC<SystemBackupRestoreProps> = ({
       setLastExportTime(timeNow);
       setStatusMessage({
         type: "success",
-        text: lang === "ar"
-          ? `تم بنجاح تصدير وتنزيل النسخة الاحتياطية (${backupData.stats?.patientsCount || 0} مريض، ${backupData.stats?.doctorsCount || 0} أطباء).`
-          : `Gün sonu sistem yedeği başarıyla indirildi (${backupData.stats?.patientsCount || 0} hasta, ${backupData.stats?.doctorsCount || 0} doktor).`,
+        text: tr3(
+          lang,
+          `Gün sonu sistem yedeği başarıyla indirildi (${backupData.stats?.patientsCount || 0} hasta, ${backupData.stats?.doctorsCount || 0} doktor).`,
+          `تم تصدير وتنزيل النسخة الاحتياطية بنجاح (${backupData.stats?.patientsCount || 0} مريض، ${backupData.stats?.doctorsCount || 0} أطباء).`,
+          `System backup downloaded successfully (${backupData.stats?.patientsCount || 0} patients, ${backupData.stats?.doctorsCount || 0} doctors).`
+        ),
       });
     } catch (error: any) {
       setStatusMessage({
         type: "error",
-        text: error.message || "Yedekleme sırasında bir hata oluştu.",
+        text: error.message || tr3(lang, "Yedekleme sırasında bir hata oluştu.", "حدث خطأ أثناء النسخ الاحتياطي.", "An error occurred during backup."),
       });
     } finally {
       setIsExporting(false);
     }
   };
 
-  // 2. Select File for Restore
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -86,14 +87,21 @@ export const SystemBackupRestore: React.FC<SystemBackupRestoreProps> = ({
         const content = JSON.parse(event.target?.result as string);
         const data = content.data || content;
         if (!Array.isArray(data.doctors) || !Array.isArray(data.patients)) {
-          throw new Error("Yedek dosyası eksik veya geçersiz; doktor veya hasta tablosu bulunamadı.");
+          throw new Error(
+            tr3(
+              lang,
+              "Yedek dosyası eksik veya geçersiz; doktor veya hasta tablosu bulunamadı.",
+              "ملف النسخة الاحتياطية غير صالح أو ناقص.",
+              "Backup file is invalid or incomplete; doctor or patient tables missing."
+            )
+          );
         }
         setPendingFileContent(content);
         setPendingFileName(file.name);
       } catch (err: any) {
         setStatusMessage({
           type: "error",
-          text: err.message || "Seçilen dosya geçerli bir JSON yedeği değil.",
+          text: err.message || tr3(lang, "Seçilen dosya geçerli bir JSON yedeği değil.", "الملف المحدد ليس ملف JSON صالحاً.", "Selected file is not a valid JSON backup."),
         });
         if (fileInputRef.current) fileInputRef.current.value = "";
       }
@@ -101,14 +109,13 @@ export const SystemBackupRestore: React.FC<SystemBackupRestoreProps> = ({
     reader.readAsText(file);
   };
 
-  // 3. Confirm and Execute Restore
   const handleConfirmRestore = async () => {
     if (!pendingFileContent) return;
     setIsRestoring(true);
     setStatusMessage(null);
 
     try {
-      const res = await fetch(`${apiUrl}/backup/restore`, {
+      const res = await apiFetch(`${apiUrl}/backup/restore`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -119,7 +126,7 @@ export const SystemBackupRestore: React.FC<SystemBackupRestoreProps> = ({
 
       const result = await res.json();
       if (!res.ok) {
-        throw new Error(result.message || "Geri yükleme başarısız oldu.");
+        throw new Error(result.message || tr3(lang, "Geri yükleme başarısız oldu.", "فشلت عملية الاستعادة.", "Restore failed."));
       }
 
       setPendingFileContent(null);
@@ -128,16 +135,19 @@ export const SystemBackupRestore: React.FC<SystemBackupRestoreProps> = ({
 
       setStatusMessage({
         type: "success",
-        text: lang === "ar"
-          ? `تمت استعادة النظام بنجاح! تم تثبيت ${result.restoredStats?.patientsCount} مريض و ${result.restoredStats?.doctorsCount} أطباء.`
-          : `Sistem yedeği başarıyla yüklendi! (${result.restoredStats?.patientsCount} hasta, ${result.restoredStats?.doctorsCount} doktor güncellendi).`,
+        text: tr3(
+          lang,
+          `Sistem yedeği başarıyla yüklendi! (${result.restoredStats?.patientsCount} hasta, ${result.restoredStats?.doctorsCount} doktor güncellendi).`,
+          `تمت استعادة النظام بنجاح! تم تثبيت ${result.restoredStats?.patientsCount} مريض و ${result.restoredStats?.doctorsCount} أطباء.`,
+          `System backup restored! (${result.restoredStats?.patientsCount} patients, ${result.restoredStats?.doctorsCount} doctors updated).`
+        ),
       });
 
       if (onRefreshAll) onRefreshAll();
     } catch (error: any) {
       setStatusMessage({
         type: "error",
-        text: error.message || "Geri yükleme işlemi sırasında hata oluştu.",
+        text: error.message || tr3(lang, "Geri yükleme işlemi sırasında hata oluştu.", "حدث خطأ أثناء الاستعادة.", "Error restoring backup."),
       });
     } finally {
       setIsRestoring(false);
@@ -148,7 +158,6 @@ export const SystemBackupRestore: React.FC<SystemBackupRestoreProps> = ({
 
   return (
     <div className="bg-white border border-[#E5DCD0] rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
-      {/* Title & Badge */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E5DCD0]">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#4A2E1B] to-[#2C1810] text-[#D4AF37] flex items-center justify-center shadow-md shrink-0">
@@ -157,28 +166,35 @@ export const SystemBackupRestore: React.FC<SystemBackupRestoreProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <h3 className="text-lg font-serif font-bold text-[#2C1810]">
-                {lang === "ar" ? "أمان البيانات والنسخ الاحتياطي (Disaster Recovery)" : "Veri Güvenliği, Gün Sonu & Sıfırlanma Önleme"}
+                {tr3(
+                  lang,
+                  "Veri Güvenliği, Gün Sonu & Sıfırlanma Önleme",
+                  "أمان البيانات والنسخ الاحتياطي الشامل",
+                  "Data Security, End-of-Day Backup & Disaster Recovery"
+                )}
               </h3>
               <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
-                {lang === "ar" ? "نشط ومحمي" : "Korumalı"}
+                {tr3(lang, "Korumalı", "نشط ومحمي", "Protected")}
               </span>
             </div>
             <p className="text-xs text-[#8C6D53] mt-0.5">
-              {lang === "ar"
-                ? "تصدير كافة بيانات المركز بنقرة واحدة (المرضى، الأطباء، الأجور، المواعيد، الإيرادات) مع إمكانية استعادتها فوراً بدون أي فقدان."
-                : "Tüm hasta, doktor, muayene ücreti, randevu ve finansal kayıtları tek tıkla yedekleyin veya kayıp anında anında geri yükleyin."}
+              {tr3(
+                lang,
+                "Tüm hasta, doktor, muayene ücreti, randevu ve finansal kayıtları tek tıkla yedekleyin veya anında geri yükleyin.",
+                "تصدير كافة بيانات المركز بنقرة واحدة (المرضى، الأطباء، الأجور، المواعيد، الإيرادات) مع إمكانية استعادتها فوراً.",
+                "Export all patient, physician, fee, appointment, and financial records in one click or restore instantly."
+              )}
             </p>
           </div>
         </div>
 
         {lastExportTime && (
           <span className="text-[11px] font-mono text-[#8C6D53] bg-[#FAF7F2] px-3 py-1.5 rounded-xl border border-[#E5DCD0] self-start sm:self-auto">
-            {lang === "ar" ? "آخر تصدير: " : "Son Yedek: "} {lastExportTime}
+            {tr3(lang, "Son Yedek:", "آخر تصدير:", "Last Backup:")} {lastExportTime}
           </span>
         )}
       </div>
 
-      {/* Status Feedback */}
       {statusMessage && (
         <div
           className={`p-4 rounded-2xl text-xs flex items-center justify-between animate-fadeIn ${
@@ -206,24 +222,30 @@ export const SystemBackupRestore: React.FC<SystemBackupRestoreProps> = ({
         </div>
       )}
 
-      {/* Action Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {/* Card 1: Gün Sonu İndir */}
         <div className="bg-[#FAF7F2] border border-[#E5DCD0] rounded-2xl p-5 space-y-4 flex flex-col justify-between">
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-[#4A2E1B] flex items-center gap-1.5">
                 <Download className="w-4 h-4 text-[#B8860B]" />
-                {lang === "ar" ? "1. تصدير وتنزيل نسخة اليوم (JSON)" : "1. Gün Sonu / Anlık Tam Yedeği İndir (.json)"}
+                {tr3(
+                  lang,
+                  "1. Gün Sonu / Anlık Tam Yedeği İndir (.json)",
+                  "1. تصدير وتنزيل نسخة اليوم (.json)",
+                  "1. Download Full Daily Backup (.json)"
+                )}
               </span>
               <span className="text-[10px] font-mono bg-white px-2 py-0.5 rounded border border-[#E5DCD0] text-[#8C6D53]">
                 SHA-256
               </span>
             </div>
             <p className="text-xs text-[#6E492D] leading-relaxed">
-              {lang === "ar"
-                ? "يقوم بتجميع كافة المرضى، أطباء العيادات، أجور المعاينات، المواعيد والتقارير الطبية بملف واحد مشفر يمكنك حفظه على فلاش ميموري أو Google Drive."
-                : "Kayıtlı tüm hastaları, hekim kadrosunu, yeni muayene ücretlerini (1.000 / 2.000 ل.س), randevuları ve reçeteleri tek bir dosyada güvenle bilgisayarınıza indirir."}
+              {tr3(
+                lang,
+                "Kayıtlı tüm hastaları, hekim kadrosunu, muayene ücretlerini (SYP), randevuları, tahlilleri ve reçeteleri tek bir dosyada bilgisayarınıza indirir.",
+                "يقوم بتجميع كافة المرضى، أطباء العيادات، أجور المعاينات (ل.س)، المواعيد والتحاليل بملف واحد آمن.",
+                "Saves all registered patients, physicians, consultation fees (SYP), appointments, lab reports, and prescriptions in a single encrypted snapshot."
+              )}
             </p>
           </div>
 
@@ -236,33 +258,35 @@ export const SystemBackupRestore: React.FC<SystemBackupRestoreProps> = ({
             {isExporting ? (
               <>
                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                <span>{lang === "ar" ? "جاري تجهيز النسخة..." : "Yedek Hazırlanıyor..."}</span>
+                <span>{tr3(lang, "Yedek Hazırlanıyor...", "جاري تجهيز النسخة...", "Preparing Backup...")}</span>
               </>
             ) : (
               <>
                 <FileJson className="w-4 h-4 text-[#D4AF37]" />
-                <span>{lang === "ar" ? "تحميل نسخة النظام كاملة الآن" : "Tam Sistem Yedeğini Şimdi İndir"}</span>
+                <span>{tr3(lang, "Tam Sistem Yedeğini Şimdi İndir", "تحميل نسخة النظام كاملة الآن", "Download Full System Backup Now")}</span>
               </>
             )}
           </button>
         </div>
 
-        {/* Card 2: Yedekten Geri Yükle */}
         <div className="bg-[#FAF7F2] border border-[#E5DCD0] rounded-2xl p-5 space-y-4 flex flex-col justify-between">
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-[#4A2E1B] flex items-center gap-1.5">
                 <Upload className="w-4 h-4 text-emerald-700" />
-                {lang === "ar" ? "2. استعادة النظام من نسخة سابقة" : "2. Yedekten Sistemi Geri Yükle"}
+                {tr3(lang, "2. Yedekten Sistemi Geri Yükle", "2. استعادة النظام من نسخة سابقة", "2. Restore System from Backup")}
               </span>
               <span className="text-[10px] font-mono bg-white px-2 py-0.5 rounded border border-[#E5DCD0] text-emerald-800">
-                Safe Restore
+                {tr3(lang, "Güvenli Yükleme", "استعادة آمنة", "Safe Restore")}
               </span>
             </div>
             <p className="text-xs text-[#6E492D] leading-relaxed">
-              {lang === "ar"
-                ? "في حال حدث أي طارئ أو إعادة ضبط، اختر ملف النسخة الاحتياطية وسيقوم النظام فوراً بإعادة بناء كافة السجلات وكأن شيئاً لم يكن."
-                : "Olası bir sistem sıfırlanması, veri bozulması veya yeni bir sunucuya taşınma durumunda yedeği seçerek sistemi saniyeler içinde eski haline döndürün."}
+              {tr3(
+                lang,
+                "Olası bir sistem sıfırlanması veya yeni bir sunucuya taşınma durumunda yedeği seçerek sistemi saniyeler içinde geri yükleyin.",
+                "في حال حدث أي طارئ أو نقل إلى خادم جديد، اختر ملف النسخة الاحتياطية لاستعادة كافة السجلات فوراً.",
+                "Select a backup file to restore all clinical records in seconds after any server migration or reset."
+              )}
             </p>
           </div>
 
@@ -280,38 +304,40 @@ export const SystemBackupRestore: React.FC<SystemBackupRestoreProps> = ({
               className="w-full py-3 px-4 rounded-xl bg-white hover:bg-[#F3EDE2] text-[#4A2E1B] border border-[#D5C7B5] font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer text-center"
             >
               <Upload className="w-4 h-4 text-emerald-700" />
-              <span>{lang === "ar" ? "اختر ملف النسخة (.json) للاستعادة" : "Yedek Dosyası Seç (.json)"}</span>
+              <span>{tr3(lang, "Yedek Dosyası Seç (.json)", "اختر ملف النسخة (.json) للاستعادة", "Select Backup File (.json)")}</span>
             </label>
           </div>
         </div>
       </div>
 
-      {/* Confirmation Modal when a file is selected */}
       {pendingFileContent && (
         <div className="p-5 rounded-2xl bg-amber-50 border-2 border-amber-300 space-y-4 animate-fadeIn">
           <div className="flex items-start gap-3">
             <AlertTriangle className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
             <div className="space-y-1">
               <h4 className="text-sm font-bold text-amber-950">
-                {lang === "ar" ? "تأكيد استعادة بيانات النظام" : "Sistem Yedeğini Geri Yükleme Onayı"}
+                {tr3(lang, "Sistem Yedeğini Geri Yükleme Onayı", "تأكيد استعادة بيانات النظام", "Confirm System Backup Restore")}
               </h4>
               <p className="text-xs text-amber-900 leading-relaxed">
-                {lang === "ar"
-                  ? `أنت على وشك استعادة النسخة الاحتياطية من الملف: "${pendingFileName}". سيتضمن ذلك استعادة:`
-                  : `"${pendingFileName}" adlı yedek dosyası yüklenecektir. Bu işlem mevcut verileri bu yedeğe göre günceller:`}
+                {tr3(
+                  lang,
+                  `"${pendingFileName}" adlı yedek dosyası yüklenecektir:`,
+                  `أنت على وشك استعادة النسخة الاحتياطية من الملف "${pendingFileName}":`,
+                  `You are about to restore the backup from "${pendingFileName}":`
+                )}
               </p>
               <div className="flex flex-wrap gap-2 pt-1 font-mono text-xs">
                 <span className="bg-white px-2.5 py-1 rounded-lg border border-amber-300 text-amber-950 font-semibold">
-                  👥 {incomingData?.patients?.length || 0} {lang === "ar" ? "مريض" : "Hasta"}
+                  👥 {incomingData?.patients?.length || 0} {tr3(lang, "Hasta", "مريض", "Patients")}
                 </span>
                 <span className="bg-white px-2.5 py-1 rounded-lg border border-amber-300 text-amber-950 font-semibold">
-                  👨‍⚕️ {incomingData?.doctors?.length || 0} {lang === "ar" ? "أطباء" : "Doktor"}
+                  👨‍⚕️ {incomingData?.doctors?.length || 0} {tr3(lang, "Doktor", "أطباء", "Doctors")}
                 </span>
                 <span className="bg-white px-2.5 py-1 rounded-lg border border-amber-300 text-amber-950 font-semibold">
-                  📅 {incomingData?.appointments?.length || 0} {lang === "ar" ? "موعد" : "Randevu"}
+                  📅 {incomingData?.appointments?.length || 0} {tr3(lang, "Randevu", "موعد", "Appointments")}
                 </span>
                 <span className="bg-white px-2.5 py-1 rounded-lg border border-amber-300 text-amber-950 font-semibold">
-                  📋 {incomingData?.medicalRecords?.length || 0} {lang === "ar" ? "سجل طبي" : "Tıbbi Kayıt"}
+                  📋 {incomingData?.medicalRecords?.length || 0} {tr3(lang, "Tıbbi Kayıt", "سجل طبي", "Records")}
                 </span>
               </div>
             </div>
@@ -327,7 +353,7 @@ export const SystemBackupRestore: React.FC<SystemBackupRestoreProps> = ({
               }}
               className="px-4 py-2 rounded-xl bg-white text-stone-700 hover:bg-stone-100 border border-stone-300 text-xs font-semibold"
             >
-              {lang === "ar" ? "إلغاء" : "İptal"}
+              {tr3(lang, "İptal", "إلغاء", "Cancel")}
             </button>
             <button
               type="button"
@@ -338,12 +364,12 @@ export const SystemBackupRestore: React.FC<SystemBackupRestoreProps> = ({
               {isRestoring ? (
                 <>
                   <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>{lang === "ar" ? "جاري الاستعادة..." : "Yükleniyor..."}</span>
+                  <span>{tr3(lang, "Yükleniyor...", "جاري الاستعادة...", "Restoring...")}</span>
                 </>
               ) : (
                 <>
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>{lang === "ar" ? "تأكيد واستعادة البيانات الآن" : "Onayla ve Verileri Geri Yükle"}</span>
+                  <span>{tr3(lang, "Onayla ve Verileri Geri Yükle", "تأكيد واستعادة البيانات الآن", "Confirm & Restore Data")}</span>
                 </>
               )}
             </button>
@@ -351,21 +377,27 @@ export const SystemBackupRestore: React.FC<SystemBackupRestoreProps> = ({
         </div>
       )}
 
-      {/* Safety Instructions Note */}
       <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#E5DCD0] flex items-start gap-3 text-xs text-[#6A584A]">
         <Info className="w-4 h-4 text-[#8A5F35] shrink-0 mt-0.5" />
         <div className="space-y-1">
           <strong className="text-[#2C1810] block font-semibold">
-            {lang === "ar" ? "كيف تضمن عدم فقدان أي بيانات أثناء التطوير أو التحديثات؟" : "Geliştirme ve Güncellemelerde Sıfırlanmayı Önleme Garantisi:"}
+            {tr3(
+              lang,
+              "Güncellemelerde Sıfırlanmayı Önleme Garantisi:",
+              "ضمان عدم فقدان البيانات أثناء التحديثات:",
+              "Zero Data-Loss Guarantee During Updates:"
+            )}
           </strong>
           <p className="leading-relaxed">
-            {lang === "ar"
-              ? "1) احفظ نسخة اليوم عبر الزر أعلاه دورياً. 2) إذا حصل أي عطل أو طلب المطور تحديثاً، يمكنك إرسال ملف الـ JSON هذا في المحادثة وسيقوم المساعد الذكي باسترجاعه فوراً. 3) تم عزل ملف قاعدة البيانات لتجنب مسحه عند سحب تحديثات الكود."
-              : "1) Her gün sonu yukarıdaki butondan yedeği indirin. 2) Olası bir sıfırlanma durumunda indirdiğiniz bu .json dosyasını chat ekranından bana göndermeniz yeterlidir; tek komutla tüm verileri anında kurtarırım. 3) Kod güncellemelerinde veri tabanının üzerine yazılmaması için veritabanı kopyalama ve geri yükleme emniyet kilitleri sisteme entegre edilmiştir."}
+            {tr3(
+              lang,
+              "Her gün sonu yukarıdaki butondan yedeği indirebilir, olası bir sunucu taşıma veya sıfırlanma durumunda bu .json dosyasını seçerek tüm kayıtları tek tıkla geri yükleyebilirsiniz.",
+              "احفظ نسخة اليوم دورياً؛ وفي حال أي نقل أو إعادة ضبط يمكنك استرجاع جميع السجلات فوراً بنقرة واحدة.",
+              "Download the daily snapshot periodically; if you ever migrate servers or reset, select the .json snapshot to restore all records in one click."
+            )}
           </p>
         </div>
       </div>
     </div>
   );
 };
-

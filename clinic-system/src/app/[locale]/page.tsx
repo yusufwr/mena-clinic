@@ -224,8 +224,9 @@ export default function LocalizedHomePage() {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [selectedDoctorForBooking, setSelectedDoctorForBooking] = useState<Doctor | null>(null);
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
+  const [doctorsList, setDoctorsList] = useState<Doctor[]>(DOCTORS_DATA);
 
-  // Sync session on mount
+  // Sync session & live doctors availability/shifts on mount
   React.useEffect(() => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem("mena_auth_user");
@@ -234,6 +235,26 @@ export default function LocalizedHomePage() {
           setCurrentUser(JSON.parse(stored));
         } catch {}
       }
+
+      fetch("/api/doctors", { cache: "no-store" })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((apiDocs) => {
+          if (!Array.isArray(apiDocs) || apiDocs.length === 0) return;
+          const staticById = new Map(DOCTORS_DATA.map((d) => [d.id, d]));
+          const merged: Doctor[] = apiDocs.map((liveDoc: any) => {
+            const base = staticById.get(liveDoc.id);
+            return {
+              ...(base || {}),
+              ...liveDoc,
+              specialtyAr: liveDoc.specialtyAr || base?.specialtyAr,
+              specialtyEn: liveDoc.specialtyEn || base?.specialtyEn,
+              fullNameAr: liveDoc.fullNameAr || base?.fullNameAr,
+              fullNameEn: liveDoc.fullNameEn || base?.fullNameEn,
+            };
+          });
+          setDoctorsList(merged);
+        })
+        .catch(() => {});
     }
   }, []);
 
@@ -353,8 +374,14 @@ export default function LocalizedHomePage() {
                       <Phone className="w-4 h-4 animate-bounce" />
                       <span>{tHero("emergency247")}</span>
                     </div>
-                    <div className="text-xl font-mono font-black text-[#6B1B17] tracking-tight">
-                      <bdi dir="ltr">+963 (21) 222 3344</bdi>
+                    <div className="text-lg sm:text-xl font-mono font-black text-[#6B1B17] tracking-tight flex flex-wrap items-center gap-2">
+                      <a href="tel:0989111242" className="hover:underline">
+                        <bdi dir="ltr">0989111242</bdi>
+                      </a>
+                      <span className="text-[#9A2C27]">•</span>
+                      <a href="tel:0989111245" className="hover:underline">
+                        <bdi dir="ltr">0989111245</bdi>
+                      </a>
                     </div>
                     <div className="text-[11px] text-[#7D4845]">
                       {tHero("emergencyDesc")}
@@ -515,7 +542,7 @@ export default function LocalizedHomePage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 tv:grid-cols-6 gap-6">
-              {DOCTORS_DATA.map((doc) => (
+              {doctorsList.map((doc) => (
                 <DoctorCard
                   key={doc.id}
                   doctor={doc}
@@ -613,12 +640,16 @@ export default function LocalizedHomePage() {
                 <h3 className="text-base font-bold text-[#2C1810] font-serif">{tContact("phoneTitle")}</h3>
                 <p className="text-[#6A584A] text-xs leading-relaxed space-y-1">
                   <span className="block">
-                    <span>{locale === "ar" ? "المقسم: " : locale === "en" ? "Central: " : "Santral: "}</span>
-                    <bdi dir="ltr" className="font-mono font-bold tracking-tight text-[#2C1810]">+963 (21) 222 3344 / 55</bdi>
+                    <span>{locale === "ar" ? "الهاتف والطوارئ 1: " : locale === "en" ? "Phone & Emergency 1: " : "İletişim & Acil 1: "}</span>
+                    <a href="tel:0989111242" className="hover:underline">
+                      <bdi dir="ltr" className="font-mono font-bold tracking-tight text-[#2C1810]">0989111242</bdi>
+                    </a>
                   </span>
                   <span className="block">
-                    <span>{locale === "ar" ? "واتساب الطوارئ: " : locale === "en" ? "Emergency WhatsApp: " : "Acil WhatsApp: "}</span>
-                    <bdi dir="ltr" className="font-mono font-bold tracking-tight text-[#2C1810]">+963 991 223 344</bdi>
+                    <span>{locale === "ar" ? "الهاتف والطوارئ 2: " : locale === "en" ? "Phone & Emergency 2: " : "İletişim & Acil 2: "}</span>
+                    <a href="tel:0989111245" className="hover:underline">
+                      <bdi dir="ltr" className="font-mono font-bold tracking-tight text-[#2C1810]">0989111245</bdi>
+                    </a>
                   </span>
                 </p>
               </div>
@@ -633,7 +664,7 @@ export default function LocalizedHomePage() {
       <AppointmentBookingModal
         isOpen={bookingModalOpen}
         onClose={() => setBookingModalOpen(false)}
-        doctors={DOCTORS_DATA}
+        doctors={doctorsList}
         initialDoctor={selectedDoctorForBooking}
         onBookSuccess={() => {
           // Keep state synced

@@ -1,7 +1,7 @@
 {
   "common": {
     "clinicName": "Mena Clinic",
-    "clinicLocation": "Tıp Merkezi • مجمع مينا الطبي",
+    "clinicLocation": "Tıp Merkezi & Poliklinikler • Halep",
     "home": "Ana Sayfa",
     "about": "Hakkımızda",
     "departments": "Alanlarımız",
@@ -16,7 +16,7 @@
     "managementPortal": "Yönetim Paneli",
     "doctorPortal": "Doktor Paneli",
     "adminPortal": "Admin Paneli",
-    "emergency": "7/24 Acil & Ambulans: +963 (21) 222 3344",
+    "emergency": "7/24 Acil & İletişim: 0989111242 • 0989111245",
     "language": "Dil",
     "status": "Durum",
     "actions": "İşlemler",
